@@ -1,0 +1,71 @@
+<main>
+  <div class="position-relative">
+    <img
+      class="heroImage object-fit-cover"
+      loading="lazy"
+      data-mobile-bg="{{section.settings.bg_hero_mb_image | image_url: height:500 }}"
+      data-desktop-bg="{{section.settings.bg_hero_image | image_url: width:1920 }}"
+      src="{{section.settings.bg_hero_image | image_url }}"
+      width="1920"
+      height="600"
+      alt="Hero Image" />
+    <div class="custom-container hero-Content col-xl-7 col-lg-8 col-12 text-start">
+      <h1 class="">{{ section.settings.heading }}</h1>
+      <p class="pt-3 pb-5">
+        {{ section.settings.paragraph1 }}
+      </p>
+      {% if section.settings.button_link != blank %}
+        <a href="{{section.settings.button_link}}" class="pt-5">
+          <button class="btn-main">{{ section.settings.button_text }}</button>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+</main>
+{% schema %}
+  {
+    "name": "Hero Section",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "bg_hero_image",
+        "label": "Hero Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_hero_mb_image",
+        "label": "Hero Mobile Background Image"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Hero Heading",
+        "default": "Softness, Strength, and Quality in Every Sheet!"
+      },
+      {
+        "type": "text",
+        "id": "paragraph1",
+        "label": "Hero Paragraph",
+        "default": "Elevate your everyday essentials with Flutra&#39;s premium kitchen paper, toilet paper, and napkins—crafted for comfort, quality, and care since 2008."
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Shop our products"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Section"
+      }
+    ]
+  }
+{% endschema %}

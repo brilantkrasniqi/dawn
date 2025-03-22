@@ -1,0 +1,86 @@
+<section class="section-padding">
+  <div class="custom-container">
+    <h2 class="text-center">{{ section.settings.heading }}</h2>
+    <div class="row g-4 pt-5">
+      {% for product in section.settings.collection.products limit: 8 %}
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
+          <div class="product-container">
+            <a href="{{ product.url }}">
+              <div class="prod-image">
+                <img
+                  loading="lazy"
+                  src="{{ product.featured_image | image_url }}"
+                  width="250"
+                  height="225"
+                  alt="{{ product.title }}" />
+              </div>
+            </a>
+            <div class="prod-info">
+              <p id="title">{{ product.title }}</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <h3 class="fw-bold" id="price">{{ product.price | money }}</h3>
+                <form method="post" action="/cart/add">
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.variants.first.id }}">
+                  <button
+                    type="submit"
+                    class="funnel-font fw-bold"
+                    id="addToCart">
+                    +Add to cart
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+
+      <div class="col-12 d-flex justify-content-center">
+        {% if section.settings.button_link != blank %}
+          <a href="{{section.settings.button_link}}" class="pt-5">
+            <button class="btn-main">{{ section.settings.button_text }}</button>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Featured Products",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Shop our products"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "See all Products"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Products"
+      }
+    ]
+  }
+{% endschema %}

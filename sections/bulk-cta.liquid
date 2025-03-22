@@ -1,0 +1,63 @@
+<section
+  class="section-margin"
+  id="orderBulk"
+  style="background-image: url({{section.settings.bg_image | image_url}});">
+  <div class="custom-container">
+    <div class="row d-flex flex-column align-items-center">
+      <h2 class="text-center pb-3 fw-bold">{{ section.settings.header }}</h2>
+      <p class="text-center pb-5">
+        {{ section.settings.paragraph }}
+      </p>
+      {% if section.settings.button_link != blank %}
+        <a href="{{section.settings.button_link}}" class="mx-auto d-inline-block w-fit">
+          <button class="btn-main">{{ section.settings.button_text }}</button>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Bulk Call to Action",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "header",
+        "label": "Header",
+        "default": "Order in bulk"
+      },
+      {
+        "type": "text",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "Whether you run a retail store, hotel, restaurant, or office, our high-quality kitchen paper, toilet paper, and napkins provide the perfect balance of durability, softness, and affordability. With best prices and reliable supply, we ensure that your business gets the best value with every purchase."
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "B2B Partnerships"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+      }
+    ],
+
+    "presets": [
+      {
+        "name": "Order in Bulk CTA"
+      }
+    ]
+
+  }
+{% endschema %}

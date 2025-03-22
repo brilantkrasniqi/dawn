@@ -1,0 +1,133 @@
+<div class="overlay d-none"></div>
+<!-- NAV -->
+<nav class="sticky-top bg-white">
+  <div class="bg-main-blue custom-container p-12">
+    <div class="row d-flex align-items-center py-2">
+      <div class="d-lg-block d-none col-lg-6">
+        <p class="fw-bold funnel-font text-white text-nowrap">
+          Free shipping inside 48h on all orders above 100$ in Kosovo
+        </p>
+      </div>
+      <div class="col-lg-6 col-12">
+        <ul class="d-flex flex-lg-row flex-row-reverse align-items-center justify-content-lg-end justify-content-between text-white w-100">
+          <li class="">
+            <a class="text-white pe-lg-2 pe-4" href="#">Account</a>
+          </li>
+          <li class="">
+            <a class="text-white px-lg-2 ps-3" href="#">flutura@support.com</a>
+          </li>
+          <li class="d-lg-block d-none">
+            <a class="text-white ms-2" href="#">English</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Actual Nav -->
+  <div class="custom-container position-relative">
+    <div class="row p-14">
+      <div class="col-lg-7 col-sm-4 col-6 d-flex align-items-center p-0">
+        <div class="hamburger d-lg-none d-block" type="button">
+          <span class="line mb-1"></span>
+          <span class="line mb-1"></span>
+          <span class="line"></span>
+        </div>
+        <a href="{{routes.root_url}}">
+          <img
+            class="me-lg-3"
+            id="nav-logo"
+            src="{{ 'flutura-logo-lg.svg' | asset_url }}"
+            alt="Flutura"
+            width="100"
+            height="50" />
+        </a>
+        <ul class="d-lg-flex d-none fw-bold ps-xxl-4 ps-xl-1" id="fluturaNavLinks">
+          {% for link in linklists.main-menu.links %}
+            <li>
+              <a href="{{link_to:link.url}}" class="pe-xxl-5 pe-xl-4 pe-2">{{ link.title }}</a>
+            </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="col-lg-5 ps-lg-0 col-sm-8 col-6 my-auto ms-auto p-0">
+        <div class="d-flex align-items-center justify-content-end">
+          <div class="input-group my-auto d-sm-flex d-none">
+            <span class="input-group-text d-sm-inline-block" id="search-bar"><img
+                src="{{'search-svg.svg' |  asset_url}}"
+                width="18"
+                height="18"
+                id=""
+                alt="" /></span>
+            <input
+              type="text"
+              class="form-control"
+              id="searchBar"
+              placeholder="Search products by name, or category"
+              aria-label="Search"
+              aria-describedby="search-bar" />
+          </div>
+          <div class="cart-nav d-flex align-items-center justify-content-end ms-2">
+            <img
+              class="d-sm-none d-block"
+              type="button"
+              src="{{'search-svg.svg' |  asset_url}}"
+              width="18"
+              height="18"
+              id="search-btn-nav"
+              alt="" />
+            <img
+              id="cart-svg"
+              src="{{'cart-svg.svg' |  asset_url}}"
+              width="18"
+              height="18"
+              alt="Cart" />
+            <p class="fw-bold">
+              &nbsp;
+              <span class="d-sm-inline-block d-none">Cart</span>
+              0,00$
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div class="mobileNavContainer d-lg-none">
+    <div>
+      <div class="d-flex align-items-center justify-content-between">
+        <img
+          src="{{ 'flutura-logo-lg.svg' | asset_url }}"
+          width="65"
+          height="31"
+          class="mobileNavLogo"
+          alt="Flutra" />
+        <button class="btn hamburger">Close</button>
+      </div>
+      <div class="mobileNavLinks">
+        {% for link in linklists.mobile-menu.links %}
+          <div class="mobileNavItem">
+            <a class="funnel-font fw-medium" href="{{link_to:link.url}}">{{ link.title }}</a>
+            <p>></p>
+          </div>
+
+        {% endfor %}
+
+        <div class="emailNavMobile">
+          <p class="fw-medium">Email contact</p>
+          <a href="#" class="">flutura@support.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="socialNavMobile">
+      <p class="fw-bold">
+        Free shipping inside 48h on all orders above 100€ in Kosovo
+      </p>
+      <div class="d-flex align-items-center justify-content-between pt-3">
+        <p>SOCIALS</p>
+        <p>English</p>
+      </div>
+    </div>
+  </div>
+</nav>

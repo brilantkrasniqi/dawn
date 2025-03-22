@@ -1,0 +1,48 @@
+<section
+  class="section-margin"
+  id="zeroPlastic"
+  style="background-image: url({{section.settings.bg_image | image_url}});">
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <h1 class="text-center text-white">
+      {{ section.settings.heading }}
+    </h1>
+    {% if section.settings.button_link != blank %}
+      <a href="{{section.settings.button_link}}" class="pt-md-5 pt-3">
+        <button class="btn-white">{{ section.settings.button_text }}</button>
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Zero Plastic",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Zero trees. zero plastic zero compromise."
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Shop our products now"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+
+      }
+
+    ]
+  }
+{% endschema %}

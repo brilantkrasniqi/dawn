@@ -1,0 +1,245 @@
+<section class="section-padding">
+  <div class="custom-container">
+    <div class="row">
+      <div class="col-lg-6 col-12">
+        <div
+          class="splide mx-auto"
+          id="singleProductShowCase"
+          aria-label="Product Show Case">
+          <div class="splide__track">
+            <ul class="splide__list">
+              {% for image in product.images %}
+                <li class="splide__slide">
+                  <div class="singleProdContainer">
+                    <img
+                      src="{{ image | image_url }}"
+                      height="200"
+                      width="300"
+                      alt="{{ product.title }}" />
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div
+          class="splide"
+          id="thumbnailProductShowCase"
+          aria-label="Product Show Case">
+          <div class="splide__track px-4">
+            <ul class="splide__list">
+              {% for image in product.images %}
+                <li class="splide__slide">
+                  <div class="thumbnailProdContainer">
+                    <img
+                      src="{{ image | image_url }}"
+                      height="50"
+                      width="50"
+                      alt="{{ product.title }}" />
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 pt-lg-0 pt-5 ps-lg-5 ps-0 d-flex flex-column">
+        <h2 class="text-uppercase">{{ product.title }}</h2>
+        <p class="pt-3">{{ product.description }}</p>
+        <div class="d-flex pt-4">
+          {% for variant in product.variants %}
+            <div class="prod-Choice-Container p-1">
+              <div class="bg-white">
+                <img
+                  src="{{variant.image |  image_url }}"
+                  alt=""
+                  width="50"
+                  height="50" />
+              </div>
+              <p class="text-center funnel-font pt-3">{{ variant.title }}</p>
+            </div>
+
+          {% endfor %}
+        </div>
+        <div class="mt-5 rounded-8 border">
+          <div class="one-Time p-4">
+            <div class="d-flex justify-content-between">
+              <p class="fw-light">Buy one-time</p>
+              <span>O</span>
+            </div>
+            <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}</h3>
+          </div>
+          <div class="subscription p-4">
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="fw-light">Subscribe</p>
+              <p>O</p>
+            </div>
+            <h3 class="subscription-Price funnel-font py-2 text-discount">
+              24.99$
+              <span class="discount fw-light roboto-font" id="variant-price">{{ product.price | money }}</span>
+            </h3>
+            <p class="fw-bold text-discount">
+              Use promo TP4EVA at checkout to get 5€ off your first subscription order.
+            </p>
+            <ul class="py-3 ps-3">
+              <li class="dot-decorate">Easy, repeat deliveries</li>
+              <li class="dot-decorate">Change or cancel anytime</li>
+              <li class="dot-decorate">
+                One-time discount valid for new subscribers only
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="d-flex flex-column mt-5 p-4 border rounded-8">
+          <div class="d-flex align-items-center justify-content-between">
+            <h3>Select quantity</h3>
+            <input
+              type="number"
+              name="quantity"
+              id="quantity"
+              placeholder="Custom quantity"
+              class="p-2 rounded-8 border-1" />
+          </div>
+          <div class="py-5 px-3">
+            <tc-range-slider
+              min="0"
+              max="100"
+              step="10"
+              round="0"
+              marks="true"
+              slider-width="100%"
+              slider-height="8px"
+              pointer-width="24px"
+              pointer-height="24px"
+              pointer-radius="8px"
+              slider-bg-fill="#1A3683"
+              slider-bg="#EDEFF5"
+              slider-bg-hover="#EDEFF5"
+              pointer-bg="#1A3683"
+              pointer-bg-hover="#1A3683"
+              pointer-bg-focus="#1A3683"
+              pointer-border="none"
+              pointer-border-focus="none"
+              marks-values-color="#0B266F"></tc-range-slider>
+          </div>
+        </div>
+        <button class="btn-main w-100 mt-5">Add to Cart</button>
+        <div class="d-flex align-items-center buyInBulk p-3 mt-5">
+          <img
+            src="{{'tp-svg.svg' |  asset_url}}"
+            width="48"
+            height="48"
+            alt="Bulk" />
+          <div class="ps-4">
+            <h3 class="fw-bold">Looking to buy in bulk?</h3>
+            <p class="fw-light">Check out our B2B deals</p>
+          </div>
+        </div>
+        <div class="mt-5 p-3 border rounded-8">
+          <h3 class="fw-bold pb-4">Product Features</h3>
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-soak.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Quickly soaks up spills and messes.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-svg.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Tear-resistant even when the towel is wet.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-sustainability.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Sustainably sourced, safe for the planet.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-sizes.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Available in various sizes for every need.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 p-3 border rounded-8">
+          <h3 class="fw-bold">Product Details</h3>
+          <div class="d-flex flex-column justify-content-between">
+
+            {% if product.metafields.custom.product_details != blank %}
+              <p class="fw-light py-4">{{ product.metafields.custom.product_details }}</p>
+            {% endif %}
+
+            {% if product.metafields.custom.product_details_points != blank %}
+              <ul class="fw-bold ps-3">
+                {% assign bullets = product.metafields.custom.product_details_points | split: ',' %}
+                {% for bullet in bullets %}
+                  <li class="dot-decorate">{{ bullet | strip }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+        <div class="mt-5 p-3 border rounded-8">
+          <h3 class="fw-bold">Why choose the subscription option?</h3>
+          <p class="pt-3">
+            {{ section.settings.why_sub }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Product Main",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "why_sub",
+        "label": "Why choose subscription?",
+        "default": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you’ll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns."
+      }
+    ],
+
+    "presets": [
+      {
+        "name": "Product Main"
+      }
+    ]
+  }
+{% endschema %}

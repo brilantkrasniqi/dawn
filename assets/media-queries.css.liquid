@@ -1,0 +1,110 @@
+/* Small Phones */
+@media (max-width: 320px) {
+}
+
+/* Phones */
+@media (max-width: 576px) {
+  .displaySearchBar {
+    display: flex !important;
+    position: fixed;
+    left: 50%;
+    top: 180px;
+    transform: translate(-50%, -50%);
+    width: 80svw !important;
+    border-radius: 8px !important;
+    border-top-left-radius: 8px !important;
+    z-index: 30;
+  }
+  #search-btn-nav {
+    margin-right: 32px;
+    position: relative;
+    z-index: 30;
+    width: 18px;
+    height: 18px;
+  }
+  #zeroPlastic h1 {
+    font-size: 24px !important;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  #orderBulk {
+    background-image: url("/assets/images/png/tp-pink-mb-hq.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 5rem;
+  }
+  .cardContainer {
+    max-width: 700px;
+  }
+  #zeroPlastic {
+    padding: 4rem;
+  }
+}
+/* Large Tablets */
+@media (max-width: 992px) {
+  .r-down {
+    transform: rotateZ(45deg);
+  }
+  .r-up {
+    transform: translateY(-6px) rotateZ(-45deg);
+  }
+
+  .heroImage {
+    height: 80svh;
+    object-fit: cover;
+  }
+  .mobileNavContainer {
+    position: fixed;
+    top: 0;
+    left: -1000px;
+    z-index: 40;
+    width: 390px;
+    padding: 16px;
+    background-color: white;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #0b266f16;
+  }
+  .mobileActive {
+    top: 0;
+    left: 0;
+  }
+  .mobileNavLinks {
+    padding-top: 48px;
+    height: fit-content;
+  }
+  .mobileNavItem {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #0b266f16;
+    padding: 1rem 0;
+  }
+  .emailNavMobile {
+    padding-top: 48px;
+  }
+  .mobileNavLogo {
+    width: 65px;
+    height: 31px;
+  }
+  #zeroPlastic {
+    padding: 5rem;
+  }
+  .showCaseImg img {
+    width:  100% !important;
+   
+  }
+}
+/* Desktop */
+@media (max-width: 1200px) {
+}
+
+/* Large Desktops */
+@media (max-width: 1400px) {
+}

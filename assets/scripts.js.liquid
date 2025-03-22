@@ -1,0 +1,130 @@
+import Splide from "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.esm.min.js";
+
+class PageNavigation {
+  hamburger = document.querySelectorAll(".hamburger");
+  hamburgerLines = document.querySelectorAll(".line");
+  mobileMenu = document.querySelector(".mobileNavContainer");
+  overlay = document.querySelector(".overlay");
+  searchButton = document.querySelector("#search-btn-nav");
+  navSearchBar = document.querySelector(".input-group");
+  searchBar = document.getElementById("searchBar");
+  constructor() {
+    this.initializeEventListeners();
+    this.handleImagesViewPort();
+    this.initializeProdSlider();
+  }
+  initializeEventListeners() {
+    const resetHamburgerLines = () => {
+      this.hamburgerLines.forEach((line) => {
+        line.classList.remove("r-down", "d-none", "r-up");
+      });
+    };
+    const updateOverlay = () => {
+      if (this.mobileMenu ?. classList.contains("mobileActive") || this.navSearchBar ?. classList.contains("displaySearchBar")) {
+        this.overlay ?. classList.remove("d-none");
+      } else {
+        this.overlay ?. classList.add("d-none");
+      }
+    };
+    this.hamburger.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        this.mobileMenu ?. classList.toggle("mobileActive");
+        if (this.navSearchBar ?. classList.contains("displaySearchBar")) {
+          this.overlay ?. classList.remove("d-none");
+          this.navSearchBar ?. classList.remove("displaySearchBar");
+        } else {
+          this.overlay ?. classList.toggle("d-none");
+        }
+        this.hamburgerLines.forEach((line, i) => {
+          if (i === 0) {
+            line.classList.toggle("r-down");
+          } else if (i === 1) {
+            line.classList.toggle("d-none");
+          } else {
+            line.classList.toggle("r-up");
+          }
+        });
+      });
+    });
+    this.searchButton ?. addEventListener("click", () => {
+      this.navSearchBar ?. classList.toggle("displaySearchBar");
+      if (this.mobileMenu ?. classList.contains("mobileActive")) {
+        this.overlay ?. classList.remove("d-none");
+      } else {
+        this.overlay ?. classList.toggle("d-none");
+      }
+      this.mobileMenu ?. classList.remove("mobileActive");
+      resetHamburgerLines();
+    });
+    this.searchBar.addEventListener("keydown", () => {
+      updateOverlay();
+      this.mobileMenu ?. classList.remove("mobileActive");
+      resetHamburgerLines();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Backquote" || e.code === "Escape") {
+        this.resetActiveComponents();
+      }
+    });
+    this.overlay ?. addEventListener("click", this.resetActiveComponents.bind(this));
+  }
+  resetActiveComponents() {
+    this.overlay ?. classList.add("d-none");
+    this.navSearchBar ?. classList.remove("displaySearchBar");
+    this.resetNavMenu();
+  }
+  resetNavMenu() {
+    this.mobileMenu ?. classList.remove("mobileActive");
+    this.hamburgerLines.forEach((line) => {
+      line.classList.remove("r-down", "d-none", "r-up");
+    });
+  }
+  handleImagesViewPort() {
+    let heroImage = document.querySelector(".heroImage");
+    if (heroImage) {
+      const desktopHeroImageURL = heroImage.getAttribute("data-desktop-bg");
+      const mobileHeroImageURL = heroImage.getAttribute("data-mobile-bg");
+      const pageWidth = window.matchMedia("(max-width:768px)");
+      if (window.innerWidth<=768){
+          heroImage.src = mobileHeroImageURL
+      }
+      pageWidth.addEventListener("change", (e) => {
+        if (e.matches) {
+          heroImage.src = mobileHeroImageURL
+        } else if (!e.matches) {
+          heroImage.src = desktopHeroImageURL
+        }
+      }) 
+      
+    }
+
+
+  }
+  initializeProdSlider() {
+
+// const splideCheck = document.getElementsByClassName("splide").length
+// if (splideCheck) {
+    const mainProd = new Splide("#singleProductShowCase", {
+      type: "fade",
+      arrows: false,
+      pagination: false,
+      cover: true,
+      lazyLoad: "nearby"
+    });
+    const prodThumbnails = new Splide("#thumbnailProductShowCase", {
+      rewind: true,
+      fixedWidth: 131,
+      fixedHeight: 100,
+      isNavigation: true,
+      lazyLoad: "nearby",
+      pagination: false,
+      cover: true
+    });
+    mainProd.sync(prodThumbnails);
+    mainProd.mount();
+    prodThumbnails.mount();
+
+// }
+  }
+}
+const nav = new PageNavigation();

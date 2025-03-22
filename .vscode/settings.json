@@ -8,8 +8,12 @@
     "editor.formatOnSave": true
   },
   "[liquid]": {
-    "editor.defaultFormatter": "Shopify.theme-check-vscode",
+    "editor.defaultFormatter": "sissel.shopify-liquid",
     "editor.formatOnSave": true
   },
-  "themeCheck.checkOnSave": true
+  "themeCheck.checkOnSave": true,
+  "cSpell.words": [
+    "endfor",
+    "Flutra"
+  ]
 }

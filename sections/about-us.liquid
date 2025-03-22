@@ -1,0 +1,191 @@
+<section class="section-padding">
+  <div class="custom-container">
+    <div class="row">
+      <div class="col-lg-6 col-12 d-flex align-items-center">
+        <div class="showCaseImg">
+          <img
+            loading="lazy"
+            src="{{section.settings.image_1 | image_url}}"
+            height="358"
+            width="260"
+            alt="Placeholder Image" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 ps-lg-5 p-2 pt-lg-0 pt-3 d-flex flex-column justify-content-center">
+        <div class="showCaseContent d-flex flex-column justify-content-center">
+          <h2 class="text-start pb-3">
+            {{ section.settings.heading1 }}
+          </h2>
+          <p class="text-start ">
+            {{ section.settings.paragraph1 }}
+          </p>
+          {% if section.settings.button_link_1 != blank %}
+            <a href="{{section.settings.button_link_1}}" class="pt-5 mx-lg-0 ">
+              <button class="btn-main">{{ section.settings.button_text_1 }}</button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5 d-flex flex-lg-row flex-column-reverse">
+      <div class="col-lg-6 col-12 ps-lg-5 p-2 pt-lg-0  pt-3 d-flex flex-column justify-content-center">
+        <div class="showCaseContent d-flex flex-column justify-content-center">
+          <h2 class="text-start  pb-3">
+            {{ section.settings.heading2 }}
+          </h2>
+          <p class="text-start ">
+            {{ section.settings.paragraph2 }}
+          </p>
+          {% if section.settings.button_link_2 != blank %}
+            <a href="{{section.settings.button_link_2 }}" class="pt-5 mx-lg-0">
+              <button class="btn-main">{{ section.settings.button_text_2 }}</button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 d-flex align-items-center">
+        <div class="showCaseImg">
+          <img
+            loading="lazy"
+            src="{{section.settings.image_2 |  image_url}}"
+            height="358"
+            width="260"
+            alt="Placeholder Image" />
+        </div>
+      </div>
+    </div>
+    <!-- Show Case Cards -->
+    <div class="row pt-5">
+      {% for i in (1..4) %}
+        {% assign card_image_key = "card_image_" | append: i %}
+        {% assign card_text_key = "card_text_" | append: i %}
+        <div class="col-lg-3 col-md-6 pt-lg-0 pt-3 col-12">
+          <div class="cardContainer h-100">
+            <div class="cardImage w-fit">
+              <img
+                src="{{ section.settings[card_image_key] | image_url }}"
+                alt=""
+                height="38"
+                width="38" />
+            </div>
+            <h3 class="funnel-font fw-bold pt-3">
+              {{ section.settings[card_text_key] }}
+            </h3>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "About Us",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading1",
+        "label": "Heading One",
+        "default": " Materials that are gentle on you, and kind to the planet"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph1",
+        "label": "Paragraph One",
+        "default": "Our products are crafted using eco-friendly materials, ensuring they are safe for both you and the environment. With responsible sourcing and mindful production, we take a step toward a cleaner, greener future—one sheet at a time"
+      },
+      {
+        "type": "text",
+        "id": "heading2",
+        "label": "Heading Two",
+        "default": " Partner with us for quality, and reliability"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph2",
+        "label": "Paragraph Two",
+        "default": "Whether you run a retail store, hotel, restaurant, or office, our high-quality kitchen towel, toilet paper, and napkins provide the perfect balance of durability, softness, and affordability. We ensure that your business gets the best value with every purchase."
+      },
+      {
+        "type": "url",
+        "id": "button_link_1",
+        "label": "Button Link One"
+      },
+      {
+        "type": "text",
+        "id": "button_text_1",
+        "label": "Button Text One",
+        "default": "More about us"
+
+      },
+      {
+        "type": "url",
+        "id": "button_link_2",
+        "label": "Button Link Two"
+      },
+      {
+        "type": "text",
+        "id": "button_text_2",
+        "label": "Button Text Two",
+        "default": "B2B Partnerships"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_1",
+        "label": "Image One"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_2",
+        "label": "Image Two"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_1",
+        "label": "Card Image 1"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_1",
+        "label": "Card Text 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_2",
+        "label": "Card Image 2"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_2",
+        "label": "Card Text 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_3",
+        "label": "Card Image 3"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_3",
+        "label": "Card Text 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_4",
+        "label": "Card Image 4"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_4",
+        "label": "Card Text 4"
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "About Us"
+      }
+    ]
+  }
+{% endschema %}
