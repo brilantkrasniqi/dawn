@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "heading_font",
+        "label": "Heading font",
+        "default": "Helvetica, Arial, sans-serif"
+      }
+    ]
+  },
+  {
+    "name": "Layout settings",
+    "settings": [
+      {
+        "type": "text",
+        "id": "layout_width",
+        "label": "Layout width",
+        "default": "1200px"
+      }
+    ]
+  }
+]
