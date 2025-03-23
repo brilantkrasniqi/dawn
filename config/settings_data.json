@@ -1,8 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_background": "#ffffff",
     "heading_font": "Helvetica, Arial, sans-serif",
     "facebook_link": "https://facebook.com",
-    "twitter_link": "https://twitter.com"
+    "twitter_link": "https://twitter.com",
+    "sections": {
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "bg_hero_image": "shopify://shop_images/tp-hero-hq.png",
+          "bg_hero_mb_image": "shopify://shop_images/tp-header-mb-hq.png",
+          "heading": "Softness, Strength, and Quality in Every Sheet!",
+          "paragraph1": "Elevate your everyday essentials with Flutra&#39;s premium kitchen paper, toilet paper, and napkins—crafted for comfort, quality, and care since 2008.",
+          "button_text": "Shop our products",
+          "button_link": "shopify://pages/our-products"
+        }
+      },
+      "featured-products": {
+        "type": "featured-products",
+        "settings": {
+          "heading": "Shop our products",
+          "collection": "featured-products",
+          "button_text": "See all Products",
+          "button_link": "shopify://pages/our-products"
+        }
+      },
+      "bulk-cta": {
+        "type": "bulk-cta",
+        "settings": {
+          "header": "Order in bulk",
+          "paragraph": "Whether you run a retail store, hotel, restaurant, or office, our high-quality kitchen paper, toilet paper, and napkins provide the perfect balance of durability, softness, and affordability. With best prices and reliable supply, we ensure that your business gets the best value with every purchase.",
+          "button_text": "B2B Partnerships",
+          "button_link": "shopify://pages/b2b-partnerships",
+          "bg_image": "shopify://shop_images/tp-pink-bg-hq.png"
+        }
+      },
+      "about-us": {
+        "type": "about-us",
+        "settings": {
+          "heading1": "Materials that are gentle on you, and kind to the planet",
+          "paragraph1": "Our products are crafted using eco-friendly materials, ensuring they are safe for both you and the environment. With responsible sourcing and mindful production, we take a step toward a cleaner, greener future—one sheet at a time",
+          "heading2": "Partner with us for quality, and reliability",
+          "paragraph2": "Whether you run a retail store, hotel, restaurant, or office, our high-quality kitchen towel, toilet paper, and napkins provide the perfect balance of durability, softness, and affordability. We ensure that your business gets the best value with every purchase.",
+          "button_link_1": "",
+          "button_text_1": "More about us",
+          "button_link_2": "",
+          "button_text_2": "B2B Partnerships",
+          "image_1": "shopify://shop_images/tp-bask-hq.png",
+          "image_2": "shopify://shop_images/tp-eyes-hq.png",
+          "card_image_1": "shopify://shop_images/tp-sustainability.svg",
+          "card_text_1": "Sustainably sourced, safe for the planet.",
+          "card_image_2": "shopify://shop_images/tp-soak.svg",
+          "card_text_2": "Quickly soaks up spills and messes.",
+          "card_image_3": "shopify://shop_images/tp-svg.svg",
+          "card_text_3": "Tear-resistant even when the towel is wet.",
+          "card_image_4": "shopify://shop_images/tp-sizes.svg",
+          "card_text_4": "Available in various sizes for every need."
+        }
+      },
+      "zero-plastic": {
+        "type": "zero-plastic",
+        "settings": {
+          "heading": "Zero trees. zero plastic zero compromise.",
+          "button_link": "shopify://pages/our-products",
+          "button_text": "Shop our products now",
+          "bg_image": "shopify://shop_images/forest-hq.png"
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
