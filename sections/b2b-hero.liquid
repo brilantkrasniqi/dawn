@@ -1,0 +1,170 @@
+<section class="section-padding">
+  <div class="custom-container">
+    <div class="row">
+      <h2 class="fw-bold">{{ section.settings.header }}</h2>
+      <p class="py-4">
+        {{ section.settings.paragraph }}
+      </p>
+      <div class="row g-2">
+        <div class="col-md-4 col-12">
+          <div class="position-relative b2bContainer mx-auto">
+            <img
+              src="{{section.settings.image_1 | image_url}}"
+              class="position-absolute w-100 h-100 object-fit-cover rounded-12 z-0"
+              height="300"
+              width="300"
+              alt="Toilet Paper" />
+            <div class="d-flex flex-column justify-content-between h-100">
+              <div class="p-3 z-1">
+                <p class="mb-1">{{ section.settings.category_1 }}</p>
+                <h2 class="">{{ section.settings.card_header_1 }}</h2>
+              </div>
+              <a class="p-3 text_underline z-1" href="{{section.settings.link_1}}">{{ section.settings.link_text_1 }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="position-relative b2bContainer mx-auto">
+            <img
+              src="{{section.settings.image_2 | image_url}}"
+              class="position-absolute w-100 h-100 object-fit-cover rounded-12 z-0"
+              height="300"
+              width="300"
+              alt="Toilet Paper" />
+            <div class="d-flex flex-column justify-content-between h-100">
+              <div class="p-3 z-1">
+                <p class="mb-1">{{ section.settings.category_2 }}</p>
+                <h2 class="">{{ section.settings.card_header_2 }}</h2>
+              </div>
+              <a class="p-3 text_underline z-1" href="{{section.settings.link_2}}">{{ section.settings.link_text_2 }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="position-relative b2bContainer mx-auto">
+            <img
+              src="{{section.settings.image_3 | image_url}}"
+              class="position-absolute w-100 h-100 object-fit-cover rounded-12 z-0"
+              height="300"
+              width="300"
+              alt="Toilet Paper" />
+            <div class="d-flex flex-column justify-content-between h-100">
+              <div class="p-3 z-1">
+                <p class="mb-1">{{ section.settings.category_3 }}</p>
+                <h2 class="">{{ section.settings.card_header_3 }}</h2>
+              </div>
+              <a class="p-3  text_underline z-1" href="{{section.settings.link_3}}">{{ section.settings.link_text_3 }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "B2B Hero",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "header",
+        "label": "Header",
+        "default": "Quality paper products for every need"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph",
+        "label": "Paragraph",
+        "default": "Discover our range of high-quality paper products, designed for both household and business use. Whether you need durable kitchen towels, soft toilet paper, or premium napkins, Flutra offers reliable solutions at competitive prices."
+      },
+      {
+        "type": "image_picker",
+        "id": "image_1",
+        "label": "Image 1"
+      },
+      {
+        "type": "text",
+        "id": "category_1",
+        "label": "Category 1",
+        "default": "Toilet Paper"
+      },
+      {
+        "type": "text",
+        "id": "card_header_1",
+        "label": "Card Header 1",
+        "default": "Softness &amp; strength combined"
+      },
+      {
+        "type": "url",
+        "id": "link_1",
+        "label": "Link 1"
+
+      },
+      {
+        "type": "text",
+        "id": "link_text_1",
+        "label": "Link Text 1",
+        "default": "Shop toilet paper"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_2",
+        "label": "Image 2"
+      },
+      {
+        "type": "text",
+        "id": "category_2",
+        "label": "Category 2",
+        "default": "Toilet Paper"
+      },
+      {
+        "type": "text",
+        "id": "card_header_2",
+        "label": "Card Header 2",
+        "default": "Softness &amp; strength combined"
+      },
+      {
+        "type": "url",
+        "id": "link_2",
+        "label": "Link 2"
+
+      },
+      {
+        "type": "text",
+        "id": "link_text_2",
+        "label": "Link Text 2",
+        "default": "Shop toilet paper"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_3",
+        "label": "Image 3"
+      },
+      {
+        "type": "text",
+        "id": "category_3",
+        "label": "Category 3",
+        "default": "Toilet Paper"
+      },
+      {
+        "type": "text",
+        "id": "card_header_3",
+        "label": "Card Header 3",
+        "default": "Softness &amp; strength combined"
+      },
+      {
+        "type": "url",
+        "id": "link_3",
+        "label": "Link 3"
+
+      },
+      {
+        "type": "text",
+        "id": "link_text_3",
+        "label": "Link Text 3",
+        "default": "Shop toilet paper"
+      }
+    ]
+  }
+{% endschema %}
