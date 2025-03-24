@@ -44,8 +44,10 @@
         <ul class="d-lg-flex d-none fw-bold ps-xxl-4 ps-xl-1" id="fluturaNavLinks">
           {% for link in linklists.main-menu.links %}
             <li>
-              <a href="{{link_to:link.url}}" class="pe-xxl-5 pe-xl-4 pe-2">{{ link.title }}</a>
+              <a href="{{link.url}}" class="pe-xxl-5 pe-xl-4 pe-2">{{ link.title }}</a>
+
             </li>
+
 
           {% endfor %}
         </ul>
@@ -108,7 +110,7 @@
       <div class="mobileNavLinks">
         {% for link in linklists.mobile-menu.links %}
           <div class="mobileNavItem">
-            <a class="funnel-font fw-medium" href="{{link_to:link.url}}">{{ link.title }}</a>
+            <a class="funnel-font fw-medium" href="{{link.url}}">{{ link.title }}</a>
             <p>></p>
           </div>
 

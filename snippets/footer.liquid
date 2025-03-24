@@ -14,7 +14,7 @@
           {% for link in linklists.footer.links %}
 
             <div class="col-6">
-              <a href="{{link_to: link.url}}">{{ link.title }}</a>
+              <a href="{{link.url}}">{{ link.title }}</a>
             </div>
           {% endfor %}
           <div class="col-6">
@@ -30,7 +30,7 @@
         <div class="row d-md-flex d-none pt-3">
           <div class="col-12 d-flex justify-content-center">
             {% for link in linklists.footer.links %}
-              <a href="{{link_to: link.url}}" class="pe-2">{{ link.title }}</a>
+              <a href="{{ link.url}}" class="pe-2">{{ link.title }}</a>
             {% endfor %}
           </div>
         </div>
@@ -80,7 +80,7 @@
       </div>
       <div class="col-md-4 col-12 d-flex justify-content-md-end justify-content-center order-md-3 order-2 py-md-0 py-3">
         {% for link in linklists.bottom-menu.links %}
-          <a href="{{link_to: link.url}}" class="pe-3">{{ link.title }}</a>
+          <a href="{{link.url}}" class="pe-3">{{ link.title }}</a>
         {% endfor %}
       </div>
     </div>
