@@ -3,80 +3,68 @@
     <div class="row py-5">
       <div class="col-lg-6 col-12 pe-lg-5 pe-0">
         <h2 class="fw-bold pb-3">
-          Partner with Flutra – Bulk Orders Made Simple
+          {{ section.settings.heading }}
         </h2>
         <p class="pb-5">
-          Get the best value for your business with our exclusive bulk
- 
-          pricing. Whether you need a steady supply of high-quality kitchen
-          paper, toilet paper, or napkins, we offer flexible deals tailored
-          to you. Fill out the form below, and our team will get back to you
-          with a custom offer.
+          {{ section.settings.paragraph }}
         </p>
-        <h3 class="pt-3">Benefits of Ordering in Bulk:</h3>
+        {% for block in section.blocks %}
+          {% if block.type == 'paragraph' %}
+            <h3 class="pt-3">{{ block.settings.intro_text }}</h3>
+          {% endif %}
+        {% endfor %}
         <ul class="ps-3 pt-4">
-          <li class="dot-decorate">
-            <span class="fw-bold">Lower Prices</span>
-            - significant cost
- 
-            savings with special wholesale pricing.
-          </li>
-          <li class="dot-decorate">
-            <span class="fw-bold">Lower Prices</span>
-            - significant cost
- 
-            savings with special wholesale pricing.
-          </li>
-          <li class="dot-decorate">
-            <span class="fw-bold">Lower Prices</span>
-            - significant cost
- 
-            savings with special wholesale pricing.
-          </li>
-          <li class="dot-decorate">
-            <span class="fw-bold">Lower Prices</span>
-            - significant cost
- 
-            savings with special wholesale pricing.
-          </li>
+          {% for block in section.blocks %}
+            {% if block.type == 'bullet' %}
+
+              <li class="dot-decorate">
+                <span class="fw-bold">{{ block.settings.title }}</span>
+                {{ block.settings.detail }}
+              </li>
+            {% endif %}
+          {% endfor %}
         </ul>
       </div>
       <div class="col-lg-6 col-12 ps-lg-5 ps-0 mt-lg-0 mt-5">
         <div class="bg-white rounded-3 h-100 p-3 my-auto mx-auto">
-          <h3 class="fw-bold">Get in Touch for Bulk Orders</h3>
+          <h3 class="fw-bold">{{ section.settings.form_header }}</h3>
           <form
-            action=""
-            class="pt-3 bulkForm"
-            method="post">
+            action="/contact"
+            method="post"
+            class="pt-3 bulkForm">
             <input
               type="text"
               name="companyName"
               id="companyName"
               required
-              placeholder="Company Name*" />
+              placeholder="{{section.settings.field_1}}" />
             <input
               type="email"
               name="email"
               id="email"
               required
-              placeholder="Email Address*" />
+              placeholder="{{section.settings.field_2}}" />
             <input
               type="number"
               name="phone"
               id="phone"
               required
-              placeholder="Phone Number*" />
+              placeholder="{{section.settings.field_3}}" />
             <input
               type="number"
               name="monthlyQuantity"
               id="monthlyQuantity"
-              placeholder="Order Quantity (Estimated Monthly Purchase)*" />
-            <input
-              type="checkbox"
-              name="agreeContact"
-              id="agreeContact"
-              value="agree"
-              required />
+              placeholder="{{section.settings.field_4}}" />
+            <div class="checkBox">
+              <input
+                class=""
+                type="checkbox"
+                value="agree"
+                id="agreeContact">
+              <label class="" for="agreeContact">
+                {{ section.settings.check_text }}
+              </label>
+            </div>
             <button type="submit" class="btn-main">Submit Inquiry</button>
           </form>
         </div>
@@ -84,3 +72,96 @@
     </div>
   </div>
 </section>
+
+{% schema %}
+  {
+    "name": "b2bform",
+    "settings": [
+      {
+        "type": "text",
+        "id": "form_header",
+        "label": "From Header",
+        "default": "Get in Touch for Bulk Orders"
+      },
+      {
+        "type": "text",
+        "id": "field_1",
+        "label": "Field 1",
+        "default": "Company Name*"
+      },
+      {
+        "type": "text",
+        "id": "field_2",
+        "label": "Field 2",
+        "default": "Email address*"
+      },
+      {
+        "type": "text",
+        "id": "field_3",
+        "label": "Field 3",
+        "default": "Phone number*"
+      },
+      {
+        "type": "text",
+        "id": "field_4",
+        "label": "Field 4",
+        "default": "Order Quantity (Estimated Monthly Purchase)*"
+      },
+      {
+        "type": "text",
+        "id": "check_text",
+        "label": "Checkbox Text",
+        "default": "I agree to be contacted by Flutra’s partnerships team regarding my inquiry"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading",
+        "default": "Partner with Flutra – Bulk Orders Made Simple"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph",
+        "label": "Section Paragraph",
+        "default": "Get the best value for your business with our exclusive bulk pricing. Whether you need a steady supply of high-quality kitchen paper, toilet paper, or napkins, we offer flexible deals tailored to you. Fill out the form below, and our team will get back to you with a custom offer."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "paragraph",
+        "name": "Intro Paragraph",
+        "settings": [
+          {
+            "type": "text",
+            "id": "intro_text",
+            "label": "Intro Text",
+            "default": "Benefits of Ordering in Bulk:"
+          }
+        ]
+      },
+      {
+        "type": "bullet",
+        "name": "Bullet Point",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Lower Prices"
+          },
+          {
+            "type": "text",
+            "id": "detail",
+            "label": "Detail",
+            "default": "Enjoy significant cost savings with special wholesale pricing."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Form Content"
+      }
+    ]
+  }
+{% endschema %}

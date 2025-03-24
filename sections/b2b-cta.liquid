@@ -1,0 +1,210 @@
+<section class="section-padding">
+  <div class="custom-container">
+    <div class="row d-flex flex-lg-row-reverse ">
+      <div class="col-lg-6 col-12 d-flex  align-items-center">
+        <div class="showCaseImg">
+          <img
+            loading="lazy"
+            src="{{section.settings.image_1 | image_url}}"
+            height="358"
+            width="260"
+            alt="Placeholder Image" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 ps-lg-5 p-2 pt-lg-0 pt-3 d-flex flex-column justify-content-center">
+        <div class="showCaseContent d-flex flex-column justify-content-center">
+          <h2 class="text-start pb-3">
+            {{ section.settings.heading1 }}
+          </h2>
+          <p class="text-start ">
+            {{ section.settings.paragraph1 }}
+          </p>
+          {% if section.settings.button_link_1 != blank %}
+            <a href="{{section.settings.button_link_1}}" class="pt-5 mx-lg-0 ">
+              <button class="btn-main">{{ section.settings.button_text_1 }}</button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5 d-flex flex-lg-row-reverse flex-column-reverse">
+      <div class="col-lg-6 col-12 ps-lg-5 p-2 pt-lg-0  pt-3 d-flex flex-column justify-content-center">
+        <div class="showCaseContent d-flex flex-column justify-content-center">
+          <h2 class="text-start  pb-3">
+            {{ section.settings.heading2 }}
+          </h2>
+          <p class="text-start ">
+            {{ section.settings.paragraph2 }}
+          </p>
+          {% if section.settings.button_link_2 != blank %}
+            <a href="{{section.settings.button_link_2 }}" class="pt-5 mx-lg-0">
+              <button class="btn-main">{{ section.settings.button_text_2 }}</button>
+            </a>
+          {% endif %}
+          <ul class="ps-3 pt-4">
+            {% for block in section.blocks %}
+              {% if block.type == 'bullet' %}
+                <li class="dot-decorate">
+                  <span class="fw-bold">{{ block.settings.title }}</span>
+                  {{ block.settings.detail }}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 d-flex align-items-center">
+        <div class="showCaseImg">
+          <img
+            loading="lazy"
+            src="{{section.settings.image_2 |  image_url}}"
+            height="358"
+            width="260"
+            alt="Placeholder Image" />
+        </div>
+      </div>
+    </div>
+    <!-- Show Case Cards -->
+    <div class="row pt-5">
+      {% for i in (1..4) %}
+        {% assign card_image_key = "card_image_" | append: i %}
+        {% assign card_text_key = "card_text_" | append: i %}
+        <div class="col-lg-3 col-md-6 pt-lg-0 pt-3 col-12">
+          <div class="cardContainer h-100">
+            <div class="cardImage w-fit">
+              <img
+                src="{{ section.settings[card_image_key] | image_url }}"
+                alt=""
+                height="38"
+                width="38" />
+            </div>
+            <h3 class="funnel-font fw-bold pt-3">
+              {{ section.settings[card_text_key] }}
+            </h3>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "B2B CTA",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading1",
+        "label": "Heading One",
+        "default": "Exclusive pricing for larger monthly orders"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph1",
+        "label": "Paragraph One",
+        "default": "For businesses with ongoing bulk needs, we offer special pricing on monthly orders. If you’re looking for a cost-effective solution, contact our partnerships team to discuss customized deals that provide the best value for your business."
+      },
+      {
+        "type": "text",
+        "id": "heading2",
+        "label": "Heading Two",
+        "default": "Shop wholesale, anytime and anywhere"
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph2",
+        "label": "Paragraph Two",
+        "default": "Browse our web store and place your bulk order instantly. Whether you need kitchen paper, toilet paper, or napkins, enjoy fast, simple, and convenient purchasing with just a few clicks, and the goods will be delivered straight to your door."
+      },
+      {
+        "type": "url",
+        "id": "button_link_1",
+        "label": "Button Link One"
+      },
+      {
+        "type": "text",
+        "id": "button_text_1",
+        "label": "Button Text One",
+        "default": "More about us"
+
+      },
+      {
+        "type": "image_picker",
+        "id": "image_1",
+        "label": "Image One"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_2",
+        "label": "Image Two"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_1",
+        "label": "Card Image 1"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_1",
+        "label": "Card Text 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_2",
+        "label": "Card Image 2"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_2",
+        "label": "Card Text 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_3",
+        "label": "Card Image 3"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_3",
+        "label": "Card Text 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "card_image_4",
+        "label": "Card Image 4"
+      },
+      {
+        "type": "textarea",
+        "id": "card_text_4",
+        "label": "Card Text 4"
+      }
+
+    ],
+    "blocks": [
+      {
+        "type": "bullet",
+        "name": "Bullet Point",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Premium Quality"
+          },
+          {
+            "type": "text",
+            "id": "detail",
+            "label": "Detail",
+            "default": " – Soft, strong, and highly absorbent for maximum performance."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "About Us"
+      }
+    ]
+  }
+{% endschema %}

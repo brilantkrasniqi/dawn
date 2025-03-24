@@ -1,0 +1,52 @@
+<section id="orderBulk" style="background-image: url({{section.settings.bg_image | image_url}});">
+  <div class="custom-container">
+    <div class="row d-flex flex-column align-items-center">
+      <h1 class="text-center pb-3 fw-bold">{{ section.settings.header }}</h1>
+
+      {% if section.settings.button_link != blank %}
+        <a href="{{section.settings.button_link}}" class="mx-auto pt-4 d-inline-block w-fit">
+          <button class="btn-main">{{ section.settings.button_text }}</button>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "B2B Header",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "header",
+        "label": "Header",
+        "default": "Flutra for businesses"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Send us an inquiry"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+      }
+    ],
+
+    "presets": [
+      {
+        "name": "Order in Bulk CTA"
+      }
+    ]
+
+  }
+{% endschema %}
