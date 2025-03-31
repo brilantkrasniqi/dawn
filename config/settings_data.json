@@ -193,6 +193,28 @@
           "heading": "Partner with Flutra – Bulk Orders Made Simple",
           "paragraph": "Get the best value for your business with our exclusive bulk pricing. Whether you need a steady supply of high-quality kitchen paper, toilet paper, or napkins, we offer flexible deals tailored to you. Fill out the form below, and our team will get back to you with a custom offer."
         }
+      },
+      "b2b-hero": {
+        "type": "b2b-hero",
+        "settings": {
+          "header": "Quality paper products for every need",
+          "paragraph": "Discover our range of high-quality paper products, designed for both household and business use. Whether you need durable kitchen towels, soft toilet paper, or premium napkins, Flutra offers reliable solutions at competitive prices.",
+          "image_1": "shopify://shop_images/tp-eyes-hq.png",
+          "category_1": "Toilet Paper",
+          "card_header_1": "Softness &amp; strength combined",
+          "link_1": "",
+          "link_text_1": "Shop toilet paper",
+          "image_2": "shopify://shop_images/tp-bask-hq.png",
+          "category_2": "Toilet Paper",
+          "card_header_2": "Softness &amp; strength combined",
+          "link_2": "",
+          "link_text_2": "Shop toilet paper",
+          "image_3": "shopify://shop_images/tp-eyes-hq.png",
+          "category_3": "Toilet Paper",
+          "card_header_3": "Softness &amp; strength combined",
+          "link_3": "",
+          "link_text_3": "Shop toilet paper"
+        }
       }
     },
     "content_for_index": []
