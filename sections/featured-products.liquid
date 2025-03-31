@@ -19,17 +19,8 @@
               <p id="title">{{ product.title }}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <h3 class="fw-bold" id="price">{{ product.price | money }}</h3>
-                <form method="post" action="/cart/add">
-                  <input
-                    type="hidden"
-                    name="id"
-                    value="{{ product.variants.first.id }}">
-                  <button
-                    type="submit"
-                    class="funnel-font fw-bold"
-                    id="addToCart">
-                    +Add to cart
-                  </button>
+                <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
+                  <button type="submit" class="funnel-font fw-bold">+ Add to cart</button>
                 </form>
               </div>
             </div>

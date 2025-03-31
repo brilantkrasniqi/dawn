@@ -146,3 +146,171 @@ class PageNavigation {
   }
 }
 const nav = new PageNavigation();
+
+document.addEventListener('DOMContentLoaded', () => {
+
+// --- Add to Cart ---
+  document.querySelectorAll('.add-to-cart-form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const variantId = form.getAttribute('data-variant-id');
+      addToCart(variantId, 1);
+    });
+  });
+  if (typeof Shopify === 'undefined') {
+    window.Shopify = {};
+  }
+  if (typeof Shopify.formatMoney !== 'function') {
+    Shopify.formatMoney = function(cents, format) {
+      const value = (cents / 100).toFixed(2);
+      return '$' + value;
+    };
+  }
+
+  function addToCart(variantId, quantity) {
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        {id: variantId, quantity: quantity}
+      )
+    }).then(response => response.json()).then(data => {
+      console.log('Item added:', data);
+      updateCartUI();
+    }).catch(error => console.error('Error adding item:', error));
+  }
+
+// --- Update Cart UI ---
+  function updateCartUI() {
+    fetch('/cart.js').then(response => response.json()).then(cart => {
+
+// Update cart count
+      const cartCountElem = document.querySelector('.cart-count');
+      if (cartCountElem) 
+        cartCountElem.textContent = cart.item_count;
+      
+
+
+// Build cart items HTML
+      let itemsHtml = '';
+      cart.items.forEach(item => {
+        itemsHtml += `
+            <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3" data-key="${
+          item.key
+        }">
+              <div class="prodImage rounded-8">
+                <img src="${
+          item.image
+        }" alt="${
+          item.title
+        }" height="150" width="220" />
+              </div>
+              <div class="prod-info flex-grow-1 ps-3">
+                <p class="title text-uppercase">${
+          item.product_title
+        }</p>
+                <div class="d-flex align-items-center py-md-3 py-1">
+                  <span class="original-price discount funnel-font">${
+          item.compare_at_price
+            ? Shopify.formatMoney(item.compare_at_price, window.shopMoneyFormat)
+            : ''
+          }</span>
+                  <h3 class="current-price fw-bold ps-2">${
+          Shopify.formatMoney(item.price, window.shopMoneyFormat)
+        }</h3>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="quantity rounded-8 d-flex align-items-center justify-content-between">
+                    <button class="btn-white p-2 btn-minus" data-key="${
+          item.key
+        }">-</button>
+                    <p class="quantity-number">${
+          item.quantity
+        }</p>
+                    <button class="btn-white p-2 btn-plus" data-key="${
+          item.key
+        }">+</button>
+                  </div>
+                  <a href="#" class="underline fw-bold funnel-font remove-item" data-key="${
+          item.key
+        }">Remove Item</a>
+                </div>
+              </div>
+            </div>
+          `;
+      });
+      document.querySelector('.cartItemsContainer').innerHTML = itemsHtml;
+
+// Update subtotal using Shopify's formatMoney helper
+      document.getElementById('cart-subtotal').textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
+    }).catch(error => console.error('Error updating cart UI:', error));
+  }
+
+// --- Modify Quantity & Remove Items ---
+  document.addEventListener('click', e => {
+    if (e.target.matches('.btn-plus')) {
+      const key = e.target.getAttribute('data-key');
+      updateCartItemQuantity(key, 1);
+    }
+    if (e.target.matches('.btn-minus')) {
+      const key = e.target.getAttribute('data-key');
+      updateCartItemQuantity(key, -1);
+    }
+    if (e.target.matches('.remove-item')) {
+      e.preventDefault();
+      const key = e.target.getAttribute('data-key');
+      updateCartItemQuantity(key, 0);
+    }
+  });
+
+  function updateCartItemQuantity(itemKey, change) {
+    fetch('/cart.js').then(response => response.json()).then(cart => {
+      const item = cart.items.find(i => i.key === itemKey);
+      if (! item) return;
+      
+
+      let newQuantity = change === 0
+        ? 0
+        : item.quantity + change;
+      if (newQuantity < 0) 
+        newQuantity = 0;
+      
+
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          {id: itemKey, quantity: newQuantity}
+        )
+      }).then(response => response.json()).then(updatedCart => {
+        console.log('Cart updated:', updatedCart);
+        updateCartUI();
+      }).catch(error => console.error('Error updating cart item:', error));
+    });
+  }
+
+// --- Checkout ---
+  const checkoutButton = document.querySelector('.checkout-button');
+  if (checkoutButton) {
+    checkoutButton.addEventListener('click', () => {
+      window.location.href = '/checkout';
+    });
+  }
+
+// --- Close Cart (if you have a close functionality) ---
+  const closeCartButton = document.getElementById('closeCart');
+  if (closeCartButton) {
+    closeCartButton.addEventListener('click', () => {
+
+// Assuming you hide the cart drawer by removing a class (e.g., 'active')
+      document.querySelector('.cartContainer').classList.remove('active');
+    });
+  }
+
+// Initialize cart UI on page load
+  updateCartUI();
+});
