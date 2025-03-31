@@ -8,12 +8,17 @@ class PageNavigation {
   searchButton = document.querySelector("#search-btn-nav");
   navSearchBar = document.querySelector(".input-group");
   searchBar = document.getElementById("searchBar");
+  cartContainer = document.querySelector(".cartContainer");
+  cartBtn = document.querySelector(".cart-nav");
+  cartCloseBtn = document.getElementById("closeCart");
   constructor() {
     this.initializeEventListeners();
     this.handleImagesViewPort();
     this.initializeProdSlider();
   }
   initializeEventListeners() {
+
+// NAV MENU
     const resetHamburgerLines = () => {
       this.hamburgerLines.forEach((line) => {
         line.classList.remove("r-down", "d-none", "r-up");
@@ -26,6 +31,8 @@ class PageNavigation {
         this.overlay ?. classList.add("d-none");
       }
     };
+
+// Nav
     this.hamburger.forEach((btn) => {
       btn.addEventListener("click", () => {
         this.mobileMenu ?. classList.toggle("mobileActive");
@@ -46,6 +53,8 @@ class PageNavigation {
         });
       });
     });
+
+// Search Bar
     this.searchButton ?. addEventListener("click", () => {
       this.navSearchBar ?. classList.toggle("displaySearchBar");
       if (this.mobileMenu ?. classList.contains("mobileActive")) {
@@ -67,6 +76,15 @@ class PageNavigation {
       }
     });
     this.overlay ?. addEventListener("click", this.resetActiveComponents.bind(this));
+
+// Cart
+    this.cartBtn.addEventListener("click", () => {
+      this.cartContainer ?. classList.add('cartActive');
+    });
+    this.cartCloseBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      this.cartContainer ?. classList.remove('cartActive');
+    })
   }
   resetActiveComponents() {
     this.overlay ?. classList.add("d-none");
@@ -80,51 +98,51 @@ class PageNavigation {
     });
   }
   handleImagesViewPort() {
-    let heroImage = document.querySelector(".heroImage");
-    if (heroImage) {
-      const desktopHeroImageURL = heroImage.getAttribute("data-desktop-bg");
-      const mobileHeroImageURL = heroImage.getAttribute("data-mobile-bg");
-      const pageWidth = window.matchMedia("(max-width:768px)");
-      if (window.innerWidth<=768){
-          heroImage.src = mobileHeroImageURL
-      }
-      pageWidth.addEventListener("change", (e) => {
-        if (e.matches) {
-          heroImage.src = mobileHeroImageURL
-        } else if (!e.matches) {
-          heroImage.src = desktopHeroImageURL
-        }
-      }) 
-      
-    }
+    const heroImage = document.querySelector(".heroImage");
+    if (! heroImage) return;
+    
+
+
+    const desktopHeroImageURL = heroImage.getAttribute("data-desktop-bg");
+    const mobileHeroImageURL = heroImage.getAttribute("data-mobile-bg");
+    const mediaQuery = window.matchMedia("(max-width:768px)");
+
+    const updateHeroImage = () => {
+      heroImage.src = mediaQuery.matches
+        ? mobileHeroImageURL
+        : desktopHeroImageURL;
+    };
+
+    updateHeroImage();
+    mediaQuery.addEventListener("change", updateHeroImage);
 
 
   }
   initializeProdSlider() {
 
-// const splideCheck = document.getElementsByClassName("splide").length
-// if (splideCheck) {
-    const mainProd = new Splide("#singleProductShowCase", {
-      type: "fade",
-      arrows: false,
-      pagination: false,
-      cover: true,
-      lazyLoad: "nearby"
-    });
-    const prodThumbnails = new Splide("#thumbnailProductShowCase", {
-      rewind: true,
-      fixedWidth: 131,
-      fixedHeight: 100,
-      isNavigation: true,
-      lazyLoad: "nearby",
-      pagination: false,
-      cover: true
-    });
-    mainProd.sync(prodThumbnails);
-    mainProd.mount();
-    prodThumbnails.mount();
+    const splideCheck = document.getElementsByClassName("splide").length
 
-// }
+    if (splideCheck) {
+      const mainProd = new Splide("#singleProductShowCase", {
+        type: "fade",
+        arrows: false,
+        pagination: false,
+        cover: true,
+        lazyLoad: "nearby"
+      });
+      const prodThumbnails = new Splide("#thumbnailProductShowCase", {
+        rewind: true,
+        fixedWidth: 131,
+        fixedHeight: 100,
+        isNavigation: true,
+        lazyLoad: "nearby",
+        pagination: false,
+        cover: true
+      });
+      mainProd.sync(prodThumbnails);
+      mainProd.mount();
+      prodThumbnails.mount();
+    }
   }
 }
 const nav = new PageNavigation();

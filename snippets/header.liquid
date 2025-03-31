@@ -70,7 +70,7 @@
               aria-label="Search"
               aria-describedby="search-bar" />
           </div>
-          <div class="cart-nav d-flex align-items-center justify-content-end ms-2">
+          <div type="button" class="cart-nav d-flex align-items-center justify-content-end ms-2">
             <img
               class="d-sm-none d-block"
               type="button"
@@ -90,6 +90,78 @@
               <span class="d-sm-inline-block d-none">Cart</span>
               0,00$
             </p>
+            <div class="cartContainer d-flex flex-column justify-content-between bg-gray">
+              <div>
+                <div class="d-flex align-items-center justify-content-between pb-4">
+                  <h3 class="text-uppercase funnel-font">
+                    your cart (2 items)
+                  </h3>
+                  <h3
+                    class="fs-5 funnel-font user-select-none"
+                    type="button"
+                    id="closeCart">
+                    Close
+                  </h3>
+                </div>
+                <!-- CART ITEMS -->
+                <div class="cartItemsContainer bg-white rounded-8">
+                  <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3">
+                    <div class="prodImage rounded-8">
+                      <img
+                        src=""
+                        alt=""
+                        height="150"
+                        width="220" />
+                    </div>
+                    <div class="prod-info flex-grow-1 ps-3">
+                      <p class="title text-uppercase">
+                        Toilet paper chamomile - 10 Rolls
+                      </p>
+                      <div class="d-flex align-items-center py-md-3 py-1">
+                        <span class="original-price discount funnel-font">19.99$</span>
+                        <h3 class="current-price fw-bold ps-2">9.99$</h3>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div class="quantity rounded-8 d-flex align-items-center justify-content-between">
+                          <button class="btn-white p-2 btn-minus">-</button>
+                          <p class="quantity-number">1</p>
+                          <button class="btn-white p-2 btn-plus">+</button>
+                        </div>
+                        <a href="#" class="underline fw-bold funnel-font">Remove Item</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- CART INFO -->
+              <div class="cart-info">
+                <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+                  <p class="d-sm-inline-block d-none">
+                    Do you have a discount code?
+                  </p>
+
+                  <input
+                    type="text"
+                    name="discount-code"
+                    id="discount-code"
+                    placeholder="Enter your code"
+                    class="rounded-8 p-1 mx-auto mx-sm-0" />
+                </div>
+                <div class="d-flex align-items-center justify-content-between py-2">
+                  <p class="">Order Discounts</p>
+                  <p>-20$</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between py-2">
+                  <p>Shipping costs</p>
+                  <p>0.00$</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-2 pb-4">
+                  <h3 class="fw-bold">Subtotal</h3>
+                  <h3 class="fw-bold">80.00$</h3>
+                </div>
+                <div class="btn-main w-100">Continue to Checkout</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
