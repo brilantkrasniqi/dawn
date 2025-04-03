@@ -193,17 +193,19 @@ nav .form-control:focus {
 .cartContainer {
   width: 700px;
   padding: 2rem;
-  height: 100vh; /* Use full viewport height */
+  height: 100vh;
   position: absolute;
   top: 0;
-  right: -1000px;
-  transition: all 0.2s ease-in-out;
+  right: 0;
+  opacity: 0;
+  z-index: -1000;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+ 
 }
-
 /* When the cart is active */
 .cartActive {
-  top: 0;
-  right: 0;
+  z-index: 1000;
+  opacity: 1;
 }
 
 /* Make the top section (header + items) flex and fill available space */
@@ -211,6 +213,7 @@ nav .form-control:focus {
   flex: 1;
   display: flex;
   flex-direction: column;
+  max-height:550px;
 }
 
 /* Let the cart items area take available space and scroll if needed */
@@ -261,7 +264,10 @@ nav .form-control:focus {
 #discount-code::placeholder {
   opacity: 0.5;
 }
-
+.thumbnailSearch {
+  width: 100px;
+  height: 100px;
+}
 .prod-card button {
   background-color:transparent;
   border: none;

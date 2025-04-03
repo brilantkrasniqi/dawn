@@ -35,6 +35,9 @@
     <script src="{{'tcrs-marks.min.js' |  asset_url}}" defer></script>
     <script src="{{'toolcool-range-slider.min.js' |  asset_url}}" defer></script>
     <script src="{{'bootstrap.min.js' |  asset_url}}" defer></script>
+    {% comment %} <script>
+              window.shopMoneyFormat = {{ shop.money_format | json }};
+        </script> {% endcomment %}
     <script
       type="module"
       src="{{ 'scripts.js' | asset_url }}"

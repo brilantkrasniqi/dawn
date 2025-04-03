@@ -176,55 +176,54 @@ updateSelection();
 
 
 // Pagination
-const paginationContainer = document.querySelector('.custom-pagination');
+// const paginationContainer = document.querySelector('.custom-pagination');
 
-if (paginationContainer) {
-  paginationContainer.addEventListener('click', (e) => {
+// if (paginationContainer) {
+// paginationContainer.addEventListener('click', (e) => {
 
-// Check if the clicked element is within an <a> tag
-    const link = e.target.closest('a');
-    if (! link) return;
-    
+// // Check if the clicked element is within an <a> tag
+// const link = e.target.closest('a');
+// if (! link) return;
 
 
-// Exit if not an anchor
+// // Exit if not an anchor
 
-    e.preventDefault();
-    const url = link.getAttribute('href');
+// e.preventDefault();
+// const url = link.getAttribute('href');
 
-// Fetch the new page content
-    fetch(url).then(response => response.text()).then(html => {
+// // Fetch the new page content
+// fetch(url).then(response => response.text()).then(html => {
 
-// Parse the returned HTML string into a new document
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
+// // Parse the returned HTML string into a new document
+// const parser = new DOMParser();
+// const doc = parser.parseFromString(html, 'text/html');
 
-// Replace the product grid content
-      const newProducts = doc.querySelector('.row.pt-5');
-      const currentProducts = document.querySelector('.row.pt-5');
-      if (newProducts && currentProducts) {
-        currentProducts.innerHTML = newProducts.innerHTML;
-      }
+// // Replace the product grid content
+// const newProducts = doc.querySelector('.row.pt-5');
+// const currentProducts = document.querySelector('.row.pt-5');
+// if (newProducts && currentProducts) {
+// currentProducts.innerHTML = newProducts.innerHTML;
+// }
 
-// Replace the pagination controls
-      const newPagination = doc.querySelector('.custom-pagination');
-      if (newPagination && paginationContainer) {
-        paginationContainer.innerHTML = newPagination.innerHTML;
-      }
+// // Replace the pagination controls
+// const newPagination = doc.querySelector('.custom-pagination');
+// if (newPagination && paginationContainer) {
+// paginationContainer.innerHTML = newPagination.innerHTML;
+// }
 
-// Update the browser URL using the History API
-      history.pushState(null, '', url);
+// // Update the browser URL using the History API
+// history.pushState(null, '', url);
 
-// Scroll up to the product section (change the selector as needed)
-      const targetSection = document.querySelector('#productSection');
-      if (targetSection) {
-        targetSection.scrollIntoView({behavior: 'smooth'});
-      }
-    }).catch(error => {
-      console.error('Error loading new page:', error);
-    });
-  });
-}
+// // Scroll up to the product section (change the selector as needed)
+// const targetSection = document.querySelector('#productSection');
+// if (targetSection) {
+// targetSection.scrollIntoView({behavior: 'smooth'});
+// }
+// }).catch(error => {
+// console.error('Error loading new page:', error);
+// });
+// });
+// }
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -264,21 +263,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const quantitySlider = document.getElementById('quantitySlider');
   const quantityInput = document.getElementById('quantityInput');
 
-  if (quantitySlider && quantityInput) {
-
-// Listen for slider changes.
-// (Assuming tc-range-slider emits a custom "change" event with detail.value)
-    quantitySlider.addEventListener('change', function(e) {
-
-// e.detail.value is assumed to be provided by the custom element.
+  if (quantitySlider && quantityInput) { // Listen for slider changes.
+    quantitySlider ?. addEventListener('change', function(e) {
       const newVal = e.detail && e.detail.value !== undefined
         ? e.detail.value
         : quantitySlider.getAttribute('value');
       quantityInput.value = newVal;
       console.log('Slider changed, new value:', newVal);
     });
-
-// If the slider also emits an "input" event during dragging:
     quantitySlider.addEventListener('input', function(e) {
       const newVal = e.detail && e.detail.value !== undefined
         ? e.detail.value
@@ -286,12 +278,8 @@ document.addEventListener('DOMContentLoaded', function() {
       quantityInput.value = newVal;
       console.log('Slider input event, new value:', newVal);
     });
-
-// Listen for manual changes on the number input
     quantityInput.addEventListener('input', function(e) {
       const val = quantityInput.value;
-
-// Update the slider’s value by setting its attribute.
       quantitySlider.setAttribute('value', val);
       console.log('Input changed, new value:', val);
     });
@@ -301,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // --- Add to Cart Event Listener ---
   const addToCartForms = document.querySelectorAll('.add-to-cart-form');
-  if (addToCartForms.length === 0) {
+  if (addToCartForms.length === 0 && quantityInput) {
     console.error('No add-to-cart forms found.');
   }
   addToCartForms.forEach(function(form) {
@@ -314,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
 // Get the quantity from the input field
-      const quantity = parseInt(quantityInput.value, 10) || 1;
+      const quantity = parseInt(quantityInput ?. value, 10) || 1;
       console.log('Submitting Add to Cart for variant:', variantId, 'Quantity:', quantity);
       addToCart(variantId, quantity);
     });
@@ -401,9 +389,9 @@ document.addEventListener('DOMContentLoaded', function() {
                       <img id="quantityBtnP" src="{{'plus.svg' | asset_url}}" width="10" height="10" alt="plus">
                     </button>
                   </div>
-                  <a href="#" class="underline fw-bold funnel-font remove-item" data-key="${
+                  <p type="button" class="underline fw-bold funnel-font remove-item" data-key="${
             item.key
-          }">Remove Item</a>
+          }">Remove Item</p>
                 </div>
               </div>
             </div>
@@ -474,6 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newQuantity = 0;
       
 
+
       fetch('/cart/change.js', {
         method: 'POST',
         headers: {
@@ -507,4 +496,123 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // --- Initialize Cart UI on Page Load ---
   updateCartUI();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchBar = document.getElementById('searchBar');
+  const searchResults = document.createElement('div');
+  searchResults.id = 'searchResults';
+  searchBar.parentNode.appendChild(searchResults);
+
+// Add styles for search results
+  const style = document.createElement('style');
+  style.textContent = `
+    #searchResults {
+      position: absolute;
+      width: 100%;
+      top: 100%;
+      max-height: 400px;
+      overflow-y: auto;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: none;
+    }
+    .search-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .search-item:hover {
+      background: #f8f9fa;
+    }
+  `;
+  document.head.appendChild(style);
+
+// Debounce function to limit API calls
+  const debounce = (func, delay) => {
+    let timeout;
+    return(...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+
+// Fetch search results from Shopify
+  const fetchSearchResults = async (query) => {
+    try {
+      const response = await fetch(`/search/suggest.json?q=${
+        encodeURIComponent(query)
+      }&resources[type]=product&resources[limit]=10`);
+      const data = await response.json();
+      return data.resources.results.products;
+    } catch (error) {
+      console.error('Search error:', error);
+      return [];
+    }
+  };
+
+// Display search results
+  const displayResults = (products) => {
+    searchResults.innerHTML = '';
+    if (products.length === 0) {
+      searchResults.innerHTML = `<div class="search-item">No results found</div>`;
+      searchResults.style.display = 'block';
+      return;
+    }
+
+    products.forEach(product => {
+      const item = document.createElement('a');
+      item.className = 'search-item d-block text-decoration-none text-dark';
+      item.href = product.url;
+      item.innerHTML = `
+        <div class="d-flex align-items-center">
+          <img class="thumbnailSearch object-fit-cover" src="${
+        product.image
+      }" alt="${
+        product.title
+      }" width="50" height="50" class="me-3">
+          <div>
+            <h6 class="mb-0">${
+        product.title
+      }</h6>
+            <small>${
+        product.price || money_with_currency
+      }€</small>
+          </div>
+        </div>
+      `;
+      searchResults.appendChild(item);
+    });
+    searchResults.style.display = 'block';
+  };
+
+// Handle search input
+  const handleSearch = debounce(async (e) => {
+    const query = e.target.value.trim();
+    if (query.length < 2) {
+      searchResults.style.display = 'none';
+      return;
+    }
+
+    const results = await fetchSearchResults(query);
+    displayResults(results);
+  }, 300);
+
+// Event listeners
+  searchBar.addEventListener('input', handleSearch);
+
+// Hide results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (! searchBar.contains(e.target)) {
+      searchResults.style.display = 'none';
+    }
+  });
+
+// Handle keyboard navigation
+  searchBar.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchResults.style.display = 'none';
+    }
+  });
 });
