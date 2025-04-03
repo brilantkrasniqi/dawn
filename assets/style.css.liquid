@@ -193,24 +193,39 @@ nav .form-control:focus {
 .cartContainer {
   width: 700px;
   padding: 2rem;
-  height: 95svh;
+  height: 100vh; /* Use full viewport height */
   position: absolute;
-  top: 0px;
+  top: 0;
   right: -1000px;
-  transition:all 0.2s ease-in-out
+  transition: all 0.2s ease-in-out;
 }
+
+/* When the cart is active */
 .cartActive {
-  top:0px;
-  right: 0px;
+  top: 0;
+  right: 0;
 }
+
+/* Make the top section (header + items) flex and fill available space */
+.cartContainer > div:first-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Let the cart items area take available space and scroll if needed */
 .cartItemsContainer {
-  min-height: 205px;
-  max-height: 60%;
-  overflow-y: auto;
+  flex: 1;
+  overflow-y: auto !important;
+  /* Remove any fixed height constraints */
 }
+
+/* Cart info remains at the bottom */
 .cart-info {
   margin-top: auto;
 }
+
+/* (Keep your other styles as needed) */
 .cartItemContainer .prodImage {
   width: 220px;
   height: 170px;
@@ -226,15 +241,42 @@ nav .form-control:focus {
   width: 150px;
   border: 1px solid #0b266f3d;
 }
+#closeBtn {
+  width: 20px;
+  height: 20px;
+}
+#quantityBtnM {
+  width: 20px;
+  height:2px;
+}
+#quantityBtnP {
+  width: 20px;
+  height:20px;
+}
+#discount-code {
+  border: 1px solid #0b266f3d;
+  padding: 0.725rem 1.2rem;
+  max-width: 300px;
+}
+#discount-code::placeholder {
+  opacity: 0.5;
+}
+
+.prod-card button {
+  background-color:transparent;
+  border: none;
+  color:var(--header-blue-);
+  font-weight:bold;
+}
+input[type="number"] {
+  appearance:none;
+}
 /* Hero Section */
 .hero-Content {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-
-
-
 /* Prod */
 .prod-image {
   background-color: var(--product-gray-bg);
@@ -312,17 +354,29 @@ nav .form-control:focus {
 #categoryHeader {
   background-color: var(--product-gray-bg);
 }
-.paginationContainer {
-}
-.paginationNav {
+.paginationContainer span,
+.paginationContainer a {
   padding: 0.75rem 2rem !important;
   border: 1px solid transparent;
 }
-.paginationNav:hover {
+
+.paginationContainer span:hover,
+.paginationContainer a:hover {
   border-radius: 8px;
   border: 1px solid var(--header-blue-);
 }
 
+/* Always show a border for the active/current page */
+.paginationContainer span.current {
+  border: 1px solid var(--header-blue-);
+  border-radius: 8px;
+}
+
+.next img,
+.prev img {
+  width: 20px;
+  height: 20px; 
+}
 .image-Nav img {
   width: 240px;
   height: 140px;
@@ -391,6 +445,7 @@ nav .form-control:focus {
   max-width: 792px !important;
 }
 
+
 .prod-Choice-Container {
   border-width: 1px;
   max-height: 170px;
@@ -426,9 +481,11 @@ nav .form-control:focus {
   height:80px; 
 }
 .subscription {
-  background-color: var(--product-gray-bg);
-  border: 2px solid var(--header-blue-);
   border-radius: 0 0 8px 8px;
+}
+.option-container.selected-option {
+  background-color: var(--product-gray-bg);
+  border: 1px solid var(--header-blue-) !important;
 }
 .discount {
   text-decoration: line-through;

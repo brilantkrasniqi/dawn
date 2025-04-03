@@ -19,8 +19,13 @@
               <p id="title">{{ product.title }}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <h3 class="fw-bold" id="price">{{ product.price | money }}</h3>
-                <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
-                  <button type="submit" class="funnel-font fw-bold">+ Add to cart</button>
+                <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
+                  <button
+                    type="submit"
+                    class="funnel-font fw-bold"
+                    aria-label="Add {{ product.title }} to cart">
+                    + Add to cart
+                  </button>
                 </form>
               </div>
             </div>

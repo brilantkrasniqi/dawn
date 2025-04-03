@@ -147,26 +147,178 @@ class PageNavigation {
 }
 const nav = new PageNavigation();
 
-document.addEventListener('DOMContentLoaded', () => {
+// Purchase Type
 
-// --- Add to Cart ---
-  document.querySelectorAll('.add-to-cart-form').forEach(form => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const variantId = form.getAttribute('data-variant-id');
-      addToCart(variantId, 1);
+const radios = document.querySelectorAll('input[name="properties[purchase_type]"]');
+
+// Function to update the selected styling
+function updateSelection() {
+  radios.forEach(radio => {
+
+// Remove the selected style from all option containers
+    radio.closest('.option-container').classList.remove('selected-option');
+  });
+
+// Find the checked radio and add the style to its container
+  const selectedRadio = document.querySelector('input[name="properties[purchase_type]"]:checked');
+  if (selectedRadio) {
+    selectedRadio.closest('.option-container').classList.add('selected-option');
+  }
+}
+
+// Listen for changes on each radio input
+radios.forEach(radio => {
+  radio.addEventListener('change', updateSelection);
+});
+
+// Initialize on page load
+updateSelection();
+
+
+// Pagination
+const paginationContainer = document.querySelector('.custom-pagination');
+
+if (paginationContainer) {
+  paginationContainer.addEventListener('click', (e) => {
+
+// Check if the clicked element is within an <a> tag
+    const link = e.target.closest('a');
+    if (! link) return;
+    
+
+
+// Exit if not an anchor
+
+    e.preventDefault();
+    const url = link.getAttribute('href');
+
+// Fetch the new page content
+    fetch(url).then(response => response.text()).then(html => {
+
+// Parse the returned HTML string into a new document
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+// Replace the product grid content
+      const newProducts = doc.querySelector('.row.pt-5');
+      const currentProducts = document.querySelector('.row.pt-5');
+      if (newProducts && currentProducts) {
+        currentProducts.innerHTML = newProducts.innerHTML;
+      }
+
+// Replace the pagination controls
+      const newPagination = doc.querySelector('.custom-pagination');
+      if (newPagination && paginationContainer) {
+        paginationContainer.innerHTML = newPagination.innerHTML;
+      }
+
+// Update the browser URL using the History API
+      history.pushState(null, '', url);
+
+// Scroll up to the product section (change the selector as needed)
+      const targetSection = document.querySelector('#productSection');
+      if (targetSection) {
+        targetSection.scrollIntoView({behavior: 'smooth'});
+      }
+    }).catch(error => {
+      console.error('Error loading new page:', error);
     });
   });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+// --- Setup Money Format and Shopify Helpers ---
+  if (!window.shopMoneyFormat) {
+    window.shopMoneyFormat = '€{{amount}}';
+  }
   if (typeof Shopify === 'undefined') {
     window.Shopify = {};
   }
   if (typeof Shopify.formatMoney !== 'function') {
     Shopify.formatMoney = function(cents, format) {
       const value = (cents / 100).toFixed(2);
-      return '$' + value;
+      return format.replace('{{amount}}', value);
     };
   }
 
+// --- Cart Open/Close Functions (using .cartActive) ---
+  function openCart() {
+    const cartContainer = document.querySelector('.cartContainer');
+    if (cartContainer) {
+      cartContainer.classList.add('cartActive');
+      console.log('Cart opened');
+    } else {
+      console.error('Cart container not found.');
+    }
+  }
+  function closeCart() {
+    const cartContainer = document.querySelector('.cartContainer');
+    if (cartContainer) {
+      cartContainer.classList.remove('cartActive');
+      console.log('Cart closed');
+    }
+  }
+
+// --- Quantity Slider and Input Synchronization ---
+  const quantitySlider = document.getElementById('quantitySlider');
+  const quantityInput = document.getElementById('quantityInput');
+
+  if (quantitySlider && quantityInput) {
+
+// Listen for slider changes.
+// (Assuming tc-range-slider emits a custom "change" event with detail.value)
+    quantitySlider.addEventListener('change', function(e) {
+
+// e.detail.value is assumed to be provided by the custom element.
+      const newVal = e.detail && e.detail.value !== undefined
+        ? e.detail.value
+        : quantitySlider.getAttribute('value');
+      quantityInput.value = newVal;
+      console.log('Slider changed, new value:', newVal);
+    });
+
+// If the slider also emits an "input" event during dragging:
+    quantitySlider.addEventListener('input', function(e) {
+      const newVal = e.detail && e.detail.value !== undefined
+        ? e.detail.value
+        : quantitySlider.getAttribute('value');
+      quantityInput.value = newVal;
+      console.log('Slider input event, new value:', newVal);
+    });
+
+// Listen for manual changes on the number input
+    quantityInput.addEventListener('input', function(e) {
+      const val = quantityInput.value;
+
+// Update the slider’s value by setting its attribute.
+      quantitySlider.setAttribute('value', val);
+      console.log('Input changed, new value:', val);
+    });
+  } else {
+    console.error('Quantity slider or input not found.');
+  }
+
+// --- Add to Cart Event Listener ---
+  const addToCartForms = document.querySelectorAll('.add-to-cart-form');
+  if (addToCartForms.length === 0) {
+    console.error('No add-to-cart forms found.');
+  }
+  addToCartForms.forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const variantId = form.getAttribute('data-variant-id');
+      if (! variantId) {
+        console.error('Variant ID not found on form.');
+        return;
+      }
+
+// Get the quantity from the input field
+      const quantity = parseInt(quantityInput.value, 10) || 1;
+      console.log('Submitting Add to Cart for variant:', variantId, 'Quantity:', quantity);
+      addToCart(variantId, quantity);
+    });
+  });
   function addToCart(variantId, quantity) {
     fetch('/cart/add.js', {
       method: 'POST',
@@ -179,99 +331,143 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(response => response.json()).then(data => {
       console.log('Item added:', data);
       updateCartUI();
+      openCart();
     }).catch(error => console.error('Error adding item:', error));
   }
 
 // --- Update Cart UI ---
   function updateCartUI() {
     fetch('/cart.js').then(response => response.json()).then(cart => {
+      console.log('Cart data:', cart);
 
 // Update cart count
       const cartCountElem = document.querySelector('.cart-count');
-      if (cartCountElem) 
+      if (cartCountElem) {
         cartCountElem.textContent = cart.item_count;
-      
-
+      } else {
+        console.error('Cart count element not found.');
+      }
 
 // Build cart items HTML
       let itemsHtml = '';
-      cart.items.forEach(item => {
-        itemsHtml += `
+      if (cart.items.length === 0) {
+        itemsHtml = `<div class="cartItemsContainer bg-white rounded-8">
+                       <h3 class="text-center pt-3">Your Cart is Empty</h3>
+                     </div>`;
+      } else {
+        cart.items.forEach(function(item) {
+          itemsHtml += `
             <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3" data-key="${
-          item.key
-        }">
+            item.key
+          }">
               <div class="prodImage rounded-8">
-                <img src="${
-          item.image
-        }" alt="${
-          item.title
-        }" height="150" width="220" />
+                <img loading="lazy" src="${
+            item.image
+          }" alt="${
+            item.title
+          }" height="150" width="220" />
               </div>
               <div class="prod-info flex-grow-1 ps-3">
                 <p class="title text-uppercase">${
-          item.product_title
-        }</p>
+            item.product_title
+          }</p>
                 <div class="d-flex align-items-center py-md-3 py-1">
-                  <span class="original-price discount funnel-font">${
-          item.compare_at_price
-            ? Shopify.formatMoney(item.compare_at_price, window.shopMoneyFormat)
-            : ''
-          }</span>
-                  <h3 class="current-price fw-bold ps-2">${
-          Shopify.formatMoney(item.price, window.shopMoneyFormat)
-        }</h3>
+                  <span class="original-price discount funnel-font">
+                    ${
+            item.compare_at_price
+              ? Shopify.formatMoney(item.compare_at_price, window.shopMoneyFormat)
+              : ''
+            }
+                  </span>
+                  <h3 class="current-price fw-bold ps-2">
+                    ${
+            Shopify.formatMoney(item.price, window.shopMoneyFormat)
+          }
+                  </h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="quantity rounded-8 d-flex align-items-center justify-content-between">
                     <button class="btn-white p-2 btn-minus" data-key="${
-          item.key
-        }">-</button>
+            item.key
+          }">
+                      <img id="quantityBtnM" src="{{'minus.svg' | asset_url}}" width="20" height="20" alt="minus">
+                    </button>
                     <p class="quantity-number">${
-          item.quantity
-        }</p>
+            item.quantity
+          }</p>
                     <button class="btn-white p-2 btn-plus" data-key="${
-          item.key
-        }">+</button>
+            item.key
+          }">
+                      <img id="quantityBtnP" src="{{'plus.svg' | asset_url}}" width="10" height="10" alt="plus">
+                    </button>
                   </div>
                   <a href="#" class="underline fw-bold funnel-font remove-item" data-key="${
-          item.key
-        }">Remove Item</a>
+            item.key
+          }">Remove Item</a>
                 </div>
               </div>
             </div>
           `;
-      });
-      document.querySelector('.cartItemsContainer').innerHTML = itemsHtml;
+        });
+      }
+      const cartItemsContainer = document.querySelector('.cartItemsContainer');
+      if (cartItemsContainer) {
+        cartItemsContainer.innerHTML = itemsHtml;
+      } else {
+        console.error('Cart items container not found.');
+      }
 
-// Update subtotal using Shopify's formatMoney helper
-      document.getElementById('cart-subtotal').textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
+// Update all subtotal elements (with the class .cart-subtotal)
+      document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
+        subtotalElem.textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
+        console.log('Updated subtotal element:', subtotalElem);
+      });
     }).catch(error => console.error('Error updating cart UI:', error));
   }
 
-// --- Modify Quantity & Remove Items ---
-  document.addEventListener('click', e => {
-    if (e.target.matches('.btn-plus')) {
-      const key = e.target.getAttribute('data-key');
-      updateCartItemQuantity(key, 1);
+// --- Event Delegation for Quantity Buttons & Remove Links ---
+  document.addEventListener('click', function(e) {
+
+// Plus button
+    const plusButton = e.target.closest('.btn-plus');
+    if (plusButton) {
+      const key = plusButton.getAttribute('data-key');
+      if (key) {
+        updateCartItemQuantity(key, 1);
+        return;
+      }
     }
-    if (e.target.matches('.btn-minus')) {
-      const key = e.target.getAttribute('data-key');
-      updateCartItemQuantity(key, -1);
+
+// Minus button
+    const minusButton = e.target.closest('.btn-minus');
+    if (minusButton) {
+      const key = minusButton.getAttribute('data-key');
+      if (key) {
+        updateCartItemQuantity(key, -1);
+        return;
+      }
     }
-    if (e.target.matches('.remove-item')) {
+
+// Remove button
+    const removeButton = e.target.closest('.remove-item');
+    if (removeButton) {
       e.preventDefault();
-      const key = e.target.getAttribute('data-key');
-      updateCartItemQuantity(key, 0);
+      const key = removeButton.getAttribute('data-key');
+      if (key) {
+        updateCartItemQuantity(key, 0);
+        return;
+      }
     }
   });
-
   function updateCartItemQuantity(itemKey, change) {
+    console.log('Updating quantity for key:', itemKey, 'Change:', change);
     fetch('/cart.js').then(response => response.json()).then(cart => {
       const item = cart.items.find(i => i.key === itemKey);
-      if (! item) return;
-      
-
-      let newQuantity = change === 0
+      if (! item) {
+        console.error('Item not found for key:', itemKey);
+        return;
+      }
+      let newQuantity = (change === 0)
         ? 0
         : item.quantity + change;
       if (newQuantity < 0) 
@@ -293,24 +489,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-// --- Checkout ---
+// --- Checkout Button Event ---
   const checkoutButton = document.querySelector('.checkout-button');
   if (checkoutButton) {
-    checkoutButton.addEventListener('click', () => {
+    checkoutButton.addEventListener('click', function() {
       window.location.href = '/checkout';
     });
   }
 
-// --- Close Cart (if you have a close functionality) ---
+// --- Close Cart Event ---
   const closeCartButton = document.getElementById('closeCart');
   if (closeCartButton) {
-    closeCartButton.addEventListener('click', () => {
-
-// Assuming you hide the cart drawer by removing a class (e.g., 'active')
-      document.querySelector('.cartContainer').classList.remove('active');
+    closeCartButton.addEventListener('click', function() {
+      closeCart();
     });
   }
 
-// Initialize cart UI on page load
+// --- Initialize Cart UI on Page Load ---
   updateCartUI();
 });

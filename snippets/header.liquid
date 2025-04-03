@@ -87,53 +87,64 @@
               alt="Cart" />
             <p class="fw-bold">
               &nbsp;
-              <span class="d-sm-inline-block d-none" id="cart-subtotal">Cart</span>
+              <span class="d-sm-inline-block d-none cart-subtotal">Cart</span>
 
             </p>
-            <div class="cartContainer d-flex flex-column justify-content-between bg-gray">
-              <div>
-                <div class="d-flex align-items-center justify-content-between pb-4">
-                  <h3 class="text-uppercase funnel-font">
-                    Your cart (<span class="cart-count">0</span>
-                    items)
-                  </h3>
-                  <h3
-                    class="fs-5 funnel-font user-select-none"
-                    id="closeCart"
-                    style="cursor:pointer;">Close</h3>
-                </div>
-                <!-- CART ITEMS -->
-                <div class="cartItemsContainer bg-white rounded-8"></div>
-              </div>
-              <!-- CART INFO -->
-              <div class="cart-info">
-                <div class="d-flex align-items-center justify-content-between border-bottom py-2">
-                  <p class="d-sm-inline-block d-none">Do you have a discount code?</p>
-                  <input
-                    type="text"
-                    name="discount-code"
-                    id="discount-code"
-                    placeholder="Enter your code"
-                    class="rounded-8 p-1 mx-auto mx-sm-0" />
-                </div>
-                <div class="d-flex align-items-center justify-content-between py-2">
-                  <p>Order Discounts</p>
-                  <p id="order-discounts">-$0.00</p>
-                </div>
-                <div class="d-flex align-items-center justify-content-between py-2">
-                  <p>Shipping costs</p>
-                  <p id="shipping-costs">$0.00</p>
-                </div>
-                <div class="d-flex align-items-center justify-content-between pt-2 pb-4">
-                  <h3 class="fw-bold">Subtotal</h3>
-                  <h3 class="fw-bold" id="cart-subtotal">$0.00</h3>
-                </div>
-                <div class="btn-main w-100 checkout-button" style="cursor:pointer;">Continue to Checkout</div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <!-- Cart -->
+  <div class="cartContainer d-flex flex-column justify-content-between bg-gray">
+    <div>
+      <div class="d-flex align-items-center justify-content-between pb-4">
+        <h3 class="text-uppercase funnel-font">
+          Your cart (<span class="cart-count">0</span>
+          items)
+        </h3>
+        <div
+          class="d-flex align-items-center"
+          type="button"
+          id="closeCart">
+          <img
+            id="closeBtn"
+            src="{{'Close.svg' |  asset_url}}"
+            width="20"
+            height="20"
+            alt="">
+          <h3 class="fs-5 funnel-font user-select-none ps-1" type="button">
+            Close</h3>
+        </div>
+      </div>
+      <!-- CART ITEMS -->
+      <div class="cartItemsContainer bg-white rounded-8"></div>
+    </div>
+    <!-- CART INFO -->
+    <div class="cart-info">
+      <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+        <p class="d-sm-inline-block d-none">Do you have a discount code?</p>
+        <input
+          type="text"
+          name="discount-code"
+          id="discount-code"
+          placeholder="Enter your code"
+          class="rounded-8  mx-auto mx-sm-0" />
+      </div>
+      <div class="d-flex align-items-center justify-content-between py-2">
+        <p>Order Discounts</p>
+        <p id="order-discounts">-$0.00</p>
+      </div>
+      <div class="d-flex align-items-center justify-content-between py-2">
+        <p>Shipping costs</p>
+        <p id="shipping-costs">$0.00</p>
+      </div>
+      <div class="d-flex align-items-center justify-content-between pt-2 pb-4">
+        <h3 class="fw-bold">Subtotal</h3>
+        <h3 class="fw-bold cart-subtotal">$0.00</h3>
+      </div>
+      <div class="btn-main w-100 checkout-button" style="cursor:pointer;">Continue to Checkout</div>
     </div>
   </div>
   <!-- Mobile Menu -->

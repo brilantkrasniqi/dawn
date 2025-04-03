@@ -47,32 +47,43 @@
         <h2 class="text-uppercase">{{ product.title }}</h2>
         <p class="pt-3">{{ product.description }}</p>
         <div class="d-flex pt-4">
-          {% for variant in product.variants %}
-            <div class="prod-Choice-Container p-1">
-              <div class="bg-white">
-                <img
-                  src="{{variant.image |  image_url }}"
-                  alt=""
-                  width="50"
-                  height="50" />
-              </div>
-              <p class="text-center funnel-font pt-3">{{ variant.title }}</p>
-            </div>
+          {% if product.variants.length > 0 %}
+            {% for variant in product.variants %}
 
-          {% endfor %}
+              <div class="prod-Choice-Container p-1">
+                <div class="bg-white">
+                  <img
+                    src="{{variant.image |  image_url }}"
+                    alt=""
+                    width="50"
+                    height="50" />
+                </div>
+                <p class="text-center funnel-font pt-3">{{ variant.title }}</p>
+              </div>
+
+            {% endfor %}
+          {% endif %}
+
         </div>
         <div class="mt-5 rounded-8 border">
-          <div class="one-Time p-4">
+          <div class="one-Time p-4 option-container">
             <div class="d-flex justify-content-between">
               <p class="fw-light">Buy one-time</p>
-              <span>O</span>
+              <input
+                type="radio"
+                name="properties[purchase_type]"
+                value="oneTime">
             </div>
             <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}</h3>
           </div>
-          <div class="subscription p-4">
+          <div class="subscription border-top p-4 option-container">
             <div class="d-flex align-items-center justify-content-between">
               <p class="fw-light">Subscribe</p>
-              <p>O</p>
+              <input
+                type="radio"
+                name="properties[purchase_type]"
+                checked
+                value="subscription">
             </div>
             <h3 class="subscription-Price funnel-font py-2 text-discount">
               24.99$
@@ -96,45 +107,73 @@
             <input
               type="number"
               name="quantity"
-              id="quantity"
+              id="quantityInput"
+              min="1"
               placeholder="Custom quantity"
               class="p-2 rounded-8 border-1" />
           </div>
-          <div class="py-5 px-3">
-            <tc-range-slider
-              min="0"
-              max="100"
-              step="10"
-              round="0"
-              marks="true"
-              slider-width="100%"
-              slider-height="8px"
-              pointer-width="24px"
-              pointer-height="24px"
-              pointer-radius="8px"
-              slider-bg-fill="#1A3683"
-              slider-bg="#EDEFF5"
-              slider-bg-hover="#EDEFF5"
-              pointer-bg="#1A3683"
-              pointer-bg-hover="#1A3683"
-              pointer-bg-focus="#1A3683"
-              pointer-border="none"
-              pointer-border-focus="none"
-              marks-values-color="#0B266F"></tc-range-slider>
-          </div>
+          <!-- Wrap everything inside one add-to-cart form -->
+          <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
+            <!-- Slider and Quantity Input -->
+            <div class="py-5 px-3">
+              <tc-range-slider
+                scroll="false"
+                id="quantitySlider"
+                min="0"
+                max="100"
+                step="1"
+                round="0"
+                marks="true"
+                slider-width="100%"
+                slider-height="8px"
+                pointer-width="24px"
+                pointer-height="24px"
+                pointer-radius="8px"
+                slider-bg-fill="#1A3683"
+                slider-bg="#EDEFF5"
+                slider-bg-hover="#EDEFF5"
+                pointer-bg="#1A3683"
+                pointer-bg-hover="#1A3683"
+                pointer-bg-focus="#1A3683"
+                pointer-border="none"
+                pointer-border-focus="none"
+                marks-values-color="#0B266F"></tc-range-slider>
+            </div>
+            {% comment %} <div class="py-2 px-3">
+                                          <label for="quantityInput">Quantity:</label>
+                                          <input
+                                            type="number"
+                                            id="quantityInput"
+                                            value="0"
+                                            min="0"
+                                            max="100"
+                                            step="1">
+                                    </div> {% endcomment %}
+            <!-- Add to Cart Button -->
+            <button
+              type="submit"
+              class="btn-main w-100 mt-5"
+              aria-label="Add {{ product.title }} to cart">
+              Add to cart
+            </button>
+          </form>
+
+
         </div>
-        <button class="btn-main w-100 mt-5">Add to Cart</button>
-        <div class="d-flex align-items-center buyInBulk p-3 mt-5">
-          <img
-            src="{{'tp-svg.svg' |  asset_url}}"
-            width="48"
-            height="48"
-            alt="Bulk" />
-          <div class="ps-4">
-            <h3 class="fw-bold">Looking to buy in bulk?</h3>
-            <p class="fw-light">Check out our B2B deals</p>
+        <a href=" {{ section.settings.b2b_link}}">
+          <div class="d-flex align-items-center buyInBulk p-3 mt-5">
+            <img
+              src="{{'tp-svg.svg' |  asset_url}}"
+              width="48"
+              height="48"
+              alt="Bulk" />
+            <div class="ps-4">
+
+              <h3 class="fw-bold">Looking to buy in bulk?</h3>
+              <p class="fw-light">Check out our B2B deals</p>
+            </div>
           </div>
-        </div>
+        </a>
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold pb-4">Product Features</h3>
           <div class="row">
@@ -233,6 +272,11 @@
         "id": "why_sub",
         "label": "Why choose subscription?",
         "default": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you’ll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns."
+      },
+      {
+        "type": "url",
+        "id": "b2b_link",
+        "label": "B2B link"
       }
     ],
 

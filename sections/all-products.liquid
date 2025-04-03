@@ -1,74 +1,37 @@
-<section class="section-padding">
+<section class="section-padding" id="productSection">
   <div class="custom-container">
     <div class="d-flex align-items-center justify-content-between">
       <div class="col-sm-4 col-0"></div>
       <h2 class="text-sm-center text-start col-sm-4 col-6">All products</h2>
-      <p class="text-end col-sm-4 col-6">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
-
-        <form method="get">
-          <label for="sort">Sort by:</label>
-          <select
-            name="sort_by"
-            id="sort"
-            onchange="this.form.submit()">
-            <option
-              value="manual"
-              {% if sort_by == "manual" %}
-              selected{% endif %}>Featured</option>
-            <option
-              value="best-selling"
-              {% if sort_by == "best-selling" %}
-              selected{% endif %}>Best Selling</option>
-            <option
-              value="title-ascending"
-              {% if sort_by == "title-ascending" %}
-              selected{% endif %}>Alphabetically, A-Z</option>
-            <option
-              value="title-descending"
-              {% if sort_by == "title-descending" %}
-              selected{% endif %}>Alphabetically, Z-A</option>
-            <option
-              value="price-ascending"
-              {% if sort_by == "price-ascending" %}
-              selected{% endif %}>Price, low to high</option>
-            <option
-              value="price-descending"
-              {% if sort_by == "price-descending" %}
-              selected{% endif %}>Price, high to low</option>
-            <option
-              value="created-descending"
-              {% if sort_by == "created-descending" %}
-              selected{% endif %}>Newest first</option>
-            <option
-              value="created-ascending"
-              {% if sort_by == "created-ascending" %}
-              selected{% endif %}>Oldest first</option>
-          </select>
-        </form>
-      </p>
+      <p class="text-end col-sm-4 col-6">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}</p>
     </div>
     {% paginate collections['our-products'].products by 12 %}
       <div class="row pt-5">
         {% for product in collections['our-products'].products %}
           <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
             <div class="product-container">
-              <div class="prod-image">
-                <img
-                  loading="lazy"
-                  src="{{product.featured_image | image_url}}"
-                  alt="Placeholder Product"
-                  height="100"
-                  width="100"
-                  alt="{{product.title}}">
-              </div>
+              <a href="{{ product.url }}">
+                <div class="prod-image">
+                  <img
+                    loading="lazy"
+                    src="{{ product.featured_image | image_url }}"
+                    width="250"
+                    height="225"
+                    alt="{{ product.title }}" />
+                </div>
+              </a>
               <div class="prod-info">
                 <p id="title">{{ product.title }}</p>
                 <div class="d-flex align-items-center justify-content-between">
                   <h3 class="fw-bold" id="price">{{ product.price | money }}</h3>
-                  <p
-                    class="funnel-font fw-bold"
-                    data-product-id="{{ product.id }}"
-                    id="addToCart">+Add to cart</p>
+                  <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
+                    <button
+                      type="submit"
+                      class="funnel-font fw-bold"
+                      aria-label="Add {{ product.title }} to cart">
+                      + Add to cart
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -77,8 +40,37 @@
       </div>
       <div class="col-12 d-flex justify-content-center">
         <div class="paginationContainer pt-md-5 pt-3">
-          {{ paginate | default_pagination }}
-        {% comment %} <a href="#" class="paginationNav">0</a> {% endcomment %}
+          <div class="custom-pagination">
+            {% if paginate.previous %}
+              <a
+                href="{{ paginate.previous.url }}"
+                class="prev"
+                aria-label="Previous"><img
+                  src="{{'left-arrow.svg' |  asset_url}}"
+                  width="20"
+                  height="20"
+                  alt=""></a>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {% else %}
+                <span class="current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <a
+                href="{{ paginate.next.url }}"
+                class="next"
+                aria-label="Next"><img
+                  src="{{'right-arrow.svg' |  asset_url}}"
+                  width="20"
+                  height="20"
+                  alt="Next Page"></a>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% endpaginate %}
