@@ -137,7 +137,13 @@ class PageNavigation {
         isNavigation: true,
         lazyLoad: "nearby",
         pagination: false,
-        cover: true
+        cover: true,
+        breakpoints: {
+          450: {
+            fixedWidth: 80,
+            fixedHeight: 60
+          }
+        }
       });
       mainProd.sync(prodThumbnails);
       mainProd.mount();

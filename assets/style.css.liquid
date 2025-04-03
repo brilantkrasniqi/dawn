@@ -14,6 +14,7 @@
 body {
   font-family: "Roboto", sans-serif;
   overflow-x: hidden !important;
+  box-sizing:border-box;
 }
 a,
 ul,
@@ -193,19 +194,18 @@ nav .form-control:focus {
 .cartContainer {
   width: 700px;
   padding: 2rem;
-  height: 100vh;
-  position: absolute;
+  height: 100vh; /* Use full viewport height */
+  position: fixed;
   top: 0;
-  right: 0;
-  opacity: 0;
-  z-index: -1000;
-  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
- 
+  right: -1000px;
+  z-index: 10000;
+  transition: all 0.2s ease-in-out;
 }
+
 /* When the cart is active */
 .cartActive {
-  z-index: 1000;
-  opacity: 1;
+  top: 0;
+  right: 0;
 }
 
 /* Make the top section (header + items) flex and fill available space */
