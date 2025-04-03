@@ -74,7 +74,9 @@
                 name="properties[purchase_type]"
                 value="oneTime">
             </div>
-            <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}</h3>
+            <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
+              <span class="perPiece pb-2">({{ product.price | divided_by: 8.0 | money }}) per piece</span>
+            </h3>
           </div>
           <div class="subscription border-top p-4 option-container">
             <div class="d-flex align-items-center justify-content-between">
@@ -86,8 +88,8 @@
                 value="subscription">
             </div>
             <h3 class="subscription-Price funnel-font py-2 text-discount">
-              24.99$
-              <span class="discount fw-light roboto-font" id="variant-price">{{ product.price | money }}</span>
+              {{ product.price | times: 0.7 | money }}
+              <span class="discount fw-light roboto-font user-select-none" id="variant-price">{{ product.price | money }}</span>
             </h3>
             <p class="fw-bold text-discount">
               Use promo TP4EVA at checkout to get 5€ off your first subscription order.
@@ -139,16 +141,6 @@
                 pointer-border-focus="none"
                 marks-values-color="#0B266F"></tc-range-slider>
             </div>
-            {% comment %} <div class="py-2 px-3">
-                                          <label for="quantityInput">Quantity:</label>
-                                          <input
-                                            type="number"
-                                            id="quantityInput"
-                                            value="0"
-                                            min="0"
-                                            max="100"
-                                            step="1">
-                                    </div> {% endcomment %}
             <!-- Add to Cart Button -->
             <button
               type="submit"

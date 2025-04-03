@@ -23,7 +23,9 @@
               <div class="prod-info">
                 <p id="title">{{ product.title }}</p>
                 <div class="d-flex align-items-center justify-content-between">
-                  <h3 class="fw-bold" id="price">{{ product.price | money }}</h3>
+                  <h3 class="fw-bold" id="price">{{ product.price | money }}
+                    <span class="perPiece pb-2">({{ product.price | divided_by: 8.0 | money }}) per piece</span>
+                  </h3>
                   <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
                     <button
                       type="submit"

@@ -88,7 +88,6 @@
             <p class="fw-bold">
               &nbsp;
               <span class="d-sm-inline-block d-none cart-subtotal">Cart</span>
-
             </p>
 
           </div>
@@ -163,7 +162,12 @@
         {% for link in linklists.mobile-menu.links %}
           <div class="mobileNavItem">
             <a class="funnel-font fw-medium" href="{{link.url}}">{{ link.title }}</a>
-            <p>></p>
+            <img
+              src="{{'right-arrow.svg' |  asset_url}}"
+              width="20"
+              height="20"
+              alt=""
+              style="width: 10px;height: 10px;" />
           </div>
 
         {% endfor %}
