@@ -215,6 +215,13 @@
           "link_3": "",
           "link_text_3": "Shop toilet paper"
         }
+      },
+      "product-main": {
+        "type": "product-main",
+        "settings": {
+          "why_sub": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you’ll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns.",
+          "b2b_link": "shopify://pages/b2b-partnerships"
+        }
       }
     },
     "content_for_index": []
