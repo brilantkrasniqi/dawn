@@ -180,57 +180,7 @@ radios.forEach(radio => {
 // Initialize on page load
 updateSelection();
 
-
-// Pagination
-// const paginationContainer = document.querySelector('.custom-pagination');
-
-// if (paginationContainer) {
-// paginationContainer.addEventListener('click', (e) => {
-
-// // Check if the clicked element is within an <a> tag
-// const link = e.target.closest('a');
-// if (! link) return;
-
-
-// // Exit if not an anchor
-
-// e.preventDefault();
-// const url = link.getAttribute('href');
-
-// // Fetch the new page content
-// fetch(url).then(response => response.text()).then(html => {
-
-// // Parse the returned HTML string into a new document
-// const parser = new DOMParser();
-// const doc = parser.parseFromString(html, 'text/html');
-
-// // Replace the product grid content
-// const newProducts = doc.querySelector('.row.pt-5');
-// const currentProducts = document.querySelector('.row.pt-5');
-// if (newProducts && currentProducts) {
-// currentProducts.innerHTML = newProducts.innerHTML;
-// }
-
-// // Replace the pagination controls
-// const newPagination = doc.querySelector('.custom-pagination');
-// if (newPagination && paginationContainer) {
-// paginationContainer.innerHTML = newPagination.innerHTML;
-// }
-
-// // Update the browser URL using the History API
-// history.pushState(null, '', url);
-
-// // Scroll up to the product section (change the selector as needed)
-// const targetSection = document.querySelector('#productSection');
-// if (targetSection) {
-// targetSection.scrollIntoView({behavior: 'smooth'});
-// }
-// }).catch(error => {
-// console.error('Error loading new page:', error);
-// });
-// });
-// }
-
+// --- Cart Functionality ---
 document.addEventListener('DOMContentLoaded', function() {
 
 // --- Setup Money Format and Shopify Helpers ---
@@ -252,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartContainer = document.querySelector('.cartContainer');
     if (cartContainer) {
       cartContainer.classList.add('cartActive');
-      console.log('Cart opened');
     } else {
       console.error('Cart container not found.');
     }
@@ -261,33 +210,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartContainer = document.querySelector('.cartContainer');
     if (cartContainer) {
       cartContainer.classList.remove('cartActive');
-      console.log('Cart closed');
     }
   }
 
 // --- Quantity Slider and Input Synchronization ---
   const quantitySlider = document.getElementById('quantitySlider');
   const quantityInput = document.getElementById('quantityInput');
+  if (quantitySlider) {
+    quantitySlider.min = 1;
 
+  }
   if (quantitySlider && quantityInput) { // Listen for slider changes.
     quantitySlider ?. addEventListener('change', function(e) {
       const newVal = e.detail && e.detail.value !== undefined
         ? e.detail.value
         : quantitySlider.getAttribute('value');
       quantityInput.value = newVal;
-      console.log('Slider changed, new value:', newVal);
     });
     quantitySlider.addEventListener('input', function(e) {
       const newVal = e.detail && e.detail.value !== undefined
         ? e.detail.value
         : quantitySlider.getAttribute('value');
       quantityInput.value = newVal;
-      console.log('Slider input event, new value:', newVal);
     });
     quantityInput.addEventListener('input', function(e) {
       const val = quantityInput.value;
       quantitySlider.setAttribute('value', val);
-      console.log('Input changed, new value:', val);
     });
   } else {
     console.error('Quantity slider or input not found.');
@@ -332,7 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- Update Cart UI ---
   function updateCartUI() {
     fetch('/cart.js').then(response => response.json()).then(cart => {
-      console.log('Cart data:', cart);
 
 // Update cart count
       const cartCountElem = document.querySelector('.cart-count');
@@ -373,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
               : ''
             }
                   </span>
-                  <h3 class="current-price fw-bold ps-2">
+                  <h3 class="current-price fw-bold ps-2 cart-subtotal">
                     ${
             Shopify.formatMoney(item.price, window.shopMoneyFormat)
           }
@@ -414,7 +361,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update all subtotal elements (with the class .cart-subtotal)
       document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
         subtotalElem.textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
-        console.log('Updated subtotal element:', subtotalElem);
       });
     }).catch(error => console.error('Error updating cart UI:', error));
   }
