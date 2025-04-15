@@ -2,44 +2,52 @@
   <div class="custom-container">
     <div class="row">
       <div class="col-lg-6 col-12">
-        <div
-          class="splide mx-auto"
-          id="singleProductShowCase"
-          aria-label="Product Show Case">
-          <div class="splide__track">
-            <ul class="splide__list">
-              {% for image in product.images %}
-                <li class="splide__slide">
-                  <div class="singleProdContainer">
-                    <img
-                      src="{{ image | image_url }}"
-                      height="200"
-                      width="300"
-                      alt="{{ product.title }}" />
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+        <div class="position-sticky top-15">
+          <div
+            class="splide mx-auto"
+            id="singleProductShowCase"
+            aria-label="Product Show Case">
+            <div class="splide__track">
+              <ul class="splide__list">
+                {% assign package_image_ids = product.variants | map: 'image' | compact | map: 'id' %}
+                {% for image in product.images %}
+                  {% unless package_image_ids contains image.id %}
+                    <li class="splide__slide">
+                      <div class="singleProdContainer">
+                        <img
+                          src="{{ image | image_url }}"
+                          height="200"
+                          width="300"
+                          alt="{{ product.title }}" />
+                      </div>
+                    </li>
+                  {% endunless %}
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div
-          class="splide"
-          id="thumbnailProductShowCase"
-          aria-label="Product Show Case">
-          <div class="splide__track px-4">
-            <ul class="splide__list">
-              {% for image in product.images %}
-                <li class="splide__slide">
-                  <div class="thumbnailProdContainer">
-                    <img
-                      src="{{ image | image_url }}"
-                      height="50"
-                      width="50"
-                      alt="{{ product.title }}" />
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+          <div
+            class="splide"
+            id="thumbnailProductShowCase"
+            aria-label="Product Show Case">
+            <div class="splide__track px-4">
+              <ul class="splide__list">
+                {% assign package_image_ids = product.variants | map: 'image' | compact | map: 'id' %}
+                {% for image in product.images %}
+                  {% unless package_image_ids contains image.id %}
+                    <li class="splide__slide">
+                      <div class="thumbnailProdContainer">
+                        <img
+                          src="{{ image | image_url }}"
+                          height="50"
+                          width="50"
+                          alt="{{ product.title }}" />
+                      </div>
+                    </li>
+                  {% endunless %}
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -47,22 +55,27 @@
         <h2 class="text-uppercase">{{ product.title }}</h2>
         <p class="pt-3">{{ product.description }}</p>
         <div class="d-flex pt-4">
-          {% if product.variants.length > 0 %}
+          <div class="d-flex gap-3 mt-4" id="package-options">
             {% for variant in product.variants %}
-
-              <div class="prod-Choice-Container p-1">
-                <div class="bg-white">
-                  <img
-                    src="{{variant.image |  image_url }}"
-                    alt=""
-                    width="50"
-                    height="50" />
-                </div>
-                <p class="text-center funnel-font pt-3">{{ variant.title }}</p>
+              <div
+                class="package-box p-3 rounded-8 border text-center"
+                data-variant-id="{{ variant.id }}"
+                data-price="{{ variant.price }}"
+                data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}">
+                <img
+                  src="{{variant.featured_image |  image_url }}"
+                  width="50"
+                  height="50"
+                  alt="">
+                <p class="fw-bold">{{ variant.title }}</p>
+                <p>{{ variant.price | money }}</p>
+                <p class="small text-muted">
+                  {{ variant.metafields.custom.pieces_per_pack | default: 1 }} pcs/pack
+                </p>
               </div>
-
             {% endfor %}
-          {% endif %}
+          </div>
+
 
         </div>
         <div class="mt-5 rounded-8 border">
@@ -81,6 +94,52 @@
                 ({{ net_price | divided_by: pieces | money }}) per piece</span>
             </h3>
             <div class="order-value-booster-block" id="cm9ivdx0x004pimv76lxdssu4"></div>
+            <div class="d-flex align-items-center justify-content-between">
+              <h3>Select quantity</h3>
+              <input
+                type="number"
+                name="quantity"
+                id="quantityInput"
+                min="1"
+                placeholder="Custom quantity"
+                class="p-2 rounded-8 border-1" />
+            </div>
+            <!-- Wrap everything inside one add-to-cart form -->
+            <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
+              <!-- Slider and Quantity Input -->
+              <div class="py-5 px-3">
+                <tc-range-slider
+                  mousewheel-disabled="true"
+                  id="quantitySlider"
+                  min="0"
+                  max="100"
+                  step="1"
+                  round="0"
+                  marks="true"
+                  marks-values-count="11"
+                  slider-width="100%"
+                  slider-height="8px"
+                  pointer-width="24px"
+                  pointer-height="24px"
+                  pointer-radius="8px"
+                  slider-bg-fill="#1A3683"
+                  slider-bg="#EDEFF5"
+                  slider-bg-hover="#EDEFF5"
+                  pointer-bg="#1A3683"
+                  pointer-bg-hover="#1A3683"
+                  pointer-bg-focus="#1A3683"
+                  pointer-border="none"
+                  pointer-border-focus="none"
+                  marks-values-color="#0B266F"></tc-range-slider>
+              </div>
+              <!-- Add to Cart Button -->
+              <button
+                type="submit"
+                class="btn-main w-100 mt-5"
+                aria-label="Add {{ product.title }} to cart">
+                Add to cart
+              </button>
+            </form>
           </div>
           <div class="subscription border-top p-4 option-container">
             <div class="d-flex align-items-center justify-content-between">
@@ -107,54 +166,7 @@
             </ul>
           </div>
         </div>
-        <div class="d-flex flex-column mt-5 p-4 border rounded-8">
-          <div class="d-flex align-items-center justify-content-between">
-            <h3>Select quantity</h3>
-            <input
-              type="number"
-              name="quantity"
-              id="quantityInput"
-              min="1"
-              placeholder="Custom quantity"
-              class="p-2 rounded-8 border-1" />
-          </div>
-          <!-- Wrap everything inside one add-to-cart form -->
-          <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
-            <!-- Slider and Quantity Input -->
-            <div class="py-5 px-3">
-              <tc-range-slider
-                mousewheel-disabled="true"
-                id="quantitySlider"
-                min="0"
-                max="100"
-                step="1"
-                round="0"
-                marks="true"
-                marks-values-count="11"
-                slider-width="100%"
-                slider-height="8px"
-                pointer-width="24px"
-                pointer-height="24px"
-                pointer-radius="8px"
-                slider-bg-fill="#1A3683"
-                slider-bg="#EDEFF5"
-                slider-bg-hover="#EDEFF5"
-                pointer-bg="#1A3683"
-                pointer-bg-hover="#1A3683"
-                pointer-bg-focus="#1A3683"
-                pointer-border="none"
-                pointer-border-focus="none"
-                marks-values-color="#0B266F"></tc-range-slider>
-            </div>
-            <!-- Add to Cart Button -->
-            <button
-              type="submit"
-              class="btn-main w-100 mt-5"
-              aria-label="Add {{ product.title }} to cart">
-              Add to cart
-            </button>
-          </form>
-        </div>
+        <div class="d-flex flex-column mt-5 p-4 border rounded-8"></div>
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold pb-4">Product Features</h3>
           <div class="row">
