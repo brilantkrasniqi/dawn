@@ -75,8 +75,12 @@
                 value="oneTime">
             </div>
             <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
-              <span class="perPiece pb-2">({{ product.price | divided_by: 8.0 | money }}) per piece</span>
+              {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
+              {% assign net_price = product.price | divided_by: 1.0 %}
+              <span class="perPiece pb-2">
+                ({{ net_price | divided_by: pieces | money }}) per piece</span>
             </h3>
+            <div data-efsb-widget-id="cm9ivdx0x004pimv76lxdssu4"></div>
           </div>
           <div class="subscription border-top p-4 option-container">
             <div class="d-flex align-items-center justify-content-between">
@@ -150,23 +154,7 @@
               Add to cart
             </button>
           </form>
-
-
         </div>
-        <a href=" {{ section.settings.b2b_link}}">
-          <div class="d-flex align-items-center buyInBulk p-3 mt-5">
-            <img
-              src="{{'tp-svg.svg' |  asset_url}}"
-              width="48"
-              height="48"
-              alt="Bulk" />
-            <div class="ps-4">
-
-              <h3 class="fw-bold">Looking to buy in bulk?</h3>
-              <p class="fw-light">Check out our B2B deals</p>
-            </div>
-          </div>
-        </a>
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold pb-4">Product Features</h3>
           <div class="row">
