@@ -1,0 +1,116 @@
+/* Customer account styles */
+
+.hide {
+  display: none;
+}
+
+.login-container,
+.register-container,
+.reset-password-container {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+/* Form styling */
+.form-control {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #e1e1e1;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #1A3683;
+  box-shadow: 0 0 0 0.25rem rgba(26, 54, 131, 0.1);
+}
+
+/* Address cards */
+.badge.bg-main-blue {
+  background-color: #1A3683;
+}
+
+/* Buttons */
+.btn-outline-primary {
+  color: #1A3683;
+  border-color: #1A3683;
+}
+
+.btn-outline-primary:hover {
+  background-color: #1A3683;
+  border-color: #1A3683;
+  color: white;
+}
+
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-outline-success {
+  color: #198754;
+  border-color: #198754;
+}
+
+.btn-outline-success:hover {
+  background-color: #198754;
+  border-color: #198754;
+  color: white;
+}
+
+/* Alert messages */
+.alert {
+  padding: 10px 15px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c2c7;
+  color: #842029;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  border: 1px solid #badbcc;
+  color: #0f5132;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 2rem 0;
+  }
+  
+  .login-container,
+  .register-container,
+  .reset-password-container {
+    padding: 15px !important;
+  }
+  
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .d-flex.justify-content-between .btn-main {
+    width: 100%;
+  }
+} 

@@ -11,7 +11,11 @@
       <div class="col-lg-6 col-12">
         <ul class="d-flex flex-lg-row flex-row-reverse align-items-center justify-content-lg-end justify-content-between text-white w-100">
           <li class="">
-            <a class="text-white pe-lg-2 pe-4" href="#">Account</a>
+            {% if customer %}
+              <a class="text-white pe-lg-2 pe-4" href="{{ routes.account_url }}">My Account</a>
+            {% else %}
+              <a class="text-white pe-lg-2 pe-4" href="{{ routes.account_login_url }}">Sign In / Register</a>
+            {% endif %}
           </li>
           <li class="">
             <a class="text-white px-lg-2 ps-3" href="#">flutura@support.com</a>
@@ -170,8 +174,21 @@
               alt=""
               style="width: 10px;height: 10px;" />
           </div>
-
         {% endfor %}
+
+        <div class="mobileNavItem">
+          {% if customer %}
+            <a class="funnel-font fw-medium" href="{{ routes.account_url }}">My Account</a>
+          {% else %}
+            <a class="funnel-font fw-medium" href="{{ routes.account_login_url }}">Sign In / Register</a>
+          {% endif %}
+          <img
+            src="{{'right-arrow.svg' |  asset_url}}"
+            width="20"
+            height="20"
+            alt=""
+            style="width: 10px;height: 10px;" />
+        </div>
 
         <div class="emailNavMobile">
           <p class="fw-medium">Email contact</p>

@@ -31,6 +31,7 @@
     {{ 'splide-core.min.css' | asset_url | stylesheet_tag }}
     {{ 'style.css' | asset_url | stylesheet_tag }}
     {{ 'media-queries.css' | asset_url | stylesheet_tag }}
+    {{ 'customer-styles.css' | asset_url | stylesheet_tag }}
   </head>
   <body>
     {% render 'header' %}
@@ -40,8 +41,8 @@
     <script src="{{'toolcool-range-slider.min.js' |  asset_url}}" async></script>
     <script src="{{'bootstrap.min.js' |  asset_url}}" defer></script>
     {% comment %} <script>
-                                                  window.shopMoneyFormat = {{ shop.money_format | json }};
-                                </script> {% endcomment %}
+                                                                    window.shopMoneyFormat = {{ shop.money_format | json }};
+                                            </script> {% endcomment %}
     <script
       type="module"
       src="{{ 'scripts.js' | asset_url }}"
@@ -65,6 +66,9 @@
       </script>
     {% endif %}
 
-
+    {% if template contains 'customers' %}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+    {% endif %}
   </body>
 </html>

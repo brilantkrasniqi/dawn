@@ -1,0 +1,131 @@
+{% layout "theme" %}
+
+<div class="section-padding">
+  <div class="custom-container">
+    <div class="row">
+      <div class="col-md-6 col-12 mx-auto">
+        <h1 class="text-center mb-5">Account</h1>
+
+        <div class="login-container p-4 border rounded-8">
+          {% form 'customer_login' %}
+            <div class="login-form">
+              <h2>Login</h2>
+
+              {% if form.errors %}
+                <div class="alert alert-danger">
+                  {{ form.errors | default_errors }}
+                </div>
+              {% endif %}
+
+              <div class="form-group mb-3">
+                <label for="customer_email">Email</label>
+                <input
+                  type="email"
+                  name="customer[email]"
+                  id="customer_email"
+                  class="form-control"
+                  autocomplete="email"
+                  placeholder="Email address"
+                  autofocus>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="customer_password">Password</label>
+                <input
+                  type="password"
+                  name="customer[password]"
+                  id="customer_password"
+                  class="form-control"
+                  autocomplete="current-password"
+                  placeholder="Password">
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="#recover" class="toggle-recover-form">Forgot your password?</a>
+              </div>
+
+              <button type="submit" class="btn-main w-100">Sign In</button>
+
+              <div class="text-center mt-4">
+                <p>Don't have an account?
+                  <a href="{{ routes.account_register_url }}">Create one</a>
+                </p>
+              </div>
+            </div>
+          {% endform %}
+
+          {% form 'recover_customer_password' %}
+            <div id="recover-password-form" class="hide">
+              <h2>Reset your password</h2>
+
+              {% if form.posted_successfully? %}
+                <div class="alert alert-success">
+                  We've sent you an email with a link to update your password.
+                </div>
+              {% endif %}
+
+              {% if form.errors %}
+                <div class="alert alert-danger">
+                  {{ form.errors | default_errors }}
+                </div>
+              {% endif %}
+
+              <p>We will send you an email to reset your password.</p>
+
+              <div class="form-group mb-3">
+                <label for="recover-email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="recover-email"
+                  class="form-control"
+                  autocomplete="email"
+                  placeholder="Email address">
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="#login" class="toggle-login-form">Cancel</a>
+                <button type="submit" class="btn-main">Submit</button>
+              </div>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.querySelector('.login-form');
+    const recoverForm = document.querySelector('#recover-password-form');
+    const toggleRecoverFormLinks = document.querySelectorAll('.toggle-recover-form');
+    const toggleLoginFormLinks = document.querySelectorAll('.toggle-login-form');
+    
+    // Check if URL has recover parameter
+    if (window.location.hash === '#recover') {
+      loginForm.style.display = 'none';
+      recoverForm.style.display = 'block';
+      recoverForm.classList.remove('hide');
+    }
+    
+    toggleRecoverFormLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        loginForm.style.display = 'none';
+        recoverForm.style.display = 'block';
+        recoverForm.classList.remove('hide');
+        window.location.hash = '#recover';
+      });
+    });
+    
+    toggleLoginFormLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        recoverForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        window.location.hash = '';
+      });
+    });
+  });
+</script>

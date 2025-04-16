@@ -1,0 +1,96 @@
+{% layout "theme" %}
+
+<div class="section-padding">
+  <div class="custom-container">
+    <div class="row">
+      <div class="col-md-6 col-12 mx-auto">
+        <h1 class="text-center mb-5">Create Account</h1>
+
+        <div class="register-container p-4 border rounded-8">
+          {% form 'create_customer' %}
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="first_name">First Name</label>
+                <input
+                  type="text"
+                  name="customer[first_name]"
+                  id="first_name"
+                  class="form-control"
+                  {% if form.first_name %}
+                  value="{{ form.first_name }}"
+                  {% endif %}
+                  autocomplete="given-name"
+                  autofocus>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="last_name">Last Name</label>
+                <input
+                  type="text"
+                  name="customer[last_name]"
+                  id="last_name"
+                  class="form-control"
+                  {% if form.last_name %}
+                  value="{{ form.last_name }}"
+                  {% endif %}
+                  autocomplete="family-name">
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="customer[email]"
+                id="email"
+                class="form-control"
+                {% if form.email %}
+                value="{{ form.email }}"
+                {% endif %}
+                autocomplete="email"
+                required>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="customer[password]"
+                id="password"
+                class="form-control"
+                autocomplete="new-password"
+                required>
+            </div>
+
+            <div class="form-group mb-4">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  name="customer[accepts_marketing]"
+                  id="accepts_marketing"
+                  class="form-check-input">
+                <label for="accepts_marketing" class="form-check-label">
+                  Subscribe to our newsletter
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-main w-100">Create Account</button>
+
+            <div class="text-center mt-4">
+              <p>Already have an account?
+                <a href="{{ routes.account_login_url }}">Login</a>
+              </p>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
