@@ -581,3 +581,81 @@ document.addEventListener('DOMContentLoaded', () => {
 // })
 // console.log('Hello');
 // }, 1000);
+
+document.addEventListener('DOMContentLoaded', function() {
+  const slider = document.getElementById('quantitySlider');
+  const qtyInput = document.getElementById('quantityInput');
+  const discountDisplay = document.getElementById('discountDisplay');
+  const totalPriceEl = document.getElementById('totalPrice');
+
+// Base price in cents (or euros) should be available; here we assume product.price is output by Liquid.
+  const basePriceCents = {{ product.price | times: 100 }};
+
+// This function uses the metafield data provided in window.discountTiers.
+  function getDiscountForQty(qty) {
+
+// If there are no tiers, return 0 discount.
+    if (!window.discountTiers || !window.discountTiers.tiers || window.discountTiers.tiers.length === 0) {
+      return 0;
+    }
+    let applicableDiscount = 0;
+
+// Loop over the tiers; assume tiers are sorted by 'min' ascending.
+    window.discountTiers.tiers.forEach(function(tier) {
+      if (qty >= tier.min) {
+        applicableDiscount = tier.discount;
+      }
+    });
+    return applicableDiscount;
+  }
+
+  function updateDisplay(qty) {
+    qty = parseInt(qty, 10) || 1;
+    const discountPercent = getDiscountForQty(qty);
+    discountDisplay.textContent = discountPercent > 0
+      ? discountPercent + '% off'
+      : 'No discount';
+
+// Calculate new unit price in cents after discount.
+// For example, if discount is 2%, then price becomes 98% of base.
+    const newUnitCents = Math.round(basePriceCents * (1 - discountPercent / 100));
+    const totalCents = newUnitCents * qty;
+
+// Update total price display using Shopify.formatMoney if available.
+    if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
+      totalPriceEl.textContent = Shopify.formatMoney(totalCents, window.shopMoneyFormat || '€{{amount}}');
+    } else {
+      totalPriceEl.textContent = '€' + (
+        totalCents / 100
+      ).toFixed(2);
+    }
+  }
+
+  function onQuantityChange(val) {
+    const qty = Math.max(1, parseInt(val, 10) || 1);
+    qtyInput.value = qty;
+    if (slider) {
+      slider.setAttribute('value', qty);
+    }
+    updateDisplay(qty);
+  }
+
+  if (slider) {
+    slider.addEventListener('input', function(e) {
+
+// Use e.detail.value if available or fallback.
+      const newValue = (e.detail && e.detail.value)
+        ? e.detail.value
+        : slider.getAttribute('value');
+      onQuantityChange(newValue);
+    });
+  }
+
+  if (qtyInput) {
+    qtyInput.addEventListener('input', function(e) {
+      onQuantityChange(e.target.value);
+    });
+  }
+
+  onQuantityChange(qtyInput.value || slider.getAttribute('value') || 1);
+});

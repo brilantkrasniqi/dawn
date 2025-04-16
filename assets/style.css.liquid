@@ -460,9 +460,15 @@ font-weight:400;
   max-width: 792px !important;
 }
 
-
-.package-box { cursor: pointer; transition: border-color .2s, background .2s; }
-.package-box.selected { background: var(--product-gray-bg); border-color: var(--header-blue-); }
+.package-box { 
+  cursor: pointer; 
+  transition: border-color .2s, background .2s; 
+  width: 150px;
+}
+.package-box.selected { 
+  background: var(--product-gray-bg); 
+  border-color: var(--header-blue-); 
+}
 .subscription {
   border-radius: 0 0 8px 8px;
 }
@@ -544,5 +550,4 @@ font-weight:400;
 .text_underline {
   text-decoration: underline;
   text-underline-offset: 5px;
-  
 }
