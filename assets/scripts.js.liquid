@@ -188,17 +188,35 @@ updateSelection();
 // --- Cart Functionality ---
 document.addEventListener('DOMContentLoaded', function() {
 
+// Ensure proper money format is defined
+  window.shopMoneyFormat = window.shopMoneyFormat || '€{{amount}}';
+  console.log('Using money format:', window.shopMoneyFormat);
+
 // --- Setup Money Format and Shopify Helpers ---
-  if (!window.shopMoneyFormat) {
-    window.shopMoneyFormat = '€{{amount}}';
-  }
   if (typeof Shopify === 'undefined') {
     window.Shopify = {};
   }
   if (typeof Shopify.formatMoney !== 'function') {
     Shopify.formatMoney = function(cents, format) {
+      if (! cents) return'€0.00';
+      
+
+
       const value = (cents / 100).toFixed(2);
-      return format.replace('{{amount}}', value);
+
+// Handle case where format is undefined
+      if (! format) 
+        format = window.shopMoneyFormat || '€{{amount}}';
+      
+
+
+// Return with proper formatting
+      try {
+        return format.replace('{{amount}}', value);
+      } catch (e) {
+        console.error('Error formatting money:', e);
+        return '€' + value;
+      }
     };
   }
 
@@ -262,17 +280,75 @@ document.addEventListener('DOMContentLoaded', function() {
   const discountDisplayElement = document.getElementById('discountDisplay');
 
 // Initialize discount tiers functionality if elements exist
-  if (discountTiersElement && originalPriceElement && quantityInput) {
+  if (originalPriceElement && quantityInput) { // Call this function immediately once the DOM loads to ensure discounts are calculated
+    setTimeout(() => {
+      if (quantityInput) {
+        const startQuantity = parseInt(quantityInput.value) || 1;
+        console.log('Triggering initial price update with quantity:', startQuantity);
+
+// If we have a quantity slider, make sure it's also initialized
+        if (quantitySlider) {
+          quantitySlider.setAttribute('value', startQuantity);
+        }
+
+// Force update the price display
+        updatePriceDisplay(startQuantity);
+      }
+    }, 50);
+
     let discountTiers = [];
 
 // Check for the global discount tiers variable first
     if (window.productDiscountTiers) {
-      console.log('Using global discount tiers variable');
+      console.log('Using global discount tiers variable:', window.productDiscountTiers);
 
-      if (window.productDiscountTiers.tiers) {
-        discountTiers = window.productDiscountTiers.tiers;
-      } else if (Array.isArray(window.productDiscountTiers)) {
-        discountTiers = window.productDiscountTiers;
+// Manually parse if it's in string format
+      if (typeof window.productDiscountTiers === 'string') {
+        try {
+          window.productDiscountTiers = JSON.parse(window.productDiscountTiers);
+          console.log('Parsed string to JSON:', window.productDiscountTiers);
+        } catch (e) {
+          console.error('Error parsing string to JSON:', e);
+        }
+      }
+
+// Log specific format to help diagnose
+      console.log('Type after parsing:', typeof window.productDiscountTiers);
+      if (typeof window.productDiscountTiers === 'object') {
+        console.log('Keys:', Object.keys(window.productDiscountTiers));
+      }
+
+// Try to extract discount tiers with better error handling
+      try {
+        if (window.productDiscountTiers.tiers) {
+          discountTiers = window.productDiscountTiers.tiers;
+          console.log('Found tiers array in global variable:', discountTiers);
+        } else if (Array.isArray(window.productDiscountTiers)) {
+          discountTiers = window.productDiscountTiers;
+          console.log('Global variable is already an array:', discountTiers);
+        } else { // Try to parse it if it's a string
+          if (typeof window.productDiscountTiers === 'string') {
+            const parsed = JSON.parse(window.productDiscountTiers);
+            if (parsed.tiers) {
+              discountTiers = parsed.tiers;
+              console.log('Parsed string into tiers:', discountTiers);
+            } else if (Array.isArray(parsed)) {
+              discountTiers = parsed;
+              console.log('Parsed string into array:', discountTiers);
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error parsing global discount tiers:', err);
+      }
+
+// As a fallback
+      if (discountTiers.length === 0) {
+        console.log('Setting fallback discount tiers');
+        discountTiers = [{
+            min: 5,
+            discount: 1
+          }];
       }
     } else { // Fallback to parsing from data attribute if global variable is not available
       try { // Parse the JSON data from the data-tiers attribute
@@ -335,9 +411,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 // Sort tiers by minimum quantity (ascending)
-        if (discountTiers.length > 0) {
+        if (discountTiers.length > 0) { // First sort ascending for display purposes
           discountTiers.sort((a, b) => a.min - b.min);
-          console.log('Final discount tiers:', discountTiers);
+          console.log('Final discount tiers (sorted):', discountTiers);
+
+// Log summary for debugging
+          const tiersInfo = discountTiers.map(tier => `${
+            tier.min
+          }+ items: ${
+            tier.discount
+          }€ off per item`).join(', ');
+          console.log('Available discounts:', tiersInfo);
         }
       } catch (e) {
         console.error('Error parsing discount tiers:', e);
@@ -348,29 +432,48 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    const originalPrice = parseInt(originalPriceElement.getAttribute('data-price')) || 0;
-    const piecesPerPack = parseInt(originalPriceElement.getAttribute('data-pieces')) || 1;
+    let originalPrice = parseInt(originalPriceElement.getAttribute('data-price')) || 0;
+    let piecesPerPack = parseInt(originalPriceElement.getAttribute('data-pieces')) || 1;
 
 // Function to calculate the discounted price based on quantity
     function calculateDiscountedPrice(quantity) {
-      if (! discountTiers.length) return originalPrice;
-      
+      console.log('Calculating discount for quantity:', quantity);
 
+      if (! discountTiers || ! discountTiers.length) {
+        console.log('No discount tiers available, returning original price:', originalPrice);
+        return originalPrice;
+      }
+
+      console.log('Available discount tiers:', discountTiers);
 
 // Find applicable discount tier
       let applicableTier = null;
-      for (const tier of discountTiers) {
+
+// First ensure tiers are sorted by minimum quantity in descending order
+// to get the highest applicable tier first
+      const sortedTiers = [... discountTiers].sort((a, b) => b.min - a.min);
+
+      console.log('Sorted tiers (descending):', sortedTiers);
+
+// Find the highest tier where quantity meets or exceeds minimum
+      for (const tier of sortedTiers) {
         if (quantity >= tier.min) {
           applicableTier = tier;
-        } else {
-          break; // Tiers are sorted, so we can break early
+          break; // Stop at first match (highest tier)
         }
       }
 
+      console.log('Found applicable tier:', applicableTier);
+
       if (applicableTier) { // Calculate discount amount per item (in cents)
         const discountAmount = applicableTier.discount * 100; // Convert to cents
-        return Math.max(0, originalPrice - discountAmount); // Apply discount to original price
-      }return originalPrice;
+        const discountedPrice = Math.max(0, originalPrice - discountAmount);
+
+        console.log('Calculated discount:', {originalPrice, discountAmount, discountedPrice, tier: applicableTier});
+
+        return discountedPrice; // Apply discount to original price
+      }console.log('No applicable tier found, returning original price:', originalPrice);
+      return originalPrice;
     }
 
 // Function to update price display based on quantity
@@ -394,40 +497,49 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update the discount display
       if (applicableTier && discountDisplayElement) {
         const discountAmount = applicableTier.discount * 100; // Convert to cents
-        const discountPercentage = (discountAmount / originalPrice) * 100;
-        discountDisplayElement.textContent = `${
-          applicableTier.discount
-        }€ off per item (${
-          discountPercentage.toFixed(0)
-        }%)`;
+        const discountPercentage = ((discountAmount / originalPrice) * 100).toFixed(1);
+        const totalDiscountAmount = discountAmount * quantity; // Total discount for all items
+        const totalOrderDiscount = ((totalDiscountAmount / (originalPrice * quantity)) * 100).toFixed(0);
+
+// Show discount as percentage off total order
+        discountDisplayElement.textContent = `You currently receive: ${discountPercentage}% Off your total order`;
         discountDisplayElement.classList.add('text-discount');
+        console.log('Showing discount:', discountDisplayElement.textContent);
       } else if (discountDisplayElement) {
         discountDisplayElement.textContent = 'No discount';
         discountDisplayElement.classList.remove('text-discount');
+        console.log('No discount applicable');
       }
 
 // Update the price display
       if (variantPriceElement) { // Format price in the shop's money format
         const formattedPrice = Shopify.formatMoney(totalPrice, window.shopMoneyFormat);
 
-        console.log('Formatted price:', formattedPrice);
+        console.log('Formatted price to display:', formattedPrice);
 
 // If there's a discount, show the original price as strikethrough
         if (applicableTier) {
           const originalTotalPrice = originalPrice * quantity;
           const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
 
-          variantPriceElement.innerHTML = `${formattedPrice} <span class="discount fw-light roboto-font user-select-none">${formattedOriginalPrice}</span>`;
-        } else { // No discount - just show the normal price
-          variantPriceElement.innerHTML = formattedPrice;
-        }
-
-// Update price per piece
-        if (pricePerPieceElement) {
+// Calculate price per piece based on discounted price
           const pricePerPiece = discountedPricePerItem / piecesPerPack;
           const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
-          pricePerPieceElement.innerHTML = ` (${formattedPricePerPiece}) per piece`;
-          console.log('Updated price per piece:', formattedPricePerPiece);
+
+// Keep separate spans for main price and per-piece price
+          variantPriceElement.innerHTML = `${formattedPrice} <span class="discount fw-light roboto-font user-select-none">${formattedOriginalPrice}</span>
+            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per piece</span>`;
+
+          console.log('Updated price with discount:', variantPriceElement.innerHTML);
+        } else {
+
+// No discount - just show the normal price
+// Add the per-piece span directly to the innerHTML
+          const pricePerPiece = totalPrice / (quantity * piecesPerPack);
+          const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
+
+          variantPriceElement.innerHTML = `${formattedPrice} <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per piece</span>`;
+          console.log('Updated price without discount:', formattedPrice);
         }
       }
     }
@@ -456,6 +568,89 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize price display with default quantity
     updatePriceDisplay(quantityInput.value || 1);
+
+// Set up debug button
+    const debugTiersBtn = document.getElementById('debug-tiers-btn');
+    if (debugTiersBtn) {
+      debugTiersBtn.addEventListener('click', function() {
+        console.log('------ DISCOUNT TIERS DEBUG ------');
+        console.log('Current discount tiers:', discountTiers);
+        console.log('Original price:', originalPrice);
+        console.log('Pieces per pack:', piecesPerPack);
+
+// Sort tiers correctly for display
+        const sortedTiers = [... discountTiers].sort((a, b) => a.min - b.min);
+        let debugInfo = "Discount Tiers:\n";
+
+        sortedTiers.forEach(tier => {
+          const percentOff = ((tier.discount * 100) / originalPrice).toFixed(1);
+          debugInfo += `• ${
+            tier.min
+          }+ items: ${
+            tier.discount
+          }€ off per item (${percentOff}%)\n`;
+        });
+
+// Test with several quantities
+        debugInfo += "\nSample quantities:\n";
+        const testQuantities = [
+          1,
+          3,
+          5,
+          7,
+          10,
+          15,
+          20
+        ];
+
+        testQuantities.forEach(qty => {
+          const discountedPrice = calculateDiscountedPrice(qty);
+          const tier = discountTiers.find(t => qty >= t.min);
+          const discount = tier
+            ? (originalPrice - discountedPrice) * qty
+            : 0;
+          const percentOff = tier
+            ? ((discount / (originalPrice * qty)) * 100).toFixed(1)
+            : 0;
+
+          debugInfo += `• Qty ${qty}: `;
+          if (tier) {
+            debugInfo += `${
+              Shopify.formatMoney(discountedPrice * qty, window.shopMoneyFormat)
+            } `;
+            debugInfo += `(${percentOff}% off, saves ${
+              Shopify.formatMoney(discount, window.shopMoneyFormat)
+            })\n`;
+          } else {
+            debugInfo += `${
+              Shopify.formatMoney(originalPrice * qty, window.shopMoneyFormat)
+            } (no discount)\n`;
+          }
+        });
+
+        alert(debugInfo);
+
+// Force a specific discount for testing
+        if (discountTiers.length > 0) { // Find the highest tier for a good test
+          const highestTier = [... discountTiers].sort((a, b) => b.min - a.min)[0];
+          const testQuantity = highestTier.min;
+
+// Update UI elements
+          quantityInput.value = testQuantity;
+
+          if (quantitySlider) {
+            quantitySlider.setAttribute('value', testQuantity);
+          }
+
+// Force recalculate price with discount
+          updatePriceDisplay(testQuantity);
+
+          console.log(`Testing with quantity ${testQuantity} to see highest discount tier`);
+        } else {
+          alert('No discount tiers defined. Please set up discount tiers in the metafield.');
+        }
+      });
+    }
 
 // Handle variant selection
     const packageBoxes = document.querySelectorAll('#package-options .package-box');
@@ -515,6 +710,22 @@ document.addEventListener('DOMContentLoaded', function() {
             piecesPerPack = variantPieces;
           }
 
+// Directly update the displayed variant price
+          if (variantPriceElement) {
+            const formattedPrice = Shopify.formatMoney(variantPrice, window.shopMoneyFormat);
+            const formattedPricePerPiece = Shopify.formatMoney(variantPrice / variantPieces, window.shopMoneyFormat);
+
+            variantPriceElement.innerHTML = `${formattedPrice} 
+              <span class="perPiece pb-2" id="price-per-piece">
+                (${formattedPricePerPiece}) per piece
+              </span>`;
+
+            console.log('Updated variant price display:', {
+              price: formattedPrice,
+              perPiece: formattedPricePerPiece
+            });
+          }
+
 // Update subscription price (30% discount)
           const subscriptionPriceElement = document.querySelector('.subscription-Price');
           const subscriptionPriceSpan = document.getElementById('subscription-price');
@@ -524,17 +735,69 @@ document.addEventListener('DOMContentLoaded', function() {
             subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount fw-light roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
           }
 
-// Update price display
+// Update price display for current quantity
           updatePriceDisplay(quantityInput.value || 1);
         });
       });
 
 // Select first variant by default if none is selected
       if (!document.querySelector('#package-options .package-box.selected')) {
-        packageBoxes[0].classList.add('selected');
+        console.log('No variant selected, selecting first one by default');
+        const firstBox = packageBoxes[0];
+        if (firstBox) {
+          firstBox.classList.add('selected');
 
-// Trigger a click on the first box to initialize the price
-        packageBoxes[0].click();
+// Get the variant data
+          const variantId = firstBox.getAttribute('data-variant-id');
+          let variantPrice = parseInt(firstBox.getAttribute('data-price')) || originalPrice;
+          let variantPieces = parseInt(firstBox.getAttribute('data-pieces')) || piecesPerPack;
+
+          console.log('Initial variant selection:', {variantId, variantPrice, variantPieces});
+
+// Update the form
+          const form = document.querySelector('.add-to-cart-form');
+          if (form) {
+            form.setAttribute('data-variant-id', variantId);
+          }
+
+// Update internal variables
+          originalPrice = variantPrice;
+          piecesPerPack = variantPieces;
+
+// Update data attributes
+          if (originalPriceElement) {
+            originalPriceElement.setAttribute('data-price', variantPrice);
+            originalPriceElement.setAttribute('data-pieces', variantPieces);
+          }
+
+// Directly update price display
+          if (variantPriceElement) {
+            const formattedPrice = Shopify.formatMoney(variantPrice, window.shopMoneyFormat);
+            const formattedPricePerPiece = Shopify.formatMoney(variantPrice / variantPieces, window.shopMoneyFormat);
+
+            variantPriceElement.innerHTML = `${formattedPrice} 
+              <span class="perPiece pb-2" id="price-per-piece">
+                (${formattedPricePerPiece}) per piece
+              </span>`;
+
+            console.log('Updated variant price display:', {
+              price: formattedPrice,
+              perPiece: formattedPricePerPiece
+            });
+          }
+
+// Update subscription price
+          const subscriptionPriceElement = document.querySelector('.subscription-Price');
+          const subscriptionPriceSpan = document.getElementById('subscription-price');
+
+          if (subscriptionPriceElement && subscriptionPriceSpan) {
+            const subscriptionPrice = variantPrice * 0.7; // 30% discount
+            subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount fw-light roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
+          }
+
+// Initial price display with discounts
+          updatePriceDisplay(quantityInput.value || 1);
+        }
       }
     }
   }

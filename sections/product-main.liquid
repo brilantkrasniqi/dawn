@@ -98,7 +98,6 @@
             </div>
             <div class="mt-3">
               <p class="fw-bold">
-                Automatic Discount:
                 <span id="discountDisplay">No discount</span>
               </p>
             </div>
@@ -114,24 +113,100 @@
                 placeholder="Custom quantity"
                 class="p-2 rounded-8 border-1" />
             </div>
+
+            <!-- Debug: Metafield Info -->
+            <div class="metafield-debug-info small text-muted d-none">
+              <p>Raw Metafield Value for discount_tiers:</p>
+              <code>{{ product.metafields.custom.discount_tiers }}</code>
+              <p>Available Metafields:</p>
+              <ul>
+                {% for metafield in product.metafields.custom %}
+                  <li>{{ metafield.first }}: {{ metafield.last | json }}</li>
+                {% endfor %}
+              </ul>
+              <button
+                type="button"
+                id="debug-tiers-btn"
+                class="btn btn-sm btn-outline-secondary">Test Discount</button>
+            </div>
+
             <!-- Wrap everything inside one add-to-cart form -->
             <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
               <!-- Discount tiers data -->
               {% if product.metafields.custom.discount_tiers != blank %}
-                <div
-                  id="discount-tiers-data"
-                  data-tiers="{{ product.metafields.custom.discount_tiers | json }}"
-                  class="d-none"></div>
-
-                <!-- Alternative approach using script tag -->
+                <!-- Output raw metafield data as a plain string that JavaScript can parse -->
                 <script type="text/javascript">
-                  window.productDiscountTiers = {{ product.metafields.custom.discount_tiers | json }};
+                  try {
+                    // Get the raw metafield value as a string
+                    const discountTiersString = '{{ product.metafields.custom.discount_tiers | escape }}';
+                    
+                    // Log the raw string
+                    console.log('Raw metafield string:', discountTiersString);
+                    
+                    // Try to parse it (handle both JSON object and JSON string formats)
+                    let parsedData;
+                    try {
+                      parsedData = JSON.parse(discountTiersString);
+                      console.log('Successfully parsed as JSON:', parsedData);
+                    } catch (parseError) {
+                      console.log('Could not parse directly, trying to clean string:', parseError);
+                      
+                      // If it's already an object (Shopify may have auto-parsed it)
+                      if (typeof discountTiersString === 'object') {
+                        parsedData = discountTiersString;
+                      } else {
+                        // Try to extract just the JSON part using regex
+                        const match = discountTiersString.match(/\{.*\}/);
+                        if (match) {
+                          parsedData = JSON.parse(match[0]);
+                        }
+                      }
+                    }
+                    
+                    // Set the global variable
+                    if (parsedData) {
+                      window.productDiscountTiers = parsedData;
+                    } else {
+                      throw new Error('Could not parse discount tiers');
+                    }
+                  } catch (e) {
+                    console.error('Error handling discount tiers:', e);
+                    // Fallback to hardcoded discount tiers
+                    window.productDiscountTiers = {
+                      "tiers": [
+                        {"min": 5, "discount": 1},
+                        {"min": 10, "discount": 2},
+                        {"min": 15, "discount": 3},
+                        {"min": 20, "discount": 4},
+                        {"min": 25, "discount": 5}
+                      ]
+                    };
+                  }
                 </script>
               {% else %}
+                <!-- Fallback discount tiers for testing -->
                 <script type="text/javascript">
-                  window.productDiscountTiers = {"tiers":[{"min":5,"discount":1}]};
+                  // Hardcoded fallback for testing
+                  window.productDiscountTiers = {
+                    "tiers": [
+                      {"min": 5, "discount": 1},
+                      {"min": 10, "discount": 2},
+                      {"min": 20, "discount": 3}
+                    ]
+                  };
+                  console.log('Using fallback discount tiers');
                 </script>
+                <div class="alert alert-warning">
+                  <p>No discount_tiers metafield defined for this product. Using fallback values.</p>
+                </div>
               {% endif %}
+
+              <!-- Debug output - will be hidden in production -->
+              <div class="metafield-debug d-none">
+                <p class="small text-muted mt-2">Available discount tiers:</p>
+<pre class="small bg-light p-2">{{ product.metafields.custom.discount_tiers | json }}</pre>
+              </div>
+
               <!-- Original price data -->
               <div
                 id="original-price-data"
