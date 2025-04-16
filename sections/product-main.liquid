@@ -1,27 +1,6 @@
-{% if product.metafields.custom.discount_tiers.value %}
-  <script>
-    try {
-      window.discountTiers = {{ product.metafields.custom.discount_tiers.value | json }};
-      // Basic validation
-      if (!Array.isArray(window.discountTiers)) {
-        console.error('Discount tiers should be an array');
-        window.discountTiers = [];
-      }
-    } catch (error) {
-      console.error('Error parsing discount tiers:', error);
-      window.discountTiers = [];
-    }
-  </script>
-{% else %}
-  <script>
-    window.discountTiers = []; // Default empty array
-  </script>
-{% endif %}
-
 <section class="section-padding">
   <div class="custom-container">
     <div class="row">
-      <!-- Product Images / Slider -->
       <div class="col-lg-6 col-12">
         <div class="position-sticky top-15">
           <div
@@ -72,11 +51,9 @@
           </div>
         </div>
       </div>
-      <!-- Product Info & Purchase Options -->
       <div class="col-lg-6 col-12 pt-lg-0 pt-5 ps-lg-5 ps-0 d-flex flex-column">
         <h2 class="text-uppercase">{{ product.title }}</h2>
         <p class="pt-3">{{ product.description }}</p>
-        <!-- Package Options (Variants) -->
         <div class="d-flex pt-4">
           <div class="d-flex gap-3 mt-4" id="package-options">
             {% for variant in product.variants %}
@@ -86,7 +63,7 @@
                 data-price="{{ variant.price }}"
                 data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}">
                 <img
-                  src="{{ variant.featured_image | image_url }}"
+                  src="{{variant.featured_image |  image_url }}"
                   width="50"
                   height="50"
                   class="object-fit-contain"
@@ -99,8 +76,9 @@
               </div>
             {% endfor %}
           </div>
+
+
         </div>
-        <!-- Buy One-Time Section -->
         <div class="mt-5 rounded-8 border">
           <div class="one-Time p-4 option-container">
             <div class="d-flex justify-content-between">
@@ -110,24 +88,21 @@
                 name="properties[purchase_type]"
                 value="oneTime">
             </div>
-            <!-- Unit Price & Per Piece Display -->
-            <h3 class="fw-bold pt-1" id="unitPrice">
-              {{ product.price | money }}
-              {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
-              <span class="perPiece pb-2">
-                ({{ product.price | divided_by: pieces | money }}) per piece
-              </span>
-            </h3>
-            <!-- Automatic Discount Display -->
+            <div id="price-container">
+              <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
+                {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
+                {% assign net_price = product.price | divided_by: 1.0 %}
+                <span class="perPiece pb-2" id="price-per-piece">
+                  ({{ net_price | divided_by: pieces | money }}) per piece</span>
+              </h3>
+            </div>
             <div class="mt-3">
               <p class="fw-bold">
                 Automatic Discount:
                 <span id="discountDisplay">No discount</span>
               </p>
             </div>
-            <!-- Order Value Booster Widget -->
             <div class="order-value-booster-block" id="cm9ivdx0x004pimv76lxdssu4"></div>
-            <!-- Quantity Section -->
             <div class="d-flex align-items-center justify-content-between">
               <h3>Select quantity</h3>
               <input
@@ -135,54 +110,61 @@
                 name="quantity"
                 id="quantityInput"
                 min="1"
+                value="1"
                 placeholder="Custom quantity"
                 class="p-2 rounded-8 border-1" />
             </div>
-            <!-- Slider Section -->
-            <div class="py-5 px-3">
-              <tc-range-slider
-                mousewheel-disabled="true"
-                id="quantitySlider"
-                min="1"
-                max="100"
-                step="1"
-                round="0"
-                marks="true"
-                marks-values-count="11"
-                slider-width="100%"
-                slider-height="8px"
-                pointer-width="24px"
-                pointer-height="24px"
-                pointer-radius="8px"
-                slider-bg-fill="#1A3683"
-                slider-bg="#EDEFF5"
-                slider-bg-hover="#EDEFF5"
-                pointer-bg="#1A3683"
-                pointer-bg-hover="#1A3683"
-                pointer-bg-focus="#1A3683"
-                pointer-border="none"
-                pointer-border-focus="none"
-                marks-values-color="#0B266F"></tc-range-slider>
-            </div>
-            <!-- Total Price Display -->
-            <div class="mt-3">
-              <p class="fw-bold">
-                Total (excl. VAT):
-                <span id="totalPrice">{{ product.price | money }}</span>
-              </p>
-            </div>
-            <!-- Add to Cart Form -->
+            <!-- Wrap everything inside one add-to-cart form -->
             <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
-              <input
-                type="hidden"
-                name="id"
-                id="OneTimeVariantId"
-                value="{{ product.variants.first.id }}">
-              <input
-                type="hidden"
-                name="quantity"
-                id="OneTimeQuantity"
-                value="1">
+              <!-- Discount tiers data -->
+              {% if product.metafields.custom.discount_tiers != blank %}
+                <div
+                  id="discount-tiers-data"
+                  data-tiers="{{ product.metafields.custom.discount_tiers | json }}"
+                  class="d-none"></div>
+
+                <!-- Alternative approach using script tag -->
+                <script type="text/javascript">
+                  window.productDiscountTiers = {{ product.metafields.custom.discount_tiers | json }};
+                </script>
+              {% else %}
+                <script type="text/javascript">
+                  window.productDiscountTiers = {"tiers":[{"min":5,"discount":1}]};
+                </script>
+              {% endif %}
+              <!-- Original price data -->
+              <div
+                id="original-price-data"
+                data-price="{{ product.price }}"
+                data-pieces="{{ pieces }}"
+                class="d-none"></div>
+              <!-- Slider and Quantity Input -->
+              <div class="py-5 px-3">
+                <tc-range-slider
+                  mousewheel-disabled="true"
+                  id="quantitySlider"
+                  min="0"
+                  max="100"
+                  step="1"
+                  round="0"
+                  marks="true"
+                  marks-values-count="11"
+                  slider-width="100%"
+                  slider-height="8px"
+                  pointer-width="24px"
+                  pointer-height="24px"
+                  pointer-radius="8px"
+                  slider-bg-fill="#1A3683"
+                  slider-bg="#EDEFF5"
+                  slider-bg-hover="#EDEFF5"
+                  pointer-bg="#1A3683"
+                  pointer-bg-hover="#1A3683"
+                  pointer-bg-focus="#1A3683"
+                  pointer-border="none"
+                  pointer-border-focus="none"
+                  marks-values-color="#0B266F"></tc-range-slider>
+              </div>
+              <!-- Add to Cart Button -->
               <button
                 type="submit"
                 class="btn-main w-100 mt-5"
@@ -191,7 +173,6 @@
               </button>
             </form>
           </div>
-          <!-- Subscription Section (unchanged) -->
           <div class="subscription border-top p-4 option-container">
             <div class="d-flex align-items-center justify-content-between">
               <p class="fw-light">Subscribe</p>
@@ -203,9 +184,7 @@
             </div>
             <h3 class="subscription-Price funnel-font py-2 text-discount">
               {{ product.price | times: 0.7 | money }}
-              <span class="discount fw-light roboto-font user-select-none" id="variant-price">
-                {{ product.price | money }}
-              </span>
+              <span class="discount fw-light roboto-font user-select-none" id="subscription-price">{{ product.price | money }}</span>
             </h3>
             <p class="fw-bold text-discount">
               Use promo TP4EVA at checkout to get 5€ off your first subscription order.
@@ -219,17 +198,76 @@
             </ul>
           </div>
         </div>
-        <!-- (Other sections remain unchanged below) -->
+        <div class="d-flex flex-column mt-5 p-4 border rounded-8"></div>
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold pb-4">Product Features</h3>
-        <!-- Features content… -->
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-soak.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Quickly soaks up spills and messes.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-svg.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Tear-resistant even when the towel is wet.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-sustainability.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Sustainably sourced, safe for the planet.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+              <div class="d-flex align-items-center">
+                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                  <img
+                    src="{{'tp-sizes.svg' |  asset_url}}"
+                    width="38"
+                    height="38"
+                    alt="Bulk" />
+                </div>
+                <p class="fw-medium ps-2">
+                  Available in various sizes for every need.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold">Product Details</h3>
           <div class="d-flex flex-column justify-content-between">
+
             {% if product.metafields.custom.product_details != blank %}
               <p class="fw-light py-4">{{ product.metafields.custom.product_details }}</p>
             {% endif %}
+
             {% if product.metafields.custom.product_details_points != blank %}
               <ul class="fw-bold ps-3">
                 {% assign bullets = product.metafields.custom.product_details_points | split: ',' %}
@@ -242,13 +280,14 @@
         </div>
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold">Why choose the subscription option?</h3>
-          <p class="pt-3">{{ section.settings.why_sub }}</p>
+          <p class="pt-3">
+            {{ section.settings.why_sub }}
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 {% schema %}
   {
     "name": "Product Main",
@@ -257,7 +296,7 @@
         "type": "textarea",
         "id": "why_sub",
         "label": "Why choose subscription?",
-        "default": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you’ll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns."
+        "default": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you'll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns."
       },
       {
         "type": "url",
@@ -265,6 +304,7 @@
         "label": "B2B link"
       }
     ],
+
     "presets": [
       {
         "name": "Product Main"

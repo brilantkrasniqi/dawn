@@ -40,15 +40,15 @@
     <script src="{{'toolcool-range-slider.min.js' |  asset_url}}" async></script>
     <script src="{{'bootstrap.min.js' |  asset_url}}" defer></script>
     {% comment %} <script>
-                                window.shopMoneyFormat = {{ shop.money_format | json }};
-                    </script> {% endcomment %}
+                                                  window.shopMoneyFormat = {{ shop.money_format | json }};
+                                </script> {% endcomment %}
     <script
       type="module"
       src="{{ 'scripts.js' | asset_url }}"
       defer></script>
-  <!-- WPD Start -->
-                {% if customer.tags.size > 0 and template != 'cart' %}
-                <script>
+    <!-- WPD Start -->
+    {% if customer.tags.size > 0 and template != 'cart' %}
+      <script>
                     document.addEventListener('DOMContentLoaded', function() {
                       let checkoutbtninterval = setInterval(function(){
                         var x=document.querySelectorAll("input[name='checkout'], button[name='checkout'], input[name='goto_pp'], button[name='goto_pp'], input[name='goto_gc'], button[name='goto_gc'], [href$='checkout']");
@@ -62,14 +62,9 @@
                             }
                         },500)
                 });
-              </script>
-               {% endif %}
-         
+      </script>
+    {% endif %}
 
-               {% if customer.tags.size > 0 and template == 'cart' %}
-                 {% include 'wcp_cart' %}
-               {% endif %}
-               <!-- WPD End -->
-  {% render 'quantity-breaks-now', customer: customer, template: template, product: product, cart: cart %}
-        </body>
+
+  </body>
 </html>
