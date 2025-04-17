@@ -33,36 +33,62 @@
             method="post"
             class="pt-3 bulkForm">
             <input
+              type="hidden"
+              name="contact[email]"
+              value="info@flutura.eu" />
+            <input
+              type="hidden"
+              name="form_type"
+              value="B2B Inquiry" />
+            <input
               type="text"
-              name="companyName"
+              name="contact[company_name]"
               id="companyName"
               required
               placeholder="{{section.settings.field_1}}" />
             <input
               type="email"
-              name="email"
+              name="contact[customer_email]"
               id="email"
               required
               placeholder="{{section.settings.field_2}}" />
             <input
-              type="number"
-              name="phone"
+              type="tel"
+              name="contact[phone]"
               id="phone"
               required
               placeholder="{{section.settings.field_3}}" />
             <input
               type="number"
-              name="monthlyQuantity"
+              name="contact[monthly_quantity]"
               id="monthlyQuantity"
               placeholder="{{section.settings.field_4}}" />
-            <div class="checkBox">
+            <textarea
+              name="contact[body]"
+              id="message"
+              style="display:none;"
+              class="form-control">B2B Inquiry from the website</textarea>
+            <div class="checkBox mb-2">
               <input
                 class=""
                 type="checkbox"
-                value="agree"
-                id="agreeContact">
+                name="contact[agrees_to_marketing]"
+                value="yes"
+                id="agreeContact"
+                required>
               <label class="" for="agreeContact">
                 {{ section.settings.check_text }}
+              </label>
+            </div>
+            <div class="checkBox mb-3">
+              <input
+                class=""
+                type="checkbox"
+                name="contact[newsletter_signup]"
+                value="yes"
+                id="newsletterSignup">
+              <label class="" for="newsletterSignup">
+                {{ section.settings.newsletter_text }}
               </label>
             </div>
             <button type="submit" class="btn-main">Submit Inquiry</button>
@@ -115,7 +141,13 @@
         "type": "text",
         "id": "check_text",
         "label": "Checkbox Text",
-        "default": "I agree to be contacted by Flutra’s partnerships team regarding my inquiry"
+        "default": "I agree to be contacted by Flutra's partnerships team regarding my inquiry"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_text",
+        "label": "Newsletter Checkbox Text",
+        "default": "Subscribe to our newsletter for special offers and updates"
       },
       {
         "type": "text",
