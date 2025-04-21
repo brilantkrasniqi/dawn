@@ -114,11 +114,7 @@
             }
           }
         },
-        "block_order": [
-          "bullet_K8jUwi",
-          "bullet_HYgTfN",
-          "bullet_HiprMH"
-        ],
+        "block_order": ["bullet_K8jUwi", "bullet_HYgTfN", "bullet_HiprMH"],
         "settings": {
           "heading1": "Exclusive pricing for larger monthly orders",
           "paragraph1": "For businesses with ongoing bulk needs, we offer special pricing on monthly orders. If you’re looking for a cost-effective solution, contact our partnerships team to discuss customized deals that provide the best value for your business.",
@@ -176,13 +172,7 @@
             }
           }
         },
-        "block_order": [
-          "paragraph_4HhBHT",
-          "bullet_BxejfV",
-          "bullet_LhTEWQ",
-          "bullet_nnTMXC",
-          "bullet_HkAEUH"
-        ],
+        "block_order": ["paragraph_4HhBHT", "bullet_BxejfV", "bullet_LhTEWQ", "bullet_nnTMXC", "bullet_HkAEUH"],
         "settings": {
           "form_header": "Get in Touch for Bulk Orders",
           "field_1": "Company Name*",

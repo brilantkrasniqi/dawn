@@ -5,74 +5,13 @@
       <div class="col-sm-4 col-0"></div>
       <h2 class="text-sm-center text-start col-sm-4 col-6">All products</h2>
       <div class="col-sm-4 col-6 text-end">
-        <div class="sort-selector-wrapper">
-          <label for="sort-selector" class="d-none">Sort by:</label>
-          <select id="sort-selector" class="sort-selector form-select form-select-sm">
-            <option
-              value="manual"
-              {% if sort_by == 'manual' %}
-              selected="selected"
-              {% endif %}>Featured</option>
-            <option
-              value="price-ascending"
-              {% if sort_by == 'price-ascending' %}
-              selected="selected"
-              {% endif %}>Price, low to high</option>
-            <option
-              value="price-descending"
-              {% if sort_by == 'price-descending' %}
-              selected="selected"
-              {% endif %}>Price, high to low</option>
-            <option
-              value="title-ascending"
-              {% if sort_by == 'title-ascending' %}
-              selected="selected"
-              {% endif %}>Alphabetically, A-Z</option>
-            <option
-              value="title-descending"
-              {% if sort_by == 'title-descending' %}
-              selected="selected"
-              {% endif %}>Alphabetically, Z-A</option>
-            <option
-              value="created-descending"
-              {% if sort_by == 'created-descending' %}
-              selected="selected"
-              {% endif %}>Date, new to old</option>
-            <option
-              value="created-ascending"
-              {% if sort_by == 'created-ascending' %}
-              selected="selected"
-              {% endif %}>Date, old to new</option>
-            <option
-              value="best-selling"
-              {% if sort_by == 'best-selling' %}
-              selected="selected"
-              {% endif %}>Best selling</option>
-          </select>
-        </div>
+        <!-- Sort selector removed as requested -->
       </div>
     </div>
     {% assign collection_url = '/collections/our-products' %}
     {% paginate collections['our-products'].products by 12 %}
       {% assign sorted_products = collections['our-products'].products %}
-      {% case sort_by %}
-        {% when 'price-ascending' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'price' %}
-        {% when 'price-descending' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'price' | reverse %}
-        {% when 'title-ascending' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'title' %}
-        {% when 'title-descending' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'title' | reverse %}
-        {% when 'created-ascending' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'created_at' %}
-        {% when 'created-descending' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'created_at' | reverse %}
-        {% when 'best-selling' %}
-          {% assign sorted_products = collections['our-products'].products | sort: 'best_selling' %}
-        {% else %}
-          {% assign sorted_products = collections['our-products'].products %}
-      {% endcase %}
+
       <div class="row pt-5">
         {% for product in sorted_products %}
           <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
@@ -150,32 +89,7 @@
 </section>
 
 <style>
-  .sort-selector {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #e1e1e1;
-    background-color: #fff;
-    font-size: 14px;
-    min-width: 180px;
-    cursor: pointer;
-  }
-
-  .sort-selector:focus {
-    border-color: #1A3683;
-    outline: none;
-    box-shadow: 0 0 0 0.25rem rgba(26, 54, 131, 0.1);
-  }
-
-  @media (max-width: 576px) {
-    .sort-selector {
-      min-width: 140px;
-      font-size: 12px;
-      padding: 6px 8px;
-    }
-  }
-</style>
-
-<script>
+/* Removed sort-selector styles as requested */</style><script>
   document.addEventListener('DOMContentLoaded', function() {
     const sortSelector = document.getElementById('sort-selector');
     if (sortSelector) {

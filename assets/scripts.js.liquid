@@ -716,7 +716,17 @@ document.addEventListener('DOMContentLoaded', function() {
             form.setAttribute('data-variant-id', variantId);
           }
 
-// Update price data
+// Set quantity to 1
+          if (quantityInput) {
+            quantityInput.value = 1;
+          }
+
+// Set quantity slider to 1
+          if (quantitySlider) {
+            quantitySlider.setAttribute('value', 1);
+          }
+
+// Update internal variables
           const variantPrice = parseInt(this.getAttribute('data-price')) || originalPrice;
           const variantPieces = parseInt(this.getAttribute('data-pieces')) || piecesPerPack;
 
@@ -748,8 +758,8 @@ document.addEventListener('DOMContentLoaded', function() {
             subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount fw-light roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
           }
 
-// Update price display for current quantity
-          const currentQuantity = parseInt(quantityInput.value || 1);
+// Use quantity = 1
+          const currentQuantity = 1;
 
 // Trigger the discount display update, which will handle price updates
           const discountDisplayElement = document.getElementById('discountDisplay');
@@ -782,6 +792,16 @@ document.addEventListener('DOMContentLoaded', function() {
             form.setAttribute('data-variant-id', variantId);
           }
 
+// Set quantity to 1
+          if (quantityInput) {
+            quantityInput.value = 1;
+          }
+
+// Set quantity slider to 1
+          if (quantitySlider) {
+            quantitySlider.setAttribute('value', 1);
+          }
+
 // Update internal variables
           originalPrice = variantPrice;
           piecesPerPack = variantPieces;
@@ -801,8 +821,8 @@ document.addEventListener('DOMContentLoaded', function() {
             subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount fw-light roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
           }
 
-// Initial price display with discounts
-          const currentQuantity = parseInt(quantityInput.value || 1);
+// Use quantity = 1
+          const currentQuantity = 1;
 
 // Trigger the discount display update, which will handle price updates
           const discountDisplayElement = document.getElementById('discountDisplay');
@@ -834,17 +854,25 @@ document.addEventListener('DOMContentLoaded', function() {
 // Get the quantity from the input field
       const quantity = parseInt(quantityInput ?. value, 10) || 1;
       console.log('Submitting Add to Cart for variant:', variantId, 'Quantity:', quantity);
-      addToCart(variantId, quantity);
+
+// Pass discount tiers to the cart as a property if they exist
+      let properties = {};
+      if (window.discountTiers && window.discountTiers.tiers && window.discountTiers.tiers.length > 0) {
+        properties._discount_tiers = JSON.stringify(window.discountTiers.tiers);
+      }
+
+      addToCart(variantId, quantity, properties);
     });
   });
-  function addToCart(variantId, quantity) {
+
+  function addToCart(variantId, quantity, properties = {}) {
     fetch('/cart/add.js', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(
-        {id: variantId, quantity: quantity}
+        {id: variantId, quantity: quantity, properties: properties}
       )
     }).then(response => response.json()).then(data => {
       console.log('Item added:', data);
@@ -865,14 +893,69 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Cart count element not found.');
       }
 
+// Variables to track totals
+      let rawSubtotal = 0;
+      let discountedSubtotal = 0;
+
 // Build cart items HTML
       let itemsHtml = '';
       if (cart.items.length === 0) {
         itemsHtml = `<div class="cartItemsContainer bg-white rounded-8">
                        <h3 class="text-center pt-3">Your Cart is Empty</h3>
                      </div>`;
-      } else {
+      } else { // First calculate raw and discounted subtotals
         cart.items.forEach(function(item) {
+
+// Get product-specific discount tiers from item properties
+          let discountTiers = [];
+          if (item.properties && item.properties._discount_tiers) {
+            try {
+              discountTiers = JSON.parse(item.properties._discount_tiers);
+            } catch (e) {
+              console.error('Error parsing discount tiers from item properties:', e);
+            }
+          }
+
+// Original price (before any discounts)
+          let itemOriginalPrice = item.original_price || item.price;
+
+// Current price (may already include discounts from Shopify)
+          let itemPrice = item.final_price || item.price;
+
+// Apply discount tiers if available and not already applied
+          if (discountTiers && discountTiers.length > 0) { // Sort tiers by min value in descending order
+            const sortedTiers = [... discountTiers].sort((a, b) => b.min - a.min);
+
+// Find applicable tier based on item quantity
+            let applicableTier = null;
+            for (const tier of sortedTiers) {
+              if (item.quantity >= tier.min) {
+                applicableTier = tier;
+                break;
+              }
+            }
+
+// If we found an applicable tier, calculate the discounted price
+            if (applicableTier) {
+              const discountPercentage = applicableTier.discount;
+              const discountMultiplier = 1 - (discountPercentage / 100);
+              const tieredDiscountPrice = itemOriginalPrice * discountMultiplier;
+
+// Only override the price if our calculated discount is better
+              if (tieredDiscountPrice < itemPrice) {
+                itemPrice = tieredDiscountPrice;
+              }
+            }
+          }
+
+// Add to running totals
+          rawSubtotal += (itemOriginalPrice * item.quantity);
+          discountedSubtotal += (itemPrice * item.quantity);
+
+// Format display prices
+          const formattedOriginalPrice = Shopify.formatMoney(itemOriginalPrice * item.quantity, window.shopMoneyFormat);
+          const formattedItemPrice = Shopify.formatMoney(itemPrice * item.quantity, window.shopMoneyFormat);
+
           itemsHtml += `
             <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3" data-key="${
             item.key
@@ -891,42 +974,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="d-flex align-items-center py-md-3 py-1">
                   <span class="original-price discount funnel-font">
                     ${
-            item.compare_at_price
-              ? Shopify.formatMoney(item.compare_at_price, window.shopMoneyFormat)
+            itemOriginalPrice !== itemPrice
+              ? formattedOriginalPrice
               : ''
             }
                   </span>
-                  <h3 class="current-price fw-bold ps-2 cart-subtotal">
-                    ${
-            Shopify.formatMoney(item.price, window.shopMoneyFormat)
-          }
+                  <h3 class="current-price fw-bold ps-2">
+                    ${formattedItemPrice}
                   </h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="quantity rounded-8 d-flex align-items-center justify-content-between">
                     <button class="btn-white p-2 btn-minus" data-key="${
-            item.key
-          }">
+              item.key
+            }">
                       <img id="quantityBtnM" src="{{'minus.svg' | asset_url}}" width="20" height="20" alt="minus">
                     </button>
                     <p class="quantity-number">${
-            item.quantity
-          }</p>
+              item.quantity
+            }</p>
                     <button class="btn-white p-2 btn-plus" data-key="${
-            item.key
-          }">
+              item.key
+            }">
                       <img id="quantityBtnP" src="{{'plus.svg' | asset_url}}" width="10" height="10" alt="plus">
                     </button>
                   </div>
                   <p type="button" class="underline fw-bold funnel-font remove-item" data-key="${
-            item.key
-          }">Remove Item</p>
+              item.key
+            }">Remove Item</p>
                 </div>
               </div>
             </div>
           `;
         });
       }
+
       const cartItemsContainer = document.querySelector('.cartItemsContainer');
       if (cartItemsContainer) {
         cartItemsContainer.innerHTML = itemsHtml;
@@ -934,9 +1016,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Cart items container not found.');
       }
 
-// Update all subtotal elements (with the class .cart-subtotal)
+// Update order discounts text
+      const orderDiscountElem = document.getElementById('order-discounts');
+      if (orderDiscountElem) {
+        const discountAmount = rawSubtotal - discountedSubtotal;
+        if (discountAmount > 0) {
+          orderDiscountElem.textContent = '-' + Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
+        } else {
+          orderDiscountElem.textContent = '-$0.00';
+        }
+      }
+
+// Update all subtotal elements
       document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
-        subtotalElem.textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
+        subtotalElem.textContent = Shopify.formatMoney(discountedSubtotal, window.shopMoneyFormat);
       });
     }).catch(error => console.error('Error updating cart UI:', error));
   }
@@ -991,13 +1084,16 @@ document.addEventListener('DOMContentLoaded', function() {
       
 
 
+// Preserve the item properties when updating quantity
+      const properties = item.properties || {};
+
       fetch('/cart/change.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(
-          {id: itemKey, quantity: newQuantity}
+          {id: itemKey, quantity: newQuantity, properties: properties}
         )
       }).then(response => response.json()).then(updatedCart => {
         console.log('Cart updated:', updatedCart);
@@ -1010,7 +1106,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const checkoutButton = document.querySelector('.checkout-button');
   if (checkoutButton) {
     checkoutButton.addEventListener('click', function() {
-      window.location.href = '/checkout';
+
+// Get all items from cart, update properties if needed, then redirect to checkout
+      fetch('/cart.js').then(response => response.json()).then(cart => {
+        window.location.href = '/checkout';
+      }).catch(error => console.error('Error processing checkout:', error));
     });
   }
 
@@ -1164,6 +1264,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let pieces = parseInt(document.querySelector('#package-options .package-box.selected') ?. dataset.pieces || 1, 10);
 
+// Add event listeners to package boxes to update price variables when clicked
+  const packageBoxes = document.querySelectorAll('#package-options .package-box');
+  if (packageBoxes.length > 0) {
+    packageBoxes.forEach(box => {
+      box.addEventListener('click', function() {
+
+// Update baseCents and pieces when a variant is selected
+        baseCents = parseInt(this.dataset.price, 10) || baseCents;
+        pieces = parseInt(this.dataset.pieces, 10) || pieces;
+
+// Reset quantity to 1 when variant is changed
+        if (qtyInput) {
+          qtyInput.value = 1;
+        }
+
+        if (slider) {
+          slider.setAttribute('value', 1);
+        }
+
+// Recalculate prices with quantity 1
+        recalcPrices(1);
+      });
+    });
+  }
+
   function recalcPrices(qty) {
 
 // 1. Determine discount rate from metafields
@@ -1179,68 +1304,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
-
-// 2. Calculate discounted unit price
-    const baseEuros = baseCents / 100;
-    const discounted = baseEuros * (1 - discountRate);
-
-// 3. Update unit price in UI
-    const formattedUnit = Shopify.formatMoney(Math.round(discounted * 100), window.shopMoneyFormat);
-    if (unitPriceEl) 
-      unitPriceEl.textContent = formattedUnit;
-    
-
-
-// 4. Update per-piece price
-    const perPiece = discounted / pieces;
-    if (perPieceEl) {
-      perPieceEl.textContent = `(${
-        Shopify.formatMoney(Math.round(perPiece * 100), window.shopMoneyFormat)
-      } per piece)`;
-    }
-
-// 5. Update total price
-    const totalEuros = discounted * qty;
-    if (totalPriceEl) {
-      totalPriceEl.textContent = Shopify.formatMoney(Math.round(totalEuros * 100), window.shopMoneyFormat);
-    }
-
-// 6. Update discount label (optional)
-    if (discountLabel) {
-      discountLabel.textContent = discountRate > 0
-        ? `${
-        discountRate * 100
-      }% off` : 'No discount';
-    }
   }
 
-// Handle quantity input/slider changes
-  function onQuantityChange(val) {
-    const qty = Math.max(1, parseInt(val, 10) || 1);
-    if (qtyInput) 
-      qtyInput.value = qty;
-    
-
-
-    if (slider) 
-      slider.setAttribute('value', qty);
-    
-
-
-    recalcPrices(qty);
-  }
-
-// Attach event listeners
-  if (slider) {
-    slider.addEventListener('input', e => onQuantityChange(e.target.getAttribute('value')));
-  }
-  if (qtyInput) {
-    qtyInput.addEventListener('input', e => onQuantityChange(e.target.value));
-  }
-
-// Initialize on page load
-  const initialQty = qtyInput ?. value || slider ?. getAttribute('value') || 1;
-  onQuantityChange(initialQty);
+// ... rest of the existing code ...
 });
 
 // Discount Tiers Display Handler
