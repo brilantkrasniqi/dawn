@@ -984,24 +984,24 @@ document.addEventListener('DOMContentLoaded', function() {
                   </h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
-                  <div class="quantity rounded-8 d-flex align-items-center justify-content-between">
+                  <div class="quantity rounded-8 d-flex align-items-center justify-content-around">
                     <button class="btn-white p-2 btn-minus" data-key="${
-              item.key
-            }">
+            item.key
+          }">
                       <img id="quantityBtnM" src="{{'minus.svg' | asset_url}}" width="20" height="20" alt="minus">
                     </button>
                     <p class="quantity-number">${
-              item.quantity
-            }</p>
+            item.quantity
+          }</p>
                     <button class="btn-white p-2 btn-plus" data-key="${
-              item.key
-            }">
+            item.key
+          }">
                       <img id="quantityBtnP" src="{{'plus.svg' | asset_url}}" width="10" height="10" alt="plus">
                     </button>
                   </div>
                   <p type="button" class="underline fw-bold funnel-font remove-item" data-key="${
-              item.key
-            }">Remove Item</p>
+            item.key
+          }">Remove Item</p>
                 </div>
               </div>
             </div>

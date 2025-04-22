@@ -28,7 +28,7 @@
               </a>
               <div class="prod-info">
                 <p id="title">{{ product.title }}</p>
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-md-center align-items-start justify-content-between">
                   <h3 class="fw-bold" id="price">{{ product.price | money }}
                     {% assign pieces_per_pack = product.metafields.custom.pieces_per_pack | default: 1 %}
                     {% if pieces_per_pack > 1 %}

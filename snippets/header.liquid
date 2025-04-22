@@ -74,15 +74,16 @@
               aria-label="Search"
               aria-describedby="search-bar" />
           </div>
+          <img
+            class="d-sm-none d-block"
+            type="button"
+            src="{{'search-svg.svg' |  asset_url}}"
+            width="18"
+            height="18"
+            id="search-btn-nav"
+            alt="" />
           <div type="button" class="cart-nav d-flex align-items-center justify-content-end ms-2">
-            <img
-              class="d-sm-none d-block"
-              type="button"
-              src="{{'search-svg.svg' |  asset_url}}"
-              width="18"
-              height="18"
-              id="search-btn-nav"
-              alt="" />
+
             <img
               id="cart-svg"
               src="{{'cart-svg.svg' |  asset_url}}"
@@ -102,7 +103,7 @@
   <!-- Cart -->
   <div class="cartContainer d-flex flex-column justify-content-between bg-gray">
     <div>
-      <div class="d-flex align-items-center justify-content-between pb-4">
+      <div class="d-flex align-items-center justify-content-around pb-4 pt-2">
         <h3 class="text-uppercase funnel-font">
           Your cart (<span class="cart-count">0</span>
           items)
@@ -127,24 +128,24 @@
     <!-- CART INFO -->
     <div class="cart-info">
       <div class="order-value-booster-block" id="cm9ivdx0x004pimv76lxdssu4"></div>
-      <div class="d-flex align-items-center justify-content-between border-bottom py-2">
-        <p class="d-sm-inline-block d-none">Do you have a discount code?</p>
+      <div class="d-flex align-items-md-center align-items-start justify-content-between border-bottom py-2">
+        <p class="">Do you have a discount code?</p>
         <input
           type="text"
           name="discount-code"
           id="discount-code"
           placeholder="Enter your code"
-          class="rounded-8  mx-auto mx-sm-0" />
+          class="rounded-8 " />
       </div>
-      <div class="d-flex align-items-center justify-content-between py-2">
+      <div class="d-flex align-items-center justify-content-between py-2 d-none">
         <p>Order Discounts</p>
         <p id="order-discounts">-$0.00</p>
       </div>
       {% comment %} <div class="d-flex align-items-center justify-content-between py-2">
-                <p>Shipping costs</p>
-                <p id="shipping-costs">$0.00</p>
-            </div> {% endcomment %}
-      <div class="d-flex align-items-center justify-content-between pt-2 pb-4">
+                                                                                                                                                                                        <p>Shipping costs</p>
+                                                                                                                                                                                        <p id="shipping-costs">$0.00</p>
+                                                                                                                                          </div> {% endcomment %}
+      <div class="d-flex align-items-start justify-content-between  pt-2 pb-4">
         <h3 class="fw-bold">Subtotal</h3>
         <h3 class="fw-bold cart-subtotal">$0.00</h3>
       </div>
@@ -154,14 +155,14 @@
   <!-- Mobile Menu -->
   <div class="mobileNavContainer d-lg-none">
     <div>
-      <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-sm-between justify-content-around ">
         <img
           src="{{ 'flutura-logo-lg.svg' | asset_url }}"
           width="65"
           height="31"
           class="mobileNavLogo"
           alt="Flutra" />
-        <button class="btn hamburger">Close</button>
+        <button class="m-0 btn hamburger">Close</button>
       </div>
       <div class="mobileNavLinks">
         {% for link in linklists.mobile-menu.links %}
@@ -192,7 +193,7 @@
 
         <div class="emailNavMobile">
           <p class="fw-medium">Email contact</p>
-          <a href="#" class="">flutura@support.com</a>
+          <a href="mailto:info@flutra.eu" class="">info@flutra.eu</a>
         </div>
       </div>
     </div>

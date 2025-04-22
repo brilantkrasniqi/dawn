@@ -9,9 +9,10 @@
         {{ section.settings.paragraph }}
       </p>
       {% if section.settings.button_link != blank %}
-        <a href="{{section.settings.button_link}}" class="mx-auto d-inline-block w-fit">
-          <button class="btn-main">{{ section.settings.button_text }}</button>
-        </a>
+
+        <button class="btn-main">
+          <a href="{{section.settings.button_link}}" class="text-white">{{ section.settings.button_text }}</a>
+        </button>
       {% endif %}
     </div>
   </div>

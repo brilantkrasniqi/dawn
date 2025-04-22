@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-12 pt-lg-0 pt-5 ps-lg-5 ps-0 d-flex flex-column">
+      <div class="col-lg-6 col-12 pt-lg-0 pt-5 ps-lg-5  d-flex flex-column">
         <h2 class="text-uppercase">{{ product.title }}</h2>
         <p class="pt-3">{{ product.description }}</p>
         <div class="d-flex pt-4">
@@ -82,11 +82,11 @@
         <div class="mt-5 rounded-8 border">
           <div class="one-Time p-4 option-container">
             <div class="d-flex justify-content-between">
-              <p class="fw-light">Buy one-time</p>
-              <input
-                type="radio"
-                name="properties[purchase_type]"
-                value="oneTime">
+              <p class="fw-light d-none">Buy one-time</p>
+            {% comment %} <input
+                                                                        type="radio"
+                                                                        name="properties[purchase_type]"
+                                                                value="oneTime"> {% endcomment %}
             </div>
             <div id="price-container">
               <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
@@ -116,21 +116,6 @@
                 class="p-2 rounded-8 border-1" />
             </div>
 
-            <!-- Debug: Metafield Info -->
-            <div class="metafield-debug-info small text-muted d-none">
-              <p>Raw Metafield Value for discount_tiers:</p>
-              <code>{{ product.metafields.custom.discount_tiers }}</code>
-              <p>Available Metafields:</p>
-              <ul>
-                {% for metafield in product.metafields.custom %}
-                  <li>{{ metafield.first }}: {{ metafield.last | json }}</li>
-                {% endfor %}
-              </ul>
-              <button
-                type="button"
-                id="debug-tiers-btn"
-                class="btn btn-sm btn-outline-secondary">Test Discount</button>
-            </div>
 
             <!-- Wrap everything inside one add-to-cart form -->
             <form class="add-to-cart-form" data-variant-id="{{ product.variants.first.id }}">
@@ -157,7 +142,7 @@
                   mousewheel-disabled="true"
                   id="quantitySlider"
                   min="0"
-                  max="100"
+                  max="50"
                   step="1"
                   round="0"
                   marks="true"
@@ -186,13 +171,12 @@
               </button>
             </form>
           </div>
-          <div class="subscription border-top p-4 option-container">
+          <div class="subscription border-top p-4 option-container d-none">
             <div class="d-flex align-items-center justify-content-between">
               <p class="fw-light">Subscribe</p>
               <input
                 type="radio"
                 name="properties[purchase_type]"
-                checked
                 value="subscription">
             </div>
             <h3 class="subscription-Price funnel-font py-2 text-discount">
@@ -211,7 +195,7 @@
             </ul>
           </div>
         </div>
-        <div class="d-flex flex-column mt-5 p-4 border rounded-8"></div>
+
         <div class="mt-5 p-3 border rounded-8">
           <h3 class="fw-bold pb-4">Product Features</h3>
           <div class="row">
