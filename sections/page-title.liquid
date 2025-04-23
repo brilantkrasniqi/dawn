@@ -1,0 +1,37 @@
+<div class="section" id="categoryHeader">
+  <div class="custom-container">
+    <div class="row p-5">
+      <div class="col-12 ">
+        <h1 class="fw-bold text-center">{{ section.settings.title }}</h1>
+        <p class="pt-3 text-center">
+          {{ section.settings.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Page Title",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Our Premium Tree-Free Paper"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description",
+        "default": "We make planet-friendly products for all of your household paper needs."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Page Title"
+      }
+    ]
+  }
+{% endschema %}

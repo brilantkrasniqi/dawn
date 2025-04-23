@@ -1,73 +1,10 @@
-<div class="section" id="categoryHeader">
+{% section 'page-title' %}
+
+<div class="section">
   <div class="custom-container">
-    <div class="row p-5">
-      <div class="col-12 ">
-        <h1 class="fw-bold text-center">{{ collection.title }}</h1>
-        <p class="pt-3 text-center">
-          {{ collection.description }}
-        </p>
-      </div>
-      <div class="col-12 ">
-        <div class="d-flex align-items-center justify-content-center flex-wrap image-Nav pt-4">
-          <div class="me-4 d-flex flex-column">
-            <a
-              href="/collections/scented-paper"
-              {% if collection.handle == 'scented-paper' %}
-              class="active-collection"
-              {% endif %}>
-              <img
-                height="50"
-                width="50"
-                src="https://cdn.shopify.com/s/files/1/0634/1699/1833/files/towel-hq.png?v=1742670981" />
-              <p class="pt-3 text-center {% if collection.handle == 'scented-paper' %}fw-bold{% endif %}">Toilet Paper</p>
-            </a>
-          </div>
-          <div class="me-4 d-flex flex-column">
-            <a
-              href="/collections/sheets"
-              {% if collection.handle == 'sheets' %}
-              class="active-collection"
-              {% endif %}>
-              <img
-                height="50"
-                width="50"
-                src="https://cdn.shopify.com/s/files/1/0634/1699/1833/files/towel-hq.png?v=1742670981" />
-              <p class="pt-3 text-center {% if collection.handle == 'sheets' %}fw-bold{% endif %}">Sheets</p>
-            </a>
-          </div>
-          <div class="me-4 d-flex flex-column">
-            <a
-              href="/collections/rolls"
-              {% if collection.handle == 'rolls' %}
-              class="active-collection"
-              {% endif %}>
-              <img
-                height="50"
-                width="50"
-                src="https://cdn.shopify.com/s/files/1/0634/1699/1833/files/towel-hq.png?v=1742670981" />
-              <p class="pt-3 text-center {% if collection.handle == 'rolls' %}fw-bold{% endif %}">Rolls</p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% section 'collection-nav' %}
   </div>
 </div>
-
-<style>
-  .active-collection {
-    position: relative;
-  }
-  .active-collection:after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: currentColor;
-  }
-</style>
 
 <section class="section-padding" id="productSection">
   <div class="custom-container">
