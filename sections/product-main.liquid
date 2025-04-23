@@ -55,7 +55,7 @@
         <h2 class="text-uppercase">{{ product.title }}</h2>
         <p class="pt-3">{{ product.description }}</p>
         <div class="d-flex pt-4">
-          <div class="d-flex gap-3 mt-4 align-items-center justify-content-center flex-wrap" id="package-options">
+          <div class="d-flex gap-3 mt-4" id="package-options">
             {% for variant in product.variants %}
               <div
                 class="package-box p-3 rounded-8 border text-center"
@@ -83,6 +83,10 @@
           <div class="one-Time p-4 option-container">
             <div class="d-flex justify-content-between">
               <p class="fw-light d-none">Buy one-time</p>
+            {% comment %} <input
+                                                                                                                                                            type="radio"
+                                                                                                                                                            name="properties[purchase_type]"
+                                                                                                                                        value="oneTime"> {% endcomment %}
             </div>
             <div id="price-container">
               <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
