@@ -279,12 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const pricePerPieceElement = document.getElementById('price-per-piece');
   const discountDisplayElement = document.getElementById('discountDisplay');
 
-// Get the unit label from the price-per-piece element's data attribute
-  let unitLabel = 'piece';
-  if (pricePerPieceElement) {
-    unitLabel = pricePerPieceElement.getAttribute('data-unit-label') || 'piece';
-  }
-
 // Initialize discount tiers functionality if elements exist
   if (originalPriceElement && quantityInput) { // Call this function immediately once the DOM loads to ensure discounts are calculated
     setTimeout(() => {
@@ -560,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Keep separate spans for main price and per-piece price
           variantPriceElement.innerHTML = `${formattedPrice} <span class="discount fw-light roboto-font user-select-none">${formattedOriginalPrice}</span>
-            <span class="perPiece pb-2" id="price-per-piece" data-unit-label="${unitLabel}">(${formattedPricePerPiece}) per ${unitLabel}</span>`;
+            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per piece</span>`;
 
           console.log('Updated price with discount:', variantPriceElement.innerHTML);
         } else {
@@ -570,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const pricePerPiece = totalPrice / (quantity * piecesPerPack);
           const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
 
-          variantPriceElement.innerHTML = `${formattedPrice} <span class="perPiece pb-2" id="price-per-piece" data-unit-label="${unitLabel}">(${formattedPricePerPiece}) per ${unitLabel}</span>`;
+          variantPriceElement.innerHTML = `${formattedPrice} <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per piece</span>`;
           console.log('Updated price without discount:', formattedPrice);
         }
       }
@@ -1343,8 +1337,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
 
           variantPriceElement.innerHTML = `${formattedPrice} 
-            <span class="perPiece pb-2" id="price-per-piece" data-unit-label="${unitLabel}">
-              (${formattedPricePerPiece}) per ${unitLabel}
+            <span class="perPiece pb-2" id="price-per-piece">
+              (${formattedPricePerPiece}) per piece
             </span>`;
         }
         return;
@@ -1387,7 +1381,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Update HTML with strikethrough for original price
           variantPriceElement.innerHTML = `${formattedDiscountedPrice} <span class="discount fw-light roboto-font user-select-none">${formattedOriginalPrice}</span>
-            <span class="perPiece pb-2" id="price-per-piece" data-unit-label="${unitLabel}">(${formattedPricePerPiece}) per ${unitLabel}</span>`;
+            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per piece</span>`;
         }
       } else { // No applicable discount tier
         discountDisplay.textContent = 'No discount';
@@ -1400,8 +1394,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
 
           variantPriceElement.innerHTML = `${formattedPrice} 
-            <span class="perPiece pb-2" id="price-per-piece" data-unit-label="${unitLabel}">
-              (${formattedPricePerPiece}) per ${unitLabel}
+            <span class="perPiece pb-2" id="price-per-piece">
+              (${formattedPricePerPiece}) per piece
             </span>`;
         }
       }
