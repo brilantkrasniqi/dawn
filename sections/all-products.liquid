@@ -8,12 +8,10 @@
         <!-- Sort selector removed as requested -->
       </div>
     </div>
-    {% assign collection_url = '/collections/our-products' %}
-    {% paginate collections['our-products'].products by 12 %}
-      {% assign sorted_products = collections['our-products'].products %}
+    {% paginate collections.all.products by 12 %}
 
       <div class="row pt-5">
-        {% for product in sorted_products %}
+        {% for product in collections.all.products %}
           <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
             <div class="product-container">
               <a href="{{ product.url }}">
