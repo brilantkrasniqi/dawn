@@ -105,7 +105,11 @@
               </h3>
               <span class="discount-percentage-badge mt-1 text-center"></span>
             </div>
-
+            {% if shop.taxes_included %}
+              <small>Including VAT</small>
+            {% else %}
+              <small>Excluding VAT</small>
+            {% endif %}
             <script>
               window.unitLabel = "{{ unit_label }}";
             </script>
