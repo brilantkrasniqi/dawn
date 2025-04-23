@@ -524,13 +524,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
           console.log('Using discount percentage from tier:', discountPercentage);
 
-// Show discount as percentage off total order
-          discountDisplayElement.textContent = `You currently receive: ${discountPercentage}% Off your total order`;
+// Calculate the actual amount saved in euros
+          const originalTotalPrice = originalPrice * quantity;
+          const discountAmount = originalTotalPrice - totalPrice;
+          const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
+
+// Show discount as money saved
+          const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
+          discountDisplayElement.textContent = discountText;
           discountDisplayElement.classList.add('text-discount');
-          console.log('Showing discount text:', discountDisplayElement.textContent);
-        } else {
-          discountDisplayElement.textContent = 'No discount';
+
+// Also update the discount badge - but only show the percentage number
+          const discountBadge = document.querySelector('.discount-percentage-badge');
+          if (discountBadge) {
+            discountBadge.textContent = `${discountPercentage}%`;
+            discountBadge.classList.add('text-discount');
+            discountBadge.style.display = 'block'; // Make sure it's visible
+          }console.log('Showing discount text:', discountDisplayElement.textContent);
+        } else { // Hide the discount text completely when there's no discount
+          discountDisplayElement.textContent = '';
           discountDisplayElement.classList.remove('text-discount');
+
+// Hide the discount badge when there's no discount
+          const discountBadge = document.querySelector('.discount-percentage-badge');
+          if (discountBadge) {
+            discountBadge.textContent = '';
+            discountBadge.style.display = 'none';
+          }
+
           console.log('No discount applicable');
         }
       } else {
@@ -1369,16 +1390,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const discountedPricePerItem = originalPrice * discountMultiplier;
         const totalDiscountedPrice = discountedPricePerItem * quantity;
 
+// Calculate the actual amount saved in euros
+        const originalTotalPrice = originalPrice * quantity;
+        const discountAmount = originalTotalPrice - totalDiscountedPrice;
+        const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
+
 // Update discount display text
-        discountDisplay.textContent = `You currently receive: ${
-          applicableTier.discount
-        }% Off your total order`;
+        const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
+        discountDisplay.textContent = discountText;
         discountDisplay.classList.add('text-discount');
+
+// Also update the discount badge - but only show the percentage number
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          discountBadge.textContent = `${
+            applicableTier.discount
+          }%`;
+          discountBadge.classList.add('text-discount');
+          discountBadge.style.display = 'block'; // Make sure it's visible
+        }
 
 // Update price display with discount
         if (variantPriceElement) {
           const formattedDiscountedPrice = Shopify.formatMoney(totalDiscountedPrice, window.shopMoneyFormat);
-          const originalTotalPrice = originalPrice * quantity;
           const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
 
 // Calculate and format price per piece (based on discounted price)
@@ -1391,9 +1425,19 @@ document.addEventListener('DOMContentLoaded', () => {
             window.unitLabel || 'piece'
           }</span>`;
         }
-      } else { // No applicable discount tier
-        discountDisplay.textContent = 'No discount';
+      } else {
+
+// No applicable discount tier
+// Hide the discount text completely
+        discountDisplay.textContent = '';
         discountDisplay.classList.remove('text-discount');
+
+// Hide the discount badge when there's no discount
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          discountBadge.textContent = '';
+          discountBadge.style.display = 'none';
+        }
 
 // Update price without discount
         if (variantPriceElement) {
