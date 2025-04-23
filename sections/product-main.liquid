@@ -84,16 +84,28 @@
             <div class="d-flex justify-content-between">
               <p class="fw-light d-none">Buy one-time</p>
             {% comment %} <input
-                                                                                                                                              type="radio"
-                                                                                                                                              name="properties[purchase_type]"
-                                                                                                                            value="oneTime"> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                type="radio"
+                                                                                                                                                                                                                                                                                                                                                                name="properties[purchase_type]"
+                                                                                                                                                                                                                                                                                                                value="oneTime"> {% endcomment %}
             </div>
             <div id="price-container">
               <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
                 {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
                 {% assign net_price = product.price | divided_by: 1.0 %}
+
+                {% case product.type %}
+                  {% when 'Roll' %}
+                    {% assign unit_label = 'roll' %}
+                  {% when 'Sheet' %}
+                    {% assign unit_label = 'sheet' %}
+                  {% when 'Bundle' %}
+                    {% assign unit_label = 'bundle' %}
+                  {% else %}
+                    {% assign unit_label = 'pieceee' %}
+                {% endcase %}
+
                 <span class="perPiece pb-2" id="price-per-piece">
-                  ({{ net_price | divided_by: pieces | money }}) per piece</span>
+                  ({{ net_price | divided_by: pieces | money }}) per {{ unit_label }}</span>
               </h3>
             </div>
             {% if product.metafields.custom.discount_tiers != blank %}
