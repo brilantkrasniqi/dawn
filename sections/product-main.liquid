@@ -97,13 +97,19 @@
                   {% when 'Bundle' %}
                     {% assign unit_label = 'bundle' %}
                   {% else %}
-                    {% assign unit_label = 'pieceee' %}
+                    {% assign unit_label = 'piece' %}
                 {% endcase %}
 
                 <span class="perPiece pb-2" id="price-per-piece">
                   ({{ net_price | divided_by: pieces | money }}) per {{ unit_label }}</span>
               </h3>
+              <div class="discount-percentage-badge"></div>
             </div>
+
+            <script>
+              window.unitLabel = "{{ unit_label }}";
+            </script>
+
             {% if product.metafields.custom.discount_tiers != blank %}
               <div class="mt-3" id="discount-container">
                 <p class="fw-bold">

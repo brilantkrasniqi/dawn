@@ -30,7 +30,17 @@
                   <h3 class="fw-bold" id="price">{{ product.price | money }}
                     {% assign pieces_per_pack = product.metafields.custom.pieces_per_pack | default: 1 %}
                     {% if pieces_per_pack > 1 %}
-                      <span class="perPiece pb-2">({{ product.price | divided_by: pieces_per_pack | money }}) per piece</span>
+                      {% case product.type %}
+                        {% when 'Roll' %}
+                          {% assign unit_label = 'roll' %}
+                        {% when 'Sheet' %}
+                          {% assign unit_label = 'sheet' %}
+                        {% when 'Bundle' %}
+                          {% assign unit_label = 'bundle' %}
+                        {% else %}
+                          {% assign unit_label = 'piece' %}
+                      {% endcase %}
+                      <span class="perPiece pb-2">({{ product.price | divided_by: pieces_per_pack | money }}) per {{ unit_label }}</span>
                     {% endif %}
                   </h3>
                   <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
