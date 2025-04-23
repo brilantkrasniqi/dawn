@@ -114,7 +114,11 @@
             }
           }
         },
-        "block_order": ["bullet_K8jUwi", "bullet_HYgTfN", "bullet_HiprMH"],
+        "block_order": [
+          "bullet_K8jUwi",
+          "bullet_HYgTfN",
+          "bullet_HiprMH"
+        ],
         "settings": {
           "heading1": "Exclusive pricing for larger monthly orders",
           "paragraph1": "For businesses with ongoing bulk needs, we offer special pricing on monthly orders. If you’re looking for a cost-effective solution, contact our partnerships team to discuss customized deals that provide the best value for your business.",
@@ -172,7 +176,13 @@
             }
           }
         },
-        "block_order": ["paragraph_4HhBHT", "bullet_BxejfV", "bullet_LhTEWQ", "bullet_nnTMXC", "bullet_HkAEUH"],
+        "block_order": [
+          "paragraph_4HhBHT",
+          "bullet_BxejfV",
+          "bullet_LhTEWQ",
+          "bullet_nnTMXC",
+          "bullet_HkAEUH"
+        ],
         "settings": {
           "form_header": "Get in Touch for Bulk Orders",
           "field_1": "Company Name*",
@@ -212,6 +222,51 @@
           "why_sub": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you’ll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns.",
           "b2b_link": "shopify://pages/b2b-partnerships"
         }
+      },
+      "page-title": {
+        "type": "page-title",
+        "settings": {
+          "title": "Our Premium Tree-Free Paper",
+          "description": "We make planet-friendly products for all of your household paper needs."
+        }
+      },
+      "collection-nav": {
+        "type": "collection-nav",
+        "blocks": {
+          "collection_link_HFqhzb": {
+            "type": "collection_link",
+            "settings": {
+              "title": "Toilet Paper",
+              "image": "shopify://shop_images/tp-bask.png",
+              "collection_link": "shopify://collections/scented-paper",
+              "collection_handle": "scented-paper"
+            }
+          },
+          "collection_link_XW7RfR": {
+            "type": "collection_link",
+            "settings": {
+              "title": "Kitchen Towels",
+              "image": "shopify://shop_images/towel-hq.png",
+              "collection_link": "shopify://collections/rolls",
+              "collection_handle": "rolls"
+            }
+          },
+          "collection_link_cVLtLg": {
+            "type": "collection_link",
+            "settings": {
+              "title": "Sheets",
+              "image": "shopify://shop_images/tp-eyes-hq.png",
+              "collection_link": "shopify://collections/sheets",
+              "collection_handle": "sheets"
+            }
+          }
+        },
+        "block_order": [
+          "collection_link_HFqhzb",
+          "collection_link_XW7RfR",
+          "collection_link_cVLtLg"
+        ],
+        "settings": {}
       }
     },
     "content_for_index": [],
