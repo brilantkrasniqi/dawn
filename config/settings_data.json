@@ -124,7 +124,7 @@
           "paragraph1": "For businesses with ongoing bulk needs, we offer special pricing on monthly orders. If you’re looking for a cost-effective solution, contact our partnerships team to discuss customized deals that provide the best value for your business.",
           "heading2": "Shop wholesale, anytime and anywhere",
           "paragraph2": "Browse our web store and place your bulk order instantly. Whether you need kitchen paper, toilet paper, or napkins, enjoy fast, simple, and convenient purchasing with just a few clicks, and the goods will be delivered straight to your door.",
-          "button_link_1": "shopify://pages/about-us",
+          "button_link_1": "shopify://pages/home-page",
           "button_text_1": "More about us",
           "image_1": "shopify://shop_images/tp-eyes-hq.png",
           "image_2": "shopify://shop_images/tp-bask-hq.png",
@@ -190,6 +190,7 @@
           "field_3": "Phone number*",
           "field_4": "Order Quantity (Estimated Monthly Purchase)*",
           "check_text": "I agree to be contacted by Flutra’s partnerships team regarding my inquiry",
+          "newsletter_text": "Subscribe to our newsletter for special offers and updates",
           "heading": "Partner with Flutra – Bulk Orders Made Simple",
           "paragraph": "Get the best value for your business with our exclusive bulk pricing. Whether you need a steady supply of high-quality kitchen paper, toilet paper, or napkins, we offer flexible deals tailored to you. Fill out the form below, and our team will get back to you with a custom offer."
         }
