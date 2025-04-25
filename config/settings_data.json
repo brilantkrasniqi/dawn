@@ -22,7 +22,7 @@
           "heading": "Softness, Strength, and Quality in Every Sheet!",
           "paragraph1": "Elevate your everyday essentials with Flutra&#39;s premium kitchen paper, toilet paper, and napkins—crafted for comfort, quality, and care since 2008.",
           "button_text": "Shop our products",
-          "button_link": "shopify://pages/our-products"
+          "button_link": "shopify://collections"
         }
       },
       "featured-products": {
@@ -31,7 +31,7 @@
           "heading": "Shop our products",
           "collection": "featured-products",
           "button_text": "See all Products",
-          "button_link": "shopify://pages/our-products"
+          "button_link": "shopify://collections"
         }
       },
       "bulk-cta": {
@@ -71,7 +71,7 @@
         "type": "zero-plastic",
         "settings": {
           "heading": "Zero trees. zero plastic zero compromise.",
-          "button_link": "shopify://pages/our-products",
+          "button_link": "shopify://collections",
           "button_text": "Shop our products now",
           "bg_image": "shopify://shop_images/forest-hq.png"
         }
