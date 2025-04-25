@@ -581,7 +581,7 @@ input[type="number"] {
   max-width: 300px;
 }
 .discount-percentage-badge {
- 
+  display:none;
   background-color: var(--header-blue-);
   color:white !important;
   font-weight:bold;
@@ -589,5 +589,43 @@ input[type="number"] {
   height:30px;
   width: 60px;
   clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%);
+}
+
+#discountDisplay {
+  display: inline-block;
+  min-height: 24px;
+  min-width: 200px;
+}
+
+/* Loader Animation */
+.loader {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: #1A3683 #0000;
+  animation: l1 1s infinite;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+@keyframes l1 {to{transform: translate(-50%, -50%) rotate(.5turn)}}
+
+.quantity-container {
+  position: relative;
+  min-width: 30px;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity-number {
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 

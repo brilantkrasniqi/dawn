@@ -1015,9 +1015,12 @@ document.addEventListener('DOMContentLoaded', function() {
           }">
                       <img id="quantityBtnM" src="{{'minus.svg' | asset_url}}" width="20" height="20" alt="minus">
                     </button>
-                    <p class="quantity-number">${
+                    <div class="quantity-container">
+                      <p class="quantity-number">${
             item.quantity
           }</p>
+                      <div class="loader"></div>
+                    </div>
                     <button class="btn-white p-2 btn-plus" data-key="${
             item.key
           }">
@@ -1095,6 +1098,21 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   function updateCartItemQuantity(itemKey, change) {
     console.log('Updating quantity for key:', itemKey, 'Change:', change);
+    
+    // Show loader and hide quantity number for the specific cart item
+    const cartItem = document.querySelector(`.cartItemContainer[data-key="${itemKey}"]`);
+    if (cartItem) {
+      const loader = cartItem.querySelector('.loader');
+      const quantityNumber = cartItem.querySelector('.quantity-number');
+      if (loader) {
+        loader.style.display = 'block';
+      }
+      if (quantityNumber) {
+        // Hide the text but keep the element visible for the loader
+        quantityNumber.style.display = 'none';
+      }
+    }
+    
     fetch('/cart.js').then(response => response.json()).then(cart => {
       const item = cart.items.find(i => i.key === itemKey);
       if (! item) {
@@ -1123,7 +1141,40 @@ document.addEventListener('DOMContentLoaded', function() {
       }).then(response => response.json()).then(updatedCart => {
         console.log('Cart updated:', updatedCart);
         updateCartUI();
-      }).catch(error => console.error('Error updating cart item:', error));
+        
+        // Hide all loaders after cart UI is updated
+        document.querySelectorAll('.loader').forEach(loader => {
+          loader.style.display = 'none';
+        });
+      }).catch(error => {
+        console.error('Error updating cart item:', error);
+        // Hide loader on error and restore quantity display
+        document.querySelectorAll('.loader').forEach(loader => {
+          loader.style.display = 'none';
+        });
+        
+        // Restore original quantity text if update failed
+        if (cartItem) {
+          const quantityNumber = cartItem.querySelector('.quantity-number');
+          if (quantityNumber) {
+            quantityNumber.style.display = 'block';
+          }
+        }
+      });
+    }).catch(error => {
+      console.error('Error fetching cart:', error);
+      // Hide loader on error and restore quantity display
+      document.querySelectorAll('.loader').forEach(loader => {
+        loader.style.display = 'none';
+      });
+      
+      // Restore original quantity text if update failed
+      if (cartItem) {
+        const quantityNumber = cartItem.querySelector('.quantity-number');
+        if (quantityNumber) {
+          quantityNumber.style.display = 'block';
+        }
+      }
     });
   }
 
