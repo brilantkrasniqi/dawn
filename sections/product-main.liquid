@@ -51,9 +51,44 @@
           </div>
         </div>
       </div>
+
+      {% comment %} Product Details {% endcomment %}
       <div class="col-lg-6 col-12 pt-lg-0 pt-5 ps-lg-5  d-flex flex-column">
         <h2 class="text-uppercase">{{ product.title }}</h2>
-        <p class="pt-3">{{ product.description }}</p>
+
+
+        {% comment %} Product Features {% endcomment %}
+        <div class="mt-5 p-3 border rounded-8">
+          <h3 class="fw-bold pb-4">Product Features</h3>
+          <div class="row">
+            {% assign feature_icons = "feature_icon_one,feature_icon_two,feature_icon_three,feature_icon_four" | split: "," %}
+            {% assign feature_descriptions = "feature_description_one,feature_description_two,feature_description_three,feature_description_four" | split: "," %}
+
+            {% for icon in feature_icons %}
+              {% assign index = forloop.index0 %}
+              {% assign description_key = feature_descriptions[index] %}
+              {% if product.metafields.custom[icon] != blank %}
+                <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
+                  <div class="d-flex align-items-center">
+                    <div class="bg-gray p-2 prodFeature w-fit rounded-8">
+                      <img
+                        src="{{ product.metafields.custom[icon] | file_url }}"
+                        width="38"
+                        height="38"
+                        alt="" />
+                    </div>
+                    <p class="fw-medium ps-2">
+                      {{ product.metafields.custom[description_key] }}
+                    </p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+
+        {% comment %} Variant Options {% endcomment %}
         <div class="d-flex pt-4">
           <div class="d-flex gap-3 mt-4 flex-wrap justify-content-center align-items-center" id="package-options">
             {% for variant in product.variants %}
@@ -76,13 +111,13 @@
               </div>
             {% endfor %}
           </div>
-
-
         </div>
+
+
         <div class="mt-5 rounded-8 border">
           <div class="one-Time p-4 option-container">
             <div class="d-flex justify-content-between">
-              <p class="fw-light d-none">Buy one-time</p>
+              {% comment %} <p class="fw-light d-none">Buy one-time</p> {% endcomment %}
             </div>
             <div id="price-container">
               <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
@@ -189,116 +224,65 @@
               </button>
             </form>
           </div>
-          <div class="subscription border-top p-4 option-container d-none">
-            <div class="d-flex align-items-center justify-content-between">
-              <p class="fw-light">Subscribe</p>
-              <input
-                type="radio"
-                name="properties[purchase_type]"
-                value="subscription">
-            </div>
-            <h3 class="subscription-Price funnel-font py-2 text-discount">
-              {{ product.price | times: 0.7 | money }}
-              <span class="discount fw-light roboto-font user-select-none" id="subscription-price">{{ product.price | money }}</span>
-            </h3>
-            <p class="fw-bold text-discount">
-              Use promo TP4EVA at checkout to get 5€ off your first subscription order.
-            </p>
-            <ul class="py-3 ps-3">
-              <li class="dot-decorate">Easy, repeat deliveries</li>
-              <li class="dot-decorate">Change or cancel anytime</li>
-              <li class="dot-decorate">
-                One-time discount valid for new subscribers only
-              </li>
-            </ul>
-          </div>
+
+        {% comment %} Subscription Option {% endcomment %}
+
+        {% comment %} <div class="subscription border-top p-4 option-container d-none">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="d-flex align-items-center justify-content-between">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <p class="fw-light">Subscribe</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <input
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                type="radio"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                name="properties[purchase_type]"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                value="subscription">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h3 class="subscription-Price funnel-font py-2 text-discount">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {{ product.price | times: 0.7 | money }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <span class="discount fw-light roboto-font user-select-none" id="subscription-price">{{ product.price | money }}</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <p class="fw-bold text-discount">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Use promo TP4EVA at checkout to get 5€ off your first subscription order.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <ul class="py-3 ps-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <li class="dot-decorate">Easy, repeat deliveries</li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <li class="dot-decorate">Change or cancel anytime</li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <li class="dot-decorate">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                One-time discount valid for new subscribers only
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                          </div> {% endcomment %}
+        </div>
+        {% comment %} Product Description {% endcomment %}
+        <div class="mt-5 p-3 border rounded-8 d-flex align-items-center justify-content-center">
+          <p class="pt-3">{{ product.description }}</p>
         </div>
 
-        <div class="mt-5 p-3 border rounded-8">
-          <h3 class="fw-bold pb-4">Product Features</h3>
-          <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
-              <div class="d-flex align-items-center">
-                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
-                  <img
-                    src="{{'tp-soak.svg' |  asset_url}}"
-                    width="38"
-                    height="38"
-                    alt="Bulk" />
-                </div>
-                <p class="fw-medium ps-2">
-                  Quickly soaks up spills and messes.
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
-              <div class="d-flex align-items-center">
-                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
-                  <img
-                    src="{{'tp-svg.svg' |  asset_url}}"
-                    width="38"
-                    height="38"
-                    alt="Bulk" />
-                </div>
-                <p class="fw-medium ps-2">
-                  Tear-resistant even when the towel is wet.
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
-              <div class="d-flex align-items-center">
-                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
-                  <img
-                    src="{{'tp-sustainability.svg' |  asset_url}}"
-                    width="38"
-                    height="38"
-                    alt="Bulk" />
-                </div>
-                <p class="fw-medium ps-2">
-                  Sustainably sourced, safe for the planet.
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-6 col-12 mt-2">
-              <div class="d-flex align-items-center">
-                <div class="bg-gray p-2 prodFeature w-fit rounded-8">
-                  <img
-                    src="{{'tp-sizes.svg' |  asset_url}}"
-                    width="38"
-                    height="38"
-                    alt="Bulk" />
-                </div>
-                <p class="fw-medium ps-2">
-                  Available in various sizes for every need.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mt-5 p-3 border rounded-8">
-          <h3 class="fw-bold">Product Details</h3>
-          <div class="d-flex flex-column justify-content-between">
 
-            {% if product.metafields.custom.product_details != blank %}
-              <p class="fw-light py-4">{{ product.metafields.custom.product_details }}</p>
-            {% endif %}
+      {% comment %} <div class="mt-5 p-3 border rounded-8 d-none">
+                                                                                                                                                                                                                                                                                                                                                                                                                  <h3 class="fw-bold">Product Details</h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                  <div class="d-flex flex-column justify-content-between">
+                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                                                    {% if product.metafields.custom.product_details != blank %}
+                                                                                                                                                                                                                                                                                                                                                                                                                      <p class="fw-light py-4">{{ product.metafields.custom.product_details }}</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                    {% endif %}
+                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                                                    {% if product.metafields.custom.product_details_points != blank %}
+                                                                                                                                                                                                                                                                                                                                                                                                                      <ul class="fw-bold ps-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                        {% assign bullets = product.metafields.custom.product_details_points | split: ',' %}
+                                                                                                                                                                                                                                                                                                                                                                                                                        {% for bullet in bullets %}
+                                                                                                                                                                                                                                                                                                                                                                                                                          <li class="dot-decorate">{{ bullet | strip }}</li>
+                                                                                                                                                                                                                                                                                                                                                                                                                        {% endfor %}
+                                                                                                                                                                                                                                                                                                                                                                                                                      </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                    {% endif %}
+                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                <div class="mt-5 p-3 border rounded-8 d-none">
+                                                                                                                                                                                                                                                                                                                                                                                                                  <h3 class="fw-bold">Why choose the subscription option?</h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                  <p class="pt-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                    {{ section.settings.why_sub }}
+                                                                                                                                                                                                                                                                                                                                                                                                                  </p>
+                                                                                                                                                                                                                                                                                                              </div> {% endcomment %}
 
-            {% if product.metafields.custom.product_details_points != blank %}
-              <ul class="fw-bold ps-3">
-                {% assign bullets = product.metafields.custom.product_details_points | split: ',' %}
-                {% for bullet in bullets %}
-                  <li class="dot-decorate">{{ bullet | strip }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          </div>
-        </div>
-        <div class="mt-5 p-3 border rounded-8">
-          <h3 class="fw-bold">Why choose the subscription option?</h3>
-          <p class="pt-3">
-            {{ section.settings.why_sub }}
-          </p>
-        </div>
+
       </div>
     </div>
   </div>
