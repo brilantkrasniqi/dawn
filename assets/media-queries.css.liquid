@@ -1,91 +1,12 @@
-/* Small Phones */
-@media (max-width: 320px) {
+/* Large Desktops */
+@media (max-width: 1400px) {
+
 }
 
-/* Phones */
-@media (max-width: 576px) {
-  .displaySearchBar {
-    display: flex !important;
-    position: fixed;
-    left: 50%;
-    top: 180px;
-    transform: translate(-50%, -50%);
-    width: 80svw !important;
-    border-radius: 8px !important;
-    border-top-left-radius: 8px !important;
-    z-index: 30;
-  }
-  #search-btn-nav {
-    margin-right: -62px;
-    position: relative;
-    z-index: 30;
-    width: 18px;
-    height: 18px;
-  }
-  #zeroPlastic h1 {
-    font-size: 24px !important;
-  }
-  .b2bContainer {
-    width: 90svw;
-  }
-  .mobileNavContainer {
-    width: 320px !important;
-  }
-  .cartContainer {
-    max-width:375px !important;
-    padding:0.5rem !important;
-  }
-  #quantityBtnM,
-  #quantityBtnP {
-    width: 10px;
-  }
-  .p-14 {
-    padding: 5px !important;
-  }
-  #nav-logo {
-    width: 80px !important;
-    height: 50px !important;
-  }
+/* Desktop */
+@media (max-width: 1200px) {
 }
 
-/* Tablets */
-@media (max-width: 768px) {
-  #orderBulk {
-    background-image: url("/assets/images/png/tp-pink-mb-hq.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 5rem;
-  }
-  .cardContainer {
-    max-width: 700px;
-  }
-  #zeroPlastic {
-    padding: 4rem;
-  }
-  .b2bContainer {
-    width: 100%;
-  }
-  .cartContainer {
-    max-width:400px;
-    padding: 1rem;
-    height: 100dvh;
-  }
-  .cartItemContainer .prodImage {
-    width: 150px;
-    height: 100px;
-    padding: 0.725rem;
-  }
-  .quantity {
-    max-width: 100% !important;
-  }
-  #thumbnailProductShowCase .splide__arrow--prev svg {
-    left: 5%;
-  }
-  #thumbnailProductShowCase .splide__arrow--next svg {
-    right: 5%;
-  }
-}
 /* Large Tablets */
 @media (max-width: 992px) {
   .r-down {
@@ -145,19 +66,123 @@
    
   }
   .singleProdContainer {
-    height: fit-content
+    height: 600px
   }
-}
-/* Desktop */
-@media (max-width: 1200px) {
-}
 
-/* Large Desktops */
-@media (max-width: 1400px) {
+  #thumbnailProductShowCase .splide__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center !important;
+    
+  }
   #thumbnailProductShowCase .splide__arrow--prev svg {
-    left: 2%;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
   }
   #thumbnailProductShowCase .splide__arrow--next svg {
-    right: 2%;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
   }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  #orderBulk {
+    background-image: url("/assets/images/png/tp-pink-mb-hq.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 5rem;
+  }
+  .cardContainer {
+    max-width: 700px;
+  }
+  #zeroPlastic {
+    padding: 4rem;
+  }
+  .b2bContainer {
+    width: 100%;
+  }
+  .cartContainer {
+    max-width:400px;
+    padding: 1rem;
+    height: 100dvh;
+  }
+  .cartItemContainer .prodImage {
+    width: 150px;
+    height: 100px;
+    padding: 0.725rem;
+  }
+  .quantity {
+    max-width: 100% !important;
+  }
+  #thumbnailProductShowCase .splide__arrow--prev svg {
+    left: 5%;
+  }
+  #thumbnailProductShowCase .splide__arrow--next svg {
+    right: 5%;
+  }
+}
+
+/* Phones */
+@media (max-width: 576px) {
+  .displaySearchBar {
+    display: flex !important;
+    position: fixed;
+    left: 50%;
+    top: 180px;
+    transform: translate(-50%, -50%);
+    width: 80svw !important;
+    border-radius: 8px !important;
+    border-top-left-radius: 8px !important;
+    z-index: 30;
+  }
+  #search-btn-nav {
+    margin-right: -62px;
+    position: relative;
+    z-index: 30;
+    width: 18px;
+    height: 18px;
+  }
+  #zeroPlastic h1 {
+    font-size: 24px !important;
+  }
+  .b2bContainer {
+    width: 90svw;
+  }
+  .mobileNavContainer {
+    width: 320px !important;
+  }
+  .cartContainer {
+    max-width:375px !important;
+    padding:0.5rem !important;
+  }
+  #quantityBtnM,
+  #quantityBtnP {
+    width: 10px;
+  }
+  .p-14 {
+    padding: 5px !important;
+  }
+  #nav-logo {
+    width: 80px !important;
+    height: 50px !important;
+  }
+  .singleProdContainer {
+    height: 370px
+  }
+  
+}
+
+@media (max-width: 450px) {
+  .thumbnailProdContainer {
+    height: 80px;
+  }
+}
+
+/* Small Phones */
+@media (max-width: 320px) {
 }

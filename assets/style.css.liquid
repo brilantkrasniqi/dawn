@@ -416,13 +416,13 @@ input[type="number"] {
   height: 100%;
 }
 .thumbnailProdContainer {
-  height: 100%;
+  height: 100px;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 .thumbnailProdContainer img {
-  object-fit: fill !important;
-  height: auto;
+  object-fit: contain !important;
   width: 100%;
   margin: auto 0;
   border-radius: 4px;
@@ -433,23 +433,28 @@ input[type="number"] {
 }
 #thumbnailProductShowCase .splide__arrow--prev svg {
   fill: var(--header-blue-);
-  transform: rotateY(180deg);
+  transform: rotate(270deg) translateY(-8px);
   width: 15px;
   position: absolute;
-  left: 50px;
-  top: 40%;
+  left:50%;
+  top: -2%;
   z-index: 30;
 }
 #thumbnailProductShowCase .splide__arrow--next svg {
   fill: var(--header-blue-);
+  transform: rotate(90deg) translateY(-8px);
   width: 15px;
   position: absolute;
-  right: 50px;
-  top: 40%;
+  right: 50%;
+  top: 95%;
   z-index: 30;
 }
 #thumbnailProductShowCase .splide__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center !important;
+  
 }
 #thumbnailProductShowCase .splide__slide {
   opacity: 0.6;
@@ -461,9 +466,9 @@ input[type="number"] {
   border: 2px solid var(--header-blue-);
   border-radius: 4px;
 }
-.splide {
-  max-width: 792px !important;
-}
+/* .splide  {
+  max-width: fit-content !important;
+} */
 
 .package-box { 
   cursor: pointer; 
