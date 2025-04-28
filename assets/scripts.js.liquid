@@ -562,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const discountBadge = document.querySelector('.discount-percentage-badge');
         if (discountBadge) {
           if (applicableTier) {
-            discountBadge.textContent = `${
+            discountBadge.textContent = `-${
               applicableTier.discount
             }%`;
             discountBadge.style.display = 'block';
@@ -980,7 +980,7 @@ document.addEventListener('DOMContentLoaded', function() {
             item.product_title
           }</p>
                 <div class="d-flex align-items-center py-md-3 py-1">
-                  <span class="original-price discount funnel-font">
+                  <span class="original-price  funnel-font">
                     ${
             itemOriginalPrice !== itemPrice
               ? formattedOriginalPrice
@@ -1438,7 +1438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Also update the discount badge - but only show the percentage number
         const discountBadge = document.querySelector('.discount-percentage-badge');
         if (discountBadge) {
-          discountBadge.textContent = `${
+          discountBadge.textContent = `-${
             applicableTier.discount
           }%`;
           discountBadge.classList.add('text-discount');
