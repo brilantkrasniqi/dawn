@@ -95,21 +95,25 @@
           <div class="d-flex gap-3 mt-4 flex-wrap justify-content-center align-items-center" id="package-options">
             {% for variant in product.variants %}
               <div
-                class="package-box p-3 rounded-8 border text-center"
+                class="package-box p-3 rounded-8 border text-center d-flex flex-column justify-content-between"
                 data-variant-id="{{ variant.id }}"
                 data-price="{{ variant.price }}"
                 data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}">
-                <img
-                  src="{{variant.featured_image |  image_url }}"
-                  width="50"
-                  height="50"
-                  class="object-fit-contain"
-                  alt="">
-                <p class="fw-bold">{{ variant.title }}</p>
-                <p>{{ variant.price | money }}</p>
-                <p class="small text-muted">
-                  {{ variant.metafields.custom.pieces_per_pack | default: 1 }} pcs/pack
-                </p>
+                <div>
+                  <img
+                    src="{{variant.featured_image |  image_url }}"
+                    width="50"
+                    height="50"
+                    class="object-fit-contain"
+                    alt="">
+                  <p class="fw-bold">{{ variant.title }}</p>
+                </div>
+                <div>
+                  <p>{{ variant.price | money }}</p>
+                  <p class="small text-muted">
+                    {{ variant.metafields.custom.pieces_per_pack | default: 1 }} pcs/pack
+                  </p>
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -118,29 +122,33 @@
 
         <div class="mt-5 rounded-8 border">
           <div class="one-Time p-4 option-container">
-            <div class="d-flex justify-content-between">
-              {% comment %} <p class="fw-light d-none">Buy one-time</p> {% endcomment %}
-            </div>
+            <div class="d-flex justify-content-between"></div>
             <div id="price-container">
-              <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
-                {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
-                {% assign net_price = product.price | divided_by: 1.0 %}
+              <div class="">
 
-                {% case product.type %}
-                  {% when 'Roll' %}
-                    {% assign unit_label = 'roll' %}
-                  {% when 'Sheet' %}
-                    {% assign unit_label = 'sheet' %}
-                  {% when 'Bundle' %}
-                    {% assign unit_label = 'bundle' %}
-                  {% else %}
-                    {% assign unit_label = 'piece' %}
-                {% endcase %}
 
-                <span class="perPiece pb-2" id="price-per-piece">
-                  ({{ net_price | divided_by: pieces | money }}) per {{ unit_label }}</span>
-              </h3>
-              <span class="discount-percentage-badge mt-1 text-center"></span>
+                <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
+                  {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
+                  {% assign net_price = product.price | divided_by: 1.0 %}
+
+                  {% case product.type %}
+                    {% when 'Roll' %}
+                      {% assign unit_label = 'roll' %}
+                    {% when 'Sheet' %}
+                      {% assign unit_label = 'sheet' %}
+                    {% when 'Bundle' %}
+                      {% assign unit_label = 'bundle' %}
+                    {% else %}
+                      {% assign unit_label = product.type %}
+                  {% endcase %}
+
+                  <span class="perPiece pb-2" id="price-per-piece">
+                    ({{ net_price | divided_by: pieces | money }}) per {{ unit_label }}</span>
+                </h3>
+              </div>
+              <div class="discount-container ms-2">
+                <span class="discount-percentage-badge  text-center"></span>
+              </div>
             </div>
             {% if shop.taxes_included %}
               <small>Including VAT</small>
@@ -154,7 +162,7 @@
             {% if product.metafields.custom.discount_tiers != blank %}
               <div class="mt-3" id="discount-container">
                 <p class="fw-bold">
-                  <span id="discountDisplay">No discount</span>
+                  <span id="discountDisplay"></span>
                 </p>
               </div>
             {% endif %}
@@ -226,65 +234,11 @@
               </button>
             </form>
           </div>
-
-        {% comment %} Subscription Option {% endcomment %}
-
-        {% comment %} <div class="subscription border-top p-4 option-container d-none">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <div class="d-flex align-items-center justify-content-between">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <p class="fw-light">Subscribe</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          type="radio"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          name="properties[purchase_type]"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          value="subscription">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <h3 class="subscription-Price funnel-font py-2 text-discount">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ product.price | times: 0.7 | money }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span class="discount fw-light roboto-font user-select-none" id="subscription-price">{{ product.price | money }}</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <p class="fw-bold text-discount">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Use promo TP4EVA at checkout to get 5€ off your first subscription order.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <ul class="py-3 ps-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="dot-decorate">Easy, repeat deliveries</li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="dot-decorate">Change or cancel anytime</li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="dot-decorate">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          One-time discount valid for new subscribers only
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div> {% endcomment %}
         </div>
         {% comment %} Product Description {% endcomment %}
-        <div class="mt-5 p-3 border rounded-8 d-flex align-items-center justify-content-center">
+        <div class="mt-5 p-3 border rounded-8">
           <p class="pt-3">{{ product.description }}</p>
         </div>
-
-
-      {% comment %} <div class="mt-5 p-3 border rounded-8 d-none">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <h3 class="fw-bold">Product Details</h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div class="d-flex flex-column justify-content-between">
-                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {% if product.metafields.custom.product_details != blank %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <p class="fw-light py-4">{{ product.metafields.custom.product_details }}</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {% endif %}
-                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {% if product.metafields.custom.product_details_points != blank %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <ul class="fw-bold ps-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% assign bullets = product.metafields.custom.product_details_points | split: ',' %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% for bullet in bullets %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <li class="dot-decorate">{{ bullet | strip }}</li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% endfor %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {% endif %}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="mt-5 p-3 border rounded-8 d-none">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <h3 class="fw-bold">Why choose the subscription option?</h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <p class="pt-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {{ section.settings.why_sub }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </p>
-                                                                                                                                                                                                                                                                                                                                                                    </div> {% endcomment %}
-
-
       </div>
     </div>
   </div>

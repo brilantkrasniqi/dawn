@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  touch-action: manipulation;
 }
 :root {
   --header-blue-: #0b266f;
@@ -474,6 +475,7 @@ input[type="number"] {
   cursor: pointer; 
   transition: border-color .2s, background .2s; 
   width: 150px;
+  height: 180px;
 }
 .package-box.selected { 
   background: var(--product-gray-bg); 
@@ -573,28 +575,41 @@ input[type="number"] {
 }
 
 /* Style for strikethrough price */
-.discount {
-  text-decoration: line-through;
-  color: #9b9b9b;
-  font-size: 0.9em;
-  margin-left: 0.5em;
-}
+
 #price-container {
   display: flex;
   align-items: ;
   justify-content: space-between;
-  max-width: 300px;
+  width: fit-content;
 }
+
+.discount-container {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-weight: bold;
+}
+.discount {
+  background-color: #e0e0e0; 
+  padding: 8px 12px;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%);
+  font-weight: bold !important;
+ 
+
+}
+
 .discount-percentage-badge {
   display:none;
   background-color: var(--header-blue-);
   color:white !important;
   font-weight:bold;
-  padding: 0.25rem 0.5rem;
-  height:30px;
-  width: 60px;
-  clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%);
+  padding: 8px 12px;
+  margin-left: -2px;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%);
+  min-width: 70px;
+
 }
+
 
 
 #discount-container {
@@ -632,4 +647,5 @@ input[type="number"] {
   margin: 0;
   padding: 0;
 }
+
 

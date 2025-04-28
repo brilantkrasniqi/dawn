@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
 // Update the price display
-      if (variantPriceElement) { // Format price in the shop's money format
+      if (variantPriceElement) {
         const formattedPrice = Shopify.formatMoney(totalPrice, window.shopMoneyFormat);
 
         console.log('Formatted price to display:', formattedPrice);
@@ -579,12 +579,46 @@ document.addEventListener('DOMContentLoaded', function() {
           const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
 
 // Keep separate spans for main price and per-piece price
-          variantPriceElement.innerHTML = `${formattedPrice} <span class="discount fw-light roboto-font user-select-none">${formattedOriginalPrice}</span>
+          variantPriceElement.innerHTML = `${formattedPrice} <span class="discount roboto-font user-select-none">${formattedOriginalPrice}</span>
             <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
             window.unitLabel || 'piece'
           }</span>`;
 
           console.log('Updated price with discount:', variantPriceElement.innerHTML);
+
+// Update price display with discount
+          if (variantPriceElement) {
+            const formattedDiscountedPrice = Shopify.formatMoney(totalPrice, window.shopMoneyFormat);
+            const formattedOriginalPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
+
+// Calculate and format price per piece (based on discounted price)
+            const discountedPricePerPiece = discountedPricePerItem / piecesPerPack;
+            const formattedPricePerPiece = Shopify.formatMoney(discountedPricePerPiece, window.shopMoneyFormat);
+
+// Update HTML with strikethrough for original price
+            variantPriceElement.innerHTML = `${formattedDiscountedPrice} 
+              <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
+              window.unitLabel || 'piece'
+            }</span>`;
+
+// Add the original price to the discount container instead
+            const discountContainer = document.querySelector('.discount-container');
+            if (discountContainer) {
+              const discountSpan = document.createElement('span');
+              discountSpan.className = 'discount fw-light roboto-font user-select-none';
+              discountSpan.textContent = formattedOriginalPrice;
+
+// Clear previous discount span if it exists
+              const existingDiscount = discountContainer.querySelector('.discount');
+              if (existingDiscount) {
+                existingDiscount.remove();
+              }
+
+// Remove d-none class when there is a discount
+              discountSpan.classList.remove('d-none');
+              discountContainer.appendChild(discountSpan);
+            }
+          }
         } else {
 
 // No discount - just show the normal price
@@ -779,13 +813,17 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Updated original price to:', originalPrice);
           }
 
-// Update subscription price (30% discount)
+// Update subscription price
           const subscriptionPriceElement = document.querySelector('.subscription-Price');
           const subscriptionPriceSpan = document.getElementById('subscription-price');
+          const discountContainer = document.querySelector('.discount-container');
 
-          if (subscriptionPriceElement && subscriptionPriceSpan) {
+          if (discountContainer) {
             const subscriptionPrice = variantPrice * 0.7; // 30% discount
-            subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount fw-light roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
+            const subscriptionHtml = `<span class="discount  roboto-font user-select-none" id="subscription-price">${
+              Shopify.formatMoney(variantPrice, window.shopMoneyFormat)
+            }</span>`;
+            discountContainer.insertAdjacentHTML('beforeend', subscriptionHtml);
           }
 
 // Use quantity = 1
@@ -848,7 +886,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (subscriptionPriceElement && subscriptionPriceSpan) {
             const subscriptionPrice = variantPrice * 0.7; // 30% discount
-            subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount fw-light roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
+            subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount  roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
           }
 
 // Use quantity = 1
@@ -1477,10 +1515,28 @@ document.addEventListener('DOMContentLoaded', () => {
           const formattedPricePerPiece = Shopify.formatMoney(discountedPricePerPiece, window.shopMoneyFormat);
 
 // Update HTML with strikethrough for original price
-          variantPriceElement.innerHTML = `${formattedDiscountedPrice} <span class="discount fw-light roboto-font user-select-none">${formattedOriginalPrice}</span>
+          variantPriceElement.innerHTML = `${formattedDiscountedPrice} 
             <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
             window.unitLabel || 'piece'
           }</span>`;
+
+// Add the original price to the discount container instead
+          const discountContainer = document.querySelector('.discount-container');
+          if (discountContainer) {
+            const discountSpan = document.createElement('span');
+            discountSpan.className = 'discount fw-light roboto-font user-select-none';
+            discountSpan.textContent = formattedOriginalPrice;
+
+// Clear previous discount span if it exists
+            const existingDiscount = discountContainer.querySelector('.discount');
+            if (existingDiscount) {
+              existingDiscount.remove();
+            }
+
+// Remove d-none class when there is a discount
+            discountSpan.classList.remove('d-none');
+            discountContainer.appendChild(discountSpan);
+          }
         }
       } else {
 
@@ -1496,18 +1552,13 @@ document.addEventListener('DOMContentLoaded', () => {
           discountBadge.style.display = 'none';
         }
 
-// Update price without discount
-        if (variantPriceElement) {
-          const formattedPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
-          const pricePerPiece = originalPrice / piecesPerPack;
-          const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
-
-          variantPriceElement.innerHTML = `${formattedPrice} 
-            <span class="perPiece pb-2" id="price-per-piece">
-              (${formattedPricePerPiece}) per ${
-            window.unitLabel || 'piece'
+// Add d-none class to discount span when no discount
+        const discountContainer = document.querySelector('.discount-container');
+        if (discountContainer) {
+          const existingDiscount = discountContainer.querySelector('.discount');
+          if (existingDiscount) {
+            existingDiscount.classList.add('d-none');
           }
-            </span>`;
         }
       }
     }
