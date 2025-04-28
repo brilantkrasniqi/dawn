@@ -522,112 +522,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
       console.log('Applicable tier:', applicableTier);
 
-// Update the discount display (if it exists)
-      if (discountDisplayElement) {
-        if (applicableTier) { // Use the discount value directly from the tier
-          const discountPercentage = applicableTier.discount;
-
-          console.log('Using discount percentage from tier:', discountPercentage);
-
-// Calculate the actual amount saved in euros
-          const originalTotalPrice = originalPrice * quantity;
-          const discountAmount = originalTotalPrice - totalPrice;
-          const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
-
-// Show discount as money saved
-          const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
-          discountDisplayElement.textContent = discountText;
-          discountDisplayElement.classList.add('text-discount');
-
-// Also update the discount badge - but only show the percentage number
-          const discountBadge = document.querySelector('.discount-percentage-badge');
-          if (discountBadge) {
-            discountBadge.textContent = `${discountPercentage}%`;
-            discountBadge.classList.add('text-discount');
-            discountBadge.style.display = 'block'; // Make sure it's visible
-          }console.log('Showing discount text:', discountDisplayElement.textContent);
-        } else { // Hide the discount text completely when there's no discount
-          discountDisplayElement.textContent = '';
-          discountDisplayElement.classList.remove('text-discount');
-
-// Hide the discount badge when there's no discount
-          const discountBadge = document.querySelector('.discount-percentage-badge');
-          if (discountBadge) {
-            discountBadge.textContent = '';
-            discountBadge.style.display = 'none';
-          }
-
-          console.log('No discount applicable');
-        }
-      } else {
-        console.log('No discount display element found - this product likely has no discount tiers');
-      }
-
 // Update the price display
       if (variantPriceElement) {
         const formattedPrice = Shopify.formatMoney(totalPrice, window.shopMoneyFormat);
 
         console.log('Formatted price to display:', formattedPrice);
 
-// If there's a discount, show the original price as strikethrough
+// Calculate price per piece
+        const pricePerPiece = discountedPricePerItem / piecesPerPack;
+        const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
+
+// Basic price display with per-piece price
+        variantPriceElement.innerHTML = `${formattedPrice} 
+          <span class="perPiece pb-2" id="price-per-piece">
+            (${formattedPricePerPiece}) per ${
+          window.unitLabel || 'piece'
+        }
+          </span>`;
+
+// Handle discount display
+        const discountContainer = document.querySelector('.discount-container');
+        if (discountContainer) { // Remove any existing discount spans
+          const existingDiscounts = discountContainer.querySelectorAll('.discount');
+          existingDiscounts.forEach(discount => discount.remove());
+
+// Only add discount span if there's an applicable discount
+          if (applicableTier) {
+            const originalTotalPrice = originalPrice * quantity;
+            const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
+
+            const discountSpan = document.createElement('span');
+            discountSpan.className = 'discount roboto-font user-select-none';
+            discountSpan.textContent = formattedOriginalPrice;
+            discountContainer.appendChild(discountSpan);
+          }
+        }
+
+// Update discount badge display
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          if (applicableTier) {
+            discountBadge.textContent = `${
+              applicableTier.discount
+            }%`;
+            discountBadge.style.display = 'block';
+          } else {
+            discountBadge.style.display = 'none';
+          }
+        }
+      }
+
+// Update discount text display
+      if (discountDisplayElement) {
         if (applicableTier) {
           const originalTotalPrice = originalPrice * quantity;
-          const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
+          const discountAmount = originalTotalPrice - totalPrice;
+          const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
 
-// Calculate price per piece based on discounted price
-          const pricePerPiece = discountedPricePerItem / piecesPerPack;
-          const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
-
-// Keep separate spans for main price and per-piece price
-          variantPriceElement.innerHTML = `${formattedPrice} <span class="discount roboto-font user-select-none">${formattedOriginalPrice}</span>
-            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
-            window.unitLabel || 'piece'
-          }</span>`;
-
-          console.log('Updated price with discount:', variantPriceElement.innerHTML);
-
-// Update price display with discount
-          if (variantPriceElement) {
-            const formattedDiscountedPrice = Shopify.formatMoney(totalPrice, window.shopMoneyFormat);
-            const formattedOriginalPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
-
-// Calculate and format price per piece (based on discounted price)
-            const discountedPricePerPiece = discountedPricePerItem / piecesPerPack;
-            const formattedPricePerPiece = Shopify.formatMoney(discountedPricePerPiece, window.shopMoneyFormat);
-
-// Update HTML with strikethrough for original price
-            variantPriceElement.innerHTML = `${formattedDiscountedPrice} 
-              <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
-              window.unitLabel || 'piece'
-            }</span>`;
-
-// Add the original price to the discount container instead
-            const discountContainer = document.querySelector('.discount-container');
-            if (discountContainer) {
-              const discountSpan = document.createElement('span');
-              discountSpan.className = 'discount roboto-font user-select-none';
-              discountSpan.textContent = formattedOriginalPrice;
-
-// Clear previous discount span if it exists
-              const existingDiscount = discountContainer.querySelector('.discount');
-              if (existingDiscount) {
-                existingDiscount.remove();
-              }
-
-              discountContainer.appendChild(discountSpan);
-            }
-          }
+          const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
+          discountDisplayElement.textContent = discountText;
+          discountDisplayElement.classList.add('text-discount');
         } else {
-
-// No discount - just show the normal price
-// Add the per-piece span directly to the innerHTML
-          const pricePerPiece = totalPrice / (quantity * piecesPerPack);
-          const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
-
-          variantPriceElement.innerHTML = `${formattedPrice} <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
-            window.unitLabel || 'piece'
-          }</span>`;
-          console.log('Updated price without discount:', formattedPrice);
+          discountDisplayElement.textContent = '';
+          discountDisplayElement.classList.remove('text-discount');
         }
       }
     }
@@ -792,13 +749,6 @@ document.addEventListener('DOMContentLoaded', function() {
           const variantPrice = parseInt(this.getAttribute('data-price')) || originalPrice;
           const variantPieces = parseInt(this.getAttribute('data-pieces')) || piecesPerPack;
 
-          console.log('Variant data:', {
-            variantId,
-            variantPrice,
-            variantPieces,
-            originalPriceElement: !! originalPriceElement
-          });
-
 // Update data attributes and internal variables
           if (originalPriceElement) {
             originalPriceElement.setAttribute('data-price', variantPrice);
@@ -807,8 +757,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update the internal originalPrice variable used for calculations
             originalPrice = variantPrice;
             piecesPerPack = variantPieces;
-
-            console.log('Updated original price to:', originalPrice);
           }
 
 // Clean up any existing discount elements
