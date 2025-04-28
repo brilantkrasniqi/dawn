@@ -90,6 +90,16 @@
         </div>
 
 
+        {% case product.type %}
+          {% when 'Roll' %}
+            {% assign unit_label = 'roll' %}
+          {% when 'Sheet' %}
+            {% assign unit_label = 'sheet' %}
+          {% when 'Bundle' %}
+            {% assign unit_label = 'bundle' %}
+          {% else %}
+            {% assign unit_label = product.type %}
+        {% endcase %}
         {% comment %} Variant Options {% endcomment %}
         <div class="d-flex pt-4">
           <div class="d-flex gap-3 mt-4 flex-wrap justify-content-center align-items-center" id="package-options">
@@ -111,7 +121,7 @@
                 <div>
                   <p>{{ variant.price | money }}</p>
                   <p class="small text-muted">
-                    {{ variant.metafields.custom.pieces_per_pack | default: 1 }} pcs/pack
+                    {{ variant.metafields.custom.pieces_per_pack | default: 1 }} {{ unit_label }}s
                   </p>
                 </div>
               </div>
@@ -131,16 +141,6 @@
                   {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
                   {% assign net_price = product.price | divided_by: 1.0 %}
 
-                  {% case product.type %}
-                    {% when 'Roll' %}
-                      {% assign unit_label = 'roll' %}
-                    {% when 'Sheet' %}
-                      {% assign unit_label = 'sheet' %}
-                    {% when 'Bundle' %}
-                      {% assign unit_label = 'bundle' %}
-                    {% else %}
-                      {% assign unit_label = product.type %}
-                  {% endcase %}
 
                   <span class="perPiece pb-2" id="price-per-piece">
                     ({{ net_price | divided_by: pieces | money }}) per {{ unit_label }}</span>
