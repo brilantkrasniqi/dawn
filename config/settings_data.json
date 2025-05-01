@@ -270,12 +270,20 @@
       "collection-nav": {
         "type": "collection-nav",
         "blocks": {
+          "collection_link_7nR6m8": {
+            "type": "collection_link",
+            "settings": {
+              "title": "All products",
+              "collection_link": "shopify://collections",
+              "collection_handle": ""
+            }
+          },
           "collection_link_HFqhzb": {
             "type": "collection_link",
             "settings": {
-              "title": "Toilet Paper",
-              "collection_link": "shopify://collections/scented-paper",
-              "collection_handle": "scented-paper"
+              "title": "Toilet paper",
+              "collection_link": "shopify://collections/toilet-paper",
+              "collection_handle": "toilet-paper"
             }
           },
           "collection_link_XW7RfR": {
@@ -293,21 +301,13 @@
               "collection_link": "shopify://collections/sheets",
               "collection_handle": "sheets"
             }
-          },
-          "collection_link_7nR6m8": {
-            "type": "collection_link",
-            "settings": {
-              "title": "Collection",
-              "collection_link": "shopify://collections",
-              "collection_handle": ""
-            }
           }
         },
         "block_order": [
+          "collection_link_7nR6m8",
           "collection_link_HFqhzb",
           "collection_link_XW7RfR",
-          "collection_link_cVLtLg",
-          "collection_link_7nR6m8"
+          "collection_link_cVLtLg"
         ],
         "settings": {}
       }
