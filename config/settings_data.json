@@ -97,22 +97,22 @@
           "bullet_K8jUwi": {
             "type": "bullet",
             "settings": {
-              "title": "Premium Quality",
-              "detail": "– Soft, strong, and highly absorbent for maximum performance."
+              "title": "Ellie",
+              "detail": ""
             }
           },
           "bullet_HYgTfN": {
             "type": "bullet",
             "settings": {
-              "title": "Premium Quality",
-              "detail": "– Soft, strong, and highly absorbent for maximum performance."
+              "title": "Heb's & My Shawarma",
+              "detail": ""
             }
           },
           "bullet_HiprMH": {
             "type": "bullet",
             "settings": {
-              "title": "Premium Quality",
-              "detail": "– Soft, strong, and highly absorbent for maximum performance."
+              "title": "American Hospital & more",
+              "detail": ""
             }
           }
         },
@@ -122,22 +122,22 @@
           "bullet_HiprMH"
         ],
         "settings": {
-          "heading1": "Exclusive pricing for larger monthly orders",
-          "paragraph1": "For businesses with ongoing bulk needs, we offer special pricing on monthly orders. If you’re looking for a cost-effective solution, contact our partnerships team to discuss customized deals that provide the best value for your business.",
-          "heading2": "Shop wholesale, anytime and anywhere",
-          "paragraph2": "Browse our web store and place your bulk order instantly. Whether you need kitchen paper, toilet paper, or napkins, enjoy fast, simple, and convenient purchasing with just a few clicks, and the goods will be delivered straight to your door.",
+          "heading1": "Stand out with custom-printed paper",
+          "paragraph1": "Your brand is more than a logo, it’s an experience. With Flutra’s custom printing options, you can extend your identity to every touchpoint. From elegant napkins in fine dining settings to branded rolls in hotel bathrooms, our products add a professional, thoughtful touch to your service.",
+          "heading2": "Made for hospitality, events, retail, and more",
+          "paragraph2": "From boutique hotels and luxury restaurants to cafés, spas, and white-label resellers, Flutra’s custom paper products are trusted by businesses that want to stand out. <br>  <br>Trusted by:",
           "button_link_1": "#contactForm",
           "button_text_1": "Get your quote now",
           "image_1": "shopify://shop_images/tp-eyes-hq.png",
           "image_2": "shopify://shop_images/tp-bask-hq.png",
           "card_image_1": "shopify://shop_images/tp-sustainability.svg",
-          "card_text_1": "Sustainably sourced, safe for the planet.",
+          "card_text_1": "Professional look",
           "card_image_2": "shopify://shop_images/tp-soak.svg",
-          "card_text_2": "Quickly soaks up spills and messes.",
+          "card_text_2": "Reinforce your brand identity",
           "card_image_3": "shopify://shop_images/tp-svg.svg",
-          "card_text_3": "Tear-resistant even when the towel is wet.",
+          "card_text_3": "Premium paper with reliable performance",
           "card_image_4": "shopify://shop_images/tp-sizes.svg",
-          "card_text_4": "Available in various sizes for every need."
+          "card_text_4": "Flexible quantities for all business sizes"
         }
       },
       "b2b-form": {
@@ -193,15 +193,15 @@
           "field_4": "Order Quantity (Estimated Monthly Purchase)*",
           "check_text": "I agree to be contacted by Flutra’s partnerships team regarding my inquiry",
           "newsletter_text": "Subscribe to our newsletter for special offers and updates",
-          "heading": "Partner with Flutra – Bulk Orders Made Simple",
-          "paragraph": "Get the best value for your business with our exclusive bulk pricing. Whether you need a steady supply of high-quality kitchen paper, toilet paper, or napkins, we offer flexible deals tailored to you. Fill out the form below, and our team will get back to you with a custom offer."
+          "heading": "Let’s create your branded paper products",
+          "paragraph": "Tell us what you’re looking for and our team will get in touch with a custom quote. Whether you need small batches or large-scale production, we’ll help you bring your brand to life on every sheet."
         }
       },
       "b2b-hero": {
         "type": "b2b-hero",
         "settings": {
-          "header": "Quality paper products for every need",
-          "paragraph": "Discover our range of high-quality paper products, designed for both household and business use. Whether you need durable kitchen towels, soft toilet paper, or premium napkins, Flutra offers reliable solutions at competitive prices.",
+          "header": "Custom products tailored to your business",
+          "paragraph": "We specialize in producing personalized paper goods that match your brand. Whether you need toilet paper rolls with your logo, branded napkins for your restaurant, or kitchen towels for resale, Flutra helps you create a seamless, custom experience.",
           "image_1": "shopify://shop_images/annie-spratt-o2IzXk3oqUQ-unsplash.jpg",
           "category_1": "",
           "card_header_1": "Toilet Paper",
