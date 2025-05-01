@@ -9,7 +9,7 @@ class PageNavigation {
   navSearchBar = document.querySelector(".input-group");
   searchBar = document.getElementById("searchBar");
   cartContainer = document.querySelector(".cartContainer");
-  cartBtn = document.querySelector(".cart-nav");
+  cartBtn = document.querySelector("#cart-svg");
   cartCloseBtn = document.getElementById("closeCart");
   constructor() {
     this.initializeEventListeners();
@@ -1255,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.href = product.url;
       item.innerHTML = `
         <div class="d-flex align-items-center">
-          <img class="thumbnailSearch object-fit-cover" src="${
+          <img class="thumbnailSearch ps-2 object-fit-contain" src="${
         product.image
       }" alt="${
         product.title
@@ -1529,5 +1529,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize with current quantity
     updateDiscountDisplay(parseInt(quantityInput.value) || 1);
+  }
+});
+
+// --- Discount Code Functionality ---
+document.addEventListener('DOMContentLoaded', function() {
+  const discountInput = document.getElementById('discount-code');
+  const orderDiscountsRow = document.querySelector('.d-flex.align-items-center.justify-content-between.py-2.d-none');
+  const orderDiscountsAmount = document.getElementById('order-discounts');
+
+  if (discountInput) { // Add event listener for the Enter key
+    discountInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyDiscountCode();
+      }
+    });
+
+// Add a blur event to apply discount when input loses focus
+    discountInput.addEventListener('blur', function() {
+      if (discountInput.value.trim()) {
+        applyDiscountCode();
+      }
+    });
+
+// Function to apply discount code
+    function applyDiscountCode() {
+      const code = discountInput.value.trim();
+      if (! code) return;
+      
+
+
+// Show loading state
+      discountInput.disabled = true;
+
+// Apply discount code to cart
+      fetch('/discount/' + code, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Invalid discount code');
+          }
+          return fetch('/cart.js'); // Get updated cart data
+        })
+        .then(response => response.json())
+        .then(cart => {
+
+  // Show the discounts row if there are discounts
+          if (cart.total_discount > 0) {
+            orderDiscountsRow.classList.remove('d-none');
+            orderDiscountsAmount.textContent = '-' + Shopify.formatMoney(cart.total_discount, window.shopMoneyFormat);
+
+  // Update subtotal
+            document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
+              subtotalElem.textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
+            });
+          }
+
+  // Success feedback
+          discountInput.classList.add('is-valid');
+          setTimeout(() => discountInput.classList.remove('is-valid'), 2000);
+        })
+        .catch(error => {
+          console.error('Error applying discount:', error);
+
+// Error feedback
+          discountInput.classList.add('is-invalid');
+          setTimeout(() => discountInput.classList.remove('is-invalid'), 2000);
+        })
+        . finally(() => {
+          discountInput.disabled = false;
+        });
+    }
   }
 });

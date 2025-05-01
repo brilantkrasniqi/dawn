@@ -109,20 +109,20 @@
                 data-variant-id="{{ variant.id }}"
                 data-price="{{ variant.price }}"
                 data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}">
-                <div>
+                <div class="pb-3">
                   <img
                     src="{{variant.featured_image |  image_url }}"
                     width="50"
                     height="50"
                     class="object-fit-contain"
                     alt="">
-                  <p class="fw-bold">{{ variant.title }}</p>
                 </div>
-                <div>
-                  <p>{{ variant.price | money }}</p>
-                  <p class="small text-muted">
-                    {{ variant.metafields.custom.pieces_per_pack | default: 1 }} {{ unit_label }}s
-                  </p>
+                <div class="d-flex flex-column justify-content-between h-100">
+                  <p class="fw-bold">{{ variant.title }}</p>
+                  <p class>{{ variant.price | money }}</p>
+                {% comment %} <p class="small text-muted">
+                                                                                                                                                                                                        {{ variant.metafields.custom.pieces_per_pack | default: 1 }} {{ unit_label }}s
+                                                                                                                                                                                  </p> {% endcomment %}
                 </div>
               </div>
             {% endfor %}
@@ -200,7 +200,7 @@
                 data-pieces="{{ pieces }}"
                 class="d-none"></div>
               <!-- Slider and Quantity Input -->
-              <div class="py-5 px-3">
+              <div class="py-5 px-3  position-relative">
                 <tc-range-slider
                   mousewheel-disabled="true"
                   id="quantitySlider"
@@ -224,6 +224,7 @@
                   pointer-border="none"
                   pointer-border-focus="none"
                   marks-values-color="#0B266F"></tc-range-slider>
+                <div class="first-mark">1</div>
               </div>
               <!-- Add to Cart Button -->
               <button
@@ -243,6 +244,68 @@
     </div>
   </div>
 </section>
+
+<section id="relatedProductsSection" class="section-padding">
+  <div class="custom-container">
+    <h2 class="text-center">{{ section.settings.related_products_heading }}</h2>
+    <div class="row g-4 pt-5">
+      {% assign current_product = product %}
+    {% assign current_product_type = product.type %}
+
+      {% comment %}Get products from the same type/collection{% endcomment %}
+      {% assign related_products = collections.all.products | where: "type", current_product_type %}
+
+      {% for product in related_products limit: 4 %}
+        {% if product.id != current_product.id %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
+            <div class="product-container">
+              <a href="{{ product.url }}">
+                <div class="prod-image">
+                  <img
+                    loading="lazy"
+                    src="{{ product.featured_image | image_url }}"
+                    width="250"
+                    height="225"
+                    alt="{{ product.title }}" />
+                </div>
+              </a>
+              <div class="prod-info">
+                <p id="title">{{ product.title }}</p>
+                <div class="d-flex align-items-md-center align-items-start justify-content-between">
+                  <h3 class="fw-bold" id="price">{{ product.price | money }}
+                    {% assign pieces_per_pack = product.metafields.custom.pieces_per_pack | default: 1 %}
+                    {% if pieces_per_pack > 1 %}
+                      {% case product.type %}
+                        {% when 'Roll' %}
+                          {% assign unit_label = 'roll' %}
+                        {% when 'Sheet' %}
+                          {% assign unit_label = 'sheet' %}
+                        {% when 'Bundle' %}
+                          {% assign unit_label = 'bundle' %}
+                        {% else %}
+                          {% assign unit_label = 'piece' %}
+                      {% endcase %}
+                      <span class="perPiece pb-2">({{ product.price | divided_by: pieces_per_pack | money }}) per {{ unit_label }}</span>
+                    {% endif %}
+                  </h3>
+                  <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
+                    <button
+                      type="submit"
+                      class="funnel-font fw-bold"
+                      aria-label="Add {{ product.title }} to cart">
+                      + Add to cart
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 {% schema %}
   {
     "name": "Product Main",
@@ -257,9 +320,14 @@
         "type": "url",
         "id": "b2b_link",
         "label": "B2B link"
+      },
+      {
+        "type": "text",
+        "id": "related_products_heading",
+        "label": "Related Products Heading",
+        "default": "You may also like"
       }
     ],
-
     "presets": [
       {
         "name": "Product Main"
