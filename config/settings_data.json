@@ -85,8 +85,8 @@
       "b2b-header": {
         "type": "b2b-header",
         "settings": {
-          "header": "Flutra for businesses",
-          "button_text": "Send us an inquiry",
+          "header": "Custom paper for your brand",
+          "button_text": "Get your quote now",
           "button_link": "shopify://pages/contact-us",
           "bg_image": "shopify://shop_images/tp-pink-bg-hq.png"
         }
@@ -127,7 +127,7 @@
           "heading2": "Shop wholesale, anytime and anywhere",
           "paragraph2": "Browse our web store and place your bulk order instantly. Whether you need kitchen paper, toilet paper, or napkins, enjoy fast, simple, and convenient purchasing with just a few clicks, and the goods will be delivered straight to your door.",
           "button_link_1": "shopify://pages/home-page",
-          "button_text_1": "More about us",
+          "button_text_1": "Get your quote now",
           "image_1": "shopify://shop_images/tp-eyes-hq.png",
           "image_2": "shopify://shop_images/tp-bask-hq.png",
           "card_image_1": "shopify://shop_images/tp-sustainability.svg",
@@ -203,20 +203,20 @@
           "header": "Quality paper products for every need",
           "paragraph": "Discover our range of high-quality paper products, designed for both household and business use. Whether you need durable kitchen towels, soft toilet paper, or premium napkins, Flutra offers reliable solutions at competitive prices.",
           "image_1": "shopify://shop_images/annie-spratt-o2IzXk3oqUQ-unsplash.jpg",
-          "category_1": "Toilet Paper",
-          "card_header_1": "Softness &amp; strength combined",
+          "category_1": "",
+          "card_header_1": "Toilet Paper",
           "link_1": "",
-          "link_text_1": "Shop toilet paper",
+          "link_text_1": "",
           "image_2": "shopify://shop_images/kseniya-lapteva-vopD-CchWbk-unsplash.jpg",
-          "category_2": "Toilet Paper",
-          "card_header_2": "Softness &amp; strength combined",
+          "category_2": "",
+          "card_header_2": "Kitchen Towels",
           "link_2": "",
-          "link_text_2": "Shop toilet paper",
+          "link_text_2": "",
           "image_3": "shopify://shop_images/kseniya-lapteva-hpB4uxwxBC0-unsplash.jpg",
-          "category_3": "Toilet Paper",
-          "card_header_3": "Softness &amp; strength combined",
+          "category_3": "",
+          "card_header_3": "Napkins",
           "link_3": "",
-          "link_text_3": "Shop toilet paper"
+          "link_text_3": ""
         }
       },
       "product-main": {
