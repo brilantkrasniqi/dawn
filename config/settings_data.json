@@ -50,18 +50,18 @@
             "type": "collection",
             "settings": {
               "heading": "Toilet paper",
-              "collection": "paper-towel",
+              "collection": "toilet-paper",
               "button_text": "See all toilet paper",
-              "button_link": "shopify://collections"
+              "button_link": "shopify://collections/toilet-paper"
             }
           },
           "collection_7J3B9z": {
             "type": "collection",
             "settings": {
               "heading": "Napkins",
-              "collection": "featured-products",
+              "collection": "napkins",
               "button_text": "See all napkins",
-              "button_link": "shopify://collections"
+              "button_link": "shopify://collections/napkins"
             }
           }
         },
