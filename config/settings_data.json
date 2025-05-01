@@ -31,7 +31,7 @@
           "heading": "Paper Towels",
           "collection": "paper-towel",
           "button_text": "Shop all paper towels",
-          "button_link": "shopify://collections"
+          "button_link": "shopify://collections/paper-towel"
         }
       },
       "bulk-cta": {
