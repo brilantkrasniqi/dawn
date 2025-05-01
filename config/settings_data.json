@@ -289,17 +289,17 @@
           "collection_link_XW7RfR": {
             "type": "collection_link",
             "settings": {
-              "title": "Kitchen Towels",
-              "collection_link": "shopify://collections/rolls",
-              "collection_handle": "rolls"
+              "title": "Paper towel",
+              "collection_link": "shopify://collections/paper-towel",
+              "collection_handle": "paper-towel"
             }
           },
           "collection_link_cVLtLg": {
             "type": "collection_link",
             "settings": {
-              "title": "Sheets",
-              "collection_link": "shopify://collections/sheets",
-              "collection_handle": "sheets"
+              "title": "Napkins",
+              "collection_link": "shopify://collections/napkins",
+              "collection_handle": "napkins"
             }
           }
         },
