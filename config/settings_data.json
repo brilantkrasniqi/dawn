@@ -27,12 +27,51 @@
       },
       "featured-products": {
         "type": "featured-products",
-        "settings": {
-          "heading": "Paper Towels",
-          "collection": "paper-towel",
-          "button_text": "Shop all paper towels",
-          "button_link": "shopify://collections/paper-towel"
-        }
+        "blocks": {
+          "collection_KAkwCX": {
+            "type": "collection",
+            "settings": {
+              "heading": "Best selling products",
+              "collection": "featured-products",
+              "button_text": "See all products",
+              "button_link": "shopify://collections"
+            }
+          },
+          "collection_VyGHeQ": {
+            "type": "collection",
+            "settings": {
+              "heading": "Paper Towels",
+              "collection": "paper-towel",
+              "button_text": "See all paper towels",
+              "button_link": "shopify://collections/paper-towel"
+            }
+          },
+          "collection_bW4ADd": {
+            "type": "collection",
+            "settings": {
+              "heading": "Toilet paper",
+              "collection": "paper-towel",
+              "button_text": "See all toilet paper",
+              "button_link": "shopify://collections"
+            }
+          },
+          "collection_7J3B9z": {
+            "type": "collection",
+            "settings": {
+              "heading": "Napkins",
+              "collection": "featured-products",
+              "button_text": "See all napkins",
+              "button_link": "shopify://collections"
+            }
+          }
+        },
+        "block_order": [
+          "collection_KAkwCX",
+          "collection_VyGHeQ",
+          "collection_bW4ADd",
+          "collection_7J3B9z"
+        ],
+        "settings": {}
       },
       "bulk-cta": {
         "type": "bulk-cta",
@@ -232,7 +271,6 @@
             "type": "collection_link",
             "settings": {
               "title": "Toilet Paper",
-              "image": "shopify://shop_images/tp-bask.png",
               "collection_link": "shopify://collections/scented-paper",
               "collection_handle": "scented-paper"
             }
@@ -241,7 +279,6 @@
             "type": "collection_link",
             "settings": {
               "title": "Kitchen Towels",
-              "image": "shopify://shop_images/towel-hq.png",
               "collection_link": "shopify://collections/rolls",
               "collection_handle": "rolls"
             }
@@ -250,7 +287,6 @@
             "type": "collection_link",
             "settings": {
               "title": "Sheets",
-              "image": "shopify://shop_images/tp-eyes-hq.png",
               "collection_link": "shopify://collections/sheets",
               "collection_handle": "sheets"
             }
@@ -259,7 +295,6 @@
             "type": "collection_link",
             "settings": {
               "title": "Collection",
-              "image": "shopify://shop_images/towel-hq.png",
               "collection_link": "shopify://collections",
               "collection_handle": ""
             }
