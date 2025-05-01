@@ -46,11 +46,14 @@
       },
       "about-us": {
         "type": "about-us",
+        "custom_css": [
+          ".row pt-5{display: none;}"
+        ],
         "settings": {
-          "heading1": "Materials that are gentle on you, and kind to the planet",
-          "paragraph1": "Our products are crafted using eco-friendly materials, ensuring they are safe for both you and the environment. With responsible sourcing and mindful production, we take a step toward a cleaner, greener future—one sheet at a time",
-          "heading2": "Partner with us for quality, and reliability",
-          "paragraph2": "Whether you run a retail store, hotel, restaurant, or office, our high-quality kitchen towel, toilet paper, and napkins provide the perfect balance of durability, softness, and affordability. We ensure that your business gets the best value with every purchase.",
+          "heading1": "Tried, tested, and trusted since 2008",
+          "paragraph1": "For over 15 years, Flutra has been a reliable part of daily routines across countless homes. Our commitment to quality means every roll, napkin, and sheet is made to meet the highest standards.",
+          "heading2": "Made with care, designed for comfort",
+          "paragraph2": "We don’t just make paper, we craft everyday essentials with precision and pride. Whether it’s for your kitchen, bathroom, or table, Flutra delivers softness, durability, and the kind of quality you’ll notice from the first touch.",
           "button_link_1": "",
           "button_text_1": "More about us",
           "button_link_2": "",
