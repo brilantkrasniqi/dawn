@@ -540,10 +540,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
           </span>`;
 
+// Handle compare price display
+        const comparePrice = document.getElementById('compare-price');
+        if (comparePrice) { // Check if there's a valid compare-at-price to show
+          const selectedVariant = document.querySelector('#package-options .package-box.selected');
+          const variantCompareAtPrice = selectedVariant
+            ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+            : 0;
+
+          if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) { // Get the current quantity and multiply the compare-at-price by it
+            const currentQuantity = parseInt(quantityInput.value) || 1;
+            const totalCompareAtPrice = variantCompareAtPrice * currentQuantity;
+            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+            comparePrice.classList.remove('d-none');
+
+// Still hide it if discount badge is visible
+            const discountBadge = document.querySelector('.discount-percentage-badge');
+            if (discountBadge && discountBadge.style.display === 'block') {
+              comparePrice.style.display = 'none';
+            } else {
+              comparePrice.style.display = 'block';
+            }
+          } else { // No compare-at-price for this variant, hide it
+            comparePrice.classList.add('d-none');
+            comparePrice.style.display = 'none';
+          }
+        }
+
 // Handle discount display
         const discountContainer = document.querySelector('.discount-container');
         if (discountContainer) { // Remove any existing discount spans
-          const existingDiscounts = discountContainer.querySelectorAll('.discount');
+          const existingDiscounts = discountContainer.querySelectorAll('.discount-price-product');
           existingDiscounts.forEach(discount => discount.remove());
 
 // Only add discount span if there's an applicable discount
@@ -552,9 +579,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
 
             const discountSpan = document.createElement('span');
-            discountSpan.className = 'discount roboto-font user-select-none';
+            discountSpan.className = 'discount-price-product roboto-font user-select-none';
             discountSpan.textContent = formattedOriginalPrice;
             discountContainer.appendChild(discountSpan);
+
+// When discount tier is applied, hide the compare price
+            if (comparePrice) {
+              comparePrice.style.display = 'none';
+            }
+          } else { // When no discount tier is applied, show the compare price
+            if (comparePrice) {
+              comparePrice.style.display = 'block';
+            }
           }
         }
 
@@ -566,8 +602,19 @@ document.addEventListener('DOMContentLoaded', function() {
               applicableTier.discount
             }%`;
             discountBadge.style.display = 'block';
+
+// Hide compare price when discount badge is visible
+            const comparePrice = document.getElementById('compare-price');
+            if (comparePrice) {
+              comparePrice.style.display = 'none';
+            }
           } else {
             discountBadge.style.display = 'none';
+
+// When discount badge is not visible, show compare price
+            if (comparePrice) {
+              comparePrice.style.display = 'block';
+            }
           }
         }
       }
@@ -592,6 +639,21 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update price on quantity change
     quantityInput.addEventListener('input', function() {
       updatePriceDisplay(this.value);
+
+// Also update compare-at-price when quantity changes
+      const comparePrice = document.getElementById('compare-price');
+      if (comparePrice && comparePrice.style.display !== 'none') {
+        const selectedVariant = document.querySelector('#package-options .package-box.selected');
+        const variantCompareAtPrice = selectedVariant
+          ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+          : 0;
+
+        if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) {
+          const quantity = parseInt(this.value) || 1;
+          const totalCompareAtPrice = variantCompareAtPrice * quantity;
+          comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+        }
+      }
     });
 
 // Listen for slider changes and update price
@@ -601,6 +663,21 @@ document.addEventListener('DOMContentLoaded', function() {
           ? e.detail.value
           : quantitySlider.getAttribute('value');
         updatePriceDisplay(newVal);
+
+// Also update compare-at-price when slider changes
+        const comparePrice = document.getElementById('compare-price');
+        if (comparePrice && comparePrice.style.display !== 'none') {
+          const selectedVariant = document.querySelector('#package-options .package-box.selected');
+          const variantCompareAtPrice = selectedVariant
+            ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+            : 0;
+
+          if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) {
+            const quantity = parseInt(newVal) || 1;
+            const totalCompareAtPrice = variantCompareAtPrice * quantity;
+            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+          }
+        }
       });
 
       quantitySlider.addEventListener('input', function(e) {
@@ -608,6 +685,21 @@ document.addEventListener('DOMContentLoaded', function() {
           ? e.detail.value
           : quantitySlider.getAttribute('value');
         updatePriceDisplay(newVal);
+
+// Also update compare-at-price when slider changes
+        const comparePrice = document.getElementById('compare-price');
+        if (comparePrice && comparePrice.style.display !== 'none') {
+          const selectedVariant = document.querySelector('#package-options .package-box.selected');
+          const variantCompareAtPrice = selectedVariant
+            ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+            : 0;
+
+          if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) {
+            const quantity = parseInt(newVal) || 1;
+            const totalCompareAtPrice = variantCompareAtPrice * quantity;
+            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+          }
+        }
       });
     }
 
@@ -772,6 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update internal variables
           const variantPrice = parseInt(this.getAttribute('data-price')) || originalPrice;
           const variantPieces = parseInt(this.getAttribute('data-pieces')) || piecesPerPack;
+          const variantCompareAtPrice = parseInt(this.getAttribute('data-compare-at-price')) || 0;
 
 // Update data attributes and internal variables
           if (originalPriceElement) {
@@ -783,10 +876,32 @@ document.addEventListener('DOMContentLoaded', function() {
             piecesPerPack = variantPieces;
           }
 
+// Update compare price when variant changes
+          const comparePrice = document.getElementById('compare-price');
+          if (comparePrice) { // Only show compare price if variant has a compare-at-price and it's higher than the regular price
+            if (variantCompareAtPrice && variantCompareAtPrice > variantPrice) { // Get the current quantity and multiply the compare-at-price by it
+              const currentQuantity = parseInt(quantityInput.value) || 1;
+              const totalCompareAtPrice = variantCompareAtPrice * currentQuantity;
+              comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+              comparePrice.classList.remove('d-none');
+
+// Still hide it if discount badge is visible
+              const discountBadge = document.querySelector('.discount-percentage-badge');
+              if (discountBadge && discountBadge.style.display === 'block') {
+                comparePrice.style.display = 'none';
+              } else {
+                comparePrice.style.display = 'block';
+              }
+            } else { // No compare-at-price for this variant, hide it
+              comparePrice.classList.add('d-none');
+              comparePrice.style.display = 'none';
+            }
+          }
+
 // Clean up any existing discount elements
           const discountContainer = document.querySelector('.discount-container');
           if (discountContainer) { // Remove all existing discount spans
-            const existingDiscounts = discountContainer.querySelectorAll('.discount');
+            const existingDiscounts = discountContainer.querySelectorAll('.discount-price-product');
             existingDiscounts.forEach(discount => discount.remove());
           }
 
@@ -850,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (subscriptionPriceElement && subscriptionPriceSpan) {
             const subscriptionPrice = variantPrice * 0.7; // 30% discount
-            subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount  roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
+            subscriptionPriceElement.innerHTML = Shopify.formatMoney(subscriptionPrice, window.shopMoneyFormat) + ' <span class="discount-price-product roboto-font user-select-none" id="subscription-price">' + Shopify.formatMoney(variantPrice, window.shopMoneyFormat) + '</span>';
           }
 
 // Use quantity = 1
@@ -1426,6 +1541,13 @@ document.addEventListener('DOMContentLoaded', () => {
             window.unitLabel || 'piece'
           }
             </span>`;
+
+// Update compare price and make it visible
+          const comparePrice = document.getElementById('compare-price');
+          if (comparePrice) {
+            comparePrice.textContent = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
+            comparePrice.style.display = 'block';
+          }
         }
         return;
       }
@@ -1465,8 +1587,16 @@ document.addEventListener('DOMContentLoaded', () => {
           discountBadge.textContent = `-${
             applicableTier.discount
           }%`;
-          discountBadge.classList.add('text-discount');
-          discountBadge.style.display = 'block'; // Make sure it's visible
+
+          discountBadge.style.display = 'block';
+
+// Make sure it's visible
+
+// Hide compare price when discount badge is visible
+          const comparePrice = document.getElementById('compare-price');
+          if (comparePrice) {
+            comparePrice.style.display = 'none';
+          }
         }
 
 // Update price display with discount
@@ -1488,11 +1618,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const discountContainer = document.querySelector('.discount-container');
           if (discountContainer) {
             const discountSpan = document.createElement('span');
-            discountSpan.className = 'discount fw-light roboto-font user-select-none';
+            discountSpan.className = 'discount-price-product fw-light roboto-font user-select-none';
             discountSpan.textContent = formattedOriginalPrice;
 
 // Clear previous discount span if it exists
-            const existingDiscount = discountContainer.querySelector('.discount');
+            const existingDiscount = discountContainer.querySelector('.discount-price-product');
             if (existingDiscount) {
               existingDiscount.remove();
             }
@@ -1512,6 +1642,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (discountBadge) {
           discountBadge.textContent = '';
           discountBadge.style.display = 'none';
+        }
+
+// Show compare price when no discount is applied
+        const comparePrice = document.getElementById('compare-price');
+        if (comparePrice) { // Check if there's a valid compare-at-price to show
+          const selectedVariant = document.querySelector('#package-options .package-box.selected');
+          const variantCompareAtPrice = selectedVariant
+            ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+            : 0;
+
+          if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) { // Multiply compare-at-price by quantity, just like regular price
+            const currentQuantity = parseInt(quantityInput.value) || 1;
+            const totalCompareAtPrice = variantCompareAtPrice * currentQuantity;
+            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+            comparePrice.classList.remove('d-none');
+            comparePrice.style.display = 'block';
+          } else { // No compare-at-price, keep it hidden
+            comparePrice.classList.add('d-none');
+            comparePrice.style.display = 'none';
+          }
         }
 
 // Update price without discount

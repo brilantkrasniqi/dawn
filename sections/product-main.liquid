@@ -109,7 +109,8 @@
                 data-variant-id="{{ variant.id }}"
                 data-price="{{ variant.price }}"
                 data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}"
-                data-available="{{ variant.available }}">
+                data-available="{{ variant.available }}"
+                data-compare-at-price="{{ variant.compare_at_price }}">
                 <div class="pb-3">
                   <img
                     src="{{variant.featured_image |  image_url }}"
@@ -138,7 +139,7 @@
               <div class="">
 
 
-                <h3 class="fw-bold pt-1" id="variant-price">{{ product.price | money }}
+                <h3 class="fw-bold fs-3 pt-1" id="variant-price">{{ product.price | money }}
                   {% assign pieces = product.metafields.custom.pieces_per_pack | default: 1 %}
                   {% assign net_price = product.price | divided_by: 1.0 %}
 
@@ -148,7 +149,12 @@
                 </h3>
               </div>
               <div class="discount-container ms-2">
-                <span class="discount-percentage-badge  text-center"></span>
+                {% if product.compare_at_price > product.price %}
+                  <p class="compare-price-element" id="compare-price">{{ product.compare_at_price | money }}</p>
+                {% else %}
+                  <p class="compare-price-element d-none" id="compare-price"></p>
+                {% endif %}
+                <span class="discount-percentage-badge text-center"></span>
               </div>
             </div>
             {% if shop.taxes_included %}
@@ -284,13 +290,26 @@
                     width="250"
                     height="225"
                     alt="{{ product.title }}" />
+                  {% unless product.available %}
+                    <span class="out-of-stock-badge">Out of Stock</span>
+                  {% endunless %}
+                  {% if product.compare_at_price > product.price %}
+                    <span class="sale-badge">Sale</span>
+                  {% endif %}
                 </div>
               </a>
               <div class="prod-info">
                 <p id="title">{{ product.title }}</p>
                 <div class="d-flex align-items-md-center align-items-start justify-content-between">
-                  <h3 class="fw-bold" id="price">{{ product.price | money }}
-                    {% assign pieces_per_pack = product.metafields.custom.pieces_per_pack | default: 1 %}
+                  <div>
+                    <div class="d-flex align-items-center">
+                      <h3 class="fw-bold" id="price">{{ product.price | money }}
+                        {% assign pieces_per_pack = product.metafields.custom.pieces_per_pack | default: 1 %}
+                      </h3>
+                      {% if product.compare_at_price > product.price %}
+                        <p class="card-compare-price ps-2">{{ product.compare_at_price | money }}</p>
+                      {% endif %}
+                    </div>
                     {% if pieces_per_pack > 1 %}
                       {% case product.type %}
                         {% when 'Roll' %}
@@ -300,11 +319,11 @@
                         {% when 'Bundle' %}
                           {% assign unit_label = 'bundle' %}
                         {% else %}
-                          {% assign unit_label = 'piece' %}
+                          {% assign unit_label = product.type %}
                       {% endcase %}
-                      <span class="perPiece pb-2">({{ product.price | divided_by: pieces_per_pack | money }}) per {{ unit_label }}</span>
+                      <p class="perPiece pb-2">({{ product.price | divided_by: pieces_per_pack | money }}) per {{ unit_label }}</p>
                     {% endif %}
-                  </h3>
+                  </div>
                   <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
                     <button
                       type="submit"

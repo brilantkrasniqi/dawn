@@ -491,11 +491,27 @@ input[type="number"] {
   background-color: var(--product-gray-bg);
   border: 1px solid var(--header-blue-) !important;
 }
-.discount {
+.discount-price-product, .compare-price-element {
+  background-color: #e0e0e0; 
+  padding: 8px 12px !important;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%);
+  font-weight: bold !important;
   text-decoration: line-through;
   color: #00144a !important;
   font-size: 16px;
   opacity: 0.6;
+  margin: 0;
+}
+
+.discount-percentage-badge {
+  display:none;
+  background-color: var(--header-blue-);
+  color:white !important;
+  font-weight:bold;
+  padding: 8px 12px;
+  margin-left: -2px;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%);
+  min-width: 70px;
 }
 
 .buyInBulk {
@@ -582,11 +598,10 @@ input[type="number"] {
   left: 11px;
 color: #0B266F !important;
 }
-/* Style for strikethrough price */
 
 #price-container {
   display: flex;
-  align-items: ;
+  align-items: center;
   justify-content: space-between;
   width: fit-content;
 }
@@ -597,30 +612,13 @@ color: #0B266F !important;
   align-items: center;
   font-weight: bold;
 }
-.discount {
-  background-color: #e0e0e0; 
-  padding: 8px 12px;
-  clip-path: polygon(10% 0%, 100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%);
-  font-weight: bold !important;
- 
-
-}
-
-.discount-percentage-badge {
-  display:none;
-  background-color: var(--header-blue-);
-  color:white !important;
-  font-weight:bold;
-  padding: 8px 12px;
-  margin-left: -2px;
-  clip-path: polygon(10% 0%, 100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%);
-  min-width: 70px;
-}
 .original-price {
   text-decoration: line-through;
-
   font-size: 16px;
   opacity: 0.6;
+  display: block;
+  color: #00144a;
+  margin-bottom: 5px !important;
 }
 .product-description li {
  list-style-type: disc;
@@ -695,6 +693,27 @@ button[disabled] {
   border-radius: 4px;
   font-size: 12px;
   font-weight: bold;
+}
+
+.card-compare-price {
+  text-decoration: line-through;
+  color: #6c757d;
+  font-size: 15px;
+  font-weight: normal;
+
+}
+
+.sale-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #F36E2F;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1;
 }
 
 
