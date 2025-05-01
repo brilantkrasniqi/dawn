@@ -46,9 +46,7 @@
       },
       "about-us": {
         "type": "about-us",
-        "custom_css": [
-          ".row pt-5{display: none;}"
-        ],
+        "custom_css": [],
         "settings": {
           "heading1": "Tried, tested, and trusted since 2008",
           "paragraph1": "For over 15 years, Flutra has been a reliable part of daily routines across countless homes. Our commitment to quality means every roll, napkin, and sheet is made to meet the highest standards.",
@@ -72,6 +70,7 @@
       },
       "zero-plastic": {
         "type": "zero-plastic",
+        "custom_css": [],
         "settings": {
           "heading": "Zero trees. zero plastic zero compromise.",
           "button_link": "shopify://collections",
