@@ -84,7 +84,7 @@ p {
   color: white;
   font-family: "Funnel Display", sans-serif;
   width: fit-content;
-  padding: 1.125rem 3.375rem;
+  padding: 1.125rem 3.375rem !important;
   border-radius: 8px !important;
   border: none;
 }
@@ -237,15 +237,15 @@ nav .form-control:focus {
 
 /* (Keep your other styles as needed) */
 .cartItemContainer .prodImage {
-  width: 220px;
-  height: 170px;
+  max-width: 220px;
+  max-height: 200px;
+  height: 100%;
+  width: 100%;
   background-color: var(--product-gray-bg);
   padding: 0.725rem;
 }
 .cartItemContainer .prodImage img {
   object-fit: contain;
-  height: 100%;
-  width: 100%;
 }
 .quantity {
   width: 150px;
@@ -707,7 +707,7 @@ button[disabled] {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #F36E2F;
+  background-color: var(--header-blue-);
   color: white;
   padding: 4px 8px;
   border-radius: 4px;

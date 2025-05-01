@@ -95,7 +95,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 5rem;
+    padding: 2.25rem;
   }
   .cardContainer {
     max-width: 700px;
@@ -112,18 +112,20 @@
     height: 100dvh;
   }
   .cartItemContainer .prodImage {
-    width: 150px;
-    height: 100px;
     padding: 0.725rem;
   }
   .quantity {
     max-width: 100% !important;
   }
   #thumbnailProductShowCase .splide__arrow--prev svg {
+    top:75%;
     left: 5%;
+    transform: translateY(-75%) rotate(180deg) !important;
   }
   #thumbnailProductShowCase .splide__arrow--next svg {
     right: 5%;
+    top:75%;
+    transform: translateY(-75%) !important;
   }
 }
 
@@ -149,6 +151,9 @@
   }
   #zeroPlastic h1 {
     font-size: 24px !important;
+  }
+  .prod-image {
+    height: 150px !important;
   }
   .b2bContainer {
     width: 90svw;
@@ -178,8 +183,14 @@
 }
 
 @media (max-width: 450px) {
+  #thumbnailProductShowCase .splide__slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .thumbnailProdContainer {
-    height: 80px;
+    height: 60px;
+    width: 80px;
   }
 }
 

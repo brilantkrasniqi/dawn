@@ -10,6 +10,7 @@ class PageNavigation {
   searchBar = document.getElementById("searchBar");
   cartContainer = document.querySelector(".cartContainer");
   cartBtn = document.querySelector("#cart-svg");
+  cartCount = document.querySelector("#cart-count");
   cartCloseBtn = document.getElementById("closeCart");
   constructor() {
     this.initializeEventListeners();
@@ -81,12 +82,15 @@ class PageNavigation {
     this.cartBtn.addEventListener("click", () => {
       this.cartContainer ?. classList.add('cartActive');
     });
+    this.cartCount.addEventListener("click", () => {
+      this.cartContainer ?. classList.add('cartActive');
+    });
     this.cartCloseBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       this.cartContainer ?. classList.remove('cartActive');
     })
     document.addEventListener("click", (e) => {
-      if (!this.cartContainer ?. contains(e.target) && !this.cartBtn.contains(e.target)) {
+      if (!this.cartContainer ?. contains(e.target) && !this.cartBtn.contains(e.target) && !this.cartCount.contains(e.target)) {
         this.cartContainer ?. classList.remove('cartActive');
       }
     })
@@ -1112,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             item.image
           }" alt="${
             item.title
-          }" height="150" width="220" />
+          }" height="100" width="100" />
               </div>
               <div class="prod-info flex-grow-1 ps-3">
                 <p class="title text-uppercase">${

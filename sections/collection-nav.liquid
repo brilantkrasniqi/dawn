@@ -4,7 +4,7 @@
       <div class="me-md-4 me-3 d-flex  align-items-center justify-content-center">
         <a
           href="{{ block.settings.collection_link }}"
-          {% if collection.handle == block.settings.collection_handle %}
+          {% if collection.handle == block.settings.collection_handle or collection.handle == '' %}
           class="active-collection"
           {% endif %}>
 

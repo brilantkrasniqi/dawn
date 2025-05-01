@@ -4,7 +4,7 @@
       <h2 class="text-center">{{ block.settings.heading }}</h2>
       <div class="row g-4 pt-5">
         {% for product in block.settings.collection.products limit: 4 %}
-          <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-6 pt-3">
             <div class="product-container">
               <a href="{{ product.url }}">
                 <div class="prod-image">
@@ -24,7 +24,7 @@
               </a>
               <div class="prod-info">
                 <p id="title">{{ product.title }}</p>
-                <div class="d-flex align-items-md-center align-items-start justify-content-between">
+                <div class="d-flex flex-sm-row flex-column align-items-md-center align-items-start justify-content-between">
                   <div>
                     <div class="d-flex align-items-center">
                       <h3 class="fw-bold" id="price">{{ product.price | money }}
@@ -51,7 +51,7 @@
                   <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">
                     <button
                       type="submit"
-                      class="funnel-font fw-bold"
+                      class="funnel-font fw-bold d-sm-block d-none"
                       {% unless product.available %}
                       disabled{% endunless %}
                       aria-label="{% if product.available %}Add {{ product.title }} to cart{% else %}Out of Stock{% endif %}">

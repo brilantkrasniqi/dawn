@@ -1,8 +1,8 @@
 <div class="overlay d-none"></div>
 <!-- NAV -->
 
-<div class="bg-main-blue custom-container p-12">
-  <div class="row d-flex align-items-center py-2">
+<div class="bg-main-blue custom-container ">
+  <div class="row d-flex align-items-center py-1">
     <div class="d-lg-block d-none col-lg-6">
       <p class="fw-bold funnel-font text-white text-nowrap">
         Free shipping inside 48h on all orders above 100$ in Kosovo
@@ -91,7 +91,7 @@
               width="18"
               height="18"
               alt="Cart" />
-            <p class="fw-bold">
+            <p class="fw-bold" id="cart-count">
               &nbsp;
               <span class="d-sm-inline-block d-none cart-subtotal">Cart</span>
             </p>
@@ -167,15 +167,15 @@
       </div>
       <div class="mobileNavLinks">
         {% for link in linklists.mobile-menu.links %}
-          <div class="mobileNavItem">
-            <a class="funnel-font fw-medium" href="{{link.url}}">{{ link.title }}</a>
-            <img
+
+          <a class=" mobileNavItem py-3 funnel-font fw-medium" href="{{link.url}}">{{ link.title }} <img
               src="{{'right-arrow.svg' |  asset_url}}"
               width="20"
               height="20"
               alt=""
-              style="width: 10px;height: 10px;" />
-          </div>
+              style="width: 10px;height: 10px;" /></a>
+
+
         {% endfor %}
 
         <div class="mobileNavItem">
