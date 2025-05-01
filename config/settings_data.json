@@ -142,55 +142,12 @@
       },
       "b2b-form": {
         "type": "b2b-form",
-        "blocks": {
-          "paragraph_4HhBHT": {
-            "type": "paragraph",
-            "settings": {
-              "intro_text": "Benefits of Ordering in Bulk:"
-            }
-          },
-          "bullet_BxejfV": {
-            "type": "bullet",
-            "settings": {
-              "title": "Lower Prices",
-              "detail": "Enjoy significant cost savings with special wholesale pricing."
-            }
-          },
-          "bullet_LhTEWQ": {
-            "type": "bullet",
-            "settings": {
-              "title": "Lower Prices",
-              "detail": "Enjoy significant cost savings with special wholesale pricing."
-            }
-          },
-          "bullet_nnTMXC": {
-            "type": "bullet",
-            "settings": {
-              "title": "Lower Prices",
-              "detail": "Enjoy significant cost savings with special wholesale pricing."
-            }
-          },
-          "bullet_HkAEUH": {
-            "type": "bullet",
-            "settings": {
-              "title": "Lower Prices",
-              "detail": "Enjoy significant cost savings with special wholesale pricing."
-            }
-          }
-        },
-        "block_order": [
-          "paragraph_4HhBHT",
-          "bullet_BxejfV",
-          "bullet_LhTEWQ",
-          "bullet_nnTMXC",
-          "bullet_HkAEUH"
-        ],
         "settings": {
-          "form_header": "Get in Touch for Bulk Orders",
+          "form_header": "Get your quote now",
           "field_1": "Company Name*",
           "field_2": "Email address*",
           "field_3": "Phone number*",
-          "field_4": "Order Quantity (Estimated Monthly Purchase)*",
+          "field_4": "Estimated order quantity",
           "check_text": "I agree to be contacted by Flutra’s partnerships team regarding my inquiry",
           "newsletter_text": "Subscribe to our newsletter for special offers and updates",
           "heading": "Let’s create your branded paper products",
