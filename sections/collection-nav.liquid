@@ -1,14 +1,23 @@
 <div class="col-12 ps-sm-0 ">
   <div class="d-flex align-items-start justify-content-start flex-wrap image-Nav ">
     {% for block in section.blocks %}
-      <div class="me-md-4 me-3 d-flex  align-items-center justify-content-center">
+      {% assign is_all_products_page = false %}
+      {% if request.path == '/collections' or request.path == '/collections/' %}
+        {% if block.settings.collection_link == '/collections' or block.settings.collection_link == '/collections/' %}
+          {% assign is_all_products_page = true %}
+        {% endif %}
+      {% endif %}
+
+      <div class="me-md-4 me-3 d-flex align-items-center justify-content-center">
         <a
           href="{{ block.settings.collection_link }}"
-          {% if collection.handle == block.settings.collection_handle %}
+          {% if is_all_products_page %}
+          class="active-collection"
+          {% elsif collection.handle == block.settings.collection_handle %}
           class="active-collection"
           {% endif %}>
 
-          <p class="text-center pt-sm-0 pt-2 {% if collection.handle == block.settings.collection_handle %}fw-bold{% endif %}">{{ block.settings.title }}</p>
+          <p class="text-center pt-sm-0 pt-2 {% if is_all_products_page %}fw-bold{% elsif collection.handle == block.settings.collection_handle %}fw-bold{% endif %}">{{ block.settings.title }}</p>
         </a>
       </div>
     {% endfor %}
