@@ -299,7 +299,9 @@
                 </div>
               </a>
               <div class="prod-info">
-                <p id="title">{{ product.title }}</p>
+                <p id="title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </p>
                 <div class="d-flex flex-sm-row flex-column align-items-md-center align-items-start justify-content-between">
                   <div>
                     <div class="d-flex align-items-center">
@@ -328,8 +330,14 @@
                     <button
                       type="submit"
                       class="funnel-font fw-bold d-sm-block d-none"
-                      aria-label="Add {{ product.title }} to cart">
-                      + Add to cart
+                      {% unless product.available %}
+                      disabled{% endunless %}
+                      aria-label="{% if product.available %}Add {{ product.title }} to cart{% else %}Out of Stock{% endif %}">
+                      {% if product.available %}
+                        + Add to cart
+                      {% else %}
+                        Out of Stock
+                      {% endif %}
                     </button>
                   </form>
                 </div>

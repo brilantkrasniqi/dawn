@@ -23,7 +23,9 @@
                 </div>
               </a>
               <div class="prod-info">
-                <p id="title">{{ product.title }}</p>
+                <p id="title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </p>
                 <div class="d-flex flex-sm-row flex-column align-items-md-center align-items-start justify-content-between">
                   <div>
                     <div class="d-flex align-items-center">
@@ -70,7 +72,7 @@
 
         <div class="col-12 d-flex justify-content-center">
           {% if block.settings.button_link != blank %}
-            <a href="{{ block.settings.button_link }}" class="pt-5">
+            <a href="{{ block.settings.button_link }}" class="pt-1">
               <button class="btn-main">{{ block.settings.button_text }}</button>
             </a>
           {% endif %}
