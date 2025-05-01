@@ -28,9 +28,9 @@
       "featured-products": {
         "type": "featured-products",
         "settings": {
-          "heading": "Shop our products",
-          "collection": "featured-products",
-          "button_text": "See all Products",
+          "heading": "Paper Towel",
+          "collection": "paper-towel",
+          "button_text": "Shop all paper towels",
           "button_link": "shopify://collections"
         }
       },
