@@ -142,6 +142,33 @@
       },
       "b2b-form": {
         "type": "b2b-form",
+        "blocks": {
+          "paragraph_473hpY": {
+            "type": "paragraph",
+            "settings": {
+              "intro_text": "Benefits of Ordering in Bulk:"
+            }
+          },
+          "bullet_d4AQhh": {
+            "type": "bullet",
+            "settings": {
+              "title": "Lower Prices",
+              "detail": "Enjoy significant cost savings with special wholesale pricing."
+            }
+          },
+          "bullet_DtgxiK": {
+            "type": "bullet",
+            "settings": {
+              "title": "Lower Prices",
+              "detail": "Enjoy significant cost savings with special wholesale pricing."
+            }
+          }
+        },
+        "block_order": [
+          "paragraph_473hpY",
+          "bullet_d4AQhh",
+          "bullet_DtgxiK"
+        ],
         "settings": {
           "form_header": "Get your quote now",
           "field_1": "Company Name*",
