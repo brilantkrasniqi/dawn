@@ -38,13 +38,31 @@
               {% endif %}
             </a>
             <div class="language-menu">
+              {% assign current_path_without_locale = request.path %}
               {% if request.locale.iso_code != 'en' %}
-                <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, '' | remove_first: '/' }}">English</a>
+                {% assign current_path_without_locale = request.path | replace_first: '/' | replace_first: request.locale.iso_code, '' %}
+                <a class="language-item" href="{{ routes.root_url }}{{ current_path_without_locale }}">English</a>
               {% else %}
                 <a class="language-item" href="{{ routes.root_url }}">English</a>
               {% endif %}
-              <a class="language-item" href="{% if request.locale.iso_code == 'en' %}{{ routes.root_url }}de{% else %}{{ request.path | replace_first: request.locale.iso_code, 'de' }}{% endif %}">Deutsch</a>
-              <a class="language-item" href="{% if request.locale.iso_code == 'en' %}{{ routes.root_url }}fr{% else %}{{ request.path | replace_first: request.locale.iso_code, 'fr' }}{% endif %}">Français</a>
+
+              {% if request.locale.iso_code == 'en' %}
+                <a class="language-item" href="{{ routes.root_url }}de{{ current_path_without_locale }}">Deutsch</a>
+              {% elsif request.locale.iso_code == 'fr' %}
+                {% assign de_path = request.path | replace: 'fr/', 'de/' %}
+                <a class="language-item" href="{{ de_path }}">Deutsch</a>
+              {% else %}
+                <a class="language-item" href="{{ request.path }}">Deutsch</a>
+              {% endif %}
+
+              {% if request.locale.iso_code == 'en' %}
+                <a class="language-item" href="{{ routes.root_url }}fr{{ current_path_without_locale }}">Français</a>
+              {% elsif request.locale.iso_code == 'de' %}
+                {% assign fr_path = request.path | replace: 'de/', 'fr/' %}
+                <a class="language-item" href="{{ fr_path }}">Français</a>
+              {% else %}
+                <a class="language-item" href="{{ request.path }}">Français</a>
+              {% endif %}
             </div>
           </div>
         </li>
@@ -246,13 +264,31 @@
             {% endif %}
           </a>
           <div class="language-mobile-menu">
+            {% assign current_path_without_locale = request.path %}
             {% if request.locale.iso_code != 'en' %}
-              <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, '' | remove_first: '/' }}">English</a>
+              {% assign current_path_without_locale = request.path | replace_first: '/' | replace_first: request.locale.iso_code, '' %}
+              <a class="language-mobile-item" href="{{ routes.root_url }}{{ current_path_without_locale }}">English</a>
             {% else %}
               <a class="language-mobile-item" href="{{ routes.root_url }}">English</a>
             {% endif %}
-            <a class="language-mobile-item" href="{% if request.locale.iso_code == 'en' %}{{ routes.root_url }}de{% else %}{{ request.path | replace_first: request.locale.iso_code, 'de' }}{% endif %}">Deutsch</a>
-            <a class="language-mobile-item" href="{% if request.locale.iso_code == 'en' %}{{ routes.root_url }}fr{% else %}{{ request.path | replace_first: request.locale.iso_code, 'fr' }}{% endif %}">Français</a>
+
+            {% if request.locale.iso_code == 'en' %}
+              <a class="language-mobile-item" href="{{ routes.root_url }}de{{ current_path_without_locale }}">Deutsch</a>
+            {% elsif request.locale.iso_code == 'fr' %}
+              {% assign de_path = request.path | replace: 'fr/', 'de/' %}
+              <a class="language-mobile-item" href="{{ de_path }}">Deutsch</a>
+            {% else %}
+              <a class="language-mobile-item" href="{{ request.path }}">Deutsch</a>
+            {% endif %}
+
+            {% if request.locale.iso_code == 'en' %}
+              <a class="language-mobile-item" href="{{ routes.root_url }}fr{{ current_path_without_locale }}">Français</a>
+            {% elsif request.locale.iso_code == 'de' %}
+              {% assign fr_path = request.path | replace: 'de/', 'fr/' %}
+              <a class="language-mobile-item" href="{{ fr_path }}">Français</a>
+            {% else %}
+              <a class="language-mobile-item" href="{{ request.path }}">Français</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -315,7 +351,7 @@
 
   .language-item {
     color: black;
-    padding: 10px 15px;
+    padding: 1rem !important;
     text-decoration: none;
     display: block;
   }
@@ -354,9 +390,10 @@
 
   .language-mobile-item {
     color: #212529;
-    padding: 10px 15px;
+    padding: 1rem !important;
     text-decoration: none;
     display: block;
+
   }
 
   .language-mobile-item:hover {
