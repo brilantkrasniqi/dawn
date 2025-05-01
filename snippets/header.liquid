@@ -2,26 +2,47 @@
 <!-- NAV -->
 
 <div class="bg-main-blue custom-container ">
-  <div class="row d-flex align-items-center py-1">
+  <div class="row d-flex align-items-center py-lg-3 py-2">
     <div class="d-lg-block d-none col-lg-6">
       <p class="fw-bold funnel-font text-white text-nowrap">
-        Free shipping inside 48h on all orders above 100$ in Kosovo
+        Free shipping on all orders above 100€
       </p>
     </div>
-    <div class="col-lg-6 col-12">
-      <ul class="d-flex flex-lg-row flex-row-reverse align-items-center justify-content-lg-end justify-content-between text-white w-100">
+    <div class="col-lg-6 col-12 px-1">
+      <ul class="d-flex flex-row  align-items-center justify-content-lg-end justify-content-between text-white w-100">
+        <li class="">
+          <a class="text-white pe-lg-2 ps-0" href="mailto:info@flutra.eu">info@flutra.eu</a>
+        </li>
         <li class="">
           {% if customer %}
             <a class="text-white pe-lg-2 pe-4" href="{{ routes.account_url }}">My Account</a>
           {% else %}
-            <a class="text-white pe-lg-2 pe-4" href="{{ routes.account_login_url }}">Sign In / Register</a>
+            <a class="text-white pe-lg-2 pe-0" href="{{ routes.account_login_url }}">Sign In / Register</a>
           {% endif %}
         </li>
-        <li class="">
-          <a class="text-white px-lg-2 ps-3" href="mailto:info@flutra.eu">info@flutra.eu</a>
-        </li>
         <li class="d-lg-block d-none">
-          <a class="text-white ms-2" href="#">English</a>
+          <div class="language-selector">
+            <a
+              class="text-white language-current"
+              href="#"
+              id="languageSelector">
+              {% if request.locale.iso_code == 'de' %}
+                Deutsch
+                <span class="language-arrow">▼</span>
+              {% elsif request.locale.iso_code == 'fr' %}
+                Français
+                <span class="language-arrow">▼</span>
+              {% else %}
+                English
+                <span class="language-arrow">▼</span>
+              {% endif %}
+            </a>
+            <div class="language-menu">
+              <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, 'en' }}">English</a>
+              <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, 'de' }}">Deutsch</a>
+              <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, 'fr' }}">Français</a>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -156,7 +177,7 @@
   <!-- Mobile Menu -->
   <div class="mobileNavContainer d-lg-none">
     <div>
-      <div class="d-flex align-items-center justify-content-sm-between justify-content-around ">
+      <div class="d-flex align-items-center justify-content-between ">
         <img
           src="{{ 'flutura-logo-lg.svg' | asset_url }}"
           width="65"
@@ -203,8 +224,29 @@
         Free shipping inside 48h on all orders above 100€ in Kosovo
       </p>
       <div class="d-flex align-items-center justify-content-between pt-3">
-        <p>SOCIALS</p>
-        <p>English</p>
+        <div class="">Choose Language</div>
+        <div class="mobile-language-selector">
+          <a
+            class="language-mobile-current"
+            href="#"
+            id="mobileLangSelector">
+            {% if request.locale.iso_code == 'de' %}
+              Deutsch
+              <span class="language-arrow">▼</span>
+            {% elsif request.locale.iso_code == 'fr' %}
+              Français
+              <span class="language-arrow">▼</span>
+            {% else %}
+              English
+              <span class="language-arrow">▼</span>
+            {% endif %}
+          </a>
+          <div class="language-mobile-menu">
+            <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, 'en' }}">English</a>
+            <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, 'de' }}">Deutsch</a>
+            <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, 'fr' }}">Français</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -231,4 +273,128 @@
     background-color: #e9ecef;
     cursor: not-allowed;
   }
+
+  /* Language selector styles */
+  .language-selector {
+    position: relative;
+    display: inline-block;
+  }
+
+  .language-current {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .language-arrow {
+    font-size: 0.7em;
+    margin-left: 4px;
+  }
+
+  .language-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1050;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .language-selector:hover .language-menu {
+    display: block;
+  }
+
+  .language-item {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .language-item:hover {
+    background-color: #f1f1f1;
+    text-decoration: none;
+  }
+
+  /* Mobile language selector styles */
+  .mobile-language-selector {
+    position: relative;
+    display: inline-block;
+  }
+
+  .language-mobile-current {
+    cursor: pointer;
+    text-decoration: none;
+    color: #212529;
+    font-weight: 500;
+  }
+
+  .language-mobile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    margin-bottom: 5px;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.1);
+    z-index: 1050;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .language-mobile-item {
+    color: #212529;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .language-mobile-item:hover {
+    background-color: #f1f1f1;
+    text-decoration: none;
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Desktop language selector
+    const languageSelector = document.getElementById('languageSelector');
+    const languageMenu = document.querySelector('.language-menu');
+    
+    if (languageSelector && languageMenu) {
+      languageSelector.addEventListener('click', function(e) {
+        e.preventDefault();
+        const isVisible = languageMenu.style.display === 'block';
+        languageMenu.style.display = isVisible ? 'none' : 'block';
+      });
+      
+      // Close the dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!languageSelector.contains(e.target) && !languageMenu.contains(e.target)) {
+          languageMenu.style.display = 'none';
+        }
+      });
+    }
+    
+    // Mobile language selector
+    const mobileLangSelector = document.getElementById('mobileLangSelector');
+    const mobileLangMenu = document.querySelector('.language-mobile-menu');
+    
+    if (mobileLangSelector && mobileLangMenu) {
+      mobileLangSelector.addEventListener('click', function(e) {
+        e.preventDefault();
+        const isVisible = mobileLangMenu.style.display === 'block';
+        mobileLangMenu.style.display = isVisible ? 'none' : 'block';
+      });
+      
+      // Close the dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!mobileLangSelector.contains(e.target) && !mobileLangMenu.contains(e.target)) {
+          mobileLangMenu.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>

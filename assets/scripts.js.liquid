@@ -286,7 +286,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const originalPriceElement = document.getElementById('original-price-data');
   const variantPriceElement = document.getElementById('variant-price');
   const pricePerPieceElement = document.getElementById('price-per-piece');
-  const discountDisplayElement = document.getElementById('discountDisplay');
 
 // Initialize discount tiers functionality if elements exist
   if (originalPriceElement && quantityInput) { // Call this function immediately once the DOM loads to ensure discounts are calculated
@@ -448,6 +447,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function calculateDiscountedPrice(quantity) {
       console.log('Calculating discount for quantity:', quantity);
 
+// Check if we're on the first variant - only apply discounts to first variant
+      const selectedVariant = document.querySelector('#package-options .package-box.selected');
+      const allVariants = document.querySelectorAll('#package-options .package-box');
+      const isFirstVariant = selectedVariant && allVariants.length > 0 && selectedVariant === allVariants[0];
+
+      if (! isFirstVariant) {
+        console.log('Not the first variant, no discount applied');
+        return originalPrice;
+      }
+
       if (!window.discountTiers || !window.discountTiers.tiers || !window.discountTiers.tiers.length) {
         console.log('No discount tiers available, returning original price:', originalPrice);
         return originalPrice;
@@ -499,8 +508,13 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Updating price display with quantity:', quantity);
       console.log('Current price data:', {originalPrice, piecesPerPack, discountTiers: discountTiers.length});
 
+// Check if we're on the first variant - only apply discounts to first variant
+      const selectedVariant = document.querySelector('#package-options .package-box.selected');
+      const allVariants = document.querySelectorAll('#package-options .package-box');
+      const isFirstVariant = selectedVariant && allVariants.length > 0 && selectedVariant === allVariants[0];
+
 // Check if we have valid discount tiers before applying any logic
-      const hasValidTiers = discountTiers && discountTiers.length > 0;
+      const hasValidTiers = isFirstVariant && discountTiers && discountTiers.length > 0;
 
 // Calculate the discounted price per item
       const discountedPricePerItem = hasValidTiers
@@ -558,9 +572,9 @@ document.addEventListener('DOMContentLoaded', function() {
             comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
             comparePrice.classList.remove('d-none');
 
-// Still hide it if discount badge is visible
+// Still hide it if discount badge is visible and we're on the first variant with a discount tier
             const discountBadge = document.querySelector('.discount-percentage-badge');
-            if (discountBadge && discountBadge.style.display === 'block') {
+            if (isFirstVariant && applicableTier && discountBadge && discountBadge.style.display === 'block') {
               comparePrice.style.display = 'none';
             } else {
               comparePrice.style.display = 'block';
@@ -577,8 +591,8 @@ document.addEventListener('DOMContentLoaded', function() {
           const existingDiscounts = discountContainer.querySelectorAll('.discount-price-product');
           existingDiscounts.forEach(discount => discount.remove());
 
-// Only add discount span if there's an applicable discount
-          if (applicableTier) {
+// Only add discount span if we're on the first variant and there's an applicable discount
+          if (isFirstVariant && applicableTier) {
             const originalTotalPrice = originalPrice * quantity;
             const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
 
@@ -601,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update discount badge display
         const discountBadge = document.querySelector('.discount-percentage-badge');
         if (discountBadge) {
-          if (applicableTier) {
+          if (isFirstVariant && applicableTier) {
             discountBadge.textContent = `-${
               applicableTier.discount
             }%`;
@@ -624,18 +638,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
 // Update discount text display
-      if (discountDisplayElement) {
-        if (applicableTier) {
+      const discountDisplay = document.getElementById('discountDisplay');
+      if (discountDisplay) {
+        if (isFirstVariant && applicableTier) {
           const originalTotalPrice = originalPrice * quantity;
           const discountAmount = originalTotalPrice - totalPrice;
           const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
 
-          const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
-          discountDisplayElement.textContent = discountText;
-          discountDisplayElement.classList.add('text-discount');
+          const discountText = `You currently save ${formattedDiscountAmount} off your total order!`;
+          discountDisplay.textContent = discountText;
+          discountDisplay.classList.add('text-discount');
         } else {
-          discountDisplayElement.textContent = '';
-          discountDisplayElement.classList.remove('text-discount');
+          discountDisplay.textContent = '';
+          discountDisplay.classList.remove('text-discount');
         }
       }
     }
@@ -889,9 +904,12 @@ document.addEventListener('DOMContentLoaded', function() {
               comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
               comparePrice.classList.remove('d-none');
 
-// Still hide it if discount badge is visible
+// Check if this is the first variant - only then might we need to hide the compare price for discounts
+              const isFirstVariant = this === packageBoxes[0];
+
+// Still hide it if discount badge is visible and we're on the first variant
               const discountBadge = document.querySelector('.discount-percentage-badge');
-              if (discountBadge && discountBadge.style.display === 'block') {
+              if (isFirstVariant && discountBadge && discountBadge.style.display === 'block') {
                 comparePrice.style.display = 'none';
               } else {
                 comparePrice.style.display = 'block';
@@ -909,12 +927,24 @@ document.addEventListener('DOMContentLoaded', function() {
             existingDiscounts.forEach(discount => discount.remove());
           }
 
+// Hide discount badge if not first variant
+          const discountBadge = document.querySelector('.discount-percentage-badge');
+          if (discountBadge && this !== packageBoxes[0]) {
+            discountBadge.style.display = 'none';
+          }
+
+// Hide discount text if not first variant
+          const discountDisplay = document.getElementById('discountDisplay');
+          if (discountDisplay && this !== packageBoxes[0]) {
+            discountDisplay.textContent = '';
+            discountDisplay.classList.remove('text-discount');
+          }
+
 // Use quantity = 1
           const currentQuantity = 1;
 
 // Trigger the discount display update, which will handle price updates
-          const discountDisplayElement = document.getElementById('discountDisplay');
-          if (discountDisplayElement) { // If we have our new discount display component
+          if (discountDisplay) { // If we have our new discount display component
             const event = new Event('input');
             quantityInput.dispatchEvent(event);
           } else { // Fallback to the older system
@@ -976,8 +1006,8 @@ document.addEventListener('DOMContentLoaded', function() {
           const currentQuantity = 1;
 
 // Trigger the discount display update, which will handle price updates
-          const discountDisplayElement = document.getElementById('discountDisplay');
-          if (discountDisplayElement) { // If we have our new discount display component
+          const discountDisplay = document.getElementById('discountDisplay');
+          if (discountDisplay) { // If we have our new discount display component
             const event = new Event('input');
             quantityInput.dispatchEvent(event);
           } else { // Fallback to the older system
@@ -1006,9 +1036,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const quantity = parseInt(quantityInput ?. value, 10) || 1;
       console.log('Submitting Add to Cart for variant:', variantId, 'Quantity:', quantity);
 
-// Pass discount tiers to the cart as a property if they exist
+// Check if this is the first variant
+      const selectedVariant = document.querySelector('#package-options .package-box.selected');
+      const allVariants = document.querySelectorAll('#package-options .package-box');
+      const isFirstVariant = selectedVariant && allVariants.length > 0 && selectedVariant === allVariants[0];
+
+// Pass discount tiers to the cart as a property if they exist AND this is the first variant
       let properties = {};
-      if (window.discountTiers && window.discountTiers.tiers && window.discountTiers.tiers.length > 0) {
+      if (isFirstVariant && window.discountTiers && window.discountTiers.tiers && window.discountTiers.tiers.length > 0) {
         properties._discount_tiers = JSON.stringify(window.discountTiers.tiers);
       }
 
@@ -1059,9 +1094,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Get product-specific discount tiers from item properties
           let discountTiers = [];
+          let hasDiscountProperty = false;
           if (item.properties && item.properties._discount_tiers) {
             try {
               discountTiers = JSON.parse(item.properties._discount_tiers);
+              hasDiscountProperty = true;
             } catch (e) {
               console.error('Error parsing discount tiers from item properties:', e);
             }
@@ -1074,7 +1111,8 @@ document.addEventListener('DOMContentLoaded', function() {
           let itemPrice = item.final_price || item.price;
 
 // Apply discount tiers if available and not already applied
-          if (discountTiers && discountTiers.length > 0) { // Sort tiers by min value in descending order
+// Only items with _discount_tiers property (first variant) are eligible for quantity discounts
+          if (hasDiscountProperty && discountTiers && discountTiers.length > 0) { // Sort tiers by min value in descending order
             const sortedTiers = [... discountTiers].sort((a, b) => b.min - a.min);
 
 // Find applicable tier based on item quantity
@@ -1107,6 +1145,9 @@ document.addEventListener('DOMContentLoaded', function() {
           const formattedOriginalPrice = Shopify.formatMoney(itemOriginalPrice * item.quantity, window.shopMoneyFormat);
           const formattedItemPrice = Shopify.formatMoney(itemPrice * item.quantity, window.shopMoneyFormat);
 
+// Show discount in the cart item if we have the discount property and the price is different
+          const showDiscount = hasDiscountProperty && itemPrice < itemOriginalPrice;
+
           itemsHtml += `
             <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3" data-key="${
             item.key
@@ -1123,9 +1164,13 @@ document.addEventListener('DOMContentLoaded', function() {
             item.product_title
           }</p>
                 <div class="d-flex align-items-center py-md-3 py-1">
-                  <span class="original-price  funnel-font">
+                  <span class="original-price funnel-font ${
+            showDiscount
+              ? ''
+              : 'd-none'
+            }">
                     ${
-            itemOriginalPrice !== itemPrice
+            showDiscount
               ? formattedOriginalPrice
               : ''
             }
@@ -1529,9 +1574,20 @@ document.addEventListener('DOMContentLoaded', () => {
       let originalPrice = parseInt(originalPriceElement ?. getAttribute('data-price')) || 0;
       let piecesPerPack = parseInt(originalPriceElement ?. getAttribute('data-pieces')) || 1;
 
-      if (!window.discountTiers || !window.discountTiers.tiers || window.discountTiers.tiers.length === 0) { // No discount scenario
-        discountDisplay.textContent = 'No discount';
+// Check if we're on the first variant - only apply discounts to first variant
+      const selectedVariant = document.querySelector('#package-options .package-box.selected');
+      const allVariants = document.querySelectorAll('#package-options .package-box');
+      const isFirstVariant = selectedVariant && allVariants.length > 0 && selectedVariant === allVariants[0];
+
+      if (! isFirstVariant || !window.discountTiers || !window.discountTiers.tiers || window.discountTiers.tiers.length === 0) { // No discount scenario
+        discountDisplay.textContent = '';
         discountDisplay.classList.remove('text-discount');
+
+// Hide the discount badge
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          discountBadge.style.display = 'none';
+        }
 
 // Update the price without discount
         if (variantPriceElement) {
@@ -1549,8 +1605,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // Update compare price and make it visible
           const comparePrice = document.getElementById('compare-price');
           if (comparePrice) {
-            comparePrice.textContent = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
-            comparePrice.style.display = 'block';
+            const variantCompareAtPrice = selectedVariant
+              ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+              : 0;
+
+            if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) {
+              comparePrice.textContent = Shopify.formatMoney(variantCompareAtPrice * quantity, window.shopMoneyFormat);
+              comparePrice.classList.remove('d-none');
+              comparePrice.style.display = 'block';
+            } else {
+              comparePrice.classList.add('d-none');
+              comparePrice.style.display = 'none';
+            }
           }
         }
         return;

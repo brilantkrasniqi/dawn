@@ -4,11 +4,11 @@
       <div class="me-md-4 me-3 d-flex  align-items-center justify-content-center">
         <a
           href="{{ block.settings.collection_link }}"
-          {% if collection.handle == block.settings.collection_handle or collection.handle == '' %}
+          {% if collection.handle == block.settings.collection_handle %}
           class="active-collection"
           {% endif %}>
 
-          <p class="text-center pt-sm-0 pt-3 {% if collection.handle == block.settings.collection_handle %}fw-bold{% endif %}">{{ block.settings.title }}</p>
+          <p class="text-center pt-sm-0 pt-2 {% if collection.handle == block.settings.collection_handle %}fw-bold{% endif %}">{{ block.settings.title }}</p>
         </a>
       </div>
     {% endfor %}
