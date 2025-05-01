@@ -146,28 +146,36 @@
           "paragraph_473hpY": {
             "type": "paragraph",
             "settings": {
-              "intro_text": "Benefits of Ordering in Bulk:"
+              "intro_text": "Why choose Flutra for custom paper products:"
             }
           },
           "bullet_d4AQhh": {
             "type": "bullet",
             "settings": {
-              "title": "Lower Prices",
-              "detail": "Enjoy significant cost savings with special wholesale pricing."
+              "title": "Branded Experience",
+              "detail": "– Strengthen your brand with every detail, from the restroom to the dining table"
             }
           },
           "bullet_DtgxiK": {
             "type": "bullet",
             "settings": {
-              "title": "Lower Prices",
-              "detail": "Enjoy significant cost savings with special wholesale pricing."
+              "title": "Premium Look & Feel",
+              "detail": "– Soft, strong, and professionally printed to meet your quality standards"
+            }
+          },
+          "bullet_LXMinP": {
+            "type": "bullet",
+            "settings": {
+              "title": "Flexible Quantities",
+              "detail": "– Order exactly what your business needs, with low minimums available"
             }
           }
         },
         "block_order": [
           "paragraph_473hpY",
           "bullet_d4AQhh",
-          "bullet_DtgxiK"
+          "bullet_DtgxiK",
+          "bullet_LXMinP"
         ],
         "settings": {
           "form_header": "Get your quote now",
