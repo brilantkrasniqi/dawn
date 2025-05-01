@@ -1,21 +1,14 @@
-<div class="col-12">
-  <div class="d-flex align-items-center justify-content-center">
-    <a href="/collections" class=" fw-bold rounded-pill w-fit bg-main-blue text-white p-2">#All Products</a>
-  </div>
-  <div class="d-flex align-items-center justify-content-center flex-wrap image-Nav pt-4">
+<div class="col-12 ps-sm-0 ">
+  <div class="d-flex align-items-start justify-content-start flex-wrap image-Nav ">
     {% for block in section.blocks %}
-      <div class="me-4 d-flex flex-column">
+      <div class="me-md-4 me-3 d-flex  align-items-center justify-content-center">
         <a
           href="{{ block.settings.collection_link }}"
           {% if collection.handle == block.settings.collection_handle %}
           class="active-collection"
           {% endif %}>
-          <img
-            height="50"
-            width="50"
-            src="{{ block.settings.image | image_url }}"
-            alt="{{ block.settings.title }}" />
-          <p class="pt-3 text-center {% if collection.handle == block.settings.collection_handle %}fw-bold{% endif %}">{{ block.settings.title }}</p>
+
+          <p class="text-center pt-sm-0 pt-3 {% if collection.handle == block.settings.collection_handle %}fw-bold{% endif %}">{{ block.settings.title }}</p>
         </a>
       </div>
     {% endfor %}
@@ -50,11 +43,6 @@
             "id": "title",
             "label": "Title",
             "default": "Collection"
-          },
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Icon Image"
           },
           {
             "type": "url",

@@ -105,10 +105,11 @@
           <div class="d-flex gap-3 mt-4 flex-wrap justify-content-center align-items-center" id="package-options">
             {% for variant in product.variants %}
               <div
-                class="package-box p-3 rounded-8 border text-center d-flex flex-column justify-content-between"
+                class="package-box p-3 rounded-8 border text-center d-flex flex-column justify-content-between {% if variant.available == false %}out-of-stock{% endif %}"
                 data-variant-id="{{ variant.id }}"
                 data-price="{{ variant.price }}"
-                data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}">
+                data-pieces="{{ variant.metafields.custom.pieces_per_pack | default: 1 }}"
+                data-available="{{ variant.available }}">
                 <div class="pb-3">
                   <img
                     src="{{variant.featured_image |  image_url }}"
@@ -120,9 +121,9 @@
                 <div class="d-flex flex-column justify-content-between h-100">
                   <p class="fw-bold">{{ variant.title }}</p>
                   <p class>{{ variant.price | money }}</p>
-                {% comment %} <p class="small text-muted">
-                                                                                                                                                                                                        {{ variant.metafields.custom.pieces_per_pack | default: 1 }} {{ unit_label }}s
-                                                                                                                                                                                  </p> {% endcomment %}
+                  {% unless variant.available %}
+                    <p class="text-danger mb-0 small">Out of Stock</p>
+                  {% endunless %}
                 </div>
               </div>
             {% endfor %}
@@ -230,8 +231,14 @@
               <button
                 type="submit"
                 class="btn-main w-100 mt-5"
-                aria-label="Add {{ product.title }} to cart">
-                Add to cart
+                {% unless product.available %}
+                disabled{% endunless %}
+                aria-label="{% if product.available %}Add {{ product.title }} to cart{% else %}Out of Stock{% endif %}">
+                {% if product.available %}
+                  Add to cart
+                {% else %}
+                  Out of Stock
+                {% endif %}
               </button>
             </form>
           </div>
@@ -250,13 +257,23 @@
     <h2 class="text-center">{{ section.settings.related_products_heading }}</h2>
     <div class="row g-4 pt-5">
       {% assign current_product = product %}
-    {% assign current_product_type = product.type %}
 
-      {% comment %}Get products from the same type/collection{% endcomment %}
-      {% assign related_products = collections.all.products | where: "type", current_product_type %}
+      {% comment %}Determine which products to show based on settings{% endcomment %}
+      {% case section.settings.related_products_source %}
+        {% when 'same_type' %}
+          {% assign related_products = collections.all.products | where: "type", product.type %}
+        {% when 'same_collection' %}
+          {% assign related_products = product.collections.first.products %}
+        {% when 'same_vendor' %}
+          {% assign related_products = collections.all.products | where: "vendor", product.vendor %}
+        {% when 'manual' %}
+          {% assign related_products = section.settings.manual_products %}
+      {% endcase %}
 
-      {% for product in related_products limit: 4 %}
-        {% if product.id != current_product.id %}
+      {% assign products_shown = 0 %}
+      {% for product in related_products limit: 8 %}
+        {% if product.id != current_product.id and products_shown < 4 %}
+          {% assign products_shown = products_shown | plus: 1 %}
           <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
             <div class="product-container">
               <a href="{{ product.url }}">
@@ -322,10 +339,45 @@
         "label": "B2B link"
       },
       {
+        "type": "header",
+        "content": "Related Products Settings"
+      },
+      {
         "type": "text",
         "id": "related_products_heading",
         "label": "Related Products Heading",
         "default": "You may also like"
+      },
+      {
+        "type": "select",
+        "id": "related_products_source",
+        "label": "Show products from",
+        "options": [
+          {
+            "value": "same_type",
+            "label": "Same product type"
+          },
+          {
+            "value": "same_collection",
+            "label": "Same collection"
+          },
+          {
+            "value": "same_vendor",
+            "label": "Same vendor"
+          },
+          {
+            "value": "manual",
+            "label": "Manually selected"
+          }
+        ],
+        "default": "same_type"
+      },
+      {
+        "type": "product_list",
+        "id": "manual_products",
+        "label": "Manual product selection",
+        "limit": 4,
+        "info": "Select up to 4 products to show. Only applies when 'Manually selected' is chosen above."
       }
     ],
     "presets": [

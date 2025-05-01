@@ -292,6 +292,7 @@ input[type="number"] {
 }
 /* Prod */
 .prod-image {
+  position: relative;
   background-color: var(--product-gray-bg);
   border-radius: 8px;
   padding: 10px !important;
@@ -335,8 +336,10 @@ input[type="number"] {
   justify-content: center;
 }
 .showCaseImg img {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 .cardContainer {
   background-color: var(--product-gray-bg);
@@ -664,6 +667,34 @@ color: #0B266F !important;
   text-align: center;
   margin: 0;
   padding: 0;
+}
+
+.package-box.out-of-stock {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
+}
+
+.package-box.out-of-stock:hover {
+  border-color: #dee2e6 !important;
+  background-color: #f8f9fa !important;
+}
+
+button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.out-of-stock-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 

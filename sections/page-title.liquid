@@ -1,13 +1,18 @@
 <div class="section" id="categoryHeader">
   <div class="custom-container">
-    <div class="row p-5">
-      <div class="col-12 ">
-        <h1 class="fw-bold text-center">{{ section.settings.title }}</h1>
-        <p class="pt-3 text-center">
-          {{ section.settings.description }}
-        </p>
+    {% if section.settings.title != blank %}
+      <div class="row px-sm-0 px-5 pt-3">
+        <div class="col-12 ">
+          <h2 class="fw-bold text-sm-start text-center">{{ section.settings.title }}</h2>
+
+          {% if section.settings.description != blank %}
+            <p class="pt-3 text-sm-start text-center">
+              {{ section.settings.description }}
+            </p>
+          {% endif %}
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 </div>
 

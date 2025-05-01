@@ -1,16 +1,16 @@
-<section class="section-padding" id="productSection">
+<section class="" id="productSection">
   <div class="custom-container">
     {% assign sort_by = request.parameters.sort_by | default: 'manual' %}
-    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-between">
       <div class="col-sm-4 col-0"></div>
-      <h2 class="text-sm-center text-start col-sm-4 col-6">All products</h2>
+      {% comment %} <h2 class="text-sm-center test text-start col-sm-4 col-6">All products</h2> {% endcomment %}
       <div class="col-sm-4 col-6 text-end">
         <!-- Sort selector removed as requested -->
       </div>
     </div>
     {% paginate collections.all.products by 12 %}
 
-      <div class="row pt-5">
+      <div class="row pt-sm-5 pt-3">
         {% for product in collections.all.products %}
           <div class="col-lg-3 col-md-4 col-sm-6 col-12 pt-3">
             <div class="product-container">
@@ -22,6 +22,9 @@
                     width="250"
                     height="225"
                     alt="{{ product.title }}" />
+                  {% unless product.available %}
+                    <span class="out-of-stock-badge">Out of Stock</span>
+                  {% endunless %}
                 </div>
               </a>
               <div class="prod-info">
@@ -47,8 +50,14 @@
                     <button
                       type="submit"
                       class="funnel-font fw-bold"
-                      aria-label="Add {{ product.title }} to cart">
-                      + Add to cart
+                      {% unless product.available %}
+                      disabled{% endunless %}
+                      aria-label="{% if product.available %}Add {{ product.title }} to cart{% else %}Out of Stock{% endif %}">
+                      {% if product.available %}
+                        + Add to cart
+                      {% else %}
+                        Out of Stock
+                      {% endif %}
                     </button>
                   </form>
                 </div>

@@ -705,14 +705,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add initial styling to package boxes to make them more interactive
       packageBoxes.forEach(box => {
-        box.style.cursor = 'pointer';
+        box.style.cursor = box.classList.contains('out-of-stock')
+          ? 'not-allowed'
+          : 'pointer';
         box.addEventListener('mouseover', () => {
-          if (!box.classList.contains('selected')) {
+          if (!box.classList.contains('selected') && !box.classList.contains('out-of-stock')) {
             box.style.backgroundColor = 'rgba(26, 54, 131, 0.02)';
           }
         });
         box.addEventListener('mouseout', () => {
-          if (!box.classList.contains('selected')) {
+          if (!box.classList.contains('selected') && !box.classList.contains('out-of-stock')) {
             box.style.backgroundColor = '';
           }
         });
@@ -720,6 +722,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
       packageBoxes.forEach(box => {
         box.addEventListener('click', function() {
+
+// Don't allow selection of out of stock variants
+          if (this.classList.contains('out-of-stock')) {
+            return;
+          }
+
           console.log('Package box clicked');
 
 // Remove selected class from all boxes
@@ -733,6 +741,22 @@ document.addEventListener('DOMContentLoaded', function() {
           const form = document.querySelector('.add-to-cart-form');
           if (form) {
             form.setAttribute('data-variant-id', variantId);
+
+// Update add to cart button state
+            const addToCartBtn = form.querySelector('button[type="submit"]');
+            const isAvailable = this.getAttribute('data-available') === 'true';
+            if (addToCartBtn) {
+              addToCartBtn.disabled = ! isAvailable;
+              addToCartBtn.textContent = isAvailable
+                ? 'Add to cart'
+                : 'Out of Stock';
+              addToCartBtn.setAttribute(
+                'aria-label',
+                isAvailable
+                  ? 'Add to cart'
+                  : 'Out of Stock'
+              );
+            }
           }
 
 // Set quantity to 1
