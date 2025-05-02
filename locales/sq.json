@@ -768,5 +768,387 @@
         }
       }
     }
+  },
+  "customer_accounts": {
+    "order_details": {
+      "company": "Kompania",
+      "fully_refunded_label": "RIMBURSUAR",
+      "group_title_label": "Pjesë e: {{groupTitle}}",
+      "grouped_view_components": {
+        "expand_line_items": "{{count}} artikuj",
+        "collapse_line_items": "Fshih {{count}} artikuj",
+        "line_item_summary_list_accessibility_label": "Artikuj në paketën {{productTitle}}"
+      },
+      "discount": "Zbritje",
+      "hide_items": "Fshih artikujt",
+      "loading": "Duke ngarkuar detajet e porosisë",
+      "loading_finished_accessibility_message": "Detajet e porosisë janë ngarkuar",
+      "location": "Vendndodhja",
+      "image_gallery": {
+        "next": "Shfaq artikujt e ardhshëm",
+        "previous": "Shfaq artikujt e mëparshëm",
+        "load_more_items": {
+          "one": "Ngarko {{count}} artikuj të tjerë",
+          "other": "Ngarko {{count}} artikuj të tjerë"
+        }
+      },
+      "mobile_summary_toggle_button": {
+        "open": "Shfaq përmbledhjen e porosisë",
+        "closed": "Fshih përmbledhjen e porosisë"
+      },
+      "no_data": "Asnjë",
+      "no_data_provided_accessibility_label": "{{fieldName}} është bosh",
+      "paid_amount": "Paguar",
+      "partially_refunded_label": "RIMBURSIM PJESËRISHT",
+      "payment": {
+        "status_in_review": "Pagesa e duhur pas shqyrtimit",
+        "status_unpaid": "Pagesa duhet të bëhet më {{date}}",
+        "title": "Pagesa",
+        "payment_type": {
+          "gift_card": "Kartë dhurate",
+          "store_credit": "Krediti i dyqanit",
+          "money_order": "Urdhër pagese",
+          "cash_on_delivery": "Pagesë me para në dorëzim (COD)",
+          "bank_deposit": "Depozitë Bankare"
+        },
+        "card_payment_details": "që mbaron me {{lastDigits}} - {{formattedTransactionAmount}}",
+        "gift_card_payment_details": "që mbaron me {{lastDigits}} - {{formattedTransactionAmount}}",
+        "store_credit_payment_details": "Krediti i dyqanit - {{formattedTransactionAmount}}",
+        "shop_pay_installments": {
+          "paid_in_installments": "Paguar me këste Shop Pay",
+          "view_schedule": "Shiko orarin"
+        },
+        "manual_payment_methods": {
+          "money_order": "Urdhër pagese - {{formattedTransactionAmount}}",
+          "cash_on_delivery": "Para në dorëzim (COD) - {{formattedTransactionAmount}}",
+          "bank_deposit": "Depozitë Bankare - {{formattedTransactionAmount}}",
+          "manual": "Manual - {{formattedTransactionAmount}}"
+        },
+        "transactions": {
+          "show_all": "Shfaq të gjitha",
+          "show_less": "Shfaq më pak",
+          "details": "Detajet",
+          "payment_details": "Detajet e pagesës"
+        },
+        "emv_details": {
+          "auth": "AUTORIZIMI:",
+          "aid": "NDIHMË:",
+          "source": "BURIMI:"
+        }
+      },
+      "paid_with_shop_pay_installments_card": {
+        "paid_with_shop_pay_installments": "Paguar me këste Shop Pay",
+        "description": "Qëndroni në krye të orarit tuaj të pagesave me përkujtesa në aplikacionin Shop.",
+        "payment_reminders_button": "Merrni përkujtesa për pagesa",
+        "desktop_qr_code_content": {
+          "title": "Skano për përkujtesa",
+          "description": "Merrni njoftime për këste me Shop."
+        }
+      },
+      "refunded_amount": "Rimbursuar",
+      "request_return_failed": "Pati një problem gjatë përpunimit të kërkesës suaj. Ju lutemi provoni përsëri.",
+      "login_card": {
+        "log_in": "Kyçu",
+        "resend_link_with_login": "dërgo lidhje të re",
+        "resend_link_without_login": "Dërgo lidhje të re",
+        "link_expired": "Lidhja skadoi"
+      },
+      "remaining_amount": "Mbetur",
+      "marketing_section_title": "Lajme dhe oferta",
+      "marketing_description": "Do të merrni email-e marketingu. Mund të çabonoheni në çdo kohë.",
+      "marketing_checkbox_label": "Më dërgoni email me lajme dhe oferta për të rejat dhe ofertat tuaja, dërgoni një email me email.",
+      "marketing_checkmark_label": "Ju jeni abonuar për të marrë lajme dhe oferta me email",
+      "returns": {
+        "expand_events_label": "Shfaq detajet",
+        "hide_events_label": "Fshih detajet",
+        "ineligible_return_message": "Asnjë artikull në këtë porosi nuk është i pranueshëm për kthim.",
+        "ineligible_return_message_when_returned": "Asnjë artikull shtesë në këtë porosi nuk është i pranueshëm për kthim.",
+        "print_shipping_label": "Printo etiketën e transportit",
+        "return_and_refund_modal_header": "Politika e rimbursimit",
+        "tracking_number": "Numri i gjurmimit:"
+      },
+      "shipping": {
+        "address": "Adresa e dërgesës",
+        "address_map_marker": "Adresa e dërgesës",
+        "method": "Metoda e transportit",
+        "summary": "Transporti",
+        "free": "Falas",
+        "free_shipping_discount": "Transporti Falas",
+        "one_time": "Transportim një herësh",
+        "subscription": "Transporti me abonim"
+      },
+      "pickup": {
+        "pickup": "Marrje",
+        "pickup_location": "Vendndodhja e marrjes",
+        "pickup_point": "Pika e marrjes"
+      },
+      "show_items": "Shfaq artikujt",
+      "show_order_summary": "Shfaq përmbledhjen e porosisë",
+      "hide_order_summary": "Fshih përmbledhjen e porosisë",
+      "subtitle": "Konfirmuar {{date}}",
+      "subtotal": "Nëntotali",
+      "summary_list_title_accessibility_label": "Artikuj të porositur",
+      "summary_title": "Përmbledhje e porosisë",
+      "summary_totals_title_accessibility_label": "Totali i porosive",
+      "shop_order_tracking": {
+        "download_shop_to_track": "Shkarko Dyqani për të ndjekur paketën",
+        "track_order_with_shop": "Gjurmoni porosinë me Shop",
+        "title_header": "Skano me telefonin tënd",
+        "real_time_delivery_updates": "Dyqani do t'ju dërgojë përditësime në kohë reale për dërgesën sapo porosia juaj të dërgohet."
+      },
+      "edit_summary": {
+        "added": "Shtuar",
+        "added_with_quantity": "U {{quantity}}",
+        "removed": "U hoq",
+        "removed_with_quantity": "U hoq {{quantity}}",
+        "updated_at": "Porosia juaj u përditësua më {{date}}",
+        "returned": "U kthye",
+        "returned_with_quantities": "U kthyen {{delta}} nga {{total}}"
+      }
+    },
+    "payment_method_brands": {
+      "laser": "Lazer",
+      "shoppay": "Pagesa e Dyqanit",
+      "storecredit": "Krediti i dyqanit",
+      "bogus": "Fals",
+      "visa": "Vizë",
+      "discover": "Zbulo"
+    },
+    "privacy_banner": {
+      "cookie_preferences_link": "Preferencat e cookie-ve"
+    },
+    "shop_policies": {
+      "legal_notice": "Njoftim ligjor",
+      "privacy_policy": "Politika e privatësisë",
+      "refund_policy": "Politika e rimbursimit",
+      "shipping_policy": "Politika e transportit",
+      "subscription_policy": "Politika e anulimit",
+      "terms_of_sale": "Kushtet e shitjes",
+      "terms_of_service": "Kushtet e shërbimit"
+    },
+    "ui_components": {
+      "clipboardCopied": "Kopjuar",
+      "clipboardFailedToCopy": "Kopjimi dështoi",
+      "closeNotification": "Mbyll",
+      "expandNotification": "Shiko më shumë",
+      "closeModal": "Mbyll",
+      "submit": "Dërgo",
+      "processing": "Duke u përpunuar…",
+      "increase": "Rrit {{type}}",
+      "decrease": "Zvogëlo {{type}}",
+      "minimumReached": "U arrit minimumi prej {{value}}",
+      "maximumReached": "U arrit maksimumi prej {{value}}",
+      "january": "Janar",
+      "february": "Shkurt",
+      "march": "Mars",
+      "april": "Prill",
+      "may": "Maj",
+      "june": "Qershor",
+      "july": "Korrik",
+      "august": "Gusht",
+      "september": "Shtator",
+      "october": "Tetor",
+      "november": "Nëntor",
+      "december": "Dhjetor",
+      "monday": "E hënë",
+      "tuesday": "E martë",
+      "wednesday": "E mërkurë",
+      "thursday": "E enjte",
+      "friday": "E premte",
+      "saturday": "E shtunë",
+      "sunday": "E diel",
+      "mondayAbbreviation": "Mu",
+      "tuesdayAbbreviation": "E martë",
+      "wednesdayAbbreviation": "Ne",
+      "thursdayAbbreviation": "Enj",
+      "sundayAbbreviation": "Die",
+      "showNextMonth": "Shfaq muajin tjetër, {{month}} {{year}}",
+      "showPreviousMonth": "Trego muajin e kaluar, {{month}} {{year}}",
+      "rangeStart": "Fillimi i rrezes",
+      "inRange": "Në rreze",
+      "rangeEnd": "Fundi i gamës",
+      "autocompleteOptionsAvailable": {
+        "one": "{{count}} artikull i disponueshëm",
+        "other": "{{count}} artikuj të disponueshëm"
+      },
+      "removeItem": "Hiq {{label}}",
+      "removeTag": "Hiq etiketën",
+      "month": {
+        "one": "muaj",
+        "other": "muaj"
+      },
+      "mapClusterTitle": {
+        "one": "Grumbull i shënuesit {{number}}",
+        "other": "Grumbull shënuesish {{number}}"
+      },
+      "expandSheet": "Zgjero",
+      "qrCode": "Kodi QR",
+      "addFile": "Shto skedar",
+      "dropzoneInvalidFileType": "Lloji i skedarit nuk mbështetet",
+      "dropzoneDraggedOver": "Lësho skedarin për ta ngarkuar"
+    },
+    "profile_preview_bar": {
+      "customize_button": "Personalizo",
+      "hide_bar": "Fshih shiritin",
+      "navigate_to_admin": "Shko te administratori",
+      "close_preview": "Mbyll pamjen paraprake",
+      "previewing": "Po shikoni paraprakisht:",
+      "saved_at": "Ruajtur në {{date}} në {{time}}",
+      "viewing": "Po shikoni:",
+      "not_available": "Të dhënat e profilit nuk janë të disponueshme",
+      "actions_button": "Veprime"
+    },
+    "active_inspector": {
+      "extension": {
+        "select": "Zgjidhni zgjerimin me emrin {{extensionName}}",
+        "unselect": "Hiq përzgjedhjen e shtesës me emrin {{extensionName}}",
+        "move_down": "Zhvendos zgjatimin në pozicionin tjetër",
+        "move_up": "Zhvendos zgjatimin në pozicionin e mëparshëm",
+        "remove": "Hiq shtesën",
+        "move_down_tooltip": "Kalo në pozicionin tjetër",
+        "move_up_tooltip": "Zhvendosu në pozicionin e mëparshëm",
+        "remove_tooltip": "Hiq"
+      }
+    },
+    "editor": {
+      "link_new_tab_confirmation": "Kjo lidhje nuk mund të hapet brenda redaktuesit. Do të hapet në një dritare të re ( {{resolved_to_link}} ). Klikoni OK për të vazhduar."
+    },
+    "settings": {
+      "title": "Cilësimet",
+      "loading_accessibility_message": "Duke ngarkuar faqen e cilësimeve. Po ngarkohet faqja e cilësimeve.",
+      "log_out_everywhere": {
+        "title": "Dil nga çdo vend",
+        "description": "Nëse keni humbur një pajisje ose keni shqetësime për sigurinë, dilni nga çdo vend për të siguruar sigurinë e llogarisë suaj.",
+        "button": "Dil nga çdo vend",
+        "warning_message": "Do të çregjistroheni edhe në këtë pajisje."
+      }
+    },
+    "shop_ads": {
+      "title": "Oferta ekskluzive nga Shop",
+      "subtitle": "Në dispozicion për një kohë të kufizuar",
+      "button": "Eksploro në Dyqan"
+    },
+    "payment_methods": {
+      "store_credit": {
+        "details_modal": {
+          "events": {
+            "payment_failure": "Dështim pagese",
+            "payment_returned": "Pagesa u kthye",
+            "order_cancellation": "Anulimi i porosisë",
+            "tax_finalization": "Finalizimi i taksave"
+          },
+          "expirable_balance_info": "Një pjesë e bilancit tuaj do të skadojë në një datë të ardhshme",
+          "expirable_amount_label": "Shuma totale e skadueshme",
+          "expirable_amounts_info": "Shumat që skadojnë më herët zbatohen të parat në arkë",
+          "expirable_amounts_button": "Pamje",
+          "expired_amounts_button": "Shikoni shumat e skaduara",
+          "pagination": {
+            "load_more_label": "Ngarko më shumë",
+            "load_more_accessibility_label": "Ngarko më shumë shuma të skadueshme"
+          }
+        }
+      },
+      "payment_details": {
+        "title": "Detajet e metodës së pagesës",
+        "credit_card_details_accessibility_label": "që mbaron me {{lastDigits}}",
+        "billing_title": "Adresa e faturimit",
+        "card_info_title": "Informacioni i kartës",
+        "payment_method_expiring_on": "Skadon më {{expiryDate}}",
+        "payment_method_expired_on": "Skadoi më {{expiryDate}}",
+        "preauthorized_payments": "Pagesat e paraautorizuara",
+        "close_payment_modal": "Mbyll",
+        "close_payment_modal_accessibility_label": "Mbyll detajet e modalitetit të metodës së pagesës",
+        "payment_method_not_found_error": "Nuk mund të gjendet metoda e pagesës",
+        "payment_details_loading": "Duke ngarkuar detajet e metodës së pagesës po dalin në pah. Po ngarkohen detajet e metodës së pagesës.",
+        "pre_authorized_payments": "Pagesat e para-autorizuara",
+        "total_amount_of_subscription_line_items_left": "dhe {{total}} të tjerë",
+        "total_amount_of_subscription_line_items_left_accessibility_label": "{{totalItems}} artikuj gjithsej, duke shfaqur {{totalItemsToDisplay}} artikuj.",
+        "next_payment_due": "Pagesa e radhës duhet të bëhet {{dueDateInMonthDayYear}}",
+        "edit_payment_method_button": "Modifiko",
+        "edit_payment_method_button_accessibility_label": "Modifiko metodën e pagesës që mbaron me {{lastDigits}}",
+        "loading_shop_pay": "Duke ngarkuar Shop Pay",
+        "invalid_payment_method": "Metoda e pagesës është e pavlefshme",
+        "invalid_payment_method_message": "Përdorni një kartë krediti të re për të vazhduar të merrni porositë e ardhshme.",
+        "replace_payment_method": "Zëvendëso metodën e pagesës",
+        "checkout_card_banner": "Kjo metodë pagese mund të përdoret vetëm për pagesa të para-autorizuara. Nuk do të shfaqet në arkë nëse jeni i kyçur në këtë dyqan.",
+        "default_checkbox": "Cakto si parazgjedhje",
+        "default_checkbox_accessibility_label": "Cakto këtë metodë pagese si parazgjedhje"
+      },
+      "edit_payment_method": {
+        "title": "Modifiko metodën e pagesës",
+        "save_payment_method_button": "Ruaj",
+        "cancel_edit_payment_method_button": "Anulo",
+        "payment_method_updated_toast": "Metoda e pagesës u përditësua",
+        "billing_address": "Adresa e faturimit",
+        "billing_address_add_new": "Shto të re",
+        "billing_address_choose_from_list": "Zgjidh nga lista",
+        "future_purchases_notice": "Kjo metodë pagese do të ruhet për blerjet e ardhshme.",
+        "generic_error": "Pati një problem me përditësimin. Ju lutemi provoni përsëri."
+      },
+      "card_fields": {
+        "card_number_label": "Numri i kartës",
+        "card_number_placeholder": "Numri i kartës",
+        "name_on_card_label": "Emri në kartë",
+        "name_on_card_placeholder": "Emri në kartë",
+        "card_expiry_label": "Data e skadimit (MM / VV)",
+        "card_expiry_placeholder": "Data e skadimit (MM / VV)",
+        "card_verification_value_label": "Kodi i sigurisë",
+        "card_verification_value_placeholder": "Kodi i sigurisë",
+        "card_start_label": "Data e lëshimit (MM / VV)",
+        "card_start_placeholder": "Data e lëshimit (MM / VV)",
+        "tooltip": {
+          "tooltip_accessibility_label": "Më shumë informacion",
+          "card_verification_value_explanation_amex": "Kodi i sigurisë 4-shifror në pjesën e përparme të kartës suaj",
+          "card_verification_value_explanation_other": "Kodi i sigurisë 3-shifror në pjesën e pasme të kartës suaj",
+          "card_verification_value_explanation": "Kodi i sigurisë 3-shifror zakonisht gjendet në pjesën e pasme të kartës suaj. Kartat American Express kanë një kod 4-shifror të vendosur në pjesën e përparme.",
+          "card_security_notice": "Të gjitha transaksionet janë të sigurta dhe të koduara."
+        },
+        "field_errors": {
+          "credit_card_name_invalid": "Shkruani emrin tuaj saktësisht siç është shkruar në kartën tuaj",
+          "credit_card_number_invalid": "Fut një numër të vlefshëm karte",
+          "credit_card_expiry_invalid": "Fut një datë të vlefshme skadimi të kartës",
+          "credit_card_verification_value_blank": "Vendosni CVV-në ose kodin e sigurisë në kartën tuaj"
+        }
+      },
+      "payment_delete": {
+        "title": "Fshi metodën e pagesës",
+        "description_without_replacement": "Kjo metodë pagese nuk do të jetë më e disponueshme për blerjet e ardhshme.",
+        "description_with_replacement": "Fshirja e kësaj metode pagese do të ndikojë në pagesat e paraautorizuara. Mund ta zëvendësoni atë me një metodë tjetër pagese për të vazhduar të merrni porositë e ardhshme.",
+        "warning_message_with_replacement": {
+          "with_pending_orders_and_subscriptions": "Fshirja e kësaj metode pagese do të ndikojë në pagesat e paraautorizuara. Nëse nuk zgjidhni një metodë alternative pagese, kjo metodë pagese do të vazhdojë të faturohet për çdo bilanc të papaguar në porositë ekzistuese. Zgjedhja e një metode alternative pagese do t'ju lejojë të merrni porositë e ardhshme të abonimit pa ndërprerje.",
+          "with_pending_orders": "Fshirja e kësaj metode pagese do ta heqë atë nga llogaria juaj dhe nuk do të jetë më e disponueshme për blerjet e ardhshme. Nëse nuk zgjidhni një metodë alternative pagese, ajo do të vazhdojë të faturohet për çdo bilanc të papaguar në porositë ekzistuese.",
+          "with_subscriptions": "Fshirja e kësaj metode pagese do të ndikojë në pagesat e paraautorizuara. Zëvendësojeni atë me një metodë alternative pagese për të vazhduar të merrni porositë e ardhshme."
+        },
+        "warning_message_without_replacement": {
+          "with_pending_orders_and_subscriptions": "Fshirja e kësaj metode pagese do të ndikojë në pagesat e para-autorizuara. Kjo metodë pagese do të vazhdojë të faturohet për çdo bilanc të papaguar në porositë ekzistuese, por ju nuk do të merrni porosi të ardhshme me abonim. Shtoni një metodë alternative pagese për të vazhduar të merrni porosi me abonim.",
+          "with_pending_orders": "Fshirja e kësaj metode pagese do ta heqë atë nga llogaria juaj dhe nuk do të jetë më e disponueshme për blerjet e ardhshme. Do të vazhdojë të faturohet për çdo bilanc të papaguar në porositë ekzistuese.",
+          "with_subscriptions": "Fshirja e kësaj metode pagese do të ndikojë në pagesat e para-autorizuara. Shtoni një metodë alternative pagese për të vazhduar të merrni porositë e ardhshme."
+        },
+        "payment_method_selector_placeholder": "Zgjidhni një metodë pagese zëvendësuese (opsionale)",
+        "payment_method_selector_no_alternative_payment": "Pa metodë zëvendësimi",
+        "replace_method_with_new_method_description": "{{currentPaymentMethodName}} juaj do të fshihet dhe do të zëvendësohet me {{newPaymentMethodName}} tuaj.",
+        "error_when_deleting": "Kërkojmë ndjesë, por diçka shkoi keq dhe nuk mundëm ta fshijmë këtë metodë pagese. Ju lutemi provoni përsëri më vonë ose rifreskoni faqen.",
+        "delete_and_replace_button": "Fshij dhe zëvendëso",
+        "delete_and_replace_button_accessibility_label": "Fshi {{currentPaymentMethodName}} dhe zëvendësoje me {{newPaymentMethodName}} .",
+        "deleted_successfully": "Metoda e pagesës u fshi me sukses.",
+        "loading_available_payment_methods_accessibility_label": "Duke ngarkuar metodat e disponueshme të pagesës po përdoren metodat e pagesës."
+      },
+      "add_payment_method": {
+        "title": "Shto metodën e pagesës",
+        "payment_method_added_confirmation": "Metoda e pagesës u shtua",
+        "billing_address": {
+          "title": "Adresa e faturimit",
+          "add_billing_address_button": "Shto të re",
+          "add_billing_address_button_accessibility_label": "Shto adresë të re faturimi",
+          "choose_billing_address_from_list_button": "Zgjidh nga lista",
+          "choose_billing_address_from_list_button_accessibility_label": "Zgjidhni një adresë faturimi nga lista",
+          "missing_billing_address_error_message": "Ju lutemi specifikoni një adresë faturimi",
+          "default_checkbox": "Cakto si metodë pagese të parazgjedhur"
+        }
+      },
+      "three_d_secure": {
+        "title": "Siguria 3D"
+      }
+    }
   }
 }
