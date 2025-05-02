@@ -1787,7 +1787,8 @@
             "title_with_date": "Rimbursimi {{date}}",
             "description_full_refund": "Ju keni marrë një rimbursim të plotë për këtë porosi.",
             "description_single_refund": "Ju morët një rimbursim të pjesshëm për këtë porosi.",
-            "description_multiple_refunds": "Ju keni marrë rimbursime të pjesshme për këtë porosi."
+            "description_multiple_refunds": "Ju keni marrë rimbursime të pjesshme për këtë porosi.",
+            "title": "Rimbursuar"
           },
           "canceled": {
             "title": "Pagesa u anulua",
@@ -1795,7 +1796,60 @@
           },
           "pay_now": "Paguaj tani",
           "pay_now_accessibility_label": "Paguaj tani për porosinë {{orderName}}",
-          "title": "Statusi i pagesës"
+          "title": "Statusi i pagesës",
+          "pending": {
+            "banner_overdue": {
+              "one": "Pagesa juaj është {{count}} ditë me vonesë",
+              "other": "Pagesa juaj është {{count}} ditë me vonesë"
+            },
+            "banner_due": {
+              "one": "Pagesa juaj duhet të bëhet brenda {{count}} dite",
+              "other": "Pagesa juaj duhet të bëhet brenda {{count}} ditësh"
+            },
+            "banner_due_today": "Pagesa juaj duhet të bëhet sot",
+            "title": "Pagesa e duhur",
+            "title_with_date": "Pagesa e duhur {{date}}",
+            "title_due_on_receipt": "Pagesa nuk është bërë ende",
+            "title_due_on_fulfillment": "Pagesa e duhur në momentin e përmbushjes",
+            "description_overdue": "Pagesa juaj është me vonesë.",
+            "description_partially_paid": "Kjo porosi është paguar pjesërisht. Ju keni një bilanc të mbetur.",
+            "description_authorized": "Metoda juaj e pagesës do të ngarkohet në datën e caktuar, ose mund të paguani tani.",
+            "description_waiting_for_manual_payment": "Kjo porosi ka një pagesë në pritje. Bilanci do të përditësohet kur të merret pagesa.",
+            "description_due_on_receipt": "Do të merrni një faturë kur të jetë e detyrueshme pagesa.",
+            "description_due_on_receipt_partially_paid": "Kjo porosi është paguar pjesërisht. Keni një bilanc të mbetur. Do të merrni një faturë kur të vijë afati i pagesës.",
+            "description_due_on_fulfillment": "Pagesa bëhet pasi të jenë përmbushur të gjitha artikujt në këtë porosi.",
+            "description_due_on_fulfillment_partially_paid": "Kjo porosi është paguar pjesërisht. Ju keni një bilanc të mbetur. Pagesa duhet të bëhet pasi të jenë përmbushur të gjitha artikujt në këtë porosi."
+          },
+          "draft": {
+            "description": "Detajet e pagesës përcaktohen kur porosia konfirmohet.",
+            "title": "Pagesa nuk është bërë ende",
+            "in_review": {
+              "description": "Detajet e pagesës përcaktohen kur porosia konfirmohet.",
+              "title": "Pagesa nuk është bërë ende"
+            },
+            "submitted": {
+              "description": "Kryeni pagesën për të konfirmuar këtë porosi.",
+              "title": "Paguaj për të konfirmuar",
+              "deposit": {
+                "title": "Pagesa është e detyrueshme",
+                "due_later": "Bilanci është sipas kushteve {{translatedName}} dhe duhet të paguhet më {{dueDate}} .",
+                "due_on_fulfillment": "Bilanci duhet të paguhet pasi të gjitha artikujt në këtë porosi të jenë përmbushur.",
+                "due_on_receipt": "Do të merrni një faturë për bilancin e mbetur.",
+                "due_on_date": "Bilanci duhet të paguhet më {{dueDate}} ."
+              }
+            },
+            "deposit": {
+              "due_later": "{{depositAmount}} do të duhet të paguhet kur porosia juaj të konfirmohet. Bilanci do të jetë sipas kushteve të {{translatedName}} .",
+              "due_on_fulfillment": "{{depositAmount}} do të duhet të paguhet kur porosia juaj të konfirmohet. Bilanci do të duhet të paguhet kur porosia të përmbushet.",
+              "due_on_receipt": "{{depositAmount}} do të duhet të paguhet kur porosia juaj të konfirmohet. Bilanci do të duhet të paguhet më vonë.",
+              "due_on_date": "{{depositAmount}} do të duhet të paguhet kur porosia juaj të konfirmohet. Bilanci do të duhet të paguhet më {{dueDate}} ."
+            }
+          },
+          "paid": {
+            "title": "Paguar",
+            "title_with_date": "Paguar {{date}}",
+            "description": "Porosia juaj është paguar plotësisht."
+          }
         },
         "order_timeline": {
           "expand_events_label": "Shfaq detajet",
@@ -1804,7 +1858,10 @@
           "hide_events_accessibility_label": "Fshih detajet e porosisë draft"
         },
         "subtitle": "Dorëzuar {{date}}",
-        "title": "Porosit {{name}}"
+        "title": "Porosit {{name}}",
+        "draft_order_subtitle": "Konfirmuar {{date}} nga porosia {{draftOrderName}}",
+        "loading": "Duke ngarkuar detajet e porosisë",
+        "loading_finished_accessibility_message": "Detajet e porosisë janë ngarkuar"
       },
       "payment_methods": {
         "payment_delete": {
@@ -1848,7 +1905,81 @@
         "pagination": {
           "load_more": "Ngarko më shumë",
           "load_more_accessibility_label": "Ngarko më shumë vendndodhje"
-        }
+        },
+        "payment_details_title": "Detajet e pagesës",
+        "payment_terms": "Kushtet e pagesës",
+        "permissions_label": "Lejet tuaja",
+        "permissions_title": "Lejet",
+        "section_title": "Vendndodhja",
+        "shipping_address_required": "Shtoni një adresë dërgese në këtë vendndodhje për të filluar vendosjen e porosive.",
+        "staff_and_permissions_title": "Stafi dhe lejet",
+        "tax_details_title": "Detajet e taksave",
+        "tax_id": "ID e Tatimit",
+        "tax_exemptions": "Përjashtimet tatimore",
+        "multiple_tax_exemptions": "{{taxExemptionsCount}} më shumë",
+        "multiple_tax_exemptions_and": "dhe",
+        "tax_exemptions_modal_close": "Mbyll",
+        "taxes_none": "Asnjë",
+        "tax_exemptions_modal_button_accessibility_label": "Shikoni të gjitha përjashtimet tatimore"
+      },
+      "location_selection": {
+        "continue_to_store": "Vazhdo në ruajtje",
+        "description": "Nëse keni tashmë artikuj në shportën tuaj, ndryshimi i vendndodhjes mund të ndikojë në çmimet dhe sasitë e shportës.",
+        "list_accessibility_label": "Lista e vendndodhjeve",
+        "list_item_without_address_accessibility_label": "{{name}} : Pa adresë",
+        "list_loading_accessibility_message": "Duke ngarkuar listën e vendndodhjeve",
+        "list_loading_address_accessibility_message": "Duke ngarkuar adresën për {{locationName}}",
+        "list_loading_finished_accessibility_message": "Lista e vendndodhjeve është ngarkuar",
+        "loading_store_accessibility_message": "Duke shkuar në dyqan",
+        "no_location_title": "Vetëm porosi personale",
+        "no_location_description": "Nuk keni më leje për të bërë porosi për {{company}} . Ju ende mund të bëni porosi personale.",
+        "no_locations_found": "Nuk u gjetën vendndodhje",
+        "search": "Kërko për një vendndodhje",
+        "search_location_title": "Zgjidh një vendndodhje",
+        "selection_cancel_button": "Anulo",
+        "selection_confirmation_button": "Zgjidh vendndodhjen",
+        "selection_continue_button": "Vazhdo",
+        "title": "Për cilin vend po blini?",
+        "clear_search": "Pastro kërkimin",
+        "try_new_search": "Provo një kërkim të ri"
+      },
+      "addresses": {
+        "add_billing_address_button": "Shto adresën e faturimit",
+        "add_billing_address_section_accessibility_label": "Shto adresën e faturimit",
+        "add_shipping_address_button": "Shto adresën e dërgesës",
+        "add_shipping_address_section_accessibility_label": "Shto adresën e dërgesës",
+        "billing_address_card_title": "Adresa e faturimit",
+        "cancel_adding_billing_address_accessibility_label": "Anulo shtimin e adresës së faturimit",
+        "cancel_adding_shipping_address_accessibility_label": "Anulo shtimin e adresës së dërgesës",
+        "save_new_billing_address_accessibility_label": "Ruaj adresën e faturimit",
+        "save_new_shipping_address_accessibility_label": "Ruaj adresën e dërgesës",
+        "shipping_address_card_title": "Adresa e dërgesës"
+      },
+      "orders": {
+        "draft_order_list": {
+          "hide_all": "Fshih të gjitha",
+          "show_all": "Shfaq të gjitha",
+          "hide_all_accessibility_label": "Fshih të gjitha porositë në shqyrtim",
+          "show_all_accessibility_label": "Shfaq të gjitha porositë në shqyrtim",
+          "show_all_orders_in_review": "Shfaq të gjitha porositë në shqyrtim",
+          "show_less_orders_in_review": "Shfaq më pak porosi në shqyrtim",
+          "title": "Në pritje",
+          "pending_tab_accessibility_label": {
+            "no_pending_orders": "Nuk keni porosi në pritje",
+            "pending_orders": {
+              "one": "Ju keni {{count}} porosi në pritje",
+              "other": "Ju keni {{count}} porosi në pritje"
+            },
+            "more_than_pagination_length": "Keni më shumë se {{count}} porosi në pritje"
+          },
+          "pending_orders_count_more_than_pagination_length": "{{count}} +",
+          "pagination": {
+            "nav_accessibility_label": "Butonat e navigimit për porositë në shqyrtim"
+          }
+        },
+        "order_list_column_headers_location": "Vendndodhja",
+        "order_list_column_headers_status": "Statusi",
+        "removed_company_contact_tooltip": "U hoq nga kompania"
       }
     },
     "errors": {
