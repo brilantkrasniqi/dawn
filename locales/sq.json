@@ -883,6 +883,85 @@
             "title": "Skano me telefonin tënd"
           }
         }
+      },
+      "wallets": {
+        "errors": {
+          "unsupported": {
+            "wallet_is_unavailable": "{{walletName}} nuk mund të përdoret me këtë adresë. Zgjidhni një adresë tjetër ose mbyllni {{walletName}} për të përfunduar blerjen tuaj.",
+            "postal_code": "Kjo vendndodhje nuk mbështetet"
+          },
+          "outdated": {
+            "shipping_method": "Opsionet e transportit kanë ndryshuar për porosinë tuaj. Rishikoni përzgjedhjen tuaj.",
+            "payment_terms": "Kushtet e pagesës kanë ndryshuar. Ju lutemi rishikoni porosinë tuaj."
+          },
+          "invalid": {
+            "shipping_address": "Fut një adresë të vlefshme dërgimi",
+            "billing_address": "Fut një adresë të vlefshme faturimi",
+            "shipping_option": "Zgjidhni një opsion të vlefshëm transporti",
+            "email": "Fut një email të vlefshëm",
+            "zone": "Jep një shtet/provincë të vlefshme",
+            "billing_zone": "Fut një adresë faturimi të vlefshme, shtet/provincë",
+            "emirate": "Jepni një emirat të vlefshëm",
+            "postal_code": "Fut një kod postar të vlefshëm",
+            "phone": "Fut një numër telefoni të vlefshëm",
+            "billing_phone": "Fut një numër telefoni të vlefshëm për adresën e faturimit",
+            "reduction_code": "Fut një kod zbritjeje ose kartë dhurate të vlefshme",
+            "billing_must_match_shipping": "Duhet të përputhet me adresën e dërgesës",
+            "billing_zip": "Fut një adresë të vlefshme faturimi"
+          },
+          "missing": {
+            "first_name": "Fut një emër",
+            "billing_first_name": "Futni një adresë faturimi, emrin e parë",
+            "last_name": "Fut një mbiemër",
+            "address1": "Fut një adresë",
+            "billing_address1": "Fut një adresë faturimi",
+            "address2": "Hyni në një apartament, suitë, etj.",
+            "billing_address2": "Fut një adresë faturimi, apartament, suitë etj.",
+            "city": "Fut një qytet",
+            "billing_city": "Futni një qytet me adresë faturimi",
+            "province": "Zgjidh një shtet/provincë",
+            "billing_province": "Zgjidhni një adresë faturimi shtet/provincë",
+            "country": "Zgjidh një vend/rajon",
+            "zip": "Fut një kod postar",
+            "billing_zip": "Futni një adresë faturimi",
+            "phone": "Fut një numër telefoni"
+          },
+          "formatting": {
+            "name_contains_emojis": "Fshij emoji-n nga emri yt",
+            "postal_code_contains_emoji": "Fshij emoji-t nga kodi yt postar",
+            "first_name_too_long": "Emri përmban shumë shkronja",
+            "last_name_too_long": "Mbiemri përmban shumë shkronja"
+          },
+          "select_different_shipping_address_to_resolve_errors": "Adresa juaj e dërgesës është e pavlefshme. Zgjidh një adresë tjetër ose përdor një të re."
+        },
+        "scrim": {
+          "continue_purchase_in_window": "Vazhdoni blerjen tuaj në dritaren {{walletName}}",
+          "and_return_to_checkout": "dhe kthehu te Arka",
+          "cancel": "Anulo"
+        }
+      },
+      "note": {
+        "length_exceeds_maximum": "Zvogëloni madhësinë e shënimit në 5000 ose më pak karaktere."
+      },
+      "one": {
+        "errors": {
+          "merchandise": {
+            "gift_card_price_must_be_greater_than_zero": "Çmimi i kartës dhuratë duhet të jetë më i madh se 0.",
+            "gift_card_price_must_not_exceed_limit": "Çmimi i kartës dhuratë nuk duhet të kalojë %{gift_card_limit}.",
+            "subtotal_limit_reached": "Vlera maksimale e artikujve të linjës është arritur."
+          }
+        }
+      },
+      "units": {
+        "centiliter": "kl",
+        "ounce": "ons",
+        "fluid_ounce": "ons lëngshëm",
+        "pint": "pikë",
+        "gallon": "vajzë",
+        "inch": "në",
+        "foot": "këmbë",
+        "yard": "jard",
+        "item": "artikull"
       }
     },
     "notices": {
@@ -1042,6 +1121,58 @@
         "one_hour": "Zakonisht gati brenda 1 ore",
         "two_hours": "Zakonisht gati për 2 orë"
       }
+    },
+    "pagination": {
+      "previous": "Mëparshme",
+      "next": "Tjetra"
+    },
+    "links": {
+      "powered_by_shopify": "Mundësuar nga Shopify",
+      "learn_more": "Mëso më shumë"
+    },
+    "feed": {
+      "more": "Më shumë"
+    },
+    "attributes": {
+      "password": "fjalëkalim",
+      "password_confirmation": "Konfirmimi i fjalëkalimit",
+      "first_name": "emri",
+      "last_name": "mbiemri",
+      "body": "trup",
+      "signature": "Adresa"
+    },
+    "addresses": {
+      "zip_code": "Kodi postar",
+      "postal_code": "Kodi postar",
+      "postcode": "Kodi postar",
+      "pincode": "Kodi postar",
+      "region": "Rajoni",
+      "prefecture": "Prefektura",
+      "province": "Provinca",
+      "state": "Shteti",
+      "state_and_territory": "Shteti/territori",
+      "county": "Qarku",
+      "emirate": "Emirati",
+      "governorate": "Guvernatori",
+      "confirm": "Je i sigurt që dëshiron ta fshish këtë adresë?"
+    },
+    "collections": {
+      "sorting": {
+        "manual": "Të paraqitura",
+        "best_selling": "Më të shiturat",
+        "az": "Sipas alfabetit, AZ",
+        "za": "Në mënyrë alfabetike, ZA",
+        "price_ascending": "Çmimi, nga më i ulëti në më të lartë",
+        "price_descending": "Çmimi, nga më i larti në më të ulët",
+        "date_ascending": "Data, nga e vjetra në të re",
+        "date_descending": "Data, nga e reja në të vjetrën"
+      }
+    },
+    "errors": {
+      "blank": "nuk mund të jetë bosh",
+      "blocked_address": "Kjo vendndodhje nuk mbështetet",
+      "credit_card_session_expired": "Autorizimi i kartës së kreditit ka skaduar, ju lutemi futni përsëri informacionin tuaj të pagesës. Karta juaj nuk është ngarkuar.",
+      "empty": "nuk mund të jetë bosh"
     }
   },
   "customer_accounts": {
