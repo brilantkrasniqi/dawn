@@ -1333,7 +1333,8 @@
         "errors": {
           "unsupported": {
             "wallet_is_unavailable": "{{walletName}} nuk mund të përdoret me këtë adresë. Zgjidhni një adresë tjetër ose mbyllni {{walletName}} për të përfunduar blerjen tuaj.",
-            "postal_code": "Kjo vendndodhje nuk mbështetet"
+            "postal_code": "Kjo vendndodhje nuk mbështetet",
+            "address": "Tregtari nuk mund të dorëzojë në këtë adresë"
           },
           "outdated": {
             "shipping_method": "Opsionet e transportit kanë ndryshuar për porosinë tuaj. Rishikoni përzgjedhjen tuaj.",
@@ -1377,13 +1378,40 @@
             "first_name_too_long": "Emri përmban shumë shkronja",
             "last_name_too_long": "Mbiemri përmban shumë shkronja"
           },
-          "select_different_shipping_address_to_resolve_errors": "Adresa juaj e dërgesës është e pavlefshme. Zgjidh një adresë tjetër ose përdor një të re."
+          "select_different_shipping_address_to_resolve_errors": "Adresa juaj e dërgesës është e pavlefshme. Zgjidh një adresë tjetër ose përdor një të re.",
+          "unavailable": {
+            "title": "{{walletName}} nuk është i disponueshëm",
+            "description": "{{walletName}} nuk ishte i disponueshëm. Përdorni një metodë tjetër pagese ose provoni përsëri më vonë.",
+            "instructions": "Pati një problem me {{walletName}} . Kthehu në dyqan për të provuar përsëri ose kontrollo në një mënyrë tjetër.",
+            "unavailable_for_country": "{{walletName}} nuk është i disponueshëm në {{countryName}} . Zgjidhni një metodë tjetër pagese për të përfunduar blerjen tuaj."
+          },
+          "unavailable_terminal": {
+            "instructions": "{{walletName}} aktualisht nuk është i disponueshëm për porosinë tuaj. Për të vazhduar blerjen tuaj, zgjidhni një metodë tjetër pagese."
+          },
+          "generic": "Pati një problem me {{walletName}} . Provo përsëri ose përdor një metodë tjetër pagese.",
+          "discount_code": "Ky kod zbritjeje nuk mund të zbatohet. Ju lutemi rishikoni kodin tuaj dhe provoni përsëri.",
+          "terminal": "Pati një problem me {{walletName}} . Ju lutemi përdorni një metodë tjetër pagese.",
+          "detour": {
+            "stock_problems": "Disa artikuj nuk janë më të disponueshëm. Mbyll {{walletName}} dhe provo përsëri.",
+            "price_change": "Çmimet e disa artikujve kanë ndryshuar. Mbyll {{walletName}} për të shqyrtuar porosinë tënde dhe provo përsëri.",
+            "queue": "Je vendosur në radhë për të përfunduar pagesën. Mbyll {{walletName}} për të vazhduar.",
+            "currency_change": "Nuk mund të përdorni një adresë tjetër me {{walletName}} . Përdorni adresën origjinale ose provoni një metodë tjetër pagese."
+          }
         },
         "scrim": {
           "continue_purchase_in_window": "Vazhdoni blerjen tuaj në dritaren {{walletName}}",
           "and_return_to_checkout": "dhe kthehu te Arka",
           "cancel": "Anulo"
-        }
+        },
+        "return_to_store": "Kthehu në dyqan",
+        "return_to_checkout": "Kthehu te arka",
+        "redirect_hint": "Do t'ju kërkohet të identifikoheni me {{walletName}} .",
+        "logged_in": "Lidhur me {{email}}",
+        "shipping_line_label": "Transporti",
+        "payment_in_progress_title": "Pagesa në vazhdim",
+        "payment_in_progress_body": "Pagesa juaj po përpunohet. Porosia juaj do të përfundojë së shpejti.",
+        "call_to_action": "Paguaj me {{walletName}}",
+        "redirection_notice": "Pasi të klikoni te \" {{buttonLabel}} \", do të ridrejtoheni te {{walletName}} për të përfunduar blerjen tuaj në mënyrë të sigurt."
       },
       "note": {
         "length_exceeds_maximum": "Zvogëloni madhësinë e shënimit në 5000 ose më pak karaktere."
@@ -1564,6 +1592,143 @@
             "other": "U shtua %{count}"
           }
         }
+      },
+      "pickup_point": {
+        "paginator": {
+          "next_accessibility_label": "Faqja tjetër",
+          "previous_accessibility_label": "Faqja e mëparshme",
+          "header": {
+            "one": "Duke shfaqur %{first} - %{last} nga %{count} pikë",
+            "other": "Duke shfaqur %{first} - %{last} nga %{count} pikë"
+          },
+          "selected_pickup_point_label": {
+            "one": "%{pickup_point_index} nga %{count} pikë",
+            "other": "%{pickup_point_index} nga %{count} pikë"
+          },
+          "selected_page": {
+            "one": "%{first} - %{last} e pikës %{count}",
+            "other": "%{first} - %{last} nga %{count} pikë"
+          }
+        },
+        "number_of_pickup_points_near_location": {
+          "one": "%{count} pikë marrjeje pranë vendndodhjes suaj",
+          "other": "%{count} pika marrjeje pranë vendndodhjes suaj"
+        },
+        "change": "Ndrysho vendndodhjen",
+        "waiting_on_pickup_point_location_notice": "Duke kërkuar për pika marrjeje...",
+        "geolocation": {
+          "shared_location_button": "Përdor vendndodhjen time",
+          "errors": {
+            "unsuported_by_browser": "Marrja e vendndodhjes gjeografike nuk mbështetet nga shfletuesi juaj. Provoni përsëri ose përdorni një shfletues tjetër.",
+            "permission_not_allowed": "Lejo ndarjen e vendndodhjes tënde.",
+            "permission_denied": "Nuk mund të gjejmë vendndodhjen tuaj. Provo përsëri."
+          }
+        }
+      },
+      "error_page": {
+        "terminal": {
+          "title": "Pati një problem me arkëtimin tonë",
+          "message": "Rifresko këtë faqe ose provo përsëri pas disa minutash",
+          "action": {
+            "cta": "Rifresko faqen"
+          },
+          "request_id": "ID e kërkesës: {{requestId}}"
+        }
+      },
+      "notice_banner": {
+        "return_to_cart_link_text": "Kthehu në shportë",
+        "return_to_cart_to_update_quantities": "%{return_to_cart_link_text} për të përditësuar sasitë",
+        "subscription_changed": "Një nga abonimet e tua ka ndryshuar.",
+        "company_location_changed": "Shporta juaj është përditësuar. Rishikoni porosinë tuaj përpara se ta dërgoni.",
+        "company_location_changed_product_removed": "Shporta juaj është përditësuar sepse disa produkte nuk janë të disponueshme në këtë vendndodhje. Rishikoni porosinë tuaj përpara se ta dërgoni.",
+        "violations_title": "{{violation}} mungon ose është i pavlefshëm",
+        "individual_violations_title": {
+          "DeliveryViolations": "Adresa e dërgesës",
+          "PaymentViolations": "Adresa e faturimit",
+          "OtherViolations": "Informacion për porosinë",
+          "UnhandledViolations": "Informacion për porosinë"
+        },
+        "all_violations_content": "Na telefononi ose na dërgoni {{emailLink}} për të përditësuar këtë informacion dhe për të përfunduar porosinë tuaj:",
+        "editable_shipping_address_violations_message_title": "Shtoni këto informacione për të përfunduar porosinë tuaj:",
+        "editable_shipping_address_violations_message_footer": "Për të përditësuar përgjithmonë adresën për këtë vendndodhje, {{emailLink}} .",
+        "editable_shipping_address_violations_email_link": "na kontaktoni",
+        "shipping_address_incomplete_title": "Adresa e dërgesës është e paplotë",
+        "calculating_shipping": "Transporti është ende duke u llogaritur. Provo përsëri pas disa sekondash. Nuk të është bërë ndonjë pagesë.",
+        "calculating_taxes": "Taksat janë ende duke u llogaritur. Provo përsëri pas disa sekondash. Nuk të është bërë ndonjë pagesë.",
+        "generic_processing_error": {
+          "title": "Pati një problem me përpunimin e porosisë suaj",
+          "body": "Nuk të është faturuar asnjë shumë. Provo përsëri ose përdor një metodë tjetër pagese."
+        }
+      },
+      "marketplaces": {
+        "legal_notice": {
+          "legal_text": "Rishikimi",
+          "link_label": "Kushtet dhe Rregullat {{partnerDisplayName}}"
+        }
+      },
+      "online_store_chat": {
+        "title": "Pyetje? Bisedoni me ne në bisedë?"
+      },
+      "local_pickup": {
+        "location_address_search_label": "Adresa",
+        "location_information": {
+          "one": "Ka %{count} dyqan me stok afër %{address}",
+          "other": "Ka %{count} dyqane me stok afër %{address}"
+        },
+        "toggle_location": "Ndrysho vendndodhjen",
+        "or": "OSE",
+        "cancel": "Anulo",
+        "your_location": "vendndodhja juaj",
+        "search_button": "Gjej dyqane",
+        "no_stores_found": "Nuk u gjetën dyqane",
+        "all_stores_far_away": {
+          "title": "Dyqanet më të afërta janë më shumë se %{distance} larg",
+          "description": "Zgjidh një dyqan ose %{ship_to_address_link} në vend të kësaj.",
+          "ship_to_address_link": "dërgesë në adresë"
+        },
+        "could_not_resolve_address": "Adresa juaj nuk mund të gjendej. Provoni përsëri ose përdorni një adresë tjetër.",
+        "paginator": {
+          "accessibility_label": "Renditja lokale e faqeve të marrjes",
+          "previous": "Faqja e mëparshme",
+          "next": "Faqja tjetër",
+          "label": {
+            "one": "%{first} - %{last} nga %{count} dyqan",
+            "other": "%{first} - %{last} nga %{count} dyqane"
+          }
+        },
+        "reveal_more_label": {
+          "one": "Shfaq %{count} vendndodhje më shumë",
+          "other": "Shfaq %{count} vende të tjera"
+        }
+      },
+      "captcha": {
+        "title": "Plotësoni CAPTCHA-n për të vazhduar",
+        "errors": {
+          "not_solved": "Plotësoni CAPTCHA-n për të vazhduar"
+        }
+      },
+      "clipboard": {
+        "copied": "Kopjuar",
+        "failed_to_copy": "Kopjimi dështoi"
+      },
+      "discount_errors": {
+        "generic_error": "Porosia juaj nuk mund të përpunohej sepse kodi juaj i zbritjes nuk është më i disponueshëm. Rishikoni totalin e porosisë suaj dhe provoni përsëri."
+      },
+      "b2b_errors": {
+        "lost_b2b_purchasing_permissions": "Nuk keni më leje për të bërë porosi B2B. %{logout_url} për të bërë një porosi personale.",
+        "log_out_link_text": "Dil nga llogaria",
+        "lost_permissions_subtitle": "Nuk keni më leje për të bërë porosi B2B, dilni për të bërë një porosi personale.",
+        "lost_permissions_title": "Nuk ka leje për vendndodhjen"
+      },
+      "shop_pay_external": {
+        "title": "Pagesa e Blerjes",
+        "errors": {
+          "problem_loading": "Ka një problem me ngarkimin e Shop Pay",
+          "try_again_later": "Kontrolloni lidhjen tuaj ose mbylleni këtë dritare dhe provoni përsëri pas pak çastesh.",
+          "checkout_has_expired": "Arkëtimi juaj ka skaduar. Mbylleni këtë dritare dhe provoni të kryeni përsëri pagesën nga {{shopName}} ."
+        },
+        "return_to_store": "Kthehu te {{shopName}}",
+        "return_to_store_simple": "Kthehu në dyqan"
       }
     },
     "notices": {
