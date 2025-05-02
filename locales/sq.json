@@ -1269,8 +1269,65 @@
         "shop_qr_with_sms_upsell": {
           "qr_code": {
             "title": "Skano me telefonin tënd"
+          },
+          "sms": {
+            "title": "Ose dërgoni një lidhje në telefonin tuaj"
           }
-        }
+        },
+        "view_business_customer_account": "Shiko llogarinë",
+        "breadcrumbs_submitted": "Dorëzuar",
+        "breadcrumbs_in_review": "Në shqyrtim",
+        "breadcrumbs_confirmed": "Konfirmuar",
+        "missing_shipping_address_banner": {
+          "title": "Porosia nuk ka një adresë dërgimi",
+          "text_html": "%{contact_us} për të shtuar adresën tuaj"
+        },
+        "first_payment_complete": "Pagesa e parë u krye",
+        "in_store_purchase": "Blerje në dyqan",
+        "location_title": "Vendndodhja",
+        "thank_you_ready_for_picked_up": "Porosia juaj u mor në %{address}.",
+        "ready_for_delivery": "Gati për dërgesë",
+        "order_updates_subscribe_to_email_notifications_failed": "Nuk mund ta ruajmë këtë email për përditësime. Ju lutemi provoni përsëri ose përdorni një email tjetër.",
+        "order_updates_subscribe_to_email_notifications_email_already_exists": "Email-i që futët ekziston tashmë.",
+        "subscriptions_management": {
+          "title": "Abonim",
+          "description": "Vazhdo te llogaria jote për të parë dhe menaxhuar abonimet e tua.",
+          "button_label": "Menaxho abonimin tënd"
+        },
+        "manage_order_label": "Menaxho porosinë tënde",
+        "gift_card_confirmation_by_text_typ": {
+          "one": "Do të marrësh një mesazh me kartën tënde dhuratë brenda pak minutash.",
+          "other": "Do të marrësh një mesazh me kartat e dhuratave brenda pak minutash."
+        },
+        "gift_card_confirmation_by_email_typ": {
+          "one": "Do të marrësh një email me kartën tënde dhuratë brenda pak minutash.",
+          "other": "Do të marrësh një email me kartat e dhuratave brenda pak minutash."
+        },
+        "gift_card_email_title": {
+          "one": "Karta dhuratë u dërgua me email",
+          "other": "Kartat dhuratë u dërguan me email"
+        },
+        "gift_card_text_title": {
+          "one": "Karta dhuratë u dërgua me mesazh teksti",
+          "other": "Kartat dhuratë u dërguan me mesazh teksti"
+        },
+        "resend_gift_cards_by_email": "Ridërgo email-in",
+        "resend_gift_cards_by_text": "Ridërgo mesazhin me tekst",
+        "gift_card_resent_confirmation": {
+          "one": "Karta dhuratë u ridërgua.",
+          "other": "Kartat dhuratë u ridërguan."
+        },
+        "gift_card_resend_failure": {
+          "one": "Pati një problem me ridërgimin e kartës suaj dhuratë. Provo përsëri ose na kontakto.",
+          "other": "Pati një problem me ridërgimin e kartave dhuratë. Provo përsëri ose na kontakto."
+        },
+        "vat_invoices": {
+          "title": "Faturat e TVSH-së"
+        },
+        "verify_shop_account_title": "Verifikoni llogarinë tuaj të Dyqanit",
+        "verify_shop_account_message": "Informacioni juaj u ruajt me Shop, verifikoni llogarinë tuaj për ta përdorur automatikisht në miliona dyqane.",
+        "verify_shop_account_cta": "Verifikoni llogarinë tuaj",
+        "verify_shop_account_confirmation": "Detajet e arkëtimit u ruajtën"
       },
       "wallets": {
         "errors": {
@@ -1412,6 +1469,101 @@
         "invalid_stable_id_target": "Udhëzimi i mallrave %{position} %{name} i referohet ID-së stabile %{stable_id}, por ajo ID stabile nuk është në linjat e mallrave.",
         "duplicate_variant_id": "Udhëzimi %{position} %{name} merchandise përmban një ID të dyfishtë varianti %{variant_id}.",
         "invalid_variant_id_target": "Udhëzimi i mallrave %{name} i referohet variantit ID %{variant_id}, por ai variant nuk është në linjat e mallrave."
+      },
+      "vaulted": {
+        "change_button": "Ndrysho"
+      },
+      "review": {
+        "title": "Rishikimi",
+        "review_title": "Rishiko dhe paguaj",
+        "review_and_confirm_title": "Rishiko dhe konfirmo",
+        "checkout_as_guest": "Kryej pagesën si mysafir",
+        "checkout_a_different_way": "Kryeni pagesën në një mënyrë tjetër",
+        "blocks": {
+          "billing_address_title": "Faturimi",
+          "shipping_address_title": "Dërgo te",
+          "shipping_method_title": "Metoda e transportit",
+          "payment_method_title": "Metoda e pagesës",
+          "change_link_label": "Ndrysho",
+          "change_contact_method_link_label": "Ndrysho informacionin e kontaktit",
+          "change_billing_address_link_label": "Ndrysho adresën e faturimit",
+          "change_shipping_address_link_label": "Ndrysho adresën e dërgesës",
+          "change_shipping_method_link_label": "Ndrysho metodën e transportit",
+          "change_payment_method_link_label": "Ndrysho metodën e pagesës",
+          "pick_up_in_store_shipping_method_html": "Marrje në dyqan · %{location_name}",
+          "purchase_order_number_title": "Numri i porosisë postare",
+          "change_purchase_order_number_label": "Ndrysho numrin e porosisë postare",
+          "change_delivery_method_link_label": "Ndrysho metodën e dorëzimit",
+          "no_address": "(Pa adresë)",
+          "no_purchase_order_number": "(Pa numër porosie)",
+          "due_after_order_reviewed_html": "Pagesa bëhet pasi të shqyrtohet porosia",
+          "review_title_free_order": "Rishikoni dhe përfundoni porosinë tuaj",
+          "payment_method_saved_company_location": "Ruaj kartën për këtë vendndodhje",
+          "company_location": "Vendndodhja e kompanisë"
+        },
+        "block_title": "Rishikoni informacionin tuaj",
+        "item_header": {
+          "change_value": "Ndrysho vlerën",
+          "section": "Seksioni",
+          "value": "Vlerë"
+        }
+      },
+      "marketing": {
+        "accept_marketing_checkbox_label": "Më dërgoni email me lajme dhe oferta për të rejat dhe ofertat tuaja, dërgoni një email me email.",
+        "post_accept_marketing_checkbox_label": "Ju jeni abonuar për të marrë lajme dhe oferta me email",
+        "pending_accept_marketing_checkbox_label": "Kontrolloni email-in tuaj për të konfirmuar abonimin tuaj për lajme dhe oferta",
+        "accept_sms_checkbox_label": "Më dërgo mesazh me lajme dhe oferta të reja.",
+        "disclaimer": {
+          "privacy_policy": "Politika e Privatësisë",
+          "terms_of_service": "Kushtet e Shërbimit"
+        },
+        "sms": {
+          "disclaimer": {
+            "privacy_policy": "Politika e Privatësisë",
+            "terms_of_service": "Kushtet e Shërbimit",
+            "description_html": "Duke u regjistruar nëpërmjet mesazheve me tekst, ju pranoni të merrni mesazhe të përsëritura të automatizuara të marketingut, duke përfshirë edhe përkujtuesit e shportës, në numrin e telefonit të dhënë. Pëlqimi nuk është kusht për blerje. Përgjigjuni STOP për t'u çregjistruar. Përgjigjuni HELP për ndihmë. Frekuenca e mesazheve ndryshon. Mund të aplikohen tarifa për mesazhet dhe të dhënat. Shikoni %{privacy_policy_link} dhe %{terms_of_service_link} tonë.",
+            "description_transactional_html": "Mund të merrni mesazhe me tekst në lidhje me konfirmimin e porosisë dhe përditësimet e dërgesës. Përgjigjuni STOP për të çabonuar. Përgjigjuni HELP për ndihmë. Frekuenca e mesazheve ndryshon. Mund të aplikohen tarifa për mesazhet dhe të dhënat. Shikoni %{privacy_policy_modal_link} dhe %{terms_of_service_modal_link} tonë."
+          },
+          "mobile_phone_number": "Numri i telefonit celular",
+          "get_offers_by_text": "Merr oferta me mesazh"
+        },
+        "unsubscribe": {
+          "title": "Ju jeni çregjistruar",
+          "description": "Nuk do të merrni më njoftime për shportën nga ne."
+        },
+        "accept_shop_pay_marketing_checkbox_label": "Më regjistro për lajme dhe oferta nga ky dyqan"
+      },
+      "shop_policies": {
+        "refund_policy": "Politika e rimbursimit",
+        "privacy_policy": "Politika e privatësisë",
+        "terms_of_service": "Kushtet e shërbimit",
+        "legal_notice": "Njoftim ligjor",
+        "shipping_policy": "Politika e transportit",
+        "terms_of_sale": "Kushtet e shitjes",
+        "subscription_policy": "Politika e anulimit",
+        "purchase_options_policy": "Politika e opsioneve të blerjes",
+        "contact_information": "Informacione kontakti",
+        "purchase_options_cancellation_policy": "Politika e anulimit",
+        "cookie_preferences": "Preferencat e cookie-ve"
+      },
+      "mor_policies": {
+        "terms_and_conditions": "Kushtet dhe Rregullat e Tregtarit të Regjistruar",
+        "privacy_policy": "Politika e Privatësisë së Tregtarit të Regjistruar"
+      },
+      "markets": {
+        "invalid_market_manager_error": "Rishikoni informacionin tuaj të kontaktit përpara se të kryeni pagesën"
+      },
+      "notifications": {
+        "title": "Njoftime"
+      },
+      "order_payment_collection": {
+        "custom_line_item_description": "Shuma për t'u paguar për porosinë %{order_name}",
+        "changes_summary": {
+          "added": {
+            "one": "Shtuar",
+            "other": "U shtua %{count}"
+          }
+        }
       }
     },
     "notices": {
