@@ -1310,7 +1310,10 @@
             "payment_failure": "Dështim pagese",
             "payment_returned": "Pagesa u kthye",
             "order_cancellation": "Anulimi i porosisë",
-            "tax_finalization": "Finalizimi i taksave"
+            "tax_finalization": "Finalizimi i taksave",
+            "adjustment": "Rregullim",
+            "order_payment": "Pagesa e porosisë",
+            "order_refund": "Rimbursimi i porosisë"
           },
           "expirable_balance_info": "Një pjesë e bilancit tuaj do të skadojë në një datë të ardhshme",
           "expirable_amount_label": "Shuma totale e skadueshme",
@@ -1320,8 +1323,18 @@
           "pagination": {
             "load_more_label": "Ngarko më shumë",
             "load_more_accessibility_label": "Ngarko më shumë shuma të skadueshme"
-          }
-        }
+          },
+          "title": "Kredit dyqani me afat të skadueshëm",
+          "balance_label": "Bilanci",
+          "expiration_date_label": "Data e skadimit",
+          "amount_label": "Shuma",
+          "date_label": "Data",
+          "event_label": "Ngjarje"
+        },
+        "label": "Krediti i dyqanit",
+        "accesibility_label": "Krediti i dyqanit - {{formattedBalance}}",
+        "expirable_amounts_button": "Shikoni shumat që skadojnë",
+        "expirable_amounts_label": "Shuma të skadueshme"
       },
       "payment_details": {
         "title": "Detajet e metodës së pagesës",
@@ -1423,6 +1436,157 @@
       },
       "three_d_secure": {
         "title": "Siguria 3D"
+      },
+      "title": "Metodat e pagesës",
+      "add_payment_method_button": "Shto metodën e pagesës",
+      "add_payment_method_banner": "Shtoni metodë pagese për arkëtim më të shpejtë ose shërbime të para-autorizuara",
+      "no_payment_methods_banner": "Nuk janë shtuar metoda pagese",
+      "edit_payment_method_button_accessibility_label": "Modifiko {{paymentMethodName}} që mbaron me {{lastDigits}}",
+      "edit_payment_method_brand_button_accessibility_label": "Modifiko {{paymentMethodName}}",
+      "delete_payment_method_button": "Fshij",
+      "delete_payment_method_button_accessibility_label": "Fshi {{paymentMethodName}}",
+      "back_button": "Mbrapa",
+      "back_button_accessibility_label": "Kthehu te {{paymentMethodStepTitle}}",
+      "default": "Parazgjedhur",
+      "generic_card": "Kartë",
+      "expiration_warning_button_accessibility_label": "Shfaq paralajmërimin e skadimit për {{paymentMethodName}} që mbaron me {{lastDigits}}",
+      "expires_soon": "Kjo kartë skadon së shpejti",
+      "expired": "Kjo kartë ka skaduar",
+      "card_update_consent": "Kjo metodë pagese do të ruhet për blerjet e ardhshme.",
+      "card_update_consent_subscriptions": "Kjo metodë pagese do të ruhet për blerjet e ardhshme dhe mund të përdoret për çdo blerje të përsëritur ose të shtyrë.",
+      "digital_wallet_title": "Portofol dixhital",
+      "credit_or_debit_card_title": "Kartë krediti ose debiti",
+      "google_pay": {
+        "iframe_title_accessibility_label": "Shto metodën e pagesës në Google Pay",
+        "loading_accessibility_message": "Duke ngarkuar Google Pay po ngarkohet.",
+        "loading": "Duke ngarkuar Google Pay po ngarkohet.",
+        "errors": {
+          "generic": "Pati një problem me Google Pay. Provo përsëri ose përdor një metodë tjetër pagese.",
+          "missing_billing_address": "Google Pay kërkon një adresë faturimi. Ju lutemi shtoni një të tillë në llogarinë tuaj."
+        }
+      },
+      "pay_pal": {
+        "iframe_title_accessibility_label": "Shto metodën e pagesës me PayPal",
+        "loading_accessibility_message": "Duke ngarkuar PayPal-in. Duke ngarkuar PayPal-in."
+      },
+      "apple_pay": {
+        "loading": "Duke ngarkuar Apple Pay po ngarkohet.",
+        "errors": {
+          "generic": "Pati një problem me Apple Pay. Provo përsëri ose përdor një metodë tjetër pagese.",
+          "not_available": "Apple Pay nuk është i disponueshëm në këtë pajisje.",
+          "missing_billing_address": "Apple Pay kërkon një adresë faturimi. Ju lutemi shtoni një të tillë në llogarinë tuaj."
+        }
+      }
+    },
+    "B2B": {
+      "draft_order_details": {
+        "payment_status": {
+          "refund": {
+            "title_with_date": "Rimbursimi {{date}}",
+            "description_full_refund": "Ju keni marrë një rimbursim të plotë për këtë porosi.",
+            "description_single_refund": "Ju morët një rimbursim të pjesshëm për këtë porosi.",
+            "description_multiple_refunds": "Ju keni marrë rimbursime të pjesshme për këtë porosi."
+          },
+          "canceled": {
+            "title": "Pagesa u anulua",
+            "description": "Nuk u akuzuat."
+          },
+          "pay_now": "Paguaj tani",
+          "pay_now_accessibility_label": "Paguaj tani për porosinë {{orderName}}",
+          "title": "Statusi i pagesës"
+        },
+        "order_timeline": {
+          "expand_events_label": "Shfaq detajet",
+          "expand_events_accessibility_label": "Shfaq detajet e porosisë draft",
+          "hide_events_label": "Fshih detajet",
+          "hide_events_accessibility_label": "Fshih detajet e porosisë draft"
+        },
+        "subtitle": "Dorëzuar {{date}}",
+        "title": "Porosit {{name}}"
+      },
+      "payment_methods": {
+        "payment_delete": {
+          "description_without_replacement": "Kjo metodë pagese nuk do të jetë më e disponueshme për blerjet e ardhshme nga kjo vendndodhje.",
+          "description_with_replacement": "Fshirja e kësaj metode pagese do të ndikojë në pagesat e paraautorizuara për këtë vendndodhje. Zëvendësojeni atë me një metodë alternative pagese për të vazhduar të merrni porositë e ardhshme."
+        },
+        "payment_details": {
+          "order_label": "Porosit {{name}}",
+          "draft_label": "Porosia draft {{name}}"
+        }
+      },
+      "purchase_order_number": {
+        "add_accessibility_label": "Shto numrin e porosisë postare",
+        "add_modal_title": "Shto numrin e porosisë postare",
+        "cancel": "Anulo",
+        "close_modal_accessibility_label": "Mbyll numrin modal të porosisë postare",
+        "discard": "Hidh",
+        "discard_changes_modal_title": "Të hidhen poshtë ndryshimet?",
+        "edit_accessibility_label": "Modifiko numrin e porosisë postare",
+        "edit_modal_title": "Modifiko numrin e porosisë postare",
+        "empty_state": "Pa numër porosie",
+        "modal_po_number_input_label": "Numri i porosisë postare",
+        "modal_po_number_input_max_length_error": "Numrat e porosive porositëse kanë një maksimum prej {{maxLength}} karakteresh.",
+        "save": "Ruaj",
+        "title": "PO # {{poNumber}}"
+      }
+    },
+    "errors": {
+      "address_deletion_error": {
+        "description": "Pati një problem me fshirjen e kësaj adrese. Provo përsëri ose rifresko faqen."
+      },
+      "addresses_loading_issue": {
+        "description": "Gabim lidhjeje. Kontrolloni lidhjen tuaj të internetit dhe provoni përsëri."
+      },
+      "banner_title": {
+        "one": "{{count}} gabim",
+        "other": "{{count}} gabime"
+      },
+      "failed_address_creation": {
+        "description": "Pati një problem gjatë krijimit të adresës suaj. Provoni të rifreskoni këtë faqe ose kontrolloni lidhjen tuaj të internetit."
+      },
+      "failed_address_update": {
+        "description": "Pati një problem me përditësimin e adresës suaj. Provoni të rifreskoni këtë faqe ose kontrolloni lidhjen tuaj të internetit."
+      },
+      "load_orders_error": {
+        "title": "Nuk mund të ngarkohen porositë",
+        "description": "Provo përsëri ose kthehu më vonë.",
+        "retry_button": "Riprovo"
+      },
+      "load_paypal_error": {
+        "description": "Ka një problem me ngarkimin e PayPal. Ju lutemi provoni përsëri."
+      },
+      "logout_everywhere": {
+        "description": "Diçka shkoi keq gjatë daljes. Ju lutemi provoni përsëri."
+      },
+      "no_access_to_locations": {
+        "description": "Nuk ke qasje në asnjë vendndodhje"
+      },
+      "not_found": {
+        "description": "Kontrolloni URL-në ose provoni përsëri pas disa minutash.",
+        "title": "Ka një problem me ngarkimin e kësaj faqeje"
+      },
+      "order_not_found": {
+        "description": "Kjo porosi nuk ekziston ose nuk keni leje ta shikoni.",
+        "title": "Porosia nuk u gjet"
+      },
+      "profile_update_error": {
+        "description": "Pati një problem me përditësimin e profilit tuaj. Provoni të rifreskoni këtë faqe ose kontrolloni lidhjen tuaj të internetit."
+      },
+      "retry_action_label": "Riprovo",
+      "resend_link": {
+        "too_many_requests": "Shumë kërkesa. Provo përsëri më vonë.",
+        "generic": "Kërkesë e dështuar"
+      },
+      "load_extension_error": {
+        "title": "Gabim",
+        "description": "Rifresko këtë faqe ose provo përsëri pas disa minutash.",
+        "refresh_button": "Rifresko faqen"
+      }
+    },
+    "throttle": {
+      "too_many_attempts": {
+        "message": "Shumë përpjekje",
+        "description": "Ju lutem provoni përsëri pas disa minutash"
       }
     }
   }
