@@ -1178,8 +1178,46 @@
         "removed_with_quantity": "U hoq {{quantity}}",
         "updated_at": "Porosia juaj u përditësua më {{date}}",
         "returned": "U kthye",
-        "returned_with_quantities": "U kthyen {{delta}} nga {{total}}"
-      }
+        "returned_with_quantities": "U kthyen {{delta}} nga {{total}}",
+        "removed_with_quantities": "U hoq {{delta}} nga {{total}}",
+        "return_line_item_removed": "U hoq nga kthimi",
+        "return_line_item_removed_with_quantities": "{{delta}} u hoq nga kthimi"
+      },
+      "shop_pay": {
+        "order_completed_with": "Porosia u përfundua me",
+        "learn_more": "Mëso më shumë"
+      },
+      "taxes": "Taksat",
+      "taxes_included": "Përfshirë {{amount}} në taksa",
+      "duties_and_taxes_included": "Totali përfshin detyrimet dhe taksat. Pa tarifa shtesë gjatë dërgesës.",
+      "duties": "Detyrat",
+      "ok_duties_tooltip": "Kjo porosi po dërgohet nga një vend tjetër, kështu që detyrimet doganore i janë shtuar totalit të porosisë suaj.",
+      "error_duties_tooltip": "Kjo porosi po dërgohet nga një vend tjetër, kështu që mund të aplikohen detyrime dhe taksa gjatë dërgesës.",
+      "zero_duties_tooltip": "Kjo porosi po dërgohet nga një vend tjetër. Nuk aplikohen taksa për porositë e kësaj vlere.",
+      "tip": "Bakshish",
+      "title": "Porosit {{name}}",
+      "total": "Totali",
+      "unit_price": "{{price}} /copë",
+      "pagination": {
+        "load_more": "Ngarko më shumë",
+        "load_more_accessibility_label": "Ngarko më shumë artikuj",
+        "loading_accessibility_label": "Duke ngarkuar artikujt"
+      },
+      "login_to_view_all_order_details": "Kyçu për të parë të gjitha detajet e porosisë.",
+      "log_in": "Kyçu",
+      "logged_in_account_no_permission_to_order": "Je i kyçur si {{email}} . Kjo llogari nuk ka leje për të menaxhuar këtë porosi.",
+      "log_in_to_a_different_account": "Hyr në një llogari tjetër",
+      "fees": {
+        "restocking_fee": "Tarifa e rimbushjes së stokut",
+        "return_shipping_fee": "Transporti i kthimit"
+      },
+      "vat_invoices": {
+        "title": "Faturat e TVSH-së"
+      },
+      "link_sent": "Lidhja u dërgua",
+      "cash_rounding": "Rrumbullakosja e parave të gatshme",
+      "adjusted_payment": "Pagesë e rregulluar",
+      "adjusted_total": "Totali i rregulluar"
     },
     "payment_method_brands": {
       "laser": "Lazer",
@@ -1528,6 +1566,25 @@
         "modal_po_number_input_max_length_error": "Numrat e porosive porositëse kanë një maksimum prej {{maxLength}} karakteresh.",
         "save": "Ruaj",
         "title": "PO # {{poNumber}}"
+      },
+      "account_information": {
+        "company_card_name_label": "Emri i kompanisë",
+        "company_card_section_accessibility_label": "Kompania"
+      },
+      "locations": {
+        "contact_list_title": "Njerëzit",
+        "contact_name": "Emri",
+        "contact_permissions": "Lejet",
+        "contact_phone_number": "Numri i telefonit",
+        "location_picker_label": "Emri i vendndodhjes",
+        "location_picker_accessibility_label": "Emri i vendndodhjes: {{locationName}}",
+        "net_payment_terms_description": "{{name}} : pagesat duhet të bëhen brenda {{numberOfDays}} ditëve",
+        "deposit_percentage": "Depozitë {{percentage}}",
+        "own_role_contact_name": "Ti",
+        "pagination": {
+          "load_more": "Ngarko më shumë",
+          "load_more_accessibility_label": "Ngarko më shumë vendndodhje"
+        }
       }
     },
     "errors": {
@@ -1588,6 +1645,214 @@
         "message": "Shumë përpjekje",
         "description": "Ju lutem provoni përsëri pas disa minutash"
       }
+    },
+    "orders": {
+      "order_list": {
+        "carousel": {
+          "three_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}} , {{lineItemName3}} sasi {{lineItemQuantity3}}",
+          "four_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}} , {{lineItemName3}} sasi {{lineItemQuantity3}} , {{lineItemName4}} sasi {{lineItemQuantity4}}",
+          "five_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}} , {{lineItemName3}} sasi {{lineItemQuantity3}} , {{lineItemName4}} sasi {{lineItemQuantity4}} , {{lineItemName5}} sasi {{lineItemQuantity5}}",
+          "six_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}} , {{lineItemName3}} sasi {{lineItemQuantity3}} , {{lineItemName4}} sasi {{lineItemQuantity4}} , {{lineItemName5}} sasi {{lineItemQuantity5}} , {{lineItemName6}} sasi {{lineItemQuantity6}}",
+          "six_and_more_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}} , {{lineItemName3}} sasi {{lineItemQuantity3}} , {{lineItemName4}} sasi {{lineItemQuantity4}} , {{lineItemName5}} sasi {{lineItemQuantity5}} , {{lineItemName6}} sasi {{lineItemQuantity6}} dhe më shumë",
+          "view_order_details": "Shiko detajet e porosisë",
+          "previous": "Mëparshme",
+          "next": "Tjetra"
+        },
+        "items": {
+          "one": "{{count}} artikull",
+          "other": "{{count}} artikuj"
+        },
+        "list_view": "Shfaq pamjen e listës",
+        "no_filtered_results_description": "Hiqni ose rregulloni filtrat për të parë porositë tuaja",
+        "no_filtered_results_title": "Nuk ka rezultate të filtruara",
+        "order_link": "Shiko porosinë {{name}}",
+        "order_number": "Porosit {{name}}",
+        "orders_title": "Konfirmuar",
+        "pagination": {
+          "nav_accessibility_label": "Butonat e navigimit të porosive",
+          "next": "Tjetra",
+          "next_accessibility_label": "Porositë e ardhshme",
+          "previous": "Më parë",
+          "previous_accessibility_label": "Porositë e mëparshme",
+          "load_more": "Ngarko më shumë",
+          "load_more_accessibility_label": "Ngarko më shumë porosi"
+        },
+        "order_status_message": {
+          "list_view": {
+            "view_order_for_details": "Shiko porosinë për detaje",
+            "estimated_delivery": "Pritet {{date}}",
+            "last_updated": "Përditësuar për herë të fundit {{date}}"
+          },
+          "table_view": {
+            "estimated_delivery": "Dorëzim i vlerësuar {{date}}"
+          }
+        },
+        "payment_status": {
+          "list_view": {
+            "overdue": "Pagesa e vonuar",
+            "due": "Pagesa e duhur {{date}}",
+            "due_today": "Pagesa duhet të bëhet sot",
+            "due_without_date": "Pagesa e duhur",
+            "due_on_fulfillment": "Pagesa e duhur në momentin e përmbushjes",
+            "pay_to_confirm": "Paguaj për të konfirmuar",
+            "payment_not_due": "Pagesa nuk është bërë ende"
+          },
+          "table_view": {
+            "overdue": "Vonuar",
+            "due": "Afati {{date}}",
+            "due_today": "Afati sot",
+            "paid": "Paguar",
+            "due_without_date": "Për t'u paguar",
+            "due_on_fulfillment": "Përmbushja e detyrimeve",
+            "pay_to_confirm": "Paguaj për të konfirmuar",
+            "payment_not_due": "Nuk ka afat ende"
+          }
+        },
+        "sort_by": "Rendit sipas: {{option}}",
+        "sort_hide_options_accessibility_label": "Fshih opsionet e renditjes për porositë e konfirmuara.",
+        "sort_show_options_accessibility_label": "Shfaq opsionet e renditjes për porositë e konfirmuara.",
+        "sort_currently_sorted_by_accessibility_label": "Aktualisht renditur sipas: {{option}}",
+        "sort_title": "Rendit",
+        "sort": {
+          "date": {
+            "newest": "Nga më i riu tek më i vjetri",
+            "oldest": "Nga më i vjetri tek më i riu"
+          },
+          "location": {
+            "ascending": "Vendndodhja (AZ)",
+            "descending": "Vendndodhja (ZA)"
+          },
+          "order_number": {
+            "ascending": "Numri i porosisë (nga më i ulëti në më të lartën)",
+            "descending": "Numri i porosisë (nga lart te poshtë)"
+          },
+          "order_total": {
+            "ascending": "Totali i porosisë (nga më i ulëti në më të lartën)",
+            "descending": "Totali i porosisë (nga më i larti në më të ulëtin)"
+          }
+        },
+        "filter_title": "Filtër",
+        "filter": {
+          "clear_section": "Pastroni seksionin",
+          "clear_all": "Pastro të gjitha",
+          "apply": "Zbato",
+          "date": {
+            "start_date": "Data e fillimit",
+            "end_date": "Data e mbarimit",
+            "title": "Data e porosisë",
+            "today": "Sot",
+            "last_7_days": "7 ditët e fundit",
+            "last_30_days": "30 ditët e fundit",
+            "last_90_days": "90 ditët e fundit",
+            "last_365_days": "12 muajt e fundit",
+            "custom": "Personalizuar"
+          }
+        },
+        "table_view": "Shfaq pamjen e tabelës",
+        "show_order_actions_accessibility_label": "Shfaq veprimet e porosisë për porosinë {{name}}"
+      },
+      "order_status": {
+        "attempted_delivery_label": "Tentativë për dorëzim",
+        "attempted_delivery_description": "Përpjekja për dorëzim ishte e pasuksesshme.",
+        "attempted_to_deliver_label": "U përpoq të dorëzonte",
+        "confirmed_description": "Ne e kemi marrë porosinë tuaj.",
+        "on_its_way_description": "Kjo dërgesë është në rrugë e sipër.",
+        "out_for_delivery_description": "Kjo dërgesë është jashtë për dorëzim.",
+        "preparing_for_shipping_label": "Përgatitja për dërgesë",
+        "preparing_for_shipping_description": "Këto artikuj janë duke u përgatitur për transport.",
+        "ready_for_pickup_label": "Gati për t'u marrë",
+        "ready_for_pickup_description": "Këto artikuj janë gati për t'u marrë. Ju lutemi të sillni konfirmimin e porosisë kur të merrni porosinë.",
+        "ready_for_pickup_location": "Porosia juaj është gati për t'u marrë në vendndodhje",
+        "picked_up_label": "U mor",
+        "picked_up_description": "Këto artikuj janë mbledhur.",
+        "canceled_description": "Porosia juaj u anulua më {{date}} .",
+        "canceled_label": "Anuluar",
+        "canceled_title": "Porosia juaj është anuluar",
+        "come_back": "Kthehuni në këtë faqe për përditësime mbi statusin e dërgesës suaj.",
+        "company_tracking_number": "Numri i gjurmimit të {{company}} :",
+        "confirmed_label": "Konfirmuar",
+        "confirmed_title": "Porosia juaj është konfirmuar",
+        "confirmed_description_pickup": "Do të merrni një email kur porosia juaj të jetë gati për t'u marrë.",
+        "confirmed_description_digital": "Do të merrni një email kur porosia juaj të jetë gati.",
+        "confirmed_description_gift_card_text": "Do të merrni një mesazh kur porosia juaj të jetë gati.",
+        "delivered_description": "Kjo dërgesë është dorëzuar.",
+        "complete_label": "Përfundo",
+        "delivered_label": "Dorëzuar",
+        "delivered_title": "Dërgesa juaj është dorëzuar",
+        "delivered_description_digital": {
+          "one": "Ky artikull është i plotë.",
+          "other": "Këto artikuj janë të plotë."
+        },
+        "delivered_description_gift_card": {
+          "one": "Karta dhuratë u dërgua me email."
+        }
+      }
+    },
+    "addresses": {
+      "add_button": "Shto adresë",
+      "add_button_text": "Shto",
+      "add_button_accessibility_label": "Shto adresë",
+      "back_button": "Mbrapa",
+      "back_button_accessibility_label": "Kthehu te adresa e redaktimit {{address}}",
+      "add_address_banner": "Shtoni adresa për t'i përdorur në arkë",
+      "no_addresses_banner": "Nuk janë shtuar adresa",
+      "address_deleted_notification": "Adresa u fshi",
+      "cancel_adding_address_accessibility_label": "Anulo shtimin e adresës",
+      "cancel_deletion_button": "Anulo",
+      "cancel_deletion_button_accessibility_label": "Anulo fshirjen {{address}}",
+      "default_address": {
+        "title": "Adresa e parazgjedhur",
+        "title_accessibility_label": "Adresa e parazgjedhur: {{address}}"
+      },
+      "delete_button": "Fshij",
+      "delete_button_accessibility_label": "Fshi {{address}}",
+      "delete_confirmation_button": "Fshi adresën",
+      "delete_confirmation_button_accessibility_label": "Fshi {{address}}",
+      "delete_confirmation_message": "Të fshihet adresa? Porositë ekzistuese nuk preken.",
+      "delete_confirmation_title": "Të fshihet adresa?",
+      "delete_confirmation_description": "Porositë ekzistuese nuk preken.",
+      "edit_button": "Modifiko",
+      "edit_button_accessibility_label": "Modifiko {{address}}",
+      "edit_section_accessibility_label": "Modifiko {{address}}",
+      "edit_modal_title": {
+        "default": "Modifiko adresën",
+        "billing": "Modifiko adresën e faturimit",
+        "shipping": "Modifiko adresën e dërgesës"
+      },
+      "loading_accessibility_message": "Duke ngarkuar adresën",
+      "loading_addresses_accessibility_message": "Duke ngarkuar adresat",
+      "loading_billing_accessibility_message": "Duke ngarkuar adresën e faturimit po punohet për të adresuar faturimin.",
+      "loading_finished_accessibility_message": "Faqja e re e adresave është ngarkuar",
+      "loading_shipping_accessibility_message": "Duke ngarkuar adresën e dërgesës po ngarkohet.",
+      "pagination": {
+        "load_more": "Ngarko më shumë",
+        "load_more_accessibility_label": "Ngarko më shumë adresa"
+      },
+      "save_new_address_accessibility_label": "Ruaj adresën",
+      "title": "Adresat",
+      "billing_address_dropdown_placeholder": "Adresa e faturimit"
+    },
+    "address_form": {
+      "attention": "Vëmendje",
+      "attention_company": "Kompania/vëmendja",
+      "attention_help_text": "Emri i një personi ose departamenti",
+      "auto_complete_close_accessibility_label": "Mbyll sugjerimet",
+      "auto_complete_title": "Sugjerime",
+      "billing_address": "Përdore si adresë faturimi",
+      "cancel": "Anulo",
+      "cancel_accessibility_label": "Anulo redaktimin e adresës {{address}}",
+      "creation_success_notification": "Adresa u shtua",
+      "default_address": "Kjo është adresa ime e parazgjedhur",
+      "default_address_creation_success_notification": "Adresa e parazgjedhur u shtua",
+      "default_address_update_success_notification": "Adresa e parazgjedhur u përditësua",
+      "loading_add_form_accessibility_message": "Duke ngarkuar formularin e adresës së re po ngarkohet.",
+      "loading_edit_form_accessibility_message": "Duke ngarkuar formularin e modifikimit të adresës po punohet për të ndryshuar adresën.",
+      "loading_form_accessibility_message": "Duke ngarkuar formularin e adresës",
+      "loading_finished_accessibility_message": "Formulari i adresës është ngarkuar",
+      "save": "Ruaj",
+      "save_accessibility_label": "Ruaj adresën {{address}}",
+      "section_title_accessibility_label": "Shto adresë",
+      "update_success_notification": "Adresa u përditësua"
     }
   }
 }
