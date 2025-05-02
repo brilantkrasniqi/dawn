@@ -1707,7 +1707,9 @@
     "shop_ads": {
       "title": "Oferta ekskluzive nga Shop",
       "subtitle": "Në dispozicion për një kohë të kufizuar",
-      "button": "Eksploro në Dyqan"
+      "button": "Eksploro në Dyqan",
+      "previous_button": "Mëparshme",
+      "next_button": "Tjetra"
     },
     "payment_methods": {
       "store_credit": {
@@ -2463,6 +2465,12 @@
         }
       },
       "add_button": "Shto"
+    },
+    "knowledge_base": {
+      "self_serve_returns": {
+        "enabled": "Klientët mund të kërkojnë dhe menaxhojnë vetë kthimet.",
+        "disabled": "Klientët duhet të kontaktojnë tregtarin për të kërkuar kthim."
+      }
     }
   }
 }
