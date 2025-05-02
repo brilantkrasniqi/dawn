@@ -249,18 +249,48 @@
         "region_none": "Asnjë i zgjedhur",
         "prefecture_label": "Prefektura",
         "prefecture_placeholder": "Prefektura",
-        "governorate_label": "Guvernatori"
+        "governorate_label": "Guvernatori",
+        "governorate_placeholder": "Guvernatori",
+        "emirate_label": "Emirati",
+        "emirate_placeholder": "Emirati",
+        "state_and_territory_label": "Shteti/territori",
+        "state_and_territory_placeholder": "Shteti/territori",
+        "phone_label": "Telefon",
+        "optional_phone_label": "Telefon (opsional)",
+        "phone_placeholder": "Telefon",
+        "phone_tooltip": "Në rast se duhet t'ju kontaktojmë në lidhje me porosinë tuaj",
+        "zip_code_label": "Kodi postar",
+        "optional_zip_code_label": "Kodi postar (opsional)",
+        "zip_code_placeholder": "Kodi postar",
+        "postal_code_label": "Kodi postar",
+        "optional_postal_code_label": "Kodi postar (opsional)",
+        "postal_code_placeholder": "Kodi postar",
+        "postcode_label": "Kodi postar",
+        "optional_postcode_label": "Kodi postar (opsional)",
+        "postcode_placeholder": "Kodi postar",
+        "pincode_label": "Kodi PIN",
+        "optional_pincode_label": "Kodi PIN (opsional)",
+        "pincode_placeholder": "Kodi PIN",
+        "civic_number_warning": "Shtoni një numër shtëpie nëse keni një të tillë",
+        "optional_last_name_label": "Mbiemri (opsional)",
+        "different_shipping_address_label": "Dërgo në një adresë tjetër",
+        "different_shipping_address_text": "Përdor një adresë të vetme për këtë porosi",
+        "change_company_location_link_label": "Ndryshoni vendndodhjen e kompanisë",
+        "change_location_link_label": "Ndrysho vendndodhjen",
+        "ship_to_company": "Dërgo te {{companyName}}"
       },
       "stock": {
         "unshippable_product": {
           "header": {
-            "other": "Nuk ka dërgesë të disponueshme për %{count} artikuj"
+            "other": "Nuk ka dërgesë të disponueshme për %{count} artikuj",
+            "one": "Nuk ka dërgesë të disponueshme për %{count} artikull"
           },
           "message": {
             "one": "Ky artikull do të hiqet nga shporta juaj sepse nuk ka metoda dërgesash të disponueshme për adresën tuaj.",
             "other": "Këto artikuj do të hiqen nga shporta juaj sepse nuk ka metoda dërgesash të disponueshme për adresën tuaj."
           },
-          "status_column_header": "Nuk ka dërgesë"
+          "status_column_header": "Nuk ka dërgesë",
+          "title": "Nuk ka dërgesë në dispozicion"
         },
         "price_update": {
           "title": "Përditësim çmimi",
@@ -273,6 +303,56 @@
         "out_of_stock": {
           "description": "Këto artikuj nuk janë më të disponueshëm dhe janë hequr nga shporta juaj.",
           "items_unavailable": "Disa artikuj nuk janë më të disponueshëm dhe janë hequr nga shporta juaj."
+        },
+        "page_title": "Probleme me inventarin",
+        "title": "Nuk është në dispozicion",
+        "items_unavailable_notice": "Disa artikuj nuk janë më të disponueshëm.",
+        "product_column_header": "Produkte",
+        "quantity_column_header": "Sasia",
+        "price_column_header": "Çmimi",
+        "status_column_header": "Statusi",
+        "removed_from_cart_notice": "U hoq nga shporta",
+        "sold_out_label": "Shitur të gjitha",
+        "reduced_label": "I reduktuar",
+        "reduced_with_quantity_label": "Vetëm %{quantity_available} ka mbetur",
+        "remove_from_cart_button_label": "Hiq nga shporta",
+        "continue_shopping_button_label": "Vazhdo",
+        "go_back_to_cart_button_label": "Kthehu te shporta ime",
+        "remove": "Hiq",
+        "return_to_store_label": "Kthehu në dyqan",
+        "continue_cta_label": "Vazhdo pagesën",
+        "item_label": {
+          "one": "{{count}} artikull",
+          "other": "{{count}} artikuj"
+        },
+        "empty_cart_label": "Shporta juaj është bosh",
+        "quantity_update": {
+          "page_title": "Përditësim sasie",
+          "title": "Përditësim sasie",
+          "description": "Sasitë e disponueshme për këto artikuj kanë ndryshuar dhe janë përditësuar në shportën tuaj."
+        },
+        "unpurchasable_product": {
+          "title": "Produkt i pablerueshëm",
+          "header": "Disa artikuj u hoqën nga shporta juaj",
+          "message": "Këto artikuj nuk janë të disponueshëm për porositë B2B.",
+          "status_column_header": "Nuk është i disponueshëm"
+        },
+        "unpurchasable_product_generic": {
+          "title": "Produkt i pablerueshëm",
+          "header": "Disa artikuj u hoqën nga shporta juaj",
+          "message": "Këto artikuj nuk janë të disponueshëm.",
+          "status_column_header": "Nuk është i disponueshëm"
+        },
+        "unfulfillable_product": {
+          "title": "Dorëzimi nuk është i disponueshëm",
+          "message": {
+            "one": "%{delivery_method} nuk është më i disponueshëm për këtë artikull.",
+            "other": "%{delivery_method} nuk është më i disponueshëm për këto artikuj."
+          },
+          "default_message": {
+            "one": "Metoda e zgjedhur e dorëzimit nuk është më e disponueshme për këtë artikull.",
+            "other": "Metoda e zgjedhur e dorëzimit nuk është më e disponueshme për këto artikuj."
+          }
         }
       },
       "contextual_availability": {
@@ -962,6 +1042,46 @@
         "foot": "këmbë",
         "yard": "jard",
         "item": "artikull"
+      },
+      "delivery_options": {
+        "free_total_label": "Falas",
+        "ship": "Anije",
+        "ship_to_address": "Dërgo në adresë",
+        "shipping_address": "Adresa e dërgesës",
+        "pick_up": "Merrni",
+        "pick_up_from_store": "Marrje në dyqan",
+        "pick_up_locations": "Vendndodhjet e dyqaneve",
+        "pick_up_in_one_hour": "Zakonisht gati brenda 1 ore",
+        "pick_up_in_two_hours": "Zakonisht gati për 2 orë",
+        "pick_up_in_four_hours": "Zakonisht gati brenda 4 orësh",
+        "pick_up_in_twenty_four_hours": "Zakonisht gati brenda 24 orësh",
+        "pick_up_in_two_to_four_days": "Zakonisht gati brenda 2-4 ditësh",
+        "pick_up_in_five_or_more_days": "Zakonisht gati brenda 5+ ditësh",
+        "pick_up_in_zero_to_two_hours": "Gati për t'u marrë brenda 2 orësh",
+        "pick_up_in_two_to_four_hours": "Gati për t'u marrë brenda 4 orësh",
+        "pick_up_immediately": "Gati për marrje tani",
+        "pick_up_next_day": "Gati për t'u marrë ditën tjetër",
+        "pickup_point_method_definition": "Dërgo në pikën e marrjes",
+        "retail_method_definition": "Transportim me pakicë",
+        "none_method_definition": "Nuk ka transportim",
+        "subscription_pickup_information": "Kjo metodë dorëzimi do të zbatohet për të gjitha artikujt në këtë porosi dhe për të gjitha porositë e ardhshme për këtë abonim."
+      },
+      "customer_account": {
+        "not_user_label": "Jo %{first_name}?",
+        "have_an_account_label": "Ke një llogari?",
+        "sign_in_link_label": "Kyçu",
+        "sign_out_link_label": "Dil nga llogaria",
+        "save_my_information_label": "Ruaje këtë informacion për herën tjetër",
+        "invalid_address": "Adresa e zgjedhur është e pavlefshme. %{update_address_link} ose zgjidhni një adresë tjetër.",
+        "incomplete_address": "Adresa e zgjedhur është e paplotë. %{update_address_link} ose zgjidhni një adresë tjetër.",
+        "rollup_label": "Llogari",
+        "invalid_shipping_method_summary": "Zgjidh një adresë të vlefshme dërgimi për të parë metodat e disponueshme të dërgimit",
+        "saved_address_option_description": {
+          "one": "Ju keni {{count}} adresë të ruajtur.",
+          "other": "Ju keni {{count}} adresa të ruajtura."
+        },
+        "saved_address_option_link": "Përdor një adresë të ruajtur",
+        "saved_address_modal_title": "Përdor adresën time të ruajtur"
       }
     },
     "notices": {
@@ -1119,7 +1239,15 @@
     "store_availability": {
       "pick_up_time": {
         "one_hour": "Zakonisht gati brenda 1 ore",
-        "two_hours": "Zakonisht gati për 2 orë"
+        "two_hours": "Zakonisht gati për 2 orë",
+        "four_hours": "Zakonisht gati brenda 4 orësh",
+        "twenty_four_hours": "Zakonisht gati brenda 24 orësh",
+        "two_to_four_days": "Zakonisht gati brenda 2-4 ditësh",
+        "five_or_more_days": "Zakonisht gati brenda 5+ ditësh",
+        "zero_to_two_hours": "Zakonisht gati për 2 orë",
+        "two_to_four_hours": "Zakonisht gati brenda 4 orësh",
+        "immediately": "Gati për marrje tani",
+        "next_day": "Gati për t'u marrë ditën tjetër"
       }
     },
     "pagination": {
@@ -1173,6 +1301,11 @@
       "blocked_address": "Kjo vendndodhje nuk mbështetet",
       "credit_card_session_expired": "Autorizimi i kartës së kreditit ka skaduar, ju lutemi futni përsëri informacionin tuaj të pagesës. Karta juaj nuk është ngarkuar.",
       "empty": "nuk mund të jetë bosh"
+    },
+    "subscriptions": {
+      "buyer_consent_product": "Ky artikull është një blerje e përsëritur ose e shtyrë. Duke vazhduar, unë pajtohem me %{cancellationPolicyLink} dhe ju autorizoj të ngarkoni metodën time të pagesës me çmimet, frekuencën dhe datat e listuara në këtë faqe derisa porosia ime të përmbushet ose unë ta anuloj, nëse lejohet.",
+      "buyer_consent_cart": "Një ose më shumë nga artikujt në shportën tuaj janë një blerje e përsëritur ose e shtyrë. Duke vazhduar, unë pajtohem me %{cancellationPolicyLink} dhe ju autorizoj të ngarkoni metodën time të pagesës me çmimet, frekuencën dhe datat e listuara në këtë faqe derisa porosia ime të përmbushet ose unë ta anuloj, nëse lejohet.",
+      "cancellation_policy": "politikë anulimi"
     }
   },
   "customer_accounts": {
@@ -1787,7 +1920,9 @@
           "six_and_more_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}} , {{lineItemName3}} sasi {{lineItemQuantity3}} , {{lineItemName4}} sasi {{lineItemQuantity4}} , {{lineItemName5}} sasi {{lineItemQuantity5}} , {{lineItemName6}} sasi {{lineItemQuantity6}} dhe më shumë",
           "view_order_details": "Shiko detajet e porosisë",
           "previous": "Mëparshme",
-          "next": "Tjetra"
+          "next": "Tjetra",
+          "one_products_accessibility_label": "Porosia përfshin sasinë {{lineItemName1}} {{lineItemQuantity1}}",
+          "two_products_accessibility_label": "Porosia përfshin {{lineItemName1}} sasi {{lineItemQuantity1}} , {{lineItemName2}} sasi {{lineItemQuantity2}}"
         },
         "items": {
           "one": "{{count}} artikull",
@@ -1880,7 +2015,30 @@
           }
         },
         "table_view": "Shfaq pamjen e tabelës",
-        "show_order_actions_accessibility_label": "Shfaq veprimet e porosisë për porosinë {{name}}"
+        "show_order_actions_accessibility_label": "Shfaq veprimet e porosisë për porosinë {{name}}",
+        "column_headers": {
+          "order": "Porosit",
+          "items": "Artikuj",
+          "total": "Totali",
+          "actions_accessibility_label": "Veprime",
+          "products_accessibility_label": "Produkte"
+        },
+        "delivered": "Dorëzuar {{date}}",
+        "empty_state_order_source_description": "Vetëm porositë e bëra nga {{email}} do të shfaqen këtu.",
+        "empty_state_subtitle": "Shkoni në dyqan për të bërë një porosi.",
+        "empty_state_title": "Nuk ka ende porosi",
+        "empty_state_title_for_pending_orders": "Nuk ka porosi në pritje",
+        "no_order_banner": "Për të testuar shtesën tuaj në faqen e statusit të porosisë, krijoni një porosi.",
+        "estimated_shortform": "Est. {{date}}",
+        "estimated_delivery": "Pritet {{date}}",
+        "one_images_accessibility_label": "Porosia përfshin {{lineItemName1}}",
+        "two_images_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}}",
+        "three_images_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}} , {{lineItemName3}}",
+        "four_images_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}} , {{lineItemName3}} , {{lineItemName4}}",
+        "more_than_three_products_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}} dhe {{numberOfAdditionalProducts}} produkte të tjera",
+        "more_than_four_products_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}} , {{lineItemName3}} dhe {{numberOfAdditionalProducts}} produkte të tjera",
+        "plus_more": "+ {{numberOfAdditionalProducts}}",
+        "plus_more_products": "+ {{numberOfAdditionalProducts}} produkte"
       },
       "order_status": {
         "attempted_delivery_label": "Tentativë për dorëzim",
@@ -1917,7 +2075,14 @@
         "delivered_description_gift_card": {
           "one": "Karta dhuratë u dërgua me email."
         }
-      }
+      },
+      "list_layout_accessibility_label": "Opsionet e paraqitjes",
+      "list_title": "Porosi",
+      "list_title_with_pending_orders": "Porositë:",
+      "list_title_confirmed_orders_accessibility_label": "Porositë: të konfirmuara",
+      "list_title_pending_orders_accessibility_label": "Porosi: në pritje",
+      "switch_order_type_pending_orders_accessibility_label": "Ndërro llojin e porosisë, aktualisht po shikon porositë në pritje",
+      "switch_order_type_confirmed_orders_accessibility_label": "Ndërro llojin e porosisë, aktualisht po shikon porositë e konfirmuara"
     },
     "addresses": {
       "add_button": "Shto adresë",
@@ -1984,6 +2149,85 @@
       "save_accessibility_label": "Ruaj adresën {{address}}",
       "section_title_accessibility_label": "Shto adresë",
       "update_success_notification": "Adresa u përditësua"
+    },
+    "date": {
+      "humanize": {
+        "lessThanOneHourAgo": {
+          "one": "{{count}} minutë më parë",
+          "other": "{{count}} minuta më parë"
+        },
+        "lessThanOneMinuteAgo": "Pikërisht tani",
+        "yesterday": "Dje në {{time}}",
+        "today": "Sot në {{time}}",
+        "tomorrow": "Nesër në {{time}}"
+      }
+    },
+    "enable_javascript": "Për të parë llogarinë tuaj, aktivizoni JavaScript në cilësimet e shfletuesit tuaj ose hyni me një shfletues tjetër.",
+    "navigation_and_structure": {
+      "account_menu": {
+        "hide_accessibility_label": "Menyja Fshih Llogarinë",
+        "show_accessibility_label": "Shfaq menynë e Llogarisë",
+        "nav_accessibility_label": "Navigimi i llogarisë",
+        "open_menu_accessibility_label": "Hap navigimin e llogarisë",
+        "close_menu_accessibility_label": "Mbyll navigimin e llogarisë",
+        "loading_message": "Duke ngarkuar navigimin e llogarisë"
+      },
+      "action_menu_accessibility_label": "Më shumë veprime",
+      "close_menu_accessibility_label": "Mbyll navigimin kryesor",
+      "contact_email_subject": "Kontaktoni nga dyqani online i {{shopName}}",
+      "contact_link": "Informacione kontakti",
+      "delete_confirmation": {
+        "cancel": "Anulo",
+        "delete": "Fshij"
+      },
+      "dismiss_toast": "Hiq",
+      "document_title": "{{sectionName}} - {{shopName}} - Llogaria",
+      "go_to_store_link": "Shko në dyqan",
+      "loading_message": "Duke u ngarkuar",
+      "log_out_link": "Dil nga llogaria",
+      "logout_overlay_label": "Duke të çregjistruar...",
+      "nav_label_accessibility_label": "Navigimi kryesor",
+      "navigation_accessibility_message": "Ju lundruat te {{sectionName}}",
+      "open_menu_accessibility_label": "Hap navigimin kryesor",
+      "orders_link_label": "Porosi",
+      "shop_logo_accessibility_label": "Logoja {{shopName}}",
+      "subscriptions_link_label": "Abonimet",
+      "settings_link": "Cilësimet",
+      "country_switcher_toast_message": "Vendi u ndryshua në {{countryName}}",
+      "switch_country": "Ndërro vendin",
+      "location_switcher_toast_message": "Vendndodhja u ndryshua në {{locationName}}",
+      "switch_location": "Ndërro vendndodhjen",
+      "view_details": "Shiko detajet",
+      "company_location": "Vendndodhja e kompanisë",
+      "search": "Kërko"
+    },
+    "account_information": {
+      "loading_accessibility_message": "Duke ngarkuar informacionin e llogarisë. Po ngarkohet informacioni i llogarisë.",
+      "loading_finished_accessibility_message": "Informacioni i llogarisë është ngarkuar",
+      "profile_card": {
+        "cancel": "Anulo",
+        "cancel_accessibility_label": "Anulo redaktimin e profilit",
+        "edit": "Modifiko",
+        "edit_accessibility_label": "Modifiko profilin",
+        "email_help_text": "Email-i i përdorur për hyrje nuk mund të ndryshohet",
+        "first_name": "Emri",
+        "last_name": "Mbiemri",
+        "no_name_provided_accessibility_label": "Nuk është shtuar emër",
+        "phone_number_help_text": "Numri i telefonit i përdorur për hyrje nuk mund të ndryshohet",
+        "save": "Ruaj",
+        "save_accessibility_label": "Ruaj profilin",
+        "title": "Profili"
+      },
+      "profile_update_confirmation_message": "Profili u përditësua",
+      "title": "Profili",
+      "people": {
+        "pagination": {
+          "load_more": "Ngarko më shumë",
+          "load_more_accessibility_label": "Ngarko më shumë njerëz",
+          "loading_accessibility_label": "Duke ngarkuar njerëzit"
+        }
+      },
+      "add_button": "Shto"
     }
   }
 }
