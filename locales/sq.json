@@ -884,6 +884,164 @@
           }
         }
       }
+    },
+    "notices": {
+      "order": {
+        "cancel_reason": {
+          "inventory": "Artikuj të padisponueshëm",
+          "fraud": "Urdhër mashtrues",
+          "customer": "Klienti ndryshoi/anuloi porosinë",
+          "staff": "Gabim i stafit",
+          "other": "Të tjera"
+        },
+        "cash_on_delivery": "Pagesë me para në dorëzim (COD)"
+      },
+      "cart": {
+        "only_n_items_available": "Mund të shtoni vetëm %{count} %{name} në shportë.",
+        "too_many_items_in_cart": "Nuk mund të shtoni më shumë %{name} në shportë.",
+        "only_one_added_to_cart": "Vetëm 1 artikull u shtua në shportën tuaj për shkak të disponueshmërisë.",
+        "only_n_added_to_cart": "Vetëm %{quantity} artikuj u shtuan në shportën tuaj për shkak të disponueshmërisë.",
+        "maximum_available_quantity_reached": "Sasia maksimale e këtij artikulli është tashmë në shportën tuaj.",
+        "less_than_minimum": "Ky artikull ka një minimum prej %{min}.",
+        "more_than_maximum": "Ky artikull ka një maksimum prej %{max}.",
+        "not_respect_step": "Mund ta shtoni këtë artikull vetëm në rritje prej %{step}.",
+        "all_items_in_cart": "Të gjitha %{count} %{name} janë në shportën tuaj.",
+        "empty_update": "nuk mund të përditësohet shporta bosh",
+        "missing_parameters": "nuk ka ID ose parametër rreshti të vlefshëm",
+        "generic_error": "Gabim në shportë",
+        "invalid_input": "Parametri %{parameter} është i pavlefshëm.",
+        "product_not_available": "Produkti nuk është i disponueshëm",
+        "too_many_line_items_error": "Shporta juaj nuk mund të përmbajë më shumë se %{max} artikuj.",
+        "link_expired": "Lidhja skadoi",
+        "link_no_longer_exists": "Lidhja nuk ekziston më.",
+        "stock_problems_html": "Një ose më shumë artikuj nuk janë më të disponueshëm. Ne kemi ofruar një <a href=\"%{link}\">shportë të përditësuar</a> .",
+        "changed": "Shporta u ndryshua",
+        "items_changed": "Një ose më shumë artikuj kanë ndryshuar.",
+        "product_sold_out": "Produkti '%{name}' është shitur tashmë.",
+        "variant_not_found": "Nuk mund të gjendet varianti",
+        "variant_requires_selling_plan": "Varianti mund të blihet vetëm me një plan shitjeje.",
+        "selling_plan_not_available_for_company_locations": "Vetëm një blerje një herë është e disponueshme për porositë B2B",
+        "digital_product_not_available_for_company_locations": "Ky artikull nuk mund të shtohet në një porosi B2B",
+        "buyer_cannot_purchase_for_company_locations": "Nuk mund të blesh për këtë vendndodhje",
+        "selling_plan_not_applicable": "Nuk mund të zbatohet plani i shitjes në variant",
+        "shipping_address_not_required": "Kjo shportë nuk kërkon transport",
+        "shipping_address_invalid": "Pati një problem me llogaritjen e tarifave të transportit. Vazhdoni te arka për të zgjedhur një tarifë transporti përpara se të përfundoni porosinë tuaj.",
+        "bundle_requires_components": "Produkti i paketuar '%{name}' nuk mund të shtohet në shportë.",
+        "gift_card_with_components_not_supported": "Produkti i paketuar '%{name}' nuk mund të shtohet në shportë.",
+        "gift_card_price_must_be_greater_than_zero": "Produkti i paketuar '%{name}' nuk mund të shtohet në shportë.",
+        "gift_card_recipient_validation_error": "Marrësi i specifikuar i kartës dhuratë është i pavlefshëm",
+        "view_lines_limit_reached": "Rreshtat duhet të jenë më pak se %{limit}",
+        "cart_too_large": "Karroca është shumë e madhe.",
+        "cart_attributes_error": "Atributet e shportës përmbajnë të dhëna të pavlefshme.",
+        "merchandise_line_transformers": {
+          "run_error": "Ndodhi një gabim në shportën tuaj."
+        }
+      },
+      "storefront": {
+        "invalid_password": "Fjalëkalimi është i pasaktë, ju lutemi provoni përsëri."
+      },
+      "tags": {
+        "add_articles": "Kërkim i ngushtë te artikujt që kanë edhe etiketën %{tag}",
+        "add_products": "Ngushto përzgjedhjen te produktet që përputhen me etiketën %{tag}",
+        "remove_articles": "Zgjero kërkimin në artikuj që nuk janë të etiketuar %{tag}",
+        "remove_products": "Hiq etiketën %{tag}"
+      }
+    },
+    "email_marketing": {
+      "subscribed": {
+        "confirmation": "Faleminderit që u abonuat në listën tonë të postimeve.",
+        "disclaimer": "Mund të çregjistroheni në çdo kohë.",
+        "unsubscribe": "Çregjistrohu"
+      },
+      "unsubscribed": {
+        "confirmation": "Ju jeni çregjistruar nga lista jonë e postimeve.",
+        "disclaimer": "Nuk do të merrni më përditësime marketingu nga ne. Mund të regjistroheni përsëri në çdo kohë.",
+        "preview": "Po shikoni paraprakisht se çfarë do të shohin klientët kur të çregjistrohen."
+      },
+      "open_tracking": {
+        "opt_in": {
+          "opted_in_html": "<b>Ke zgjedhur të dërgosh gjurmimin e hapjes me email.</b>",
+          "visibility": "Normat e hapjes së email-eve do të raportohen në mënyrë anonime. Ne do të shohim vetëm nëse e keni hapur një email si pjesë të një norme të përgjithshme të hapjes së email-eve.",
+          "opt_out_html": "Mund <a style=\"text-decoration:underline;\" href=\"%{link}\">të çaktivizoni</a> ndjekjen e hapjes së email-eve nëse nuk dëshironi ta ndani këtë informacion.",
+          "preview_bar": "Po shikoni paraprakisht se çfarë do të shohin klientët kur të zgjedhin të ndjekin hapjen e email-eve."
+        },
+        "opt_out": {
+          "opted_out_html": "<b>Ke zgjedhur të çaktivizosh gjurmimin e hapjes së email-eve.</b>",
+          "visibility": "Nuk do të shohim nëse i keni hapur emailet tona.",
+          "opt_in_html": "<a style=\"text-decoration:underline;\" href=\"%{link}\">Regjistrohu</a> për gjurmimin e hapjeve me email.",
+          "preview_bar": "Po shikoni paraprakisht se çfarë do të shohin klientët kur të çaktivizojnë gjurmimin e hapjes së email-eve."
+        },
+        "no_longer_track": {
+          "status_html": "<b>Ne nuk gjurmojmë më asnjë email të hapur.</b>",
+          "privacy_policy": "Pasi u dërgua ky email, ne përditësuam politikën tonë të privatësisë dhe nuk i ndjekim më hapjet e gjurmimit."
+        },
+        "track": {
+          "status_html": "<b>Raportohet gjurmimi i hapjes së email-eve.</b>",
+          "visibility": "Do të shohim vetëm nëse e keni hapur email-in, si pjesë të normës totale të hapjes së email-eve."
+        },
+        "updated_policy": {
+          "status_html": "<b>Raportohet gjurmimi i hapjes së email-eve.</b>",
+          "visibility": "Ne e kemi përditësuar politikën tonë dhe tani gjurmoni hapjet e email-eve. Shkalla e hapjes së email-eve do të raportohet në mënyrë anonime. Do të shohim vetëm nëse keni hapur një email si pjesë të shkallës totale të hapjes së email-eve.",
+          "opt_out_html": "Nëse nuk doni ta ndani këtë informacion, mund të <a style=\"text-decoration:underline;\" href=\"%{link}\">çregjistroheni.</a>"
+        }
+      }
+    },
+    "filters": {
+      "availability": {
+        "value": {
+          "in_stock": "Në dispozicion",
+          "out_of_stock": "Nuk është në dispozicion"
+        }
+      },
+      "boolean": {
+        "true_label": "Po",
+        "false_label": "Jo"
+      }
+    },
+    "search": {
+      "error": "Pati një problem me ngarkimin e rezultateve të kërkimit. Ju lutemi rifreskoni faqen ose provoni përsëri më vonë.",
+      "sorting": {
+        "relevance": "Rëndësia",
+        "price_ascending": "Çmimi, nga më i ulëti në më të lartë",
+        "price_descending": "Çmimi, nga më i larti në më të ulët"
+      }
+    },
+    "page_titles": {
+      "blog_or_article_with_error": "Gabim - %{title}",
+      "products": "Produkte",
+      "shopping_cart": "Shporta juaj e blerjeve",
+      "create_account": "Krijo llogari",
+      "reset_account": "Rivendos llogarinë",
+      "addresses": "Adresat",
+      "order": "Porosit %{name}",
+      "search": "Kërko",
+      "search_results": {
+        "one": "Kërkim: U gjet %{count} rezultat për \"%{terms}\"",
+        "other": "Kërko: U gjetën %{count} rezultate për \"%{terms}\""
+      },
+      "collections": "Koleksione",
+      "not_found": "404 Nuk u gjet",
+      "challenge": "Sfidë",
+      "checkpoint": "Pikë kontrolli"
+    },
+    "cart": {
+      "discounts_with_count": "Janë aplikuar %{count} zbritje"
+    },
+    "challenge": {
+      "message": "Për të vazhduar, na tregoni që nuk jeni robot.",
+      "error": "Përgjigja juaj nuk ishte e saktë, ju lutemi provoni përsëri.",
+      "submit_button_text": "Dërgo"
+    },
+    "checkpoint": {
+      "message": "Zgjidhni Captcha për të vazhduar",
+      "error": "Validimi i Captcha dështoi.",
+      "submit_button_text": "Dërgo"
+    },
+    "store_availability": {
+      "pick_up_time": {
+        "one_hour": "Zakonisht gati brenda 1 ore",
+        "two_hours": "Zakonisht gati për 2 orë"
+      }
     }
   },
   "customer_accounts": {
