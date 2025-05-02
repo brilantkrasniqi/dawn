@@ -1,0 +1,409 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "shopify": {
+    "sentence": {
+      "two_words_connector": " dhe ",
+      "last_word_connector": ", dhe "
+    },
+    "checkout": {
+      "address_management": {
+        "confirm_address_deletion": "A jeni i sigurt që doni ta fshini adresën {{address}} ?"
+      },
+      "general": {
+        "page_title": "Arka",
+        "error_page_title": "Gabim",
+        "skip_to_content": "Kapërce te përmbajtja",
+        "breadcrumb": "Thërrime buke",
+        "continue_button_label": "Vazhdo",
+        "complete_purchase_button_label": "Përfundo porosinë",
+        "pay_now_button_label": "Paguaj tani",
+        "authenticate_purchase_button_label": "Autentifiko pagesën",
+        "edit_link_label": "Modifiko",
+        "all_rights_reserved": "Të gjitha të drejtat e rezervuara %{shop_name}",
+        "print_policies_link_label": "Printo",
+        "cart": "Shportë",
+        "close_modal_label": "Mbyll",
+        "close_notice_label": "Mbyll",
+        "expand_notice_label": "Shiko më shumë",
+        "continue_to_shipping_method": "Vazhdo me dërgesën",
+        "continue_to_payment_method": "Vazhdo te pagesa",
+        "continue_to_review": "Rishiko porosinë",
+        "back_to_cart": "Kthehu në shportë",
+        "back_to_contact_information": "Kthehu te informacioni",
+        "back_to_shipping_method": "Kthehu te dërgesa",
+        "back_to_payment_method": "Kthehu te pagesa",
+        "choose_shipping_method": "Zgjidhni një metodë transporti",
+        "choose_payment_method": "Zgjidhni një metodë pagese",
+        "choose_billing_address": "Zgjidhni një adresë faturimi",
+        "contact_us_html": "Na kontaktoni për më shumë informacion",
+        "autocomplete_title": "Sugjerime",
+        "autocomplete_single_item": "1 artikull i disponueshëm",
+        "autocomplete_multi_item": "{{number}} artikuj të disponueshëm",
+        "autocomplete_close": "Mbyll sugjerimet",
+        "forwarding_indicator": {
+          "new_window": "Hapet në një dritare të re.",
+          "external": "Hap faqen e jashtme të internetit.",
+          "external_and_new_window": "Hap faqen e jashtme të internetit në një dritare të re."
+        },
+        "checkout_context": {
+          "step_one": "%{shop_name} - Përfundimi i arkës"
+        },
+        "tooltip_accessibility_label": "Më shumë informacion",
+        "qr_code": "Kodi QR",
+        "errors": {
+          "only_empty_terms_accepted": "Kjo politikë pranon vetëm terma bosh.",
+          "session_identifier_not_unique_error": "Diçka shkoi keq me porosinë tuaj, ju lutemi provoni ta përfundoni përsëri blerjen.",
+          "line_item_limit_reached": "Është arritur numri maksimal i artikujve të rreshtit.",
+          "session_is_already_finished": "Kjo seancë përfundimi të pagesës është finalizuar tashmë.",
+          "merchandise": {
+            "only_value_constraint": "Vetëm vlerat e sakta lejohen në të dhënat e mallrave.",
+            "merchandise_not_found": "Produkti nuk u gjet.",
+            "merchandise_variant_not_found": "Varianti i produktit nuk u gjet.",
+            "merchandise_not_applicable": "Varianti i produktit nuk mund të blihet.",
+            "mixed_currencies": "Arka përmban artikuj rreshti me monedha të ndryshme.",
+            "bundle_products_not_supported_for_b2b": "Artikujt e paketuar nuk mund të shtohen në porositë B2B për këtë vendndodhje.",
+            "gift_card_quantity_mismatch": "Kur specifikoni kodet e kartave dhuratë, sasia e artikullit të rreshtit dhe numri i kodeve të kartave dhuratë duhet të përputhen.",
+            "gift_card_not_supported": "Kartat dhuratë nuk mbështeten në këtë pagesë.",
+            "gift_card_not_unique": "Karta dhuratë me kodin {{code}} shfaqet më shumë se një herë në këtë arkë. Kodet formatohen para krahasimit.",
+            "gift_card_used": "Kodi i kartës dhuratë {{code}} i është caktuar tashmë një karte dhurate. Kodet formatohen para krahasimit.",
+            "gift_card_invalid": "Kodi i kartës dhuratë {{code}} është i pavlefshëm.",
+            "gift_card_code_changed": "Kodi i kartës dhuratë {{proposed_code}} u ndryshua në {{formatted_code}} për t'u përputhur me rregullat e formatimit.",
+            "gift_card_with_attributes_not_supported": "Kartat dhuratë me atribute të personalizuara nuk mbështeten në këtë pagesë.",
+            "gift_card_with_components_not_supported": "Kartat dhuratë me komponentë nuk mbështeten në këtë pagesë.",
+            "selling_plan_mismatch": "Abonimi është përditësuar.",
+            "selling_plan_not_supported": "Abonimet nuk mbështeten.",
+            "selling_plan_not_supported_b2b": "Abonimet nuk mbështeten për arkëtimin B2B.",
+            "price_mismatch": "Çmimi i propozuar më parë për këtë mall ishte i pavlefshëm dhe është përditësuar.",
+            "inventory_not_found": "Nuk u gjet asnjë inventar për këtë mall.",
+            "product_not_published": "Produkti nuk është publikuar.",
+            "product_not_published_in_buyer_location": "Produkti nuk është publikuar në vendndodhjen e blerësit.",
+            "duplicated_stable_id": "Kjo linjë mallrash ka të njëjtin ID të qëndrueshëm si një linjë tjetër.",
+            "minimum_quantity_not_met": "Sasia e disa artikujve nuk plotëson minimumin e kërkuar.",
+            "maximum_quantity_exceeded": "Sasia e disa artikujve tejkalon maksimumin e lejuar.",
+            "quantity_increment_not_met": "Sasia e disa artikujve nuk i plotëson limitet e porosisë.",
+            "quantity_rules_not_met": "Sasia e disa artikujve nuk i plotëson limitet e porosisë.",
+            "bundle_requires_components": "Ky produkt në paketë nuk ka pjesë përbërëse.",
+            "title_too_long": "Titulli i mallit është shumë i gjatë.",
+            "title_empty": "Titulli i mallit është bosh."
+          },
+          "buyer_identity": {
+            "business_customer_does_not_match_company": "Personi i kontaktit të kompanisë nuk ka qasje në kompani.",
+            "customer_account_required": "Klienti duhet të identifikohet për të vazhduar.",
+            "company_location_required": "Klienti duhet të zgjedhë një vendndodhje të kompanisë për të vazhduar.",
+            "company_purchase_permission_required": "Klienti nuk ka leje të bëjë porosi nga kompania.",
+            "personal_order_not_allowed": "Porositë personale nuk lejohen për këtë dyqan.",
+            "lost_access_to_company": "Klienti humbi aksesin në çdo kompani.",
+            "contact_info_does_not_match_customer_account": "Informacioni i specifikuar i klientit duhet të përputhet me llogarinë e klientit të identifikuar.",
+            "phone_number_does_not_match_expected_pattern": "Numri i telefonit i specifikuar nuk përputhet me modelin e pritur.",
+            "email_required": "Një email kërkohet kur mallrat blihen duke përdorur një abonim.",
+            "email_domain_is_invalid": "Ky domen i specifikuar nuk mund të zgjidhet.",
+            "missing_contact_method": "Mungon një metodë e vlefshme kontakti.",
+            "checkout_completion_target_is_missing": "Objektivi i përfundimit të arkëtimit mungon.",
+            "invalid_customer_profile": "U dha një profil klienti i pavlefshëm.",
+            "customer_profile_access_restricted": "Checkout nuk ka leje për të hyrë në profilin e klientit.",
+            "checkout_completion_target_is_invalid_proc": "Objektiv i pavlefshëm përfundimi të arkëtimit.",
+            "buyer_identity_presentment_currency_does_not_match": "Pati një problem gjatë përpunimit të porosisë suaj. Provo përsëri pas disa minutash."
+          },
+          "delivery": {
+            "only_one_delivery_line_allowed": "Shporta duhet të ketë vetëm një linjë dorëzimi.",
+            "wrong_number_of_delivery_lines": "Një linjë shpërndarjeje duhet të specifikohet për secilin grup mallrash.",
+            "external_delivery_promise_error": "Një gabim në marrjen e premtimit të dorëzimit të jashtëm.",
+            "options_instructions_invalid": "Udhëzimet e specifikuara nuk përputhen me modelin e pritur.",
+            "destination_address_required": "Një adresë destinacioni është e nevojshme për të vazhduar.",
+            "pickup_points_unavailable": "Pikat e marrjes nuk janë të disponueshme aktualisht.",
+            "local_pickup_delivery_line_detail_changed": "Strategjia aktuale e dorëzimit me porosi lokale duhet të ndryshohet në mënyrë që të vazhdojë.",
+            "local_pickup_no_delivery_strategy_available": "Nuk u gjet asnjë strategji e disponueshme për marrje me vete në zonën tuaj.",
+            "origin_location_id_required": "Një ID e vendndodhjes së origjinës kërkohet kur kërkohet metoda e dorëzimit RETAIL.",
+            "invalid_origin_location_id": "Nuk mund të gjendej një vendndodhje që përputhet me ID-në e vendndodhjes së origjinës.",
+            "origin_location_id_not_allowed": "Metodat e kërkuara të dorëzimit nuk mbështesin një ID të vendndodhjes së origjinës."
+          },
+          "captcha": {
+            "token_not_valid_for_session": "Captcha-ja e dhënë nuk mund të përdoret me këtë arkë."
+          },
+          "fx_reconciliation_override": {
+            "shop_currency_mismatch": "Shuma e marrë duhet të jetë në monedhën e dyqanit."
+          },
+          "checkout_source": {
+            "revoked": "Kjo pagesë nuk është më e disponueshme."
+          }
+        },
+        "full_price": "Çmimi i plotë:",
+        "title": "Arka - {{shopName}}",
+        "full_title": "{{pageTitle}} - {{shopName}} - Përfundimi i arkës",
+        "loading": "Duke u ngarkuar…",
+        "loading_title": "Arka - {{shopName}}",
+        "google_map_title": "Harta e Google-it",
+        "confirm_order_button_label": "Konfirmo porosinë",
+        "submit_order_button_label": "Dërgo porosinë",
+        "submit_for_review_button_label": "Dorëzo për shqyrtim",
+        "submit_for_review_notice_label": "Pagesa nuk do të bëhet derisa porosia juaj të rishikohet",
+        "continue_to_payment_plans_button_label": "Vazhdo te planet e pagesave",
+        "back_button_label": "Kthim",
+        "choose_delivery_strategy": "Zgjidhni një metodë dorëzimi",
+        "autocomplete_zero_item": "Nuk ka artikuj të disponueshëm",
+        "autocomplete_powered_by_google": "Mundësuar nga {{brandName}}",
+        "submit": "Dërgo",
+        "processing": "Duke u përpunuar…",
+        "stepper": {
+          "increase": "Rrit {{type}}",
+          "decrease": "Zvogëlo {{type}}",
+          "minimum_reached": "U arrit minimumi prej {{value}}",
+          "maximum_reached": "U arrit maksimumi prej {{value}}"
+        },
+        "remove_item": "Hiq %{label}",
+        "remove_tag": "Hiq etiketën",
+        "dates": {
+          "weekdays": {
+            "monday": "E hënë",
+            "tuesday": "E martë",
+            "wednesday": "E mërkurë",
+            "thursday": "E enjte",
+            "friday": "E premte",
+            "saturday": "E shtunë",
+            "sunday": "E diel"
+          },
+          "weekdays_abbreviation": {
+            "monday": "Mu",
+            "tuesday": "E martë",
+            "wednesday": "Ne",
+            "thursday": "Enj",
+            "sunday": "Die"
+          },
+          "months": {
+            "january": "Janar",
+            "february": "Shkurt",
+            "march": "Mars",
+            "april": "Prill",
+            "may": "Maj",
+            "june": "Qershor",
+            "july": "Korrik",
+            "august": "Gusht",
+            "september": "Shtator",
+            "october": "Tetor",
+            "november": "Nëntor",
+            "december": "Dhjetor"
+          }
+        },
+        "datepicker": {
+          "show_previous_month": "Trego muajin e kaluar, {{month}} {{year}}",
+          "show_next_month": "Shfaq muajin tjetër, {{month}} {{year}}",
+          "range_start": "Fillimi i rrezes",
+          "in_range": "Në rreze",
+          "range_end": "Fundi i gamës"
+        },
+        "map": {
+          "cluster_title": {
+            "one": "Grumbull i shënuesit {{number}}",
+            "other": "Grumbull shënuesish {{number}}"
+          }
+        },
+        "sheet": {
+          "expand": "Zgjero"
+        },
+        "dropzone": {
+          "add_file": "Shto skedar",
+          "invalid_file_type": "Lloji i skedarit nuk mbështetet",
+          "dragged_over": "Lësho skedarin për ta ngarkuar"
+        }
+      },
+      "contact": {
+        "title": "Informacion",
+        "address_title": "Adresa",
+        "shipping_used_as_billing_notice": "Kjo do të përdoret gjithashtu si adresa juaj e faturimit për këtë porosi.",
+        "delivery_option_title": "Metoda e dorëzimit",
+        "contact_method_title": "Kontakti",
+        "email_or_phone_label": "Email ose numër telefoni celular",
+        "email_or_phone_placeholder": "Email ose numër telefoni celular",
+        "stored_addresses_label": "Adresat e ruajtura",
+        "available_addresses_label": "Adresat e disponueshme",
+        "new_address_label": "Përdorni një adresë të re",
+        "first_name_label": "Emri",
+        "optional_first_name_label": "Emri (opsional)",
+        "last_name_label": "Mbiemri",
+        "company_label": "Kompania",
+        "company_attention_label": "Kompania/Vëmendje",
+        "optional_company_attention_label": "Kompania/Vëmendje (opsionale)",
+        "optional_company_label": "Emri i kompanisë dhe numri i TVSH-së (opsional)",
+        "address1_label": "Adresa",
+        "address2_label": "Apartament, suitë, etj.",
+        "optional_address2_label": "Apartament, suitë, etj. (opsionale)",
+        "city_label": "Qyteti",
+        "country_label": "Vendi/Rajoni",
+        "country_code": "Kodi i vendit/rajonit",
+        "province_label": "Provinca",
+        "province_placeholder": "Provinca",
+        "county_label": "Qarku",
+        "county_placeholder": "Qarku",
+        "state_label": "Shteti",
+        "state_placeholder": "Shteti",
+        "region_label": "Rajoni",
+        "region_placeholder": "Rajoni",
+        "region_none": "Asnjë i zgjedhur",
+        "prefecture_label": "Prefektura",
+        "prefecture_placeholder": "Prefektura",
+        "governorate_label": "Guvernatori"
+      },
+      "stock": {
+        "unshippable_product": {
+          "header": {
+            "other": "Nuk ka dërgesë të disponueshme për %{count} artikuj"
+          },
+          "message": {
+            "one": "Ky artikull do të hiqet nga shporta juaj sepse nuk ka metoda dërgesash të disponueshme për adresën tuaj.",
+            "other": "Këto artikuj do të hiqen nga shporta juaj sepse nuk ka metoda dërgesash të disponueshme për adresën tuaj."
+          },
+          "status_column_header": "Nuk ka dërgesë"
+        },
+        "price_update": {
+          "title": "Përditësim çmimi",
+          "description": "Çmimet për këto artikuj kanë ndryshuar dhe janë përditësuar në shportën tuaj."
+        },
+        "price_and_quantity_update": {
+          "title": "Përditësim çmimi dhe sasie",
+          "description": "Çmimet dhe sasitë e disponueshme për këto artikuj kanë ndryshuar dhe janë përditësuar në shportën tuaj."
+        },
+        "out_of_stock": {
+          "description": "Këto artikuj nuk janë më të disponueshëm dhe janë hequr nga shporta juaj.",
+          "items_unavailable": "Disa artikuj nuk janë më të disponueshëm dhe janë hequr nga shporta juaj."
+        }
+      },
+      "contextual_availability": {
+        "title": {
+          "one": "Produkt i padisponueshëm",
+          "other": "Produkte të padisponueshme"
+        },
+        "products_not_available": {
+          "one": "Ky produkt do të hiqet nga shporta juaj sepse nuk është i disponueshëm në vendin/rajonin tuaj.",
+          "other": "Këto produkte do të hiqen nga shporta juaj sepse nuk janë të disponueshme në vendin/rajonin tuaj."
+        },
+        "all_products_in_cart_unavailable": {
+          "one": "Ky produkt nuk është i disponueshëm në vendin/rajonin tuaj.",
+          "other": "Këto produkte nuk janë të disponueshme në vendin/rajonin tuaj."
+        },
+        "unavailable_label": "I padisponueshëm"
+      },
+      "merchandise_unavailable_in_buyer_location": {
+        "banner_title": {
+          "some_products_one": "Ky produkt nuk është i disponueshëm për dërgesë në %{location_name}.",
+          "some_products_other": "Këto produkte nuk janë të disponueshme për dërgesë në %{location_name}.",
+          "all_products_one": "Produkti në shportën tuaj nuk është i disponueshëm për dërgesë në %{location_name}.",
+          "all_products_other": "Produktet në shportën tuaj nuk janë të disponueshme për dërgesë në %{location_name}."
+        },
+        "missing_country_fallback": "vendi juaj",
+        "indeterminate_location_fallback": "vendndodhja juaj",
+        "cart_updated": "Shporta juaj është përditësuar.",
+        "change_address_only": "Ndryshoni adresën e dorëzimit për të vazhduar.",
+        "change_address_or_remove": "Ndrysho adresën e dorëzimit ose %{remove_action}.",
+        "remove_items_action": {
+          "one": "hiq artikullin e padisponueshëm",
+          "other": "hiq artikujt e padisponueshëm"
+        },
+        "empty_cart_action": "zbrazni shportën dhe kthejeni në dyqan"
+      },
+      "deliverability": {
+        "not_deliverable": {
+          "title": {
+            "one": "Nuk ka dërgesë të disponueshme për %{count} artikull",
+            "other": "Nuk ka dërgesë të disponueshme për %{count} artikuj"
+          },
+          "message": {
+            "one": "Ky artikull do të hiqet nga shporta juaj sepse nuk ka metoda dërgesash të disponueshme për adresën tuaj.",
+            "other": "Këto artikuj do të hiqen nga shporta juaj sepse nuk ka metoda dërgesash të disponueshme për adresën tuaj."
+          },
+          "label": "Nuk ka dërgesë"
+        }
+      },
+      "order_summary": {
+        "title": "Përmbledhje e porosisë",
+        "group_title_label": "Pjesë e \"%{group_title}\"",
+        "number_items": {
+          "one": "%{count} artikull",
+          "other": "%{count} artikuj"
+        },
+        "view_all_items": {
+          "one": "Shiko %{count} artikull",
+          "other": "Shiko të gjitha %{count} artikujt"
+        },
+        "more_items_modal": {
+          "search_item": "Kërko",
+          "clear_search": "Pastro kërkimin",
+          "empty_results": "Nuk u gjetën rezultate për \"%{searchText}\". Kontrolloni drejtshkrimin ose përdorni një fjalë ose frazë tjetër.",
+          "number_items_shown": "%{shownNumber} nga %{totalNumber} artikuj"
+        },
+        "order_name_label": "Porosit %{name}",
+        "shopping_cart_label": "Shporta e blerjeve",
+        "discount_title": "Zbritje",
+        "discount_title_stacking": {
+          "one": "Zbritje",
+          "other": "Zbritje"
+        },
+        "discount_order_stacking": {
+          "one": "Zbritje për porosi",
+          "other": "Zbritje për porositë"
+        },
+        "discount_label": "Kodi i zbritjes",
+        "discount_not_found": "Nuk mund të gjendet një zbritje e vlefshme që përputhet me kodin e futur",
+        "discount_placeholder": "Kodi i zbritjes",
+        "discount_code_applied": "Kodi i zbritjes u zbatua",
+        "gift_card_applied": "Karta dhuratë u aplikua",
+        "enter_shipping_address": "Fut adresën e dërgesës",
+        "gift_card_title": "Kartë dhurate",
+        "gift_card_label": "Kartë dhurate",
+        "gift_card_placeholder": "Kartë dhurate",
+        "gift_card_and_discount_title": "Kod zbritjeje ose kartë dhurate",
+        "gift_card_and_discount_label": "Kod zbritjeje ose kartë dhurate",
+        "gift_card_and_discount_placeholder": "Kod zbritjeje ose kartë dhurate",
+        "remove_gift_card_label": "Pastro kartën e dhuratës",
+        "remove_discount_label": "Hiq zbritjen",
+        "return_restocking_fee_label": "Tarifa e rimbushjes së stokut",
+        "return_shipping_fee_label": "Transporti i kthimit",
+        "free_shipping_discount_label": "Transporti falas",
+        "applied_free_shipping_discount_label": "Zbatuar",
+        "apply_discount_button_label": "Zbato",
+        "applied_discount_message": "%{amount} zbritje nga çmimi total i porosisë",
+        "discount_has_been_applied": "Zbritja është aplikuar",
+        "discount_has_been_removed": "Zbritja është hequr",
+        "gift_card_has_been_applied": "Karta dhuratë është aplikuar",
+        "gift_card_has_been_removed": "Karta dhuratë është hequr",
+        "gift_card_subscriptions_notice": "Kartat dhuratë do të vlejnë vetëm për pagesën tuaj të parë",
+        "discount_already_applied": "Një zbritje është aplikuar për këtë porosi. Nuk mund të shtoni një zbritje tjetër.",
+        "cart_does_not_meet_discount_requirements_notice": "Kodi i zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong> nuk është i vlefshëm për artikujt në shportën tuaj",
+        "discount_requires_customer_notice": "Futni informacionin tuaj të transportit për të aplikuar kodin e zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong>",
+        "customer_does_not_meet_discount_requirements_notice": "Kodi i zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong> nuk është i disponueshëm për ju tani",
+        "eligible_customer_missing_notice": "Kodi i zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong> kërkon klient të përshtatshëm",
+        "shipping_information_does_not_meet_discount_requirements_notice": "Kodi i zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong> nuk është i disponueshëm për adresën tuaj të dërgesës",
+        "customer_already_used_once_per_customer_discount_notice": "Kodi i zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong> është përdorur tashmë",
+        "subtotal_label": "Nëntotali",
+        "subtotal_label_with_quantity": {
+          "one": "Nëntotali · %{count} artikull",
+          "other": "Nëntotali · %{count} artikuj"
+        },
+        "shipping_label": "Transporti",
+        "pickup_label": "Marrje në dyqan",
+        "no_pickup_location": "Nuk ka vende për marrje në dispozicion.",
+        "pickup_unavailable_banner_title": {
+          "one": "Artikulli juaj nuk është i disponueshëm për t'u marrë në dyqan",
+          "other": "Artikujt tuaj nuk janë të disponueshëm për t'u marrë në dyqan"
+        },
+        "pickup_unavailable_banner_body": {
+          "ship_to_address": "Dërgo në adresë",
+          "ship_to_address_instead_html": "%{link} në vend të kësaj"
+        },
+        "tip_label": "Bakshish",
+        "calculating_shipping": "Duke llogaritur…",
+        "calculating": "Duke llogaritur…",
+        "shipping_default_value": "Llogaritur në hapin tjetër",
+        "shipping_discount_title": "Zbritje për transport",
+        "shipping_pending_message": "Nuk është ende i disponueshëm"
+      }
+    }
+  }
+}
