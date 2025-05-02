@@ -11,7 +11,7 @@
   "shopify": {
     "checkout": {
       "contact": {
-        "optional_company_label": "Company Name & VAT Number (Optional)"
+        "optional_company_label": "Company name & VAT number (Optional)"
       }
     }
   }
