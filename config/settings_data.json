@@ -17,7 +17,7 @@
       "hero": {
         "type": "hero",
         "settings": {
-          "bg_hero_image": "shopify://shop_images/tp-hero-hq.png",
+          "bg_hero_image": "shopify://shop_images/tp-hero-hq-2_5b2adf13-849c-4c61-b81f-935fc493edc7.jpg",
           "bg_hero_mb_image": "shopify://shop_images/tp-header-mb-hq.png",
           "heading": "Softness you can trust, comfort you’ll feel",
           "paragraph1": "With over 15 years of experience in producing kitchen, toilet, and napkin paper, Flutra stands for comfort, quality, and care.",
@@ -310,6 +310,38 @@
           "collection_link_cVLtLg"
         ],
         "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "free_shipping_text": "Free shipping on all orders above 100€",
+          "contact_email": "info@flutra.eu",
+          "account_text": "My Account",
+          "sign_in_text": "Sign In / Register",
+          "search_placeholder": "Search products by name, or category",
+          "cart_text": "Cart",
+          "your_cart_text": "Your cart",
+          "items_text": "items",
+          "close_text": "Close",
+          "discount_code_text": "Do you have a discount code?",
+          "enter_code_placeholder": "Enter your code",
+          "order_discounts_text": "Order Discounts",
+          "shipping_costs_text": "Shipping costs",
+          "subtotal_text": "Subtotal",
+          "checkout_button_text": "Continue to Checkout",
+          "email_contact_text": "Email contact",
+          "mobile_free_shipping_text": "Free shipping inside 48h on all orders above 100€ in Kosovo",
+          "choose_language_text": "Choose Language"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "copyright_text": "2025 Flutra © All Rights Reserved",
+          "instagram_url": "https://www.instagram.com/flutraofficial",
+          "facebook_url": "https://www.facebook.com/flutraofficial/",
+          "tiktok_url": "https://www.tiktok.com/@flutraofficial"
+        }
       }
     },
     "content_for_index": [],
