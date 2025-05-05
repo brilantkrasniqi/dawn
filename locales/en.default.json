@@ -12,7 +12,8 @@
     "checkout": {
       "contact": {
         "optional_company_label": "Company name (optional)",
-        "optional_address2_label": "VAT number (optional)"
+        "optional_address2_label": "VAT number (optional)",
+        "address1_label": "Address, apartment, suite, etc"
       }
     }
   }
