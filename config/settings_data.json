@@ -297,9 +297,9 @@
           "collection_link_cVLtLg": {
             "type": "collection_link",
             "settings": {
-              "title": "Napkins",
+              "title": "Napkin",
               "collection_link": "shopify://collections/napkin",
-              "collection_handle": "napkins"
+              "collection_handle": "napkin"
             }
           }
         },
