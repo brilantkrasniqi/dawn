@@ -178,6 +178,30 @@ width:90px ;
   width: 15px;
 }
 
+.info-icon-container .info-icon {
+  cursor: pointer;
+}
+
+.info-icon {
+  cursor: pointer;
+}
+
+.info-text {
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  top: -100%;
+  left: 122px;
+  width: 200px;
+  padding:10px;
+  background-color:white;
+  border-radius: 12px;
+}
+.info-icon-container:hover .info-text {
+  opacity: 1;
+  pointer-events: auto;
+}
 nav .input-group-text,
 nav .form-control {
   background-color: var(--product-gray-bg) !important;
@@ -446,7 +470,7 @@ input[type="number"] {
   width: 15px;
   position: absolute;
   left:50%;
-  top: -4%;
+  top: -40px;
   z-index: 30;
 }
 #thumbnailProductShowCase .splide__arrow--next svg {
