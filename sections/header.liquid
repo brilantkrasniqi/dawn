@@ -105,29 +105,29 @@
       <div class="col-lg-5 ps-lg-0 col-sm-8 col-6 my-auto ms-auto p-0">
         <div class="d-flex align-items-center justify-content-end">
           {% comment %} <div class="input-group my-auto d-sm-flex d-none">
-                                                                                                                                                                                                                                                                       <span class="input-group-text d-sm-inline-block" id="search-bar">
-                                                                                                                                                                                                                                                                                                              <img
-                                                                                                                                                                                                                                                                                                                src="{{'search-svg.svg' |  asset_url}}"
-                                                                                                                                                                                                                                                                                                                width="18"
-                                                                                                                                                                                                                                                                                                                height="18"
-                                                                                                                                                                                                                                                                                                                id=""
-                                                                                                                                                                                                                                                                                                          alt="" /></span>
-                                                                                                                                                                                                                                                                       <input
-                                                                                                                                                                                                                                                                                                                          type="text"
-                                                                                                                                                                                                                                                                                                                          class="form-control"
-                                                                                                                                                                                                                                                                                                                          id="searchBar"
-                                                                                                                                                                                                                                                                                                                          placeholder="{{ section.settings.search_placeholder }}"
-                                                                                                                                                                                                                                                                                                                          aria-label="Search"
-                                                                                                                                                                                                                                                                                                                  aria-describedby="search-bar" />
-                                                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                                                       <img
-                                                                                                                                                                                                                                                                                                                                                                        class="d-sm-none d-block"
-                                                                                                                                                                                                                                                                                                                                                                        type="button"
-                                                                                                                                                                                                                                                                                                                                                                        src="{{'search-svg.svg' |  asset_url}}"
-                                                                                                                                                                                                                                                                                                                                                                        width="18"
-                                                                                                                                                                                                                                                                                                                                                                        height="18"
-                                                                                                                                                                                                                                                                                                                                                                        id="search-btn-nav"
-                                                                                                                                                                                                                                                                                                              alt="" /> {% endcomment %}
+                                                                                                                                                                                                                                                                                                                                                                                   <span class="input-group-text d-sm-inline-block" id="search-bar">
+                                                                                                                                                                                                                                                                                                                                                                                                                          <img
+                                                                                                                                                                                                                                                                                                                                                                                                                            src="{{'search-svg.svg' |  asset_url}}"
+                                                                                                                                                                                                                                                                                                                                                                                                                            width="18"
+                                                                                                                                                                                                                                                                                                                                                                                                                            height="18"
+                                                                                                                                                                                                                                                                                                                                                                                                                            id=""
+                                                                                                                                                                                                                                                                                                                                                                                                                      alt="" /></span>
+                                                                                                                                                                                                                                                                                                                                                                                   <input
+                                                                                                                                                                                                                                                                                                                                                                                                                                      type="text"
+                                                                                                                                                                                                                                                                                                                                                                                                                                      class="form-control"
+                                                                                                                                                                                                                                                                                                                                                                                                                                      id="searchBar"
+                                                                                                                                                                                                                                                                                                                                                                                                                                      placeholder="{{ section.settings.search_placeholder }}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                      aria-label="Search"
+                                                                                                                                                                                                                                                                                                                                                                                                                              aria-describedby="search-bar" />
+                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                                                                   <img
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="d-sm-none d-block"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    type="button"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    src="{{'search-svg.svg' |  asset_url}}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    width="18"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    height="18"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    id="search-btn-nav"
+                                                                                                                                                                                                                                                                                                                                                                                                        alt="" /> {% endcomment %}
           <div type="button" class="cart-nav d-flex align-items-center justify-content-end ms-3">
 
             <img
@@ -198,7 +198,7 @@
             <small class="info-text">A more accurate shipping cost will be calculated at checkout based on your address.</small>
           </span>
         </p>
-        <p id="shipping-costs">$0.00</p>
+        <p id="shipping-costs"></p>
       </div>
       <div class="d-flex align-items-start justify-content-between pt-2 pb-4">
         <h3 class="fw-bold">{{ section.settings.subtotal_text }}</h3>
@@ -312,7 +312,15 @@
   .nav-header {
     width: 100%;
     transition: all 0.3s ease;
+  }
 
+  #shipping-costs {
+    font-weight: 400;
+  }
+
+  #shipping-costs.free {
+    color: #28a745;
+    font-weight: 600;
   }
 
   #discount-code {
@@ -439,6 +447,13 @@
       },
       {
         "type": "text",
+        "id": "free_shipping_label",
+        "label": "Free Shipping Label",
+        "default": "Free",
+        "info": "Text to display when shipping is free"
+      },
+      {
+        "type": "text",
         "id": "account_text",
         "label": "Account Text",
         "default": "My Account"
@@ -502,6 +517,13 @@
         "id": "shipping_costs_text",
         "label": "Shipping Costs Text",
         "default": "Shipping costs"
+      },
+      {
+        "type": "number",
+        "id": "default_shipping_cost",
+        "label": "Default Shipping Cost (in cents)",
+        "default": 500,
+        "info": "This will be used when shipping rates cannot be calculated. Example: 500 = 5.00"
       },
       {
         "type": "text",
