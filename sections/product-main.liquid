@@ -3,13 +3,13 @@
     <div class="row">
       <div class="col-lg-6 col-12">
         <div class="position-sticky top-15">
-          <div class="d-lg-flex flex-row-reverse align-items-center justify-content-center">
+          <div class="d-lg-flex flex-row-reverse align-items-center justify-content-center pt-lg-3 overflow-hidden">
             <div
               class="splide mx-auto"
               id="singleProductShowCase"
               aria-label="Product Show Case">
               <div class="splide__track">
-                <ul class="splide__list">
+                <ul class="splide__list ">
                   {% assign package_image_ids = product.variants | map: 'image' | compact | map: 'id' %}
                   {% for image in product.images %}
                     {% unless package_image_ids contains image.id %}
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div
-              class="splide thumbnail-splide"
+              class="splide thumbnail-splide d-lg-flex align-items-center justify-content-center"
               id="thumbnailProductShowCase"
               aria-label="Product Show Case">
               <div class="splide__track px-4">
@@ -246,6 +246,7 @@
                   Out of Stock
                 {% endif %}
               </button>
+              <small class="d-block text-center pt-2" style="font-weight: 500;">Free shipping on orders over €100</small>
             </form>
           </div>
         </div>
