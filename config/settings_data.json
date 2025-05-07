@@ -17,7 +17,7 @@
       "hero": {
         "type": "hero",
         "settings": {
-          "bg_hero_image": "shopify://shop_images/tp-hero-hq-2_5b2adf13-849c-4c61-b81f-935fc493edc7.jpg",
+          "bg_hero_image": "shopify://shop_images/tp-hero-hq_v2.jpg",
           "bg_hero_mb_image": "shopify://shop_images/tp-header-mb-hq.png",
           "heading": "Softness you can trust, comfort you’ll feel",
           "paragraph1": "With over 15 years of experience in producing kitchen, toilet, and napkin paper, Flutra stands for comfort, quality, and care.",
@@ -316,6 +316,7 @@
         "settings": {
           "free_shipping_text": "Free shipping on all orders above 100€",
           "contact_email": "info@flutra.eu",
+          "free_shipping_label": "Free",
           "account_text": "My Account",
           "sign_in_text": "Sign In / Register",
           "search_placeholder": "Search products by name, or category",
@@ -327,6 +328,7 @@
           "enter_code_placeholder": "Enter your code",
           "order_discounts_text": "Order Discounts",
           "shipping_costs_text": "Shipping costs",
+          "default_shipping_cost": 500,
           "subtotal_text": "Subtotal",
           "checkout_button_text": "Continue to Checkout",
           "email_contact_text": "Email contact",
