@@ -247,7 +247,9 @@
                 {% endif %}
               </button>
               <small class="d-block text-center pt-2" style="font-weight: 500;">
-                Free shipping on orders over {{ shop.shipping_rates_amount_for_free_shipping | money }}
+                <script>
+                  document.write('Free shipping on orders over ' + Shopify.formatMoney(window.freeShippingThreshold || 10000));
+                </script>
               </small>
             </form>
           </div>

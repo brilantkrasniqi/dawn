@@ -1287,180 +1287,164 @@ document.addEventListener('DOMContentLoaded', function() {
           shippingCostsElement.classList.remove('free');
 
 // Skip the rest of shipping calculation
-        } else {
-          {% if shop.shipping_rates_amount_for_free_shipping %} // Check if the cart total qualifies for free shipping
-            const freeShippingThreshold = {{ shop.shipping_rates_amount_for_free_shipping | json }};
-          {% else %}
-            const freeShippingThreshold = 10000;
-            {% endif %} // Default to 100 if not set (in cents)
+        } else { // Use our fixed threshold from settings
+          const freeShippingThreshold = window.freeShippingThreshold || {{ settings.free_shipping_threshold | default: 10000 }};
 
-            if (discountedSubtotal >= freeShippingThreshold) { // Free shipping - display the free shipping label instead of €0.00
-              shippingCostsElement.textContent = "{{ section.settings.free_shipping_label | default: 'Free' }}";
-              shippingCostsElement.setAttribute('data-shipping-cost', 0);
-              shippingCostsElement.classList.add('free');
-            } else {
-              shippingCostsElement.classList.remove('free');
-              fetch('/cart/shipping_rates.json?shipping_address[country]=     {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
-                if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
-                  const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                  shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
-                  shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
-                  throw new Error('Failed to fetch shipping rates');
-                }
-                return response.json();
-              }).then(data => {
-                if (data.shipping_rates && data.shipping_rates.length > 0) { // Sort by price and select the lowest
-                  const lowestRate = data.shipping_rates.sort((a, b) => a.price - b.price)[0];
-                  const shippingCost = lowestRate.price * 100;
-                  shippingCostsElement.setAttribute('data-shipping-cost', shippingCost);
-                  shippingCostsElement.textContent = Shopify.formatMoney(shippingCost);
-                } else { // No shipping rates available, use default
-                  const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                  shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
-                  shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
-                }
-              }).catch(error => {
-                console.error('Error fetching shipping rates:', error);
+// Convert threshold and cart total to the same currency base for comparison
+// This ensures Albanian LEK or any other currency works with the same threshold
+          const cartTotal = discountedSubtotal;
 
-// Use default shipping cost on error
+          if (cartTotal >= freeShippingThreshold) {
+            shippingCostsElement.textContent = "{{ section.settings.free_shipping_label | default: 'Free' }}";
+            shippingCostsElement.setAttribute('data-shipping-cost', 0);
+            shippingCostsElement.classList.add('free');
+          } else {
+            shippingCostsElement.classList.remove('free');
+            fetch('/cart/shipping_rates.json?shipping_address[country]=           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+              if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
                 shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
                 shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
-              });
-            }
+                throw new Error('Failed to fetch shipping rates');
+              }
+              return response.json();
+            }).then(data => {
+              if (data.shipping_rates && data.shipping_rates.length > 0) { // Sort by price and select the lowest
+                const lowestRate = data.shipping_rates.sort((a, b) => a.price - b.price)[0];
+                const shippingCost = lowestRate.price * 100;
+                shippingCostsElement.setAttribute('data-shipping-cost', shippingCost);
+                shippingCostsElement.textContent = Shopify.formatMoney(shippingCost);
+              } else { // No shipping rates available, use default
+                const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
+                shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
+                shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
+              }
+            }).catch(error => {
+              console.error('Error fetching shipping rates:', error);
+
+// Use default shipping cost on error
+              const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
+              shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
+              shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
+            });
           }
         }
+      }
 
 // Update all subtotal elements
-        document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
-          subtotalElem.setAttribute('data-subtotal', discountedSubtotal);
-          subtotalElem.textContent = Shopify.formatMoney(discountedSubtotal);
-        });
-      }).catch(error => console.error('Error updating cart UI:', error));
-    }
+      document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
+        subtotalElem.setAttribute('data-subtotal', discountedSubtotal);
+        subtotalElem.textContent = Shopify.formatMoney(discountedSubtotal);
+      });
+    }).catch(error => console.error('Error updating cart UI:', error));
+  }
 
 // --- Event Delegation for Quantity Buttons & Remove Links ---
-    document.addEventListener('click', function(e) {
+  document.addEventListener('click', function(e) {
 
 // Plus button
-      const plusButton = e.target.closest('.btn-plus');
-      if (plusButton) {
-        const key = plusButton.getAttribute('data-key');
-        if (key) {
-          updateCartItemQuantity(key, 1);
-          return;
-        }
+    const plusButton = e.target.closest('.btn-plus');
+    if (plusButton) {
+      const key = plusButton.getAttribute('data-key');
+      if (key) {
+        updateCartItemQuantity(key, 1);
+        return;
       }
+    }
 
 // Minus button
-      const minusButton = e.target.closest('.btn-minus');
-      if (minusButton) {
-        const key = minusButton.getAttribute('data-key');
-        if (key) {
-          updateCartItemQuantity(key, -1);
-          return;
-        }
+    const minusButton = e.target.closest('.btn-minus');
+    if (minusButton) {
+      const key = minusButton.getAttribute('data-key');
+      if (key) {
+        updateCartItemQuantity(key, -1);
+        return;
       }
+    }
 
 // Remove button
-      const removeButton = e.target.closest('.remove-item');
-      if (removeButton) {
-        e.preventDefault();
-        const key = removeButton.getAttribute('data-key');
-        if (key) {
-          updateCartItemQuantity(key, 0);
-          return;
-        }
+    const removeButton = e.target.closest('.remove-item');
+    if (removeButton) {
+      e.preventDefault();
+      const key = removeButton.getAttribute('data-key');
+      if (key) {
+        updateCartItemQuantity(key, 0);
+        return;
       }
-    });
-    function updateCartItemQuantity(itemKey, change) {
-      console.log('Updating quantity for key:', itemKey, 'Change:', change);
+    }
+  });
+  function updateCartItemQuantity(itemKey, change) {
+    console.log('Updating quantity for key:', itemKey, 'Change:', change);
 
 // Show loader and hide quantity number for the specific cart item
-      const cartItem = document.querySelector(`.cartItemContainer[data-key="${itemKey}"]`);
-      if (cartItem) {
-        const loader = cartItem.querySelector('.loader');
-        const quantityNumber = cartItem.querySelector('.quantity-number');
-        if (loader) {
-          loader.style.display = 'block';
-        }
-        if (quantityNumber) { // Hide the text but keep the element visible for the loader
-          quantityNumber.style.display = 'none';
+    const cartItem = document.querySelector(`.cartItemContainer[data-key="${itemKey}"]`);
+    if (cartItem) {
+      const loader = cartItem.querySelector('.loader');
+      const quantityNumber = cartItem.querySelector('.quantity-number');
+      if (loader) {
+        loader.style.display = 'block';
+      }
+      if (quantityNumber) { // Hide the text but keep the element visible for the loader
+        quantityNumber.style.display = 'none';
+      }
+    }
+
+    fetch('/cart.js').then(response => response.json()).then(cart => {
+      const item = cart.items.find(i => i.key === itemKey);
+      if (! item) {
+        console.error('Item not found for key:', itemKey);
+        return;
+      }
+      let newQuantity = (change === 0)
+        ? 0
+        : item.quantity + change;
+      if (newQuantity < 0) 
+        newQuantity = 0;
+      
+
+
+      console.log(`Changing quantity of ${
+        item.title
+      } from ${
+        item.quantity
+      } to ${newQuantity}`);
+
+// Preserve the item properties when updating quantity
+      const properties = item.properties || {};
+
+// Ensure discount_tiers property is correctly preserved
+      if (properties._discount_tiers) {
+        console.log('Preserving discount tiers during quantity update:', properties._discount_tiers);
+      } else if (newQuantity > 0 && localStorage.getItem('last_added_discount_tiers')) { // Try to recover from local storage if property was lost
+        try {
+          const lastTiers = localStorage.getItem('last_added_discount_tiers');
+          if (itemKey.includes(item.product_id) && cart.items.indexOf(item) === 0) { // Only apply to first variant of the product
+            properties._discount_tiers = lastTiers;
+            console.log('Recovered discount tiers from local storage:', lastTiers);
+          }
+        } catch (e) {
+          console.error('Error recovering discount tiers:', e);
         }
       }
 
-      fetch('/cart.js').then(response => response.json()).then(cart => {
-        const item = cart.items.find(i => i.key === itemKey);
-        if (! item) {
-          console.error('Item not found for key:', itemKey);
-          return;
-        }
-        let newQuantity = (change === 0)
-          ? 0
-          : item.quantity + change;
-        if (newQuantity < 0) 
-          newQuantity = 0;
-        
-
-
-        console.log(`Changing quantity of ${
-          item.title
-        } from ${
-          item.quantity
-        } to ${newQuantity}`);
-
-// Preserve the item properties when updating quantity
-        const properties = item.properties || {};
-
-// Ensure discount_tiers property is correctly preserved
-        if (properties._discount_tiers) {
-          console.log('Preserving discount tiers during quantity update:', properties._discount_tiers);
-        } else if (newQuantity > 0 && localStorage.getItem('last_added_discount_tiers')) { // Try to recover from local storage if property was lost
-          try {
-            const lastTiers = localStorage.getItem('last_added_discount_tiers');
-            if (itemKey.includes(item.product_id) && cart.items.indexOf(item) === 0) { // Only apply to first variant of the product
-              properties._discount_tiers = lastTiers;
-              console.log('Recovered discount tiers from local storage:', lastTiers);
-            }
-          } catch (e) {
-            console.error('Error recovering discount tiers:', e);
-          }
-        }
-
-        fetch('/cart/change.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(
-            {id: itemKey, quantity: newQuantity, properties: properties}
-          )
-        }).then(response => response.json()).then(updatedCart => {
-          console.log('Cart updated:', updatedCart);
-          updateCartUI();
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          {id: itemKey, quantity: newQuantity, properties: properties}
+        )
+      }).then(response => response.json()).then(updatedCart => {
+        console.log('Cart updated:', updatedCart);
+        updateCartUI();
 
 // Hide all loaders after cart UI is updated
-          document.querySelectorAll('.loader').forEach(loader => {
-            loader.style.display = 'none';
-          });
-        }).catch(error => {
-          console.error('Error updating cart item:', error);
-
-// Hide loader on error and restore quantity display
-          document.querySelectorAll('.loader').forEach(loader => {
-            loader.style.display = 'none';
-          });
-
-// Restore original quantity text if update failed
-          if (cartItem) {
-            const quantityNumber = cartItem.querySelector('.quantity-number');
-            if (quantityNumber) {
-              quantityNumber.style.display = 'block';
-            }
-          }
+        document.querySelectorAll('.loader').forEach(loader => {
+          loader.style.display = 'none';
         });
       }).catch(error => {
-        console.error('Error fetching cart:', error);
+        console.error('Error updating cart item:', error);
 
 // Hide loader on error and restore quantity display
         document.querySelectorAll('.loader').forEach(loader => {
@@ -1475,31 +1459,47 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
       });
-    }
+    }).catch(error => {
+      console.error('Error fetching cart:', error);
+
+// Hide loader on error and restore quantity display
+      document.querySelectorAll('.loader').forEach(loader => {
+        loader.style.display = 'none';
+      });
+
+// Restore original quantity text if update failed
+      if (cartItem) {
+        const quantityNumber = cartItem.querySelector('.quantity-number');
+        if (quantityNumber) {
+          quantityNumber.style.display = 'block';
+        }
+      }
+    });
+  }
 
 // --- Checkout Button Event ---
-    const checkoutButton = document.querySelector('.checkout-button');
-    if (checkoutButton) {
-      checkoutButton.addEventListener('click', function() {
+  const checkoutButton = document.querySelector('.checkout-button');
+  if (checkoutButton) {
+    checkoutButton.addEventListener('click', function() {
 
 // Get all items from cart, update properties if needed, then redirect to checkout
-        fetch('/cart.js').then(response => response.json()).then(cart => {
-          window.location.href = '/checkout';
-        }).catch(error => console.error('Error processing checkout:', error));
-      });
-    }
+      fetch('/cart.js').then(response => response.json()).then(cart => {
+        window.location.href = '/checkout';
+      }).catch(error => console.error('Error processing checkout:', error));
+    });
+  }
 
 // --- Close Cart Event ---
-    const closeCartButton = document.getElementById('closeCart');
-    if (closeCartButton) {
-      closeCartButton.addEventListener('click', function() {
-        closeCart();
-      });
-    }
+  const closeCartButton = document.getElementById('closeCart');
+  if (closeCartButton) {
+    closeCartButton.addEventListener('click', function() {
+      closeCart();
+    });
+  }
 
 // --- Initialize Cart UI on Page Load ---
-    updateCartUI();
-  });
+  updateCartUI();
+});
 
 // document.addEventListener('DOMContentLoaded', () => {
 // const searchBar = document.getElementById('searchBar');
@@ -1627,360 +1627,360 @@ document.addEventListener('DOMContentLoaded', function() {
 // })
 // console.log('Hello');
 // }, 1000);
-  document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('quantitySlider');
-    const qtyInput = document.getElementById('quantityInput');
-    const unitPriceEl = document.getElementById('unitPrice');
-    const perPieceEl = document.getElementById('perPiece');
-    const totalPriceEl = document.getElementById('totalPrice');
-    const discountLabel = document.getElementById('activeDiscountLabel');
+document.addEventListener('DOMContentLoaded', () => {
+  const slider = document.getElementById('quantitySlider');
+  const qtyInput = document.getElementById('quantityInput');
+  const unitPriceEl = document.getElementById('unitPrice');
+  const perPieceEl = document.getElementById('perPiece');
+  const totalPriceEl = document.getElementById('totalPrice');
+  const discountLabel = document.getElementById('activeDiscountLabel');
 
-    let baseCents = parseInt(document.querySelector('#package-options .package-box.selected') ?. dataset.price || document.querySelector('#package-options .package-box') ?. dataset.price, 10) || {{ product.price | times: 100 }};
+  let baseCents = parseInt(document.querySelector('#package-options .package-box.selected') ?. dataset.price || document.querySelector('#package-options .package-box') ?. dataset.price, 10) || {{ product.price | times: 100 }};
 
-    let pieces = parseInt(document.querySelector('#package-options .package-box.selected') ?. dataset.pieces || 1, 10);
+  let pieces = parseInt(document.querySelector('#package-options .package-box.selected') ?. dataset.pieces || 1, 10);
 
 // Add event listeners to package boxes to update price variables when clicked
-    const packageBoxes = document.querySelectorAll('#package-options .package-box');
-    if (packageBoxes.length > 0) {
-      packageBoxes.forEach(box => {
-        box.addEventListener('click', function() {
+  const packageBoxes = document.querySelectorAll('#package-options .package-box');
+  if (packageBoxes.length > 0) {
+    packageBoxes.forEach(box => {
+      box.addEventListener('click', function() {
 
 // Update baseCents and pieces when a variant is selected
-          baseCents = parseInt(this.dataset.price, 10) || baseCents;
-          pieces = parseInt(this.dataset.pieces, 10) || pieces;
+        baseCents = parseInt(this.dataset.price, 10) || baseCents;
+        pieces = parseInt(this.dataset.pieces, 10) || pieces;
 
 // Reset quantity to 1 when variant is changed
-          if (qtyInput) {
-            qtyInput.value = 1;
-          }
+        if (qtyInput) {
+          qtyInput.value = 1;
+        }
 
-          if (slider) {
-            slider.setAttribute('value', 1);
-          }
+        if (slider) {
+          slider.setAttribute('value', 1);
+        }
 
 // Recalculate prices with quantity 1
-          recalcPrices(1);
-        });
+        recalcPrices(1);
       });
-    }
+    });
+  }
 
-    function recalcPrices(qty) {
+  function recalcPrices(qty) {
 
 // 1. Determine discount rate from metafields
-      let discountRate = 0;
-      if (window.discountTiers && window.discountTiers.tiers) { // Sort tiers by min value in descending order to get highest applicable tier
-        const sortedTiers = [...window.discountTiers.tiers].sort((a, b) => b.min - a.min);
+    let discountRate = 0;
+    if (window.discountTiers && window.discountTiers.tiers) { // Sort tiers by min value in descending order to get highest applicable tier
+      const sortedTiers = [...window.discountTiers.tiers].sort((a, b) => b.min - a.min);
 
 // Find the highest tier where quantity meets or exceeds minimum
-        for (const tier of sortedTiers) {
-          if (qty >= tier.min) {
-            discountRate = tier.discount / 100; // Convert percentage to decimal
-            break;
-          }
+      for (const tier of sortedTiers) {
+        if (qty >= tier.min) {
+          discountRate = tier.discount / 100; // Convert percentage to decimal
+          break;
         }
       }
     }
+  }
 
 // ... rest of the existing code ...
-  });
+});
 
 // Discount Tiers Display Handler
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize discount display
-    const quantityInput = document.getElementById('quantityInput');
-    const quantitySlider = document.getElementById('quantitySlider');
-    const discountDisplay = document.getElementById('discountDisplay');
-    const variantPriceElement = document.getElementById('variant-price');
-    const originalPriceElement = document.getElementById('original-price-data');
+  const quantityInput = document.getElementById('quantityInput');
+  const quantitySlider = document.getElementById('quantitySlider');
+  const discountDisplay = document.getElementById('discountDisplay');
+  const variantPriceElement = document.getElementById('variant-price');
+  const originalPriceElement = document.getElementById('original-price-data');
 
-    if (quantityInput && discountDisplay) { // Function to update the discount display and prices based on quantity
-      function updateDiscountDisplay(quantity) {
+  if (quantityInput && discountDisplay) { // Function to update the discount display and prices based on quantity
+    function updateDiscountDisplay(quantity) {
 
 // Get original price data
-        let originalPrice = parseInt(originalPriceElement ?. getAttribute('data-price')) || 0;
-        let piecesPerPack = parseInt(originalPriceElement ?. getAttribute('data-pieces')) || 1;
+      let originalPrice = parseInt(originalPriceElement ?. getAttribute('data-price')) || 0;
+      let piecesPerPack = parseInt(originalPriceElement ?. getAttribute('data-pieces')) || 1;
 
 // Check if we're on the first variant - only apply discounts to first variant
-        const selectedVariant = document.querySelector('#package-options .package-box.selected');
-        const allVariants = document.querySelectorAll('#package-options .package-box');
-        const isFirstVariant = selectedVariant && allVariants.length > 0 && selectedVariant === allVariants[0];
+      const selectedVariant = document.querySelector('#package-options .package-box.selected');
+      const allVariants = document.querySelectorAll('#package-options .package-box');
+      const isFirstVariant = selectedVariant && allVariants.length > 0 && selectedVariant === allVariants[0];
 
-        if (! isFirstVariant || !window.discountTiers || !window.discountTiers.tiers || window.discountTiers.tiers.length === 0) { // No discount scenario
-          discountDisplay.textContent = '';
-          discountDisplay.classList.remove('text-discount');
+      if (! isFirstVariant || !window.discountTiers || !window.discountTiers.tiers || window.discountTiers.tiers.length === 0) { // No discount scenario
+        discountDisplay.textContent = '';
+        discountDisplay.classList.remove('text-discount');
 
 // Hide the discount badge
-          const discountBadge = document.querySelector('.discount-percentage-badge');
-          if (discountBadge) {
-            discountBadge.style.display = 'none';
-          }
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          discountBadge.style.display = 'none';
+        }
 
 // Update the price without discount
-          if (variantPriceElement) {
-            const formattedPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
-            const pricePerPiece = originalPrice / piecesPerPack;
-            const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
+        if (variantPriceElement) {
+          const formattedPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
+          const pricePerPiece = originalPrice / piecesPerPack;
+          const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
 
-            variantPriceElement.innerHTML = `${formattedPrice} 
+          variantPriceElement.innerHTML = `${formattedPrice} 
             <span class="perPiece pb-2" id="price-per-piece">
               (${formattedPricePerPiece}) per ${
-              window.unitLabel || 'piece'
-            }
+            window.unitLabel || 'piece'
+          }
             </span>`;
 
 // Update compare price and make it visible
-            const comparePrice = document.getElementById('compare-price');
-            if (comparePrice) {
-              const variantCompareAtPrice = selectedVariant
-                ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
-                : 0;
-
-              if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) {
-                comparePrice.textContent = Shopify.formatMoney(variantCompareAtPrice * quantity, window.shopMoneyFormat);
-                comparePrice.classList.remove('d-none');
-                comparePrice.style.display = 'block';
-              } else {
-                comparePrice.classList.add('d-none');
-                comparePrice.style.display = 'none';
-              }
-            }
-          }
-          return;
-        }
-
-// Find the applicable discount tier
-        const sortedTiers = [...window.discountTiers.tiers].sort((a, b) => b.min - a.min);
-        let applicableTier = null;
-
-// Find highest applicable tier
-        for (const tier of sortedTiers) {
-          if (quantity >= tier.min) {
-            applicableTier = tier;
-            break;
-          }
-        }
-
-// Update the display and price
-        if (applicableTier) { // Calculate discounted price
-          const discountPercentage = applicableTier.discount;
-
-// Use Math.floor for per-item discount calculation to match Shopify's approach
-          const discountAmount = Math.floor((originalPrice * discountPercentage) / 100);
-          const discountedPricePerItem = originalPrice - discountAmount;
-          const totalDiscountedPrice = discountedPricePerItem * quantity;
-
-// Calculate the actual amount saved in euros
-          const originalTotalPrice = originalPrice * quantity;
-          const totalDiscountAmount = originalTotalPrice - totalDiscountedPrice;
-
-// Update discount display text with raw value in data attribute
-          discountDisplay.setAttribute('data-discount-amount', totalDiscountAmount);
-          const discountText = `You currently save ${
-            Shopify.formatMoney(totalDiscountAmount)
-          } Off your total order!`;
-          discountDisplay.textContent = discountText;
-          discountDisplay.classList.add('text-discount');
-
-// Also update the discount badge - but only show the percentage number
-          const discountBadge = document.querySelector('.discount-percentage-badge');
-          if (discountBadge) {
-            discountBadge.textContent = `-${
-              applicableTier.discount
-            }%`;
-
-            discountBadge.style.display = 'block';
-
-// Make sure it's visible
-
-// Hide compare price when discount badge is visible
-            const comparePrice = document.getElementById('compare-price');
-            if (comparePrice) {
-              comparePrice.style.display = 'none';
-            }
-          }
-
-// Update price display with discount
-          if (variantPriceElement) {
-            const formattedDiscountedPrice = Shopify.formatMoney(totalDiscountedPrice, window.shopMoneyFormat);
-            const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
-
-// Calculate and format price per piece (based on discounted price)
-            const discountedPricePerPiece = discountedPricePerItem / piecesPerPack;
-            const formattedPricePerPiece = Shopify.formatMoney(discountedPricePerPiece, window.shopMoneyFormat);
-
-// Update HTML with strikethrough for original price
-            variantPriceElement.innerHTML = `${formattedDiscountedPrice} 
-            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
-              window.unitLabel || 'piece'
-            }</span>`;
-
-// Add the original price to the discount container instead
-            const discountContainer = document.querySelector('.discount-container');
-            if (discountContainer) {
-              const discountSpan = document.createElement('span');
-              discountSpan.className = 'discount-price-product fw-light roboto-font user-select-none';
-              discountSpan.textContent = formattedOriginalPrice;
-
-// Clear previous discount span if it exists
-              const existingDiscount = discountContainer.querySelector('.discount-price-product');
-              if (existingDiscount) {
-                existingDiscount.remove();
-              }
-
-              discountContainer.appendChild(discountSpan);
-            }
-          }
-        } else {
-
-// No applicable discount tier
-// Hide the discount text completely
-          discountDisplay.textContent = '';
-          discountDisplay.classList.remove('text-discount');
-
-// Hide the discount badge when there's no discount
-          const discountBadge = document.querySelector('.discount-percentage-badge');
-          if (discountBadge) {
-            discountBadge.textContent = '';
-            discountBadge.style.display = 'none';
-          }
-
-// Show compare price when no discount is applied
           const comparePrice = document.getElementById('compare-price');
-          if (comparePrice) { // Check if there's a valid compare-at-price to show
-            const selectedVariant = document.querySelector('#package-options .package-box.selected');
+          if (comparePrice) {
             const variantCompareAtPrice = selectedVariant
               ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
               : 0;
 
-            if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) { // Multiply compare-at-price by quantity, just like regular price
-              const currentQuantity = parseInt(quantityInput.value) || 1;
-              const totalCompareAtPrice = variantCompareAtPrice * currentQuantity;
-              comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+            if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) {
+              comparePrice.textContent = Shopify.formatMoney(variantCompareAtPrice * quantity, window.shopMoneyFormat);
               comparePrice.classList.remove('d-none');
               comparePrice.style.display = 'block';
-            } else { // No compare-at-price, keep it hidden
+            } else {
               comparePrice.classList.add('d-none');
               comparePrice.style.display = 'none';
             }
           }
+        }
+        return;
+      }
 
-// Update price without discount
-          if (variantPriceElement) {
-            const formattedPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
-            const pricePerPiece = originalPrice / piecesPerPack;
-            const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
+// Find the applicable discount tier
+      const sortedTiers = [...window.discountTiers.tiers].sort((a, b) => b.min - a.min);
+      let applicableTier = null;
 
-            variantPriceElement.innerHTML = `${formattedPrice} 
-            <span class="perPiece pb-2" id="price-per-piece">
-              (${formattedPricePerPiece}) per ${
-              window.unitLabel || 'piece'
-            }
-            </span>`;
+// Find highest applicable tier
+      for (const tier of sortedTiers) {
+        if (quantity >= tier.min) {
+          applicableTier = tier;
+          break;
+        }
+      }
+
+// Update the display and price
+      if (applicableTier) { // Calculate discounted price
+        const discountPercentage = applicableTier.discount;
+
+// Use Math.floor for per-item discount calculation to match Shopify's approach
+        const discountAmount = Math.floor((originalPrice * discountPercentage) / 100);
+        const discountedPricePerItem = originalPrice - discountAmount;
+        const totalDiscountedPrice = discountedPricePerItem * quantity;
+
+// Calculate the actual amount saved in euros
+        const originalTotalPrice = originalPrice * quantity;
+        const totalDiscountAmount = originalTotalPrice - totalDiscountedPrice;
+
+// Update discount display text with raw value in data attribute
+        discountDisplay.setAttribute('data-discount-amount', totalDiscountAmount);
+        const discountText = `You currently save ${
+          Shopify.formatMoney(totalDiscountAmount)
+        } Off your total order!`;
+        discountDisplay.textContent = discountText;
+        discountDisplay.classList.add('text-discount');
+
+// Also update the discount badge - but only show the percentage number
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          discountBadge.textContent = `-${
+            applicableTier.discount
+          }%`;
+
+          discountBadge.style.display = 'block';
+
+// Make sure it's visible
+
+// Hide compare price when discount badge is visible
+          const comparePrice = document.getElementById('compare-price');
+          if (comparePrice) {
+            comparePrice.style.display = 'none';
           }
         }
+
+// Update price display with discount
+        if (variantPriceElement) {
+          const formattedDiscountedPrice = Shopify.formatMoney(totalDiscountedPrice, window.shopMoneyFormat);
+          const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
+
+// Calculate and format price per piece (based on discounted price)
+          const discountedPricePerPiece = discountedPricePerItem / piecesPerPack;
+          const formattedPricePerPiece = Shopify.formatMoney(discountedPricePerPiece, window.shopMoneyFormat);
+
+// Update HTML with strikethrough for original price
+          variantPriceElement.innerHTML = `${formattedDiscountedPrice} 
+            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
+            window.unitLabel || 'piece'
+          }</span>`;
+
+// Add the original price to the discount container instead
+          const discountContainer = document.querySelector('.discount-container');
+          if (discountContainer) {
+            const discountSpan = document.createElement('span');
+            discountSpan.className = 'discount-price-product fw-light roboto-font user-select-none';
+            discountSpan.textContent = formattedOriginalPrice;
+
+// Clear previous discount span if it exists
+            const existingDiscount = discountContainer.querySelector('.discount-price-product');
+            if (existingDiscount) {
+              existingDiscount.remove();
+            }
+
+            discountContainer.appendChild(discountSpan);
+          }
+        }
+      } else {
+
+// No applicable discount tier
+// Hide the discount text completely
+        discountDisplay.textContent = '';
+        discountDisplay.classList.remove('text-discount');
+
+// Hide the discount badge when there's no discount
+        const discountBadge = document.querySelector('.discount-percentage-badge');
+        if (discountBadge) {
+          discountBadge.textContent = '';
+          discountBadge.style.display = 'none';
+        }
+
+// Show compare price when no discount is applied
+        const comparePrice = document.getElementById('compare-price');
+        if (comparePrice) { // Check if there's a valid compare-at-price to show
+          const selectedVariant = document.querySelector('#package-options .package-box.selected');
+          const variantCompareAtPrice = selectedVariant
+            ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+            : 0;
+
+          if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) { // Multiply compare-at-price by quantity, just like regular price
+            const currentQuantity = parseInt(quantityInput.value) || 1;
+            const totalCompareAtPrice = variantCompareAtPrice * currentQuantity;
+            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+            comparePrice.classList.remove('d-none');
+            comparePrice.style.display = 'block';
+          } else { // No compare-at-price, keep it hidden
+            comparePrice.classList.add('d-none');
+            comparePrice.style.display = 'none';
+          }
+        }
+
+// Update price without discount
+        if (variantPriceElement) {
+          const formattedPrice = Shopify.formatMoney(originalPrice * quantity, window.shopMoneyFormat);
+          const pricePerPiece = originalPrice / piecesPerPack;
+          const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
+
+          variantPriceElement.innerHTML = `${formattedPrice} 
+            <span class="perPiece pb-2" id="price-per-piece">
+              (${formattedPricePerPiece}) per ${
+            window.unitLabel || 'piece'
+          }
+            </span>`;
+        }
       }
+    }
 
 // Add event listeners
-      quantityInput.addEventListener('input', (e) => {
-        updateDiscountDisplay(parseInt(e.target.value) || 1);
+    quantityInput.addEventListener('input', (e) => {
+      updateDiscountDisplay(parseInt(e.target.value) || 1);
+    });
+
+    if (quantitySlider) {
+      quantitySlider.addEventListener('change', function(e) {
+        const newVal = e.detail && e.detail.value !== undefined
+          ? e.detail.value
+          : quantitySlider.getAttribute('value');
+        updateDiscountDisplay(parseInt(newVal) || 1);
       });
 
-      if (quantitySlider) {
-        quantitySlider.addEventListener('change', function(e) {
-          const newVal = e.detail && e.detail.value !== undefined
-            ? e.detail.value
-            : quantitySlider.getAttribute('value');
-          updateDiscountDisplay(parseInt(newVal) || 1);
-        });
-
-        quantitySlider.addEventListener('input', function(e) {
-          const newVal = e.detail && e.detail.value !== undefined
-            ? e.detail.value
-            : quantitySlider.getAttribute('value');
-          updateDiscountDisplay(parseInt(newVal) || 1);
-        });
-      }
+      quantitySlider.addEventListener('input', function(e) {
+        const newVal = e.detail && e.detail.value !== undefined
+          ? e.detail.value
+          : quantitySlider.getAttribute('value');
+        updateDiscountDisplay(parseInt(newVal) || 1);
+      });
+    }
 
 // Initialize with current quantity
-      updateDiscountDisplay(parseInt(quantityInput.value) || 1);
-    }
-  });
+    updateDiscountDisplay(parseInt(quantityInput.value) || 1);
+  }
+});
 
 // --- Discount Code Functionality ---
-  document.addEventListener('DOMContentLoaded', function() {
-    const discountInput = document.getElementById('discount-code');
-    const orderDiscountsRow = document.querySelector('.d-flex.align-items-center.justify-content-between.py-2.d-none');
-    const orderDiscountsAmount = document.getElementById('order-discounts');
+document.addEventListener('DOMContentLoaded', function() {
+  const discountInput = document.getElementById('discount-code');
+  const orderDiscountsRow = document.querySelector('.d-flex.align-items-center.justify-content-between.py-2.d-none');
+  const orderDiscountsAmount = document.getElementById('order-discounts');
 
-    if (discountInput) { // Add event listener for the Enter key
-      discountInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          applyDiscountCode();
-        }
-      });
+  if (discountInput) { // Add event listener for the Enter key
+    discountInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyDiscountCode();
+      }
+    });
 
 // Add a blur event to apply discount when input loses focus
-      discountInput.addEventListener('blur', function() {
-        if (discountInput.value.trim()) {
-          applyDiscountCode();
-        }
-      });
+    discountInput.addEventListener('blur', function() {
+      if (discountInput.value.trim()) {
+        applyDiscountCode();
+      }
+    });
 
 // Function to apply discount code
-      function applyDiscountCode() {
-        const code = discountInput.value.trim();
-        if (! code) return;
-        
+    function applyDiscountCode() {
+      const code = discountInput.value.trim();
+      if (! code) return;
+      
 
 
 // Show loading state
-        discountInput.disabled = true;
+      discountInput.disabled = true;
 
 // Apply discount code to cart
-        fetch('/discount/' + code, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
+      fetch('/discount/' + code, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Invalid discount code');
           }
+          return fetch('/cart.js'); // Get updated cart data
         })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Invalid discount code');
-            }
-            return fetch('/cart.js'); // Get updated cart data
-          })
-          .then(response => response.json())
-          .then(cart => {
+        .then(response => response.json())
+        .then(cart => {
 
   // Show the discounts row if there are discounts
-            if (cart.total_discount > 0) {
-              orderDiscountsRow.classList.remove('d-none');
-              orderDiscountsAmount.setAttribute('data-discount', cart.total_discount);
-              orderDiscountsAmount.textContent = '-' + Shopify.formatMoney(cart.total_discount);
+          if (cart.total_discount > 0) {
+            orderDiscountsRow.classList.remove('d-none');
+            orderDiscountsAmount.setAttribute('data-discount', cart.total_discount);
+            orderDiscountsAmount.textContent = '-' + Shopify.formatMoney(cart.total_discount);
 
   // Update subtotal
-              document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
-                subtotalElem.setAttribute('data-subtotal', cart.total_price);
-                subtotalElem.textContent = Shopify.formatMoney(cart.total_price);
-              });
-            }
+            document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
+              subtotalElem.setAttribute('data-subtotal', cart.total_price);
+              subtotalElem.textContent = Shopify.formatMoney(cart.total_price);
+            });
+          }
 
   // Success feedback
-            discountInput.classList.add('is-valid');
-            setTimeout(() => discountInput.classList.remove('is-valid'), 2000);
-          })
-          .catch(error => {
-            console.error('Error applying discount:', error);
+          discountInput.classList.add('is-valid');
+          setTimeout(() => discountInput.classList.remove('is-valid'), 2000);
+        })
+        .catch(error => {
+          console.error('Error applying discount:', error);
 
 // Error feedback
-            discountInput.classList.add('is-invalid');
-            setTimeout(() => discountInput.classList.remove('is-invalid'), 2000);
-          })
-          . finally(() => {
-            discountInput.disabled = false;
-          });
-      }
+          discountInput.classList.add('is-invalid');
+          setTimeout(() => discountInput.classList.remove('is-invalid'), 2000);
+        })
+        . finally(() => {
+          discountInput.disabled = false;
+        });
     }
-  });
+  }
+});
