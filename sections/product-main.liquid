@@ -246,7 +246,9 @@
                   Out of Stock
                 {% endif %}
               </button>
-              <small class="d-block text-center pt-2" style="font-weight: 500;">Free shipping on orders over €100</small>
+              <small class="d-block text-center pt-2" style="font-weight: 500;">
+                Free shipping on orders over {{ shop.shipping_rates_amount_for_free_shipping | money }}
+              </small>
             </form>
           </div>
         </div>

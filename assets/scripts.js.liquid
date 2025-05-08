@@ -204,26 +204,34 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof Shopify === 'undefined') {
     window.Shopify = {};
   }
+
+// Initialize or use existing Shopify.currency object
+  if (!Shopify.currency) {
+    Shopify.currency = {
+      active: {{ cart.currency.iso_code | json }},
+      rate: 1.0
+    };
+  }
+
   if (typeof Shopify.formatMoney !== 'function') {
-    Shopify.formatMoney = function(cents, format) {
-      if (! cents) return'€0.00';
+    Shopify.formatMoney = function(cents) {
+      if (! cents) return'0.00';
       
 
 
-      const value = (cents / 100).toFixed(2);
+// Simple money formatter that uses the browser's Intl.NumberFormat capabilities
+      const value = parseInt(cents, 10) / 100;
 
-// Handle case where format is undefined
-      if (! format) 
-        format = window.shopMoneyFormat || '€{{amount}}';
-      
-
-
-// Return with proper formatting
-      try {
-        return format.replace('{{amount}}', value);
+      try { // Use the current currency from Shopify.currency.active
+        return new Intl.NumberFormat(undefined, {
+          style: 'currency',
+          currency: Shopify.currency.active || 'EUR'
+        }).format(value);
       } catch (e) {
         console.error('Error formatting money:', e);
-        return '€' + value;
+
+// Fallback to a simple formatter
+        return value.toFixed(2);
       }
     };
   }
@@ -540,22 +548,30 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Applicable tier:', applicableTier);
 
 // Update the price display
-      if (variantPriceElement) {
-        const formattedPrice = Shopify.formatMoney(totalPrice, window.shopMoneyFormat);
-
-        console.log('Formatted price to display:', formattedPrice);
-
-// Calculate price per piece
+      if (variantPriceElement) { // Store the raw amounts in data attributes
+        variantPriceElement.setAttribute('data-price', totalPrice);
         const pricePerPiece = discountedPricePerItem / piecesPerPack;
-        const formattedPricePerPiece = Shopify.formatMoney(pricePerPiece, window.shopMoneyFormat);
+        variantPriceElement.setAttribute('data-price-per-piece', pricePerPiece);
 
-// Basic price display with per-piece price
-        variantPriceElement.innerHTML = `${formattedPrice} 
+// Use the template's money filter for display
+        variantPriceElement.innerHTML = `
+          <span class="js-price">{{ totalPrice | money }}</span>
           <span class="perPiece pb-2" id="price-per-piece">
-            (${formattedPricePerPiece}) per ${
+            (<span class="js-price-per-piece">{{ pricePerPiece | money }}</span>) per ${
           window.unitLabel || 'piece'
         }
           </span>`;
+
+// Replace the placeholders with actual formatted values using Shopify's money filter
+        const priceElements = variantPriceElement.querySelectorAll('.js-price');
+        priceElements.forEach(el => {
+          el.textContent = Shopify.formatMoney(totalPrice);
+        });
+
+        const pricePerPieceElements = variantPriceElement.querySelectorAll('.js-price-per-piece');
+        pricePerPieceElements.forEach(el => {
+          el.textContent = Shopify.formatMoney(pricePerPiece);
+        });
 
 // Handle compare price display
         const comparePrice = document.getElementById('compare-price');
@@ -568,7 +584,12 @@ document.addEventListener('DOMContentLoaded', function() {
           if (variantCompareAtPrice && variantCompareAtPrice > originalPrice) { // Get the current quantity and multiply the compare-at-price by it
             const currentQuantity = parseInt(quantityInput.value) || 1;
             const totalCompareAtPrice = variantCompareAtPrice * currentQuantity;
-            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
+
+// Store raw value
+            comparePrice.setAttribute('data-compare-price', totalCompareAtPrice);
+
+// Format for display
+            comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice);
             comparePrice.classList.remove('d-none');
 
 // Still hide it if discount badge is visible and we're on the first variant with a discount tier
@@ -644,7 +665,11 @@ document.addEventListener('DOMContentLoaded', function() {
           const discountAmount = originalTotalPrice - totalPrice;
           const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
 
-          const discountText = `You currently save ${formattedDiscountAmount} off your total order!`;
+// Update discount display text with raw value in data attribute
+          discountDisplay.setAttribute('data-discount-amount', discountAmount);
+          const discountText = `You currently save ${
+            Shopify.formatMoney(discountAmount)
+          } Off your total order!`;
           discountDisplay.textContent = discountText;
           discountDisplay.classList.add('text-discount');
         } else {
@@ -1164,9 +1189,9 @@ document.addEventListener('DOMContentLoaded', function() {
           rawSubtotal += (itemOriginalPrice * item.quantity);
           discountedSubtotal += (itemPrice * item.quantity);
 
-// Format display prices
-          const formattedOriginalPrice = Shopify.formatMoney(itemOriginalPrice * item.quantity, window.shopMoneyFormat);
-          const formattedItemPrice = Shopify.formatMoney(itemPrice * item.quantity, window.shopMoneyFormat);
+// Store raw values for display
+          const itemTotal = itemPrice * item.quantity;
+          const itemOriginalTotal = itemOriginalPrice * item.quantity;
 
 // Show discount in the cart item if we have the discount property and the price is different
           const showDiscount = hasDiscountProperty && itemPrice < itemOriginalPrice;
@@ -1174,7 +1199,7 @@ document.addEventListener('DOMContentLoaded', function() {
           itemsHtml += `
             <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3" data-key="${
             item.key
-          }">
+          }" data-price="${itemTotal}" data-original-price="${itemOriginalTotal}">
               <div class="prodImage rounded-8">
                 <img loading="lazy" src="${
             item.image
@@ -1194,12 +1219,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }">
                     ${
             showDiscount
-              ? formattedOriginalPrice
+              ? Shopify.formatMoney(itemOriginalTotal)
               : ''
             }
                   </span>
                   <h3 class="current-price fw-bold ps-2">
-                    ${formattedItemPrice}
+                    ${
+            Shopify.formatMoney(itemTotal)
+          }
                   </h3>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
@@ -1243,9 +1270,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if (orderDiscountElem) {
         const discountAmount = rawSubtotal - discountedSubtotal;
         if (discountAmount > 0) {
-          orderDiscountElem.textContent = '-' + Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
+          orderDiscountElem.setAttribute('data-discount', discountAmount);
+          orderDiscountElem.textContent = '-' + Shopify.formatMoney(discountAmount);
         } else {
-          orderDiscountElem.textContent = '-$0.00';
+          orderDiscountElem.setAttribute('data-discount', 0);
+          orderDiscountElem.textContent = '-' + Shopify.formatMoney(0);
         }
       }
 
@@ -1254,6 +1283,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (shippingCostsElement) { // If cart is empty, show nothing for shipping cost
         if (cart.items.length === 0) {
           shippingCostsElement.textContent = '';
+          shippingCostsElement.removeAttribute('data-shipping-cost');
           shippingCostsElement.classList.remove('free');
 
 // Skip the rest of shipping calculation
@@ -1266,30 +1296,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (discountedSubtotal >= freeShippingThreshold) { // Free shipping - display the free shipping label instead of €0.00
               shippingCostsElement.textContent = "{{ section.settings.free_shipping_label | default: 'Free' }}";
+              shippingCostsElement.setAttribute('data-shipping-cost', 0);
               shippingCostsElement.classList.add('free');
             } else {
               shippingCostsElement.classList.remove('free');
-              fetch('/cart/shipping_rates.json?shipping_address[country]=           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+              fetch('/cart/shipping_rates.json?shipping_address[country]=     {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
                 if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                   const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                  shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost, window.shopMoneyFormat);
+                  shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
+                  shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
                   throw new Error('Failed to fetch shipping rates');
                 }
                 return response.json();
               }).then(data => {
                 if (data.shipping_rates && data.shipping_rates.length > 0) { // Sort by price and select the lowest
                   const lowestRate = data.shipping_rates.sort((a, b) => a.price - b.price)[0];
-                  shippingCostsElement.textContent = Shopify.formatMoney(lowestRate.price * 100, window.shopMoneyFormat);
+                  const shippingCost = lowestRate.price * 100;
+                  shippingCostsElement.setAttribute('data-shipping-cost', shippingCost);
+                  shippingCostsElement.textContent = Shopify.formatMoney(shippingCost);
                 } else { // No shipping rates available, use default
                   const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                  shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost, window.shopMoneyFormat);
+                  shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
+                  shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
                 }
               }).catch(error => {
                 console.error('Error fetching shipping rates:', error);
 
 // Use default shipping cost on error
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost, window.shopMoneyFormat);
+                shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
+                shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
               });
             }
           }
@@ -1297,7 +1333,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Update all subtotal elements
         document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
-          subtotalElem.textContent = Shopify.formatMoney(discountedSubtotal, window.shopMoneyFormat);
+          subtotalElem.setAttribute('data-subtotal', discountedSubtotal);
+          subtotalElem.textContent = Shopify.formatMoney(discountedSubtotal);
         });
       }).catch(error => console.error('Error updating cart UI:', error));
     }
@@ -1736,10 +1773,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // Calculate the actual amount saved in euros
           const originalTotalPrice = originalPrice * quantity;
           const totalDiscountAmount = originalTotalPrice - totalDiscountedPrice;
-          const formattedDiscountAmount = Shopify.formatMoney(totalDiscountAmount, window.shopMoneyFormat);
 
-// Update discount display text
-          const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
+// Update discount display text with raw value in data attribute
+          discountDisplay.setAttribute('data-discount-amount', totalDiscountAmount);
+          const discountText = `You currently save ${
+            Shopify.formatMoney(totalDiscountAmount)
+          } Off your total order!`;
           discountDisplay.textContent = discountText;
           discountDisplay.classList.add('text-discount');
 
@@ -1918,11 +1957,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Show the discounts row if there are discounts
             if (cart.total_discount > 0) {
               orderDiscountsRow.classList.remove('d-none');
-              orderDiscountsAmount.textContent = '-' + Shopify.formatMoney(cart.total_discount, window.shopMoneyFormat);
+              orderDiscountsAmount.setAttribute('data-discount', cart.total_discount);
+              orderDiscountsAmount.textContent = '-' + Shopify.formatMoney(cart.total_discount);
 
   // Update subtotal
               document.querySelectorAll('.cart-subtotal').forEach(function(subtotalElem) {
-                subtotalElem.textContent = Shopify.formatMoney(cart.total_price, window.shopMoneyFormat);
+                subtotalElem.setAttribute('data-subtotal', cart.total_price);
+                subtotalElem.textContent = Shopify.formatMoney(cart.total_price);
               });
             }
 
