@@ -314,6 +314,7 @@
       "header": {
         "type": "header",
         "settings": {
+          "free_shipping_threshold": 2000,
           "free_shipping_text": "Free shipping on all orders above 20€",
           "contact_email": "info@flutra.eu",
           "free_shipping_label": "Free",
