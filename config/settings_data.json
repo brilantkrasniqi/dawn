@@ -329,7 +329,7 @@
           "enter_code_placeholder": "Enter your code",
           "order_discounts_text": "Order Discounts",
           "shipping_costs_text": "Shipping costs",
-          "default_shipping_cost": 500,
+          "default_shipping_cost": 250,
           "subtotal_text": "Subtotal",
           "checkout_button_text": "Continue to Checkout",
           "email_contact_text": "Email contact",
