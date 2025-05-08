@@ -168,12 +168,17 @@
     <div class="order-value-booster-block" id="cm9ivdx0x004pimv76lxdssu4"></div>
     <div class="d-flex align-items-md-center align-items-start justify-content-between border-bottom py-2">
       <p>{{ section.settings.discount_code_text }}</p>
-      <input
-        type="text"
-        name="discount-code"
-        id="discount-code"
-        placeholder="{{ section.settings.enter_code_placeholder }}"
-        class="rounded-8" />
+      <div class="discount-code-container">
+        <input
+          type="text"
+          name="discount-code"
+          id="discount-code"
+          placeholder="{{ section.settings.enter_code_placeholder }}"
+          class="rounded-8" />
+        <small id="discount-saved-message" class="text-success d-none mt-1">
+          {{ section.settings.discount_saved_text | default: 'Will be applied at checkout' }}
+        </small>
+      </div>
     </div>
     <div class="d-flex align-items-center justify-content-between py-2 d-none">
       <p>{{ section.settings.order_discounts_text }}</p>
@@ -363,10 +368,11 @@
 }
 
 .language-item {
-  color: black;
-  padding: 1rem !important;
-  text-decoration: none;
   display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.2s;
 }
 
 .language-item:hover {
@@ -410,6 +416,17 @@
 .language-mobile-item:hover {
   background-color: #f1f1f1;
   text-decoration: none;
+}
+
+/* Discount code container */
+.discount-code-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#discount-saved-message {
+  font-size: 0.75rem;
+  text-align: right;
 }</style><script>
   // Set global free shipping threshold that can be accessed by all scripts
   window.freeShippingThreshold = {{ section.settings.free_shipping_threshold | default: 10000 }};
@@ -690,6 +707,12 @@
       "id": "enter_code_placeholder",
       "label": "Enter Code Placeholder",
       "default": "Enter your code"
+    },
+    {
+      "type": "text",
+      "id": "discount_saved_text",
+      "label": "Discount Saved Text",
+      "default": "Will be applied at checkout"
     },
     {
       "type": "text",
