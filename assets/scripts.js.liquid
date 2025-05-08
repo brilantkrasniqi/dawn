@@ -1313,7 +1313,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                        {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                     {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
 
@@ -1511,60 +1511,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-// --- Save Discount Code ---
-  document.addEventListener('DOMContentLoaded', function() {
-    const discountInput = document.getElementById('discount-code');
-    const savedMessage = document.getElementById('discount-saved-message');
-
-    if (discountInput) { // Save discount code to localStorage when entered
-      discountInput.addEventListener('change', function() {
-        const code = discountInput.value.trim();
-        if (code) {
-          localStorage.setItem('savedDiscountCode', code);
-          console.log('Discount code saved:', code);
-
-// Show the saved message when a code is entered
-          if (savedMessage) {
-            savedMessage.classList.remove('d-none');
-          }
-        } else {
-          localStorage.removeItem('savedDiscountCode');
-
-// Hide the saved message when code is removed
-          if (savedMessage) {
-            savedMessage.classList.add('d-none');
-          }
-        }
-      });
-
-// Check if there's a saved discount code and pre-fill
-      const savedCode = localStorage.getItem('savedDiscountCode');
-      if (savedCode) {
-        discountInput.value = savedCode;
-
-// Show the saved message for a pre-existing code
-        if (savedMessage) {
-          savedMessage.classList.remove('d-none');
-        }
-      }
-    }
-  });
-
 // --- Checkout Button Event ---
   const checkoutButton = document.querySelector('.checkout-button');
   if (checkoutButton) {
     checkoutButton.addEventListener('click', function() {
 
-// Get the discount code (if any)
-      const discountCode = document.getElementById('discount-code') ?. value.trim() || localStorage.getItem('savedDiscountCode');
-
-// Get all items from cart, then redirect to checkout with discount code if available
+// Get all items from cart, update properties if needed, then redirect to checkout
       fetch('/cart.js').then(response => response.json()).then(cart => {
-        if (discountCode) { // Redirect to discount URL with checkout redirect
-          window.location.href = '/discount/' + discountCode + '?redirect=/checkout';
-        } else { // Regular checkout without discount
-          window.location.href = '/checkout';
-        }
+        window.location.href = '/checkout';
       }).catch(error => console.error('Error processing checkout:', error));
     });
   }
@@ -2014,6 +1968,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (! code) return;
       
 
+
 // Show loading state
       discountInput.disabled = true;
 
@@ -2044,16 +1999,6 @@ document.addEventListener('DOMContentLoaded', function() {
               subtotalElem.setAttribute('data-subtotal', cart.total_price);
               subtotalElem.textContent = Shopify.formatMoney(cart.total_price);
             });
-
-  // Save the discount code to localStorage for checkout
-            localStorage.setItem('savedDiscountCode', code);
-            console.log('Discount code saved:', code);
-
-  // Show the saved message
-            const savedMessage = document.getElementById('discount-saved-message');
-            if (savedMessage) {
-              savedMessage.classList.remove('d-none');
-            }
           }
 
   // Success feedback
@@ -2066,15 +2011,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Error feedback
           discountInput.classList.add('is-invalid');
           setTimeout(() => discountInput.classList.remove('is-invalid'), 2000);
-
-// Remove from localStorage if invalid
-          localStorage.removeItem('savedDiscountCode');
-
-// Hide the saved message
-          const savedMessage = document.getElementById('discount-saved-message');
-          if (savedMessage) {
-            savedMessage.classList.add('d-none');
-          }
         })
         . finally(() => {
           discountInput.disabled = false;

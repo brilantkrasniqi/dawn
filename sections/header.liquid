@@ -168,17 +168,12 @@
     <div class="order-value-booster-block" id="cm9ivdx0x004pimv76lxdssu4"></div>
     <div class="d-flex align-items-md-center align-items-start justify-content-between border-bottom py-2">
       <p>{{ section.settings.discount_code_text }}</p>
-      <div class="discount-code-container">
-        <input
-          type="text"
-          name="discount-code"
-          id="discount-code"
-          placeholder="{{ section.settings.enter_code_placeholder }}"
-          class="rounded-8" />
-        <small id="discount-saved-message" class="text-success d-none mt-1">
-          {{ section.settings.discount_saved_text | default: 'Will be applied at checkout' }}
-        </small>
-      </div>
+      <input
+        type="text"
+        name="discount-code"
+        id="discount-code"
+        placeholder="{{ section.settings.enter_code_placeholder }}"
+        class="rounded-8" />
     </div>
     <div class="d-flex align-items-center justify-content-between py-2 d-none">
       <p>{{ section.settings.order_discounts_text }}</p>
@@ -368,11 +363,10 @@
 }
 
 .language-item {
-  display: block;
-  padding: 8px 12px;
-  text-decoration: none;
   color: black;
-  transition: background-color 0.2s;
+  padding: 1rem !important;
+  text-decoration: none;
+  display: block;
 }
 
 .language-item:hover {
@@ -416,17 +410,6 @@
 .language-mobile-item:hover {
   background-color: #f1f1f1;
   text-decoration: none;
-}
-
-/* Discount code container */
-.discount-code-container {
-  display: flex;
-  flex-direction: column;
-}
-
-#discount-saved-message {
-  font-size: 0.75rem;
-  text-align: right;
 }</style><script>
   // Set global free shipping threshold that can be accessed by all scripts
   window.freeShippingThreshold = {{ section.settings.free_shipping_threshold | default: 10000 }};
@@ -560,56 +543,10 @@
     const languageLinks = document.querySelectorAll('.language-item, .language-mobile-item');
     
     languageLinks.forEach(link => {
-      // Get current href and language data attribute
+      // Get current href
       let href = link.getAttribute('href');
-      const dataLang = link.getAttribute('data-lang');
       
-      // Get current path
-      const currentPath = window.location.pathname;
-      
-      // Special handling for Albanian (sq)
-      if (dataLang === 'sq') {
-        // If we're on a page with just a language prefix
-        if (currentPath === '/de' || currentPath === '/en') {
-          // When on language root, go to site root
-          link.setAttribute('href', '/');
-        } else {
-          // Extract the path without the language prefix
-          let pathWithoutLang = currentPath;
-          if (currentPath.startsWith('/en/')) {
-            pathWithoutLang = currentPath.substring(3); // Remove /en
-          } else if (currentPath.startsWith('/de/')) {
-            pathWithoutLang = currentPath.substring(3); // Remove /de
-          } else if (currentPath === '/en' || currentPath === '/de') {
-            pathWithoutLang = '/';
-          }
-          
-          // Set the link to the path without language prefix
-          link.setAttribute('href', pathWithoutLang);
-        }
-        return;
-      }
-      
-      // Special handling for other languages
-      if (dataLang === 'en' || dataLang === 'de') {
-        // Extract the path without any language prefix
-        let pathWithoutLang = currentPath;
-        if (currentPath.startsWith('/en/')) {
-          pathWithoutLang = currentPath.substring(3); // Remove /en
-        } else if (currentPath.startsWith('/de/')) {
-          pathWithoutLang = currentPath.substring(3); // Remove /de
-        } else if (currentPath === '/en' || currentPath === '/de') {
-          pathWithoutLang = '/';
-        }
-        
-        // Add the correct language prefix
-        const prefix = dataLang === 'en' ? '/en' : '/de';
-        const newPath = pathWithoutLang === '/' ? prefix : prefix + pathWithoutLang;
-        link.setAttribute('href', newPath);
-        return;
-      }
-      
-      // Fix double slashes and ensure path starts with slash
+      // Fix double slashes, but maintain protocol slashes
       if (href && !href.startsWith('http')) {
         // Fix doubled slashes
         href = href.replace(/([^:])\/+/g, '$1/');
@@ -707,12 +644,6 @@
       "id": "enter_code_placeholder",
       "label": "Enter Code Placeholder",
       "default": "Enter your code"
-    },
-    {
-      "type": "text",
-      "id": "discount_saved_text",
-      "label": "Discount Saved Text",
-      "default": "Will be applied at checkout"
     },
     {
       "type": "text",
