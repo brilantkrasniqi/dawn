@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (applicableTier) { // Calculate discount as a percentage (discount value is the percentage off)
         const discountPercentage = applicableTier.discount; // This is already the percentage value
-        const discountAmount = (originalPrice * discountPercentage) / 100; // Calculate amount in cents
+        const discountAmount = Math.floor((originalPrice * discountPercentage) / 100); // Use Math.floor to match Shopify's per-item discount rounding
         const discountedPrice = Math.max(0, originalPrice - discountAmount);
 
         console.log('Calculated discount:', {
@@ -1044,6 +1044,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let properties = {};
       if (isFirstVariant && window.discountTiers && window.discountTiers.tiers && window.discountTiers.tiers.length > 0) {
         properties._discount_tiers = JSON.stringify(window.discountTiers.tiers);
+        console.log('Adding discount tiers to cart:', properties._discount_tiers);
       }
 
       addToCart(variantId, quantity, properties);
@@ -1051,6 +1052,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function addToCart(variantId, quantity, properties = {}) {
+
+// Store discount tiers in local storage to ensure they're properly handled
+    if (properties._discount_tiers) {
+      try {
+        localStorage.setItem('last_added_discount_tiers', properties._discount_tiers);
+      } catch (e) {
+        console.error('Error storing discount tiers in local storage:', e);
+      }
+    }
+
     fetch('/cart/add.js', {
       method: 'POST',
       headers: {
@@ -1069,6 +1080,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- Update Cart UI ---
   function updateCartUI() {
     fetch('/cart.js').then(response => response.json()).then(cart => {
+      console.log('Cart data:', cart);
 
 // Update cart count
       const cartCountElem = document.querySelector('.cart-count');
@@ -1090,6 +1102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                      </div>`;
       } else { // First calculate raw and discounted subtotals
         cart.items.forEach(function(item) {
+          console.log('Processing cart item:', item.title, 'with properties:', item.properties);
 
 // Get product-specific discount tiers from item properties
           let discountTiers = [];
@@ -1098,6 +1111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
               discountTiers = JSON.parse(item.properties._discount_tiers);
               hasDiscountProperty = true;
+              console.log('Found discount tiers in item properties:', discountTiers);
             } catch (e) {
               console.error('Error parsing discount tiers from item properties:', e);
             }
@@ -1108,6 +1122,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Current price (may already include discounts from Shopify)
           let itemPrice = item.final_price || item.price;
+
+          console.log('Item price details:', {
+            title: item.title,
+            originalPrice: itemOriginalPrice,
+            currentPrice: itemPrice,
+            hasDiscountProperty,
+            quantity: item.quantity
+          });
 
 // Apply discount tiers if available and not already applied
 // Only items with _discount_tiers property (first variant) are eligible for quantity discounts
@@ -1126,13 +1148,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // If we found an applicable tier, calculate the discounted price
             if (applicableTier) {
               const discountPercentage = applicableTier.discount;
-              const discountMultiplier = 1 - (discountPercentage / 100);
-              const tieredDiscountPrice = itemOriginalPrice * discountMultiplier;
 
-// Only override the price if our calculated discount is better
-              if (tieredDiscountPrice < itemPrice) {
-                itemPrice = tieredDiscountPrice;
-              }
+// Calculate the discount amount EXACTLY as done on the product page
+              const discountAmount = Math.floor((itemOriginalPrice * discountPercentage) / 100);
+              const tieredDiscountPrice = Math.max(0, itemOriginalPrice - discountAmount);
+
+// Always use our calculated discount
+              itemPrice = tieredDiscountPrice;
+
+              console.log('Applied cart discount:', {itemOriginalPrice, discountPercentage, discountAmount, tieredDiscountPrice});
             }
           }
 
@@ -1245,7 +1269,7 @@ document.addEventListener('DOMContentLoaded', function() {
               shippingCostsElement.classList.add('free');
             } else {
               shippingCostsElement.classList.remove('free');
-              fetch('/cart/shipping_rates.json?shipping_address[country]=   {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+              fetch('/cart/shipping_rates.json?shipping_address[country]=           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
                 if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                   const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
                   shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost, window.shopMoneyFormat);
@@ -1342,8 +1366,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
 
+        console.log(`Changing quantity of ${
+          item.title
+        } from ${
+          item.quantity
+        } to ${newQuantity}`);
+
 // Preserve the item properties when updating quantity
         const properties = item.properties || {};
+
+// Ensure discount_tiers property is correctly preserved
+        if (properties._discount_tiers) {
+          console.log('Preserving discount tiers during quantity update:', properties._discount_tiers);
+        } else if (newQuantity > 0 && localStorage.getItem('last_added_discount_tiers')) { // Try to recover from local storage if property was lost
+          try {
+            const lastTiers = localStorage.getItem('last_added_discount_tiers');
+            if (itemKey.includes(item.product_id) && cart.items.indexOf(item) === 0) { // Only apply to first variant of the product
+              properties._discount_tiers = lastTiers;
+              console.log('Recovered discount tiers from local storage:', lastTiers);
+            }
+          } catch (e) {
+            console.error('Error recovering discount tiers:', e);
+          }
+        }
 
         fetch('/cart/change.js', {
           method: 'POST',
@@ -1682,14 +1727,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update the display and price
         if (applicableTier) { // Calculate discounted price
           const discountPercentage = applicableTier.discount;
-          const discountMultiplier = (100 - discountPercentage) / 100;
-          const discountedPricePerItem = originalPrice * discountMultiplier;
+
+// Use Math.floor for per-item discount calculation to match Shopify's approach
+          const discountAmount = Math.floor((originalPrice * discountPercentage) / 100);
+          const discountedPricePerItem = originalPrice - discountAmount;
           const totalDiscountedPrice = discountedPricePerItem * quantity;
 
 // Calculate the actual amount saved in euros
           const originalTotalPrice = originalPrice * quantity;
-          const discountAmount = originalTotalPrice - totalDiscountedPrice;
-          const formattedDiscountAmount = Shopify.formatMoney(discountAmount, window.shopMoneyFormat);
+          const totalDiscountAmount = originalTotalPrice - totalDiscountedPrice;
+          const formattedDiscountAmount = Shopify.formatMoney(totalDiscountAmount, window.shopMoneyFormat);
 
 // Update discount display text
           const discountText = `You currently save ${formattedDiscountAmount} Off your total order!`;
