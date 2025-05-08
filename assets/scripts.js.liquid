@@ -1313,11 +1313,18 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=             {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                    {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
-                shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
+
+// Convert shipping cost to current currency
+                const currentCurrencyRate = Shopify.currency
+                  ? (Shopify.currency.rate || 1.0)
+                  : 1.0;
+                const convertedShippingCost = Math.round(defaultShippingCost * currentCurrencyRate);
+
+                shippingCostsElement.setAttribute('data-shipping-cost', convertedShippingCost);
+                shippingCostsElement.textContent = Shopify.formatMoney(convertedShippingCost);
                 throw new Error('Failed to fetch shipping rates');
               }
               return response.json();
@@ -1329,16 +1336,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 shippingCostsElement.textContent = Shopify.formatMoney(shippingCost);
               } else { // No shipping rates available, use default
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-                shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
-                shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
+
+// Convert shipping cost to current currency
+                const currentCurrencyRate = Shopify.currency
+                  ? (Shopify.currency.rate || 1.0)
+                  : 1.0;
+                const convertedShippingCost = Math.round(defaultShippingCost * currentCurrencyRate);
+
+                shippingCostsElement.setAttribute('data-shipping-cost', convertedShippingCost);
+                shippingCostsElement.textContent = Shopify.formatMoney(convertedShippingCost);
               }
             }).catch(error => {
               console.error('Error fetching shipping rates:', error);
 
 // Use default shipping cost on error
               const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
-              shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
-              shippingCostsElement.textContent = Shopify.formatMoney(defaultShippingCost);
+
+// Convert shipping cost to current currency
+              const currentCurrencyRate = Shopify.currency
+                ? (Shopify.currency.rate || 1.0)
+                : 1.0;
+              const convertedShippingCost = Math.round(defaultShippingCost * currentCurrencyRate);
+
+              shippingCostsElement.setAttribute('data-shipping-cost', convertedShippingCost);
+              shippingCostsElement.textContent = Shopify.formatMoney(convertedShippingCost);
             });
           }
         }
@@ -1996,4 +2017,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
   }
+});
+
+// --- Currency Update Handler ---
+// This function updates all monetary displays when the currency changes
+function updateAllCurrencyDisplays() {
+  console.log('Currency updated, refreshing monetary displays');
+
+// Update cart UI which handles shipping costs and subtotals
+  if (typeof updateCartUI === 'function') {
+    updateCartUI();
+  }
+
+// Refresh free shipping text displays if the function exists
+  if (typeof formatFreeShippingText === 'function') {
+    formatFreeShippingText();
+  }
+}
+
+// Listen for currency change events
+document.addEventListener('currency_change', function(e) {
+  updateAllCurrencyDisplays();
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+
+// Initial update of monetary displays with current currency
+  updateAllCurrencyDisplays();
 });
