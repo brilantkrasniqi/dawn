@@ -40,6 +40,11 @@
             {% assign path_no_locale = full_path | remove_first: '/en' %}
           {% elsif de_prefix == '/de' %}
             {% assign path_no_locale = full_path | remove_first: '/de' %}
+          {% endif %}
+
+          {% comment %} Ensure path_no_locale is not empty for home page {% endcomment %}
+          {% if path_no_locale == '' or path_no_locale == '/' %}
+            {% assign path_no_locale = '/' %}
         {% endif %}
 
           <!-- Get the current language based on request URL -->
@@ -363,7 +368,7 @@
 }
 
 .language-item {
-  color: black;
+
   padding: 1rem !important;
   text-decoration: none;
   display: block;
@@ -554,6 +559,16 @@
         // Ensure it starts with a slash if it's a relative URL
         if (!href.startsWith('/')) {
           href = '/' + href;
+        }
+        
+        // Handle empty paths - this fixes the home page language switching
+        if (href === '/' || href === '') {
+          const lang = link.getAttribute('data-lang');
+          if (lang === 'sq') {
+            href = '/';
+          } else {
+            href = '/' + lang;
+          }
         }
         
         link.setAttribute('href', href);
