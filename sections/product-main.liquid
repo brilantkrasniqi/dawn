@@ -246,9 +246,20 @@
                   Out of Stock
                 {% endif %}
               </button>
-              <small class="d-block text-center pt-2" style="font-weight: 500;">
+              <small
+                class="d-block text-center pt-2"
+                style="font-weight: 500;"
+                class="free-shipping-product-message">
                 <script>
-                  document.write('Free shipping on orders over ' + Shopify.formatMoney(window.freeShippingThreshold || 10000));
+                  // Only format if Shopify.formatMoney is available
+                  if (typeof Shopify !== 'undefined' && typeof Shopify.formatMoney === 'function') {
+                    // Get the threshold and format it in the current currency
+                    const threshold = window.freeShippingThreshold || 10000;
+                    document.write('Free shipping on orders over ' + Shopify.formatMoney(threshold));
+                  } else {
+                    // Fallback if the function isn't available yet
+                    document.write('Free shipping on orders over 100€');
+                  }
                 </script>
               </small>
             </form>

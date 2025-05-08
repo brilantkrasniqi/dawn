@@ -1287,20 +1287,33 @@ document.addEventListener('DOMContentLoaded', function() {
           shippingCostsElement.classList.remove('free');
 
 // Skip the rest of shipping calculation
-        } else { // Use our fixed threshold from settings
+        } else { // Use our fixed threshold from settings (always in shop's default currency)
           const freeShippingThreshold = window.freeShippingThreshold || {{ settings.free_shipping_threshold | default: 10000 }};
 
-// Convert threshold and cart total to the same currency base for comparison
-// This ensures Albanian LEK or any other currency works with the same threshold
-          const cartTotal = discountedSubtotal;
+// Convert the cart total back to the shop's default currency for comparison
+// This ensures that Albanian LEK or any other currency works consistently
+          const currentCurrencyRate = Shopify.currency
+            ? (Shopify.currency.rate || 1.0)
+            : 1.0;
+          const cartTotalInDefaultCurrency = Math.round(discountedSubtotal / currentCurrencyRate);
 
-          if (cartTotal >= freeShippingThreshold) {
+          console.log('Free shipping check:', {
+            cartTotal: discountedSubtotal,
+            cartTotalInDefaultCurrency,
+            freeShippingThreshold,
+            currentCurrency: Shopify.currency
+              ? Shopify.currency.active
+              : 'unknown',
+            currencyRate: currentCurrencyRate
+          });
+
+          if (cartTotalInDefaultCurrency >= freeShippingThreshold) {
             shippingCostsElement.textContent = "{{ section.settings.free_shipping_label | default: 'Free' }}";
             shippingCostsElement.setAttribute('data-shipping-cost', 0);
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=             {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
                 shippingCostsElement.setAttribute('data-shipping-cost', defaultShippingCost);
