@@ -898,7 +898,21 @@
         "expired_cards_info": {
           "one": "Ekziston %{count} kartë e skaduar, të cilën mund ta shikoni dhe modifikoni në llogarinë tuaj.",
           "other": "Ka %{count} karta të skaduara, të cilat mund t'i shikoni dhe modifikoni në llogarinë tuaj."
-        }
+        },
+        "network_card_persistence_description": "Rrjeti i zgjedhur do të ruhet me metodën tuaj të pagesës për transaksionet e ardhshme.",
+        "amazon_payments_failed_mfa_challenge": "Metoda e zgjedhur e pagesës nuk mund të përdoret. Zgjidhni një metodë tjetër ose kontaktoni bankën ose lëshuesin e kartës suaj.",
+        "amazon_payments_abandoned_mfa_challenge": "Pagesa juaj nuk mund të përfundohej. Provoni një metodë tjetër pagese ose kontaktoni bankën ose lëshuesin e kartës suaj.",
+        "amazon_payments_could_not_enqueue_authorize": "Pati një problem gjatë përpunimit të pagesës suaj. Provo përsëri ose përdor një metodë tjetër pagese.",
+        "card_security_vault_notice": "Na duhen të dhënat tuaja për pagesat e ardhshme. Të gjitha transaksionet janë të sigurta dhe të enkriptuara.",
+        "card_information_notice": "Të gjitha transaksionet janë të sigurta dhe të enkriptuara. Informacioni i kartës së kreditit nuk ruhet kurrë.",
+        "delete_customer_mandate_modal_body": "Nëse e hiqni këtë kartë, do t'ju duhet ta shtoni përsëri përpara se ta përdorni për pagesa.",
+        "shipping_rate_updated": "Metodat e disponueshme të transportit janë përditësuar. Konfirmoni zgjedhjen tuaj përpara se të kryeni blerjen.",
+        "billing_address_invalid_phone": "Përditësoni numrin e telefonit në adresën tuaj të faturimit për {{label}} {{last_digits}} për të vazhduar.",
+        "business_customer_vaulting_payment_label": "Ruajeni këtë kartë në arkë dhe autorizoni %{company} që ta faturojë atë për blerjet e ardhshme për këtë vendndodhje. Të gjitha kontaktet e caktuara në këtë vendndodhje mund ta përdorin kartën.",
+        "purchase_options_and_vaulting_agreement_label": "Një ose më shumë artikuj në shportën tuaj janë një blerje e shtyrë ose me abonim. Duke vazhduar me pagesën tuaj, ju pranoni që metoda juaj e pagesës do të ngarkohet automatikisht me çmimin dhe frekuencën e listuar në këtë faqe derisa të përfundojë ose derisa ta anuloni. Të gjitha anulimet i nënshtrohen %{cancellation_policy_label}.",
+        "local_payment_method_receiver_notice": "Pasi të vendosni porosinë tuaj, do të merrni detajet e pagesës. Kryeni pagesën në një bankomat ose në internet brenda {{dueDays}} ditëve.",
+        "order_edit_banner_subtitle": "Porosia juaj {{order_number}} u përditësua. Rishikoni këto ndryshime dhe më pas paguani për të konfirmuar porosinë tuaj.",
+        "markets_pro_disclaimer_label": "Duke klikuar më poshtë dhe duke përfunduar porosinë tuaj, ju pranoni të blini artikullin/artikujt tuaj nga Global-e si tregtar i regjistruar për këtë transaksion, sipas %{markets_pro_terms} dhe %{privacy_policy} të Global-e. Global-e është një ofrues ndërkombëtar i shërbimeve të përmbushjes së porosive për %{shop_name}."
       },
       "billing": {
         "billing_address_title": "Faturë për",
@@ -1430,7 +1444,22 @@
         "order_status_payments_app_pending_payment_description_default_with_phone_pick_up": "Së shpejti do të marrësh një mesazh konfirmimi. Ndiq porosinë tënde duke përdorur aplikacionin Shop.",
         "order_status_payments_app_pending_payment_description_buyer_action_required_with_missing": "Na kontaktoni me email ose telefon për të marrë konfirmimin e porosisë.",
         "order_status_payments_app_pending_payment_description_buyer_action_required_with_missing_payment": "Na kontaktoni me email ose telefon për të marrë konfirmimin e porosisë.",
-        "order_status_payments_app_pending_payment_description_buyer_action_required_with_missing_pick_up": "Na kontaktoni me email ose telefon për të marrë konfirmimin e porosisë."
+        "order_status_payments_app_pending_payment_description_buyer_action_required_with_missing_pick_up": "Na kontaktoni me email ose telefon për të marrë konfirmimin e porosisë.",
+        "thank_you_payments_app_failed_pending_payment": "Nuk u ngarkuat për porosinë tuaj. Kthehuni në shportën tuaj për të shqyrtuar porosinë tuaj dhe për të paguar përsëri.",
+        "thank_you_payments_app_failed_pending_payment_payment": "Nuk u ngarkuat për porosinë tuaj. Kthehuni në shportën tuaj për të shqyrtuar porosinë tuaj dhe për të paguar përsëri.",
+        "thank_you_payments_app_failed_pending_payment_pick_up": "Nuk u ngarkuat për porosinë tuaj. Kthehuni në shportën tuaj për të shqyrtuar porosinë tuaj dhe për të paguar përsëri.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_email_and_phone": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_email_and_phone_payment": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_email_and_phone_pick_up": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_email": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_email_payment": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_email_pick_up": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_phone": "Pasi të keni përfunduar pagesën, do të merrni një mesazh konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_phone_payment": "Pasi të keni përfunduar pagesën, do të merrni një mesazh konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_buyer_action_required_with_phone_pick_up": "Pasi të keni përfunduar pagesën, do të merrni një mesazh konfirmimi me numrin e porosisë suaj.",
+        "thank_you_payments_app_pending_payment_description_provider_action_required_default": "Pagesa juaj po përpunohet. Do të merrni një email kur pagesa juaj të konfirmohet.",
+        "order_status_payments_app_pending_payment_description_buyer_action_required_with_email_and_phone": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi. Ndiqni porosinë tuaj duke përdorur aplikacionin Shop.",
+        "order_status_payments_app_pending_payment_description_buyer_action_required_with_email_and_phone_payment": "Pasi të keni përfunduar pagesën, do të merrni një email konfirmimi. Ndiqni porosinë tuaj duke përdorur aplikacionin Shop."
       },
       "wallets": {
         "errors": {
@@ -1698,7 +1727,8 @@
           "removed": "U hoq"
         },
         "pay_now": "Paguaj tani",
-        "order_review_and_pay": "Porosia juaj u përditësua. Rishikojeni dhe paguani për të konfirmuar porosinë tuaj."
+        "order_review_and_pay": "Porosia juaj u përditësua. Rishikojeni dhe paguani për të konfirmuar porosinë tuaj.",
+        "checkout_review_and_pay": "Porosia juaj %{order_name} u përditësua. Rishikoni këto ndryshime dhe më pas paguani për të konfirmuar porosinë tuaj."
       },
       "pickup_point": {
         "paginator": {
@@ -1879,7 +1909,23 @@
           "prepaid_shipping_price_label": "%{shipping_price} për dërgesë x %{delivery_interval_count}",
           "initial_order_discounted": "Së pari kostoja e transportit %{discounted_shipping_cost}, pastaj %{frequency_description}",
           "prepaid_initial_order_discounted": "Kostoja e transportit të parë %{discounted_shipping_price} %{prepaid_delivery_frequency}",
-          "first_order_shipping_price_included": "Porosia e parë përfshihet, e ndjekur nga %{recurring_order_shipping_price}"
+          "first_order_shipping_price_included": "Porosia e parë përfshihet, e ndjekur nga %{recurring_order_shipping_price}",
+          "prepaid_free_shipping_with_cycles": {
+            "one": "Transporti falas për %{cycle} e parë, e ndjekur nga %{recurring_order_shipping_price}",
+            "other": "Transporti falas për %{cycle} e parë, e ndjekur nga %{recurring_order_shipping_price}"
+          },
+          "prepaid_order_no_cycle": {
+            "one": "%{shipping_price} për %{count} dërgesë më shumë, e ndjekur nga %{recurring_order_shipping_price}",
+            "other": "%{shipping_price} për %{count} dërgesa të tjera (%{per_delivery_cost}), e ndjekur nga %{recurring_order_shipping_price}"
+          },
+          "prepaid_order_no_cycle_delivery_not_included": {
+            "one": "%{shipping_price} për dërgesë %{count}, e ndjekur nga %{recurring_order_shipping_price}",
+            "other": "%{shipping_price} për %{count} dërgesa (%{per_delivery_cost}), e ndjekur nga %{recurring_order_shipping_price}"
+          },
+          "prepaid_initial_order_discounted_with_per_delivery_price": "Kostoja e transportit të parë %{discounted_shipping_price} %{prepaid_delivery_frequency} (%{discounted_cost_per_delivery})",
+          "prepaid_initial_order_discounted_with_renewal": "Së pari kostoja e transportit %{discounted_shipping_price} %{prepaid_delivery_frequency}, pastaj %{shipping_price} %{billing_cycle}",
+          "prepaid_initial_order_discounted_with_per_delivery_price_and_renewal": "Së pari kostoja e transportit %{discounted_shipping_price} %{prepaid_delivery_frequency} (%{discounted_cost_per_delivery}), pastaj %{shipping_price} %{billing_cycle}",
+          "first_order_different_shipping_price": "%{first_order_shipping_price} (%{per_delivery_price} për dërgesë), e ndjekur nga %{recurring_order_shipping_price}"
         },
         "shipping_used_as_billing_notice": "Kjo do të përdoret gjithashtu si adresa juaj e faturimit për këtë porosi.",
         "address_confirm": "Je i sigurt që dëshiron ta fshish këtë adresë nga llogaria jote?",
@@ -1925,7 +1971,8 @@
         }
       },
       "change_currency": {
-        "card_provider_fx_charges_warning": "Ofruesi i kartës suaj mund të aplikojë tarifa për transaksionet e %{currency_code}."
+        "card_provider_fx_charges_warning": "Ofruesi i kartës suaj mund të aplikojë tarifa për transaksionet e %{currency_code}.",
+        "currency_not_supported_by_shop": "Monedha që zgjodhët nuk është më e disponueshme. Të gjitha çmimet tani janë në %{currency_code}."
       },
       "change_country": {
         "cart_updated_based_on_country": "Shporta juaj është përditësuar bazuar në vendin tuaj të transportit.",
@@ -1939,6 +1986,17 @@
       },
       "artifact_errors": {
         "artifact_dissatisfaction_without_violation": "Pati një problem gjatë përpunimit të porosisë suaj. Provo përsëri pas disa minutash."
+      },
+      "change_cart_localization": {
+        "verify_shipping_address": "Vendi/rajoni juaj është përditësuar. Shkruani adresën tuaj të dërgesës për të vazhduar me pagesën."
+      },
+      "order_errors": {
+        "creation_failure": "Pati një problem gjatë krijimit të porosisë suaj. Provoni përsëri ose na kontaktoni për më shumë detaje.",
+        "network_failure": "Porosia juaj nuk mund të dërgohej për shkak të një gabimi në rrjet. Kontrolloni lidhjen tuaj dhe provoni përsëri."
+      },
+      "session_errors": {
+        "session_not_unique": "Pati një problem gjatë përpunimit të porosisë suaj. Rifreskoni këtë faqe për t'u kthyer në dyqan.",
+        "session_already_finished": "Kjo porosi është dërguar tashmë. Mund të ktheheni në dyqan për të filluar një porosi të re."
       }
     },
     "notices": {
@@ -2017,6 +2075,9 @@
         "add_products": "Ngushto përzgjedhjen te produktet që përputhen me etiketën %{tag}",
         "remove_articles": "Zgjero kërkimin në artikuj që nuk janë të etiketuar %{tag}",
         "remove_products": "Hiq etiketën %{tag}"
+      },
+      "customer": {
+        "denylisted_reset_password": "Llogaria juaj nuk mund të aksesohet sepse fjalëkalimi aktual nuk është i sigurt. Do të merrni një email për të përditësuar fjalëkalimin tuaj."
       }
     },
     "email_marketing": {
@@ -2177,15 +2238,29 @@
       "empty": "nuk mund të jetë bosh",
       "shop_404": {
         "owner_ctas": {
-          "admin_link_text": "administrator"
+          "admin_link_text": "administrator",
+          "fix_domain": "Përfundoni konfigurimin e adresës suaj të re në internet, shkoni te %{domain_settings_link}. Klikoni “Lidh domenin” dhe shkruani: %{domain}.<br> Nëse keni probleme për të hyrë në dyqanin tuaj, provoni faqen %{forgot_your_store_link}.",
+          "add_storefront": "Mund ta konfiguroni faqen tuaj të internetit duke shtuar kanalin e Dyqanit Online në %{admin_link} tuaj. Nëse keni probleme për të hyrë në dyqanin tuaj, provoni faqen %{forgot_your_store_link}."
         },
         "title": "Krijo një Faqe Interneti për Tregti Elektronike dhe Shit Online! Softuer për Tregti Elektronike nga Shopify",
         "ctas": {
           "open_a_store": {
             "caption": "Filloni një provë falas 3-ditore, pastaj vazhdoni për 1 dollar/muaj për 3 muajt e ardhshëm."
+          },
+          "sell_in_person": {
+            "caption": "Merrni veçoritë që ju nevojiten për të drejtuar dyqanin tuaj me pakicë, pavarësisht nëse jeni duke filluar apo duke u zgjeruar."
+          },
+          "editions": {
+            "caption": "Me mbi 100 përditësime produktesh, mund të jesh më produktiv dhe kreativ, si dhe më i fuqishëm në tregti nga sa e ke imagjinuar ndonjëherë."
+          },
+          "store_owner": {
+            "caption": "A po keni probleme për të hyrë në dyqanin tuaj? Provoni funksionin %{forgot_your_store_link}. Nëse dëshironi ta riaktivizoni dyqanin tuaj, kontaktoni %{shopify_support_link}."
           }
         }
-      }
+      },
+      "gift_card_currency_mismatch": "Karta juaj dhuratë është në %{gift_card_currency}. Na kontaktoni që ta rilëshojmë në %{checkout_currency}.",
+      "reset_password_html": "Kjo adresë email-i është tashmë e lidhur me një llogari. Nëse kjo llogari është e juaja, mund ta <a href=\"/account/login#recover\">rivendosni fjalëkalimin tuaj.</a>",
+      "verify_email": "Ne kemi dërguar një email te %{customer_email}, ju lutemi klikoni lidhjen e përfshirë për të verifikuar adresën tuaj të emailit."
     },
     "subscriptions": {
       "buyer_consent_product": "Ky artikull është një blerje e përsëritur ose e shtyrë. Duke vazhduar, unë pajtohem me %{cancellationPolicyLink} dhe ju autorizoj të ngarkoni metodën time të pagesës me çmimet, frekuencën dhe datat e listuara në këtë faqe derisa porosia ime të përmbushet ose unë ta anuloj, nëse lejohet.",
@@ -3103,14 +3178,19 @@
             "order_includes_guarantees_label": "Porosia juaj përfshin garanci {{deliveryAgreementsCount}}",
             "delivered_after_description": "Meqenëse porosia juaj mbërriti me vonesë, ju keni të drejtë të kërkoni {{amount}} Shop Cash.",
             "claimed_shop_cash_description": "Meqenëse kjo porosi mbërriti me vonesë, ju kërkuat {{amount}} Shop Cash.",
-            "eligible_to_claim_shop_cash_description": "Meqenëse porosia juaj mbërriti me vonesë, ju keni të drejtë të kërkoni {{amount}} Shop Cash."
+            "eligible_to_claim_shop_cash_description": "Meqenëse porosia juaj mbërriti me vonesë, ju keni të drejtë të kërkoni {{amount}} Shop Cash.",
+            "order_includes_guarantees_description": "Shop Promise garanton dërgesë të shpejtë dhe të besueshme. Merrni Shop Cash nëse porosia juaj arrin pas {{date}} ."
           }
         },
         "delivery_promise": {
           "details_modal": {
             "shop_cash_claim": {
               "redeemed_label": "Ju keni marrë tashmë Shop Cash sepse kjo porosi mbërriti me vonesë.",
-              "claim_shop_cash_description": "Mund të përdorni Shop Cash në blerjet e ardhshme në aplikacionin Shop."
+              "claim_shop_cash_description": "Mund të përdorni Shop Cash në blerjet e ardhshme në aplikacionin Shop.",
+              "may_be_eligible_label": "Shop Promise garanton dërgesë të shpejtë dhe të besueshme. Merrni Shop Cash nëse porosia juaj mbërrin me vonesë.",
+              "may_be_eligible_not_authorized_label": "Mund të keni të drejtë të kërkoni Shop Cash sepse kjo porosi mbërriti me vonesë. Identifikohuni për të parë detajet.",
+              "expired_label": "Kjo porosi nuk është e pranueshme për një kërkesë për vonesë në dorëzim sepse garancioni 30-ditor ka skaduar.",
+              "no_shop_cash_label": "Kjo porosi nuk është e pranueshme për një kërkesë për vonesë në dorëzim sepse nuk është paguar me Shop Pay."
             }
           }
         }
