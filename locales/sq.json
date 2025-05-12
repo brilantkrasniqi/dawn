@@ -842,7 +842,8 @@
             "buyer_action_info": "Pagesa juaj prej %{amount_due} është e detyrueshme.",
             "instruction_html": "Kryeni pagesën tuaj në Multibanco ose në internet duke përdorur detajet më poshtë. Për pyetje ose për të përditësuar detajet e pagesës, %{contact_us}.",
             "entity": "Entitet",
-            "amount": "Shuma"
+            "amount": "Shuma",
+            "reference": "Referencë"
           }
         },
         "title": "Pagesa",
@@ -865,7 +866,8 @@
         },
         "add_credit_card_modal": {
           "save": "Ruaj",
-          "cancel": "Anulo"
+          "cancel": "Anulo",
+          "title": "Shto kartë"
         },
         "delete_credit_card_modal": {
           "cancel": "Anulo",
@@ -878,7 +880,8 @@
           "fields": {
             "billing": "Faturë për"
           },
-          "description": "Mund të modifikoni vetëm adresën e faturimit të kartës suaj."
+          "description": "Mund të modifikoni vetëm adresën e faturimit të kartës suaj.",
+          "title": "Modifiko kartën"
         },
         "order_edit_banner_items_added": {
           "one": "Shtuar"
@@ -959,7 +962,19 @@
           "no_fixed_selling_plans": "Nuk mund të përdorni kredit dyqani me opsione blerjeje të shtyra"
         },
         "same_billing_address_checkbox_label": "Përdor adresën e dërgesës si adresë faturimi",
-        "order_edit_banner_title": "Nevojitet pagesa {{amount_owed}}"
+        "order_edit_banner_title": "Nevojitet pagesa {{amount_owed}}",
+        "gift_card_balance_label": "Bilanci:",
+        "supported_card_brands_more_label": "dhe më shumë…",
+        "card_number_label": "Numri i kartës",
+        "card_number_placeholder": "Numri i kartës",
+        "card_pay_with": "Paguaj me:",
+        "credit_card_start_month": "Muaji i fillimit",
+        "credit_card_start_year": "Viti i fillimit",
+        "order_edit_banner_single_item_returned": "U kthye",
+        "gift_card_wrapper": {
+          "heading": "Kartë dhurate",
+          "payment_tag": "Kartë dhurate"
+        }
       },
       "billing": {
         "billing_address_title": "Faturë për",
@@ -1369,7 +1384,8 @@
           "fulfilled_table_title": "Artikujt në këtë dërgesë",
           "unfulfilled_table_title": "Artikuj që përgatiten për transportim",
           "product_image_label": "Imazhi i produktit",
-          "description_label": "Përshkrimi"
+          "description_label": "Përshkrimi",
+          "quantity_label": "Sasia"
         },
         "order_updates_description_missing": "Nuk po merrni përditësime për dërgesat.",
         "order_updates_subscribe_to_email_notifications": "Merrni përditësime për dërgesat me email me anë të email-it",
@@ -1398,7 +1414,8 @@
         "breadcrumbs_confirmed": "Konfirmuar",
         "missing_shipping_address_banner": {
           "title": "Porosia nuk ka një adresë dërgimi",
-          "text_html": "%{contact_us} për të shtuar adresën tuaj"
+          "text_html": "%{contact_us} për të shtuar adresën tuaj",
+          "contact_us": "Na kontaktoni"
         },
         "first_payment_complete": "Pagesa e parë u krye",
         "in_store_purchase": "Blerje në dyqan",
@@ -1527,7 +1544,12 @@
         "order_status_confirmed_order_with_email_and_phone": "Do të merrni një email kur porosia juaj të jetë gati.",
         "order_status_confirmed_order_with_email_payment": "Ju bëtë një pagesë për porosinë tuaj %{date}.",
         "order_status_confirmed_order_with_phone_payment": "Ju bëtë një pagesë për porosinë tuaj %{date}.",
-        "order_status_confirmed_order_with_email_and_phone_payment": "Ju bëtë një pagesë për porosinë tuaj %{date}."
+        "order_status_confirmed_order_with_email_and_phone_payment": "Ju bëtë një pagesë për porosinë tuaj %{date}.",
+        "page_title_no_name": "Faleminderit!",
+        "company_location_title": "Vendndodhja",
+        "confirmed": "Konfirmuar",
+        "gift_card_title": "Kartat dhuratë",
+        "contact_us": "Na kontaktoni"
       },
       "wallets": {
         "errors": {
@@ -1846,7 +1868,8 @@
         },
         "no_business_hours": "Nuk ka orare hapjeje të disponueshme",
         "no_pickup_points_near_you": "Nuk u gjetën pika marrjeje pranë adresës së zgjedhur",
-        "no_pickup_points_near_location": "Nuk u gjetën pika marrjeje pranë vendndodhjes suaj"
+        "no_pickup_points_near_location": "Nuk u gjetën pika marrjeje pranë vendndodhjes suaj",
+        "open_twenty_four_hours": "E hapur 24/7"
       },
       "error_page": {
         "terminal": {
@@ -1967,7 +1990,8 @@
           "save": "Ruaj",
           "cancel": "Anulo",
           "generic_error": "Pati një problem me ruajtjen e adresës suaj. Ju lutemi provoni përsëri.",
-          "one_time_address_subtitle": "Përdor një adresë të vetme për këtë porosi"
+          "one_time_address_subtitle": "Përdor një adresë të vetme për këtë porosi",
+          "add_address": "Shto adresë"
         },
         "split_shipping_shipping_label": "Metoda",
         "split_shipping_option_fastest": "Më i shpejti",
@@ -2032,7 +2056,22 @@
             "one": "%{count} dërgesë për %{shipping_price}",
             "other": "%{count} dërgesa të tjera për %{shipping_price} secila"
           },
-          "recurring_order_shipping_price": "e ndjekur nga %{recurring_order_shipping_price}"
+          "recurring_order_shipping_price": "e ndjekur nga %{recurring_order_shipping_price}",
+          "subscription_delivery_frequency": {
+            "day": {
+              "one": "çdo ditë"
+            },
+            "week": {
+              "one": "çdo javë"
+            },
+            "month": {
+              "one": "çdo muaj"
+            },
+            "year": {
+              "one": "çdo vit"
+            }
+          },
+          "shipping_price_included": "Përfshirë"
         },
         "shipping_used_as_billing_notice": "Kjo do të përdoret gjithashtu si adresa juaj e faturimit për këtë porosi.",
         "address_confirm": "Je i sigurt që dëshiron ta fshish këtë adresë nga llogaria jote?",
@@ -2075,14 +2114,22 @@
         "shipping_information_required_notice": "Informacioni i transportit është i nevojshëm. {{link}} .",
         "split_shipping_shipment_notice": "Porosia juaj do të mbërrijë në %{quantity_shipments}",
         "split_shipping_multiple_shipment_notice": "Porosia juaj do të mbërrijë në disa dërgesa",
-        "split_shipping_multiple_shipment_notice_one_time_purchase": "Porosia juaj do të mbërrijë në dërgesa %{quantity}"
+        "split_shipping_multiple_shipment_notice_one_time_purchase": "Porosia juaj do të mbërrijë në dërgesa %{quantity}",
+        "title": "Transporti",
+        "delivery_title": "Dërgim",
+        "cheapest_rate_label": "Më e lira",
+        "pre_order_ships_now": "Dërgon tani",
+        "pre_order_ships_later": "Dërgohet më vonë",
+        "split_shipping_option_recommended": "Rekomanduar"
       },
       "tips": {
         "title": "Shto bakshish",
         "add_tip": "Shto bakshish",
         "no_tip_label": "Asnjë",
         "message": "Faleminderit, e vlerësojmë.",
-        "description": "Tregoni mbështetjen tuaj për ekipin në %{shop_name}"
+        "description": "Tregoni mbështetjen tuaj për ekipin në %{shop_name}",
+        "custom_label": "Bakshish i personalizuar",
+        "update_tip": "Këshillë për përditësim"
       },
       "subscriptions": {
         "recurring_total_intervals": {
@@ -2138,6 +2185,11 @@
           "less_than_one": "Koha e pritjes e parashikuar: Më pak se një minutë",
           "one": "Koha e pritjes e parashikuar: {{count}} minutë",
           "other": "Koha e pritjes e parashikuar: {{count}} minuta"
+        },
+        "cart_summary_heading": "Shporta juaj",
+        "merchandise": {
+          "available": "Në dispozicion",
+          "sold_out": "Shitur të gjitha"
         }
       },
       "change_currency": {
@@ -2210,10 +2262,15 @@
           "paid": "Paguar",
           "unpaid": "I papaguar",
           "voided": "I pavlefshëm",
-          "expired": "Skaduar"
+          "expired": "Skaduar",
+          "authorized": "I autorizuar",
+          "refunded": "Rimbursuar"
         },
         "fulfillment_status": {
-          "partial": "Pjesërisht"
+          "partial": "Pjesërisht",
+          "fulfilled": "Përmbushur",
+          "complete": "Përfundo",
+          "restocked": "I rimbushur"
         },
         "transaction_status": {
           "success": "Sukses",
@@ -2503,7 +2560,8 @@
       "less_than_or_equal_to": "duhet të jetë më i vogël ose i barabartë me %{count}",
       "invalid_type": "Na vjen keq, ne nuk pranojmë karta të këtij lloji",
       "invalid_start_date_or_issue_number_for_debit": "kërkohet një datë fillimi ose numër lëshimi i vlefshëm",
-      "product_not_available": "Produkti nuk është publikuar për këtë klient."
+      "product_not_available": "Produkti nuk është publikuar për këtë klient.",
+      "invalid": "është i pavlefshëm"
     },
     "subscriptions": {
       "buyer_consent_product": "Ky artikull është një blerje e përsëritur ose e shtyrë. Duke vazhduar, unë pajtohem me %{cancellationPolicyLink} dhe ju autorizoj të ngarkoni metodën time të pagesës me çmimet, frekuencën dhe datat e listuara në këtë faqe derisa porosia ime të përmbushet ose unë ta anuloj, nëse lejohet.",
@@ -2690,7 +2748,8 @@
         "hide_events_accessibility_label": "Fshih detajet e dërgesës së porosisë"
       },
       "order_details_skeleton_accessibility_label": "Kyçu për të parë të gjitha detajet e porosisë.",
-      "card_ending_with": "duke mbaruar me {{lastDigits}}"
+      "card_ending_with": "duke mbaruar me {{lastDigits}}",
+      "contact": "Kontakti"
     },
     "payment_method_brands": {
       "laser": "Lazer",
@@ -3195,7 +3254,8 @@
         },
         "order_list_column_headers_location": "Vendndodhja",
         "order_list_column_headers_status": "Statusi",
-        "removed_company_contact_tooltip": "U hoq nga kompania"
+        "removed_company_contact_tooltip": "U hoq nga kompania",
+        "order_list_column_headers_contact": "Kontakti"
       }
     },
     "errors": {
@@ -3436,7 +3496,9 @@
             "eligible_to_claim_shop_cash_description": "Meqenëse porosia juaj mbërriti me vonesë, ju keni të drejtë të kërkoni {{amount}} Shop Cash.",
             "order_includes_guarantees_description": "Shop Promise garanton dërgesë të shpejtë dhe të besueshme. Merrni Shop Cash nëse porosia juaj arrin pas {{date}} .",
             "scan_to_claim_shop_cash_label": "Skano për të kërkuar {{amount}} Blej para në dorë",
-            "expired_delivery_guarantee_description": "Garancia 30-ditore e Shop Premtimit të kësaj porosie ka skaduar."
+            "expired_delivery_guarantee_description": "Garancia 30-ditore e Shop Premtimit të kësaj porosie ka skaduar.",
+            "expired_badge_label": "Skaduar",
+            "learn_more_button_label": "Mëso më shumë"
           },
           "promise_line": {
             "delivery_guarantee_expired_label": "Garancia e dorëzimit skadoi"
@@ -3480,7 +3542,14 @@
           "one": "Karta dhuratë do të dërgohet me një mesazh të veçantë.",
           "other": "Çdo kartë dhurate do të dërgohet me një mesazh të veçantë."
         },
-        "no_tracking_number": "Nuk ka numër gjurmimi për këtë dërgesë."
+        "no_tracking_number": "Nuk ka numër gjurmimi për këtë dërgesë.",
+        "gift_card_label": {
+          "one": "Kartë dhurate",
+          "other": "Kartat dhuratë"
+        },
+        "in_review_label": "Në shqyrtim",
+        "on_its_way_label": "Në rrugë e sipër",
+        "submitted_label": "Dorëzuar"
       },
       "list_layout_accessibility_label": "Opsionet e paraqitjes",
       "list_title": "Porosi",
@@ -3491,7 +3560,8 @@
       "switch_order_type_confirmed_orders_accessibility_label": "Ndërro llojin e porosisë, aktualisht po shikon porositë e konfirmuara",
       "manage": "Menaxho",
       "fulfillment_status_title": "Statusi i përmbushjes: {{status}}",
-      "buy_again_accessibility_label": "Bli përsëri për porosinë {{orderId}}"
+      "buy_again_accessibility_label": "Bli përsëri për porosinë {{orderId}}",
+      "buy_again": "Bli përsëri"
     },
     "addresses": {
       "add_button": "Shto adresë",
