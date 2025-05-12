@@ -307,7 +307,7 @@
             "settings": {
               "title": "Airlaid Napkins",
               "collection_link": "shopify://collections/airlaid-napkins",
-              "collection_handle": ""
+              "collection_handle": "airlaid-napkins"
             }
           },
           "collection_link_qDKNBx": {
@@ -315,7 +315,7 @@
             "settings": {
               "title": "Professional / Dispenser",
               "collection_link": "shopify://collections/professional-dispenser",
-              "collection_handle": ""
+              "collection_handle": "professional-dispenser"
             }
           },
           "collection_link_rkwFM9": {
@@ -323,7 +323,7 @@
             "settings": {
               "title": "Others",
               "collection_link": "shopify://collections/others",
-              "collection_handle": ""
+              "collection_handle": "others"
             }
           }
         },
