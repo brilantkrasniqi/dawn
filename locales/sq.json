@@ -839,9 +839,51 @@
           "due_notice": "Pagesa juaj prej %{amount_due} duhet të bëhet më %{due_date}.",
           "multibanco": {
             "buyer_action_info": "Pagesa juaj prej %{amount_due} është e detyrueshme.",
-            "instruction_html": "Kryeni pagesën tuaj në Multibanco ose në internet duke përdorur detajet më poshtë. Për pyetje ose për të përditësuar detajet e pagesës, %{contact_us}."
+            "instruction_html": "Kryeni pagesën tuaj në Multibanco ose në internet duke përdorur detajet më poshtë. Për pyetje ose për të përditësuar detajet e pagesës, %{contact_us}.",
+            "entity": "Entitet",
+            "amount": "Shuma"
           }
-        }
+        },
+        "title": "Pagesa",
+        "apply_gift_card_button_label": "Zbato",
+        "credit_card_vaulting_sign_in_banner_button_label": "Kyçu",
+        "card_expired": "Skaduar",
+        "delete_customer_mandate_modal_cancel": "Anulo",
+        "clear": "Pastro",
+        "preview_not_available": {
+          "button": "Në rregull"
+        },
+        "saved_credit_card_actions": {
+          "edit": "Modifiko",
+          "delete": "Fshij"
+        },
+        "saved_credit_cards_modal": {
+          "done": "U krye",
+          "cancel": "Anulo"
+        },
+        "add_credit_card_modal": {
+          "save": "Ruaj",
+          "cancel": "Anulo"
+        },
+        "delete_credit_card_modal": {
+          "cancel": "Anulo",
+          "delete": "Fshij"
+        },
+        "edit_credit_card_modal": {
+          "done": "U krye",
+          "cancel": "Anulo",
+          "fields": {
+            "billing": "Faturë për"
+          }
+        },
+        "order_edit_banner_items_added": {
+          "one": "Shtuar"
+        },
+        "order_edit_banner_items_removed": {
+          "in_full": "U hoq"
+        },
+        "order_edit_banner_single_item_added": "Shtuar",
+        "order_edit_banner_single_item_removed": "U hoq"
       },
       "billing": {
         "billing_address_title": "Faturë për",
@@ -1527,7 +1569,8 @@
           "due_after_order_reviewed_html": "Pagesa bëhet pasi të shqyrtohet porosia",
           "review_title_free_order": "Rishikoni dhe përfundoni porosinë tuaj",
           "payment_method_saved_company_location": "Ruaj kartën për këtë vendndodhje",
-          "company_location": "Vendndodhja e kompanisë"
+          "company_location": "Vendndodhja e kompanisë",
+          "contact_method_title": "Kontakti"
         },
         "block_title": "Rishikoni informacionin tuaj",
         "item_header": {
@@ -1590,8 +1633,10 @@
           "added": {
             "one": "Shtuar",
             "other": "U shtua %{count}"
-          }
-        }
+          },
+          "removed": "U hoq"
+        },
+        "pay_now": "Paguaj tani"
       },
       "pickup_point": {
         "paginator": {
@@ -1623,7 +1668,13 @@
             "permission_not_allowed": "Lejo ndarjen e vendndodhjes tënde.",
             "permission_denied": "Nuk mund të gjejmë vendndodhjen tuaj. Provo përsëri."
           }
-        }
+        },
+        "location_is_currently_closed": "Mbyllur",
+        "or": "ose",
+        "search_button": "Kërko",
+        "address_label": "Adresa",
+        "selector_tab_map": "Hartë",
+        "selector_tab_list": "Listë"
       },
       "error_page": {
         "terminal": {
@@ -1729,6 +1780,46 @@
         },
         "return_to_store": "Kthehu te {{shopName}}",
         "return_to_store_simple": "Kthehu në dyqan"
+      },
+      "shipping": {
+        "free_rate_label": "Falas",
+        "duties_and_taxes_options": {
+          "ddp_title": "Paguaj tani"
+        },
+        "shipping_address_title": "Dërgo te",
+        "edit": "Modifiko",
+        "delete": "Fshij",
+        "address_form": {
+          "save": "Ruaj",
+          "cancel": "Anulo"
+        },
+        "split_shipping_shipping_label": "Metoda",
+        "split_shipping_option_fastest": "Më i shpejti",
+        "split_shipping_option_custom": "Personalizuar"
+      },
+      "tips": {
+        "title": "Shto bakshish",
+        "add_tip": "Shto bakshish",
+        "no_tip_label": "Asnjë"
+      },
+      "subscriptions": {
+        "recurring_total_intervals": {
+          "day": {
+            "one": "ditë"
+          },
+          "week": {
+            "one": "javë"
+          },
+          "month": {
+            "one": "muaj"
+          },
+          "year": {
+            "one": "vit"
+          }
+        }
+      },
+      "throttle": {
+        "title": "Radhë"
       }
     },
     "notices": {
@@ -1740,7 +1831,23 @@
           "staff": "Gabim i stafit",
           "other": "Të tjera"
         },
-        "cash_on_delivery": "Pagesë me para në dorëzim (COD)"
+        "cash_on_delivery": "Pagesë me para në dorëzim (COD)",
+        "financial_status": {
+          "pending": "Në pritje",
+          "paid": "Paguar",
+          "unpaid": "I papaguar",
+          "voided": "I pavlefshëm",
+          "expired": "Skaduar"
+        },
+        "fulfillment_status": {
+          "partial": "Pjesërisht"
+        },
+        "transaction_status": {
+          "success": "Sukses",
+          "pending": "Në pritje",
+          "failure": "Dështim",
+          "error": "Gabim"
+        }
       },
       "cart": {
         "only_n_items_available": "Mund të shtoni vetëm %{count} %{name} në shportë.",
@@ -1868,7 +1975,8 @@
       "collections": "Koleksione",
       "not_found": "404 Nuk u gjet",
       "challenge": "Sfidë",
-      "checkpoint": "Pikë kontrolli"
+      "checkpoint": "Pikë kontrolli",
+      "account": "Llogari"
     },
     "cart": {
       "discounts_with_count": "Janë aplikuar %{count} zbritje"
@@ -1947,7 +2055,12 @@
       "blank": "nuk mund të jetë bosh",
       "blocked_address": "Kjo vendndodhje nuk mbështetet",
       "credit_card_session_expired": "Autorizimi i kartës së kreditit ka skaduar, ju lutemi futni përsëri informacionin tuaj të pagesës. Karta juaj nuk është ngarkuar.",
-      "empty": "nuk mund të jetë bosh"
+      "empty": "nuk mund të jetë bosh",
+      "shop_404": {
+        "owner_ctas": {
+          "admin_link_text": "administrator"
+        }
+      }
     },
     "subscriptions": {
       "buyer_consent_product": "Ky artikull është një blerje e përsëritur ose e shtyrë. Duke vazhduar, unë pajtohem me %{cancellationPolicyLink} dhe ju autorizoj të ngarkoni metodën time të pagesës me çmimet, frekuencën dhe datat e listuara në këtë faqe derisa porosia ime të përmbushet ose unë ta anuloj, nëse lejohet.",
@@ -2862,7 +2975,8 @@
       "list_title_confirmed_orders_accessibility_label": "Porositë: të konfirmuara",
       "list_title_pending_orders_accessibility_label": "Porosi: në pritje",
       "switch_order_type_pending_orders_accessibility_label": "Ndërro llojin e porosisë, aktualisht po shikon porositë në pritje",
-      "switch_order_type_confirmed_orders_accessibility_label": "Ndërro llojin e porosisë, aktualisht po shikon porositë e konfirmuara"
+      "switch_order_type_confirmed_orders_accessibility_label": "Ndërro llojin e porosisë, aktualisht po shikon porositë e konfirmuara",
+      "manage": "Menaxho"
     },
     "addresses": {
       "add_button": "Shto adresë",
@@ -2950,7 +3064,8 @@
         "nav_accessibility_label": "Navigimi i llogarisë",
         "open_menu_accessibility_label": "Hap navigimin e llogarisë",
         "close_menu_accessibility_label": "Mbyll navigimin e llogarisë",
-        "loading_message": "Duke ngarkuar navigimin e llogarisë"
+        "loading_message": "Duke ngarkuar navigimin e llogarisë",
+        "label": "Llogari"
       },
       "action_menu_accessibility_label": "Më shumë veprime",
       "close_menu_accessibility_label": "Mbyll navigimin kryesor",
