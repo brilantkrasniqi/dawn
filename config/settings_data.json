@@ -301,13 +301,40 @@
               "collection_link": "shopify://collections/napkin",
               "collection_handle": "napkin"
             }
+          },
+          "collection_link_kQ4hbA": {
+            "type": "collection_link",
+            "settings": {
+              "title": "Airlaid Napkins",
+              "collection_link": "shopify://collections/airlaid-napkins",
+              "collection_handle": ""
+            }
+          },
+          "collection_link_qDKNBx": {
+            "type": "collection_link",
+            "settings": {
+              "title": "Professional / Dispenser",
+              "collection_link": "shopify://collections/professional-dispenser",
+              "collection_handle": ""
+            }
+          },
+          "collection_link_rkwFM9": {
+            "type": "collection_link",
+            "settings": {
+              "title": "Others",
+              "collection_link": "shopify://collections/te-tjera",
+              "collection_handle": ""
+            }
           }
         },
         "block_order": [
           "collection_link_7nR6m8",
           "collection_link_HFqhzb",
           "collection_link_XW7RfR",
-          "collection_link_cVLtLg"
+          "collection_link_cVLtLg",
+          "collection_link_kQ4hbA",
+          "collection_link_qDKNBx",
+          "collection_link_rkwFM9"
         ],
         "settings": {}
       },
