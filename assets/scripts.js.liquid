@@ -55,21 +55,21 @@ class PageNavigation {
     });
 
 // Search Bar
-// this.searchButton ?. addEventListener("click", () => {
-// this.navSearchBar ?. classList.toggle("displaySearchBar");
-// if (this.mobileMenu ?. classList.contains("mobileActive")) {
-// this.overlay ?. classList.remove("d-none");
-// } else {
-// this.overlay ?. classList.toggle("d-none");
-// }
-// this.mobileMenu ?. classList.remove("mobileActive");
-// resetHamburgerLines();
-// });
-// this.searchBar.addEventListener("keydown", () => {
-// updateOverlay();
-// this.mobileMenu ?. classList.remove("mobileActive");
-// resetHamburgerLines();
-// });
+    this.searchButton ?. addEventListener("click", () => {
+      this.navSearchBar ?. classList.toggle("displaySearchBar");
+      if (this.mobileMenu ?. classList.contains("mobileActive")) {
+        this.overlay ?. classList.remove("d-none");
+      } else {
+        this.overlay ?. classList.toggle("d-none");
+      }
+      this.mobileMenu ?. classList.remove("mobileActive");
+      resetHamburgerLines();
+    });
+    this.searchBar.addEventListener("keydown", () => {
+      updateOverlay();
+      this.mobileMenu ?. classList.remove("mobileActive");
+      resetHamburgerLines();
+    });
     document.addEventListener("keydown", (e) => {
       if (e.code === "Backquote" || e.code === "Escape") {
         this.resetActiveComponents();
@@ -1329,7 +1329,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                              {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
@@ -1551,124 +1551,124 @@ document.addEventListener('DOMContentLoaded', function() {
   updateCartUI();
 });
 
-// document.addEventListener('DOMContentLoaded', () => {
-// const searchBar = document.getElementById('searchBar');
-// const searchResults = document.createElement('div');
-// searchResults.id = 'searchResults';
-// searchBar.parentNode.appendChild(searchResults);
+document.addEventListener('DOMContentLoaded', () => {
+  const searchBar = document.getElementById('searchBar');
+  const searchResults = document.createElement('div');
+  searchResults.id = 'searchResults';
+  searchBar.parentNode.appendChild(searchResults);
 
-// // Add styles for search results
-// const style = document.createElement('style');
-// style.textContent = `
-// #searchResults {
-// position: absolute;
-// width: 100%;
-// top: 100%;
-// max-height: 400px;
-// overflow-y: auto;
-// background: white;
-// box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-// z-index: 1000;
-// display: none;
-// }
-// .search-item {
-// padding: 10px;
-// border-bottom: 1px solid #eee;
-// cursor: pointer;
-// }
-// .search-item:hover {
-// background: #f8f9fa;
-// }
-// `;
-// document.head.appendChild(style);
+// Add styles for search results
+  const style = document.createElement('style');
+  style.textContent = `
+#searchResults {
+position: absolute;
+width: 100%;
+top: 100%;
+max-height: 400px;
+overflow-y: auto;
+background: white;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+z-index: 1000;
+display: none;
+}
+.search-item {
+padding: 10px;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+}
+.search-item:hover {
+background: #f8f9fa;
+}
+`;
+  document.head.appendChild(style);
 
-// // Debounce function to limit API calls
-// const debounce = (func, delay) => {
-// let timeout;
-// return(...args) => {
-// clearTimeout(timeout);
-// timeout = setTimeout(() => func.apply(this, args), delay);
-// };
-// };
+// Debounce function to limit API calls
+  const debounce = (func, delay) => {
+    let timeout;
+    return(...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
 
-// // Fetch search results from Shopify
-// const fetchSearchResults = async (query) => {
-// try {
-// const response = await fetch(`/search/suggest.json?q=${
-// encodeURIComponent(query)
-// }&resources[type]=product&resources[limit]=10`);
-// const data = await response.json();
-// return data.resources.results.products;
-// } catch (error) {
-// console.error('Search error:', error);
-// return [];
-// }
-// };
+// Fetch search results from Shopify
+  const fetchSearchResults = async (query) => {
+    try {
+      const response = await fetch(`/search/suggest.json?q=${
+        encodeURIComponent(query)
+      }&resources[type]=product&resources[limit]=10`);
+      const data = await response.json();
+      return data.resources.results.products;
+    } catch (error) {
+      console.error('Search error:', error);
+      return [];
+    }
+  };
 
-// // Display search results
-// const displayResults = (products) => {
-// searchResults.innerHTML = '';
-// if (products.length === 0) {
-// searchResults.innerHTML = `<div class="search-item">No results found</div>`;
-// searchResults.style.display = 'block';
-// return;
-// }
+// Display search results
+  const displayResults = (products) => {
+    searchResults.innerHTML = '';
+    if (products.length === 0) {
+      searchResults.innerHTML = `<div class="search-item">No results found</div>`;
+      searchResults.style.display = 'block';
+      return;
+    }
 
-// products.forEach(product => {
-// const item = document.createElement('a');
-// item.className = 'search-item d-block text-decoration-none text-dark';
-// item.href = product.url;
-// item.innerHTML = `
-// <div class="d-flex align-items-center">
-// <img class="thumbnailSearch ps-2 object-fit-contain" src="${
-// product.image
-// }" alt="${
-// product.title
-// }" width="50" height="50" class="me-3">
-// <div class="ps-3">
-// <h6 class="mb-0 text-main">${
-// product.title
-// }</h6>
-// <small class="text-main">${
-// product.price || money_with_currency
-// }€</small>
-// </div>
-// </div>
-// `;
-// searchResults.appendChild(item);
-// });
-// searchResults.style.display = 'block';
-// };
+    products.forEach(product => {
+      const item = document.createElement('a');
+      item.className = 'search-item d-block text-decoration-none text-dark';
+      item.href = product.url;
+      item.innerHTML = `
+<div class="d-flex align-items-center">
+<img class="thumbnailSearch ps-2 object-fit-contain" src="${
+        product.image
+      }" alt="${
+        product.title
+      }" width="50" height="50" class="me-3">
+<div class="ps-3">
+<h6 class="mb-0 text-main">${
+        product.title
+      }</h6>
+<small class="text-main">${
+        product.price || money_with_currency
+      }€</small>
+</div>
+</div>
+`;
+      searchResults.appendChild(item);
+    });
+    searchResults.style.display = 'block';
+  };
 
-// // Handle search input
-// const handleSearch = debounce(async (e) => {
-// const query = e.target.value.trim();
-// if (query.length < 2) {
-// searchResults.style.display = 'none';
-// return;
-// }
+// Handle search input
+  const handleSearch = debounce(async (e) => {
+    const query = e.target.value.trim();
+    if (query.length < 2) {
+      searchResults.style.display = 'none';
+      return;
+    }
 
-// const results = await fetchSearchResults(query);
-// displayResults(results);
-// }, 300);
+    const results = await fetchSearchResults(query);
+    displayResults(results);
+  }, 300);
 
-// // Event listeners
-// searchBar.addEventListener('input', handleSearch);
+// Event listeners
+  searchBar.addEventListener('input', handleSearch);
 
-// // Hide results when clicking outside
-// document.addEventListener('click', (e) => {
-// if (! searchBar.contains(e.target)) {
-// searchResults.style.display = 'none';
-// }
-// });
+// Hide results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (! searchBar.contains(e.target)) {
+      searchResults.style.display = 'none';
+    }
+  });
 
-// // Handle keyboard navigation
-// searchBar.addEventListener('keydown', (e) => {
-// if (e.key === 'Escape') {
-// searchResults.style.display = 'none';
-// }
-// });
-// });
+// Handle keyboard navigation
+  searchBar.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchResults.style.display = 'none';
+    }
+  });
+});
 
 // setTimeout(() => {
 // document.addEventListener('DOMContentLoaded', () => {
