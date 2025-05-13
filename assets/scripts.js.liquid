@@ -219,18 +219,32 @@ document.addEventListener('DOMContentLoaded', function() {
       
 
 
-// Simple money formatter that uses the browser's Intl.NumberFormat capabilities
-      const value = parseInt(cents, 10) / 100;
+// For very small values (less than 1 cent), use higher precision
+      if (cents > 0 && cents < 1) { // Convert to dollars/euros and use 4 decimal places for small values
+        const smallValue = cents / 100;
+        try {
+          return new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: Shopify.currency.active || 'EUR',
+            minimumFractionDigits: 4,
+            maximumFractionDigits: 4
+          }).format(smallValue);
+        } catch (e) {
+          console.error('Error formatting small money value:', e);
+          return smallValue.toFixed(4);
+        }
+      }
 
-      try { // Use the current currency from Shopify.currency.active
+// Normal case: standard 2 decimal place formatting
+      const value = parseFloat(cents) / 100;
+
+      try {
         return new Intl.NumberFormat(undefined, {
           style: 'currency',
           currency: Shopify.currency.active || 'EUR'
         }).format(value);
       } catch (e) {
         console.error('Error formatting money:', e);
-
-// Fallback to a simple formatter
         return value.toFixed(2);
       }
     };
@@ -492,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (applicableTier) { // Calculate discount as a percentage (discount value is the percentage off)
         const discountPercentage = applicableTier.discount; // This is already the percentage value
-        const discountAmount = Math.floor((originalPrice * discountPercentage) / 100); // Use Math.floor to match Shopify's per-item discount rounding
+        const discountAmount = Math.floor((originalPrice * discountPercentage) / 100);
         const discountedPrice = Math.max(0, originalPrice - discountAmount);
 
         console.log('Calculated discount:', {
@@ -570,6 +584,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const pricePerPieceElements = variantPriceElement.querySelectorAll('.js-price-per-piece');
         pricePerPieceElements.forEach(el => {
+
+// Use the raw pricePerPiece value without any additional parsing that could lose precision
           el.textContent = Shopify.formatMoney(pricePerPiece);
         });
 
@@ -1313,7 +1329,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                        {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
