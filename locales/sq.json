@@ -2848,7 +2848,9 @@
         "log_in": "Kyçu",
         "resend_link_with_login": "dërgo lidhje të re",
         "resend_link_without_login": "Dërgo lidhje të re",
-        "link_expired": "Lidhja skadoi"
+        "link_expired": "Lidhja skadoi",
+        "resend_link_and_login": "Për të parë detajet e porosisë suaj, hyni ose dërgoni një lidhje të re në emailin ose numrin e telefonit të përdorur në arkë.",
+        "resend_link_only": "Për të parë detajet e porosisë suaj, dërgoni një lidhje të re në emailin ose numrin e telefonit të përdorur në arkë."
       },
       "remaining_amount": "Mbetur",
       "marketing_section_title": "Lajme dhe oferta",
@@ -3648,7 +3650,12 @@
         "more_than_three_products_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}} dhe {{numberOfAdditionalProducts}} produkte të tjera",
         "more_than_four_products_accessibility_label": "Porosia përfshin {{lineItemName1}} , {{lineItemName2}} , {{lineItemName3}} dhe {{numberOfAdditionalProducts}} produkte të tjera",
         "plus_more": "+ {{numberOfAdditionalProducts}}",
-        "plus_more_products": "+ {{numberOfAdditionalProducts}} produkte"
+        "plus_more_products": "+ {{numberOfAdditionalProducts}} produkte",
+        "location_filter_picker": {
+          "all_location": "Të gjitha vendndodhjet",
+          "current_location": "Vendndodhja aktuale",
+          "switch_view": "Ndërro pamjen"
+        }
       },
       "order_status": {
         "attempted_delivery_label": "Tentativë për dorëzim",
