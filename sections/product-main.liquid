@@ -326,8 +326,68 @@
                           {% assign unit_label = 'bundle' %}
                         {% else %}
                           {% assign unit_label = product.type %}
-                      {% endcase %}
-                      <p class="perPiece pb-2">({{ product.price | divided_by: pieces_per_pack | money }}) per {{ unit_label }}</p>
+                    {% endcase %}
+                      {% comment %} Calculate precise price per piece in cents (e.g., 1220 cents for $12.20) {% endcomment %}
+                      {% assign precise_per_piece_cents = product.price | times: 1.0 | divided_by: pieces_per_pack %}
+
+                        {% if precise_per_piece_cents > 0 and precise_per_piece_cents < 1.0 %}
+                        {% comment %} 
+                                                                              Price per piece is a positive fraction of a cent (e.g., 0.01 to 0.99 cents).
+                                                                              Display with higher precision. For example, 0.61 cents should become $0.0061. 
+                                                                        {% endcomment %}
+
+                        {% comment %} Convert fractional cents to the main currency unit (e.g., dollars) {% endcomment %}
+                        {% assign value_in_main_currency = precise_per_piece_cents | divided_by: 100.0 %}
+
+                      {% assign precision_for_fractions = 4 %}
+                        {% comment %} Adjust if more/less precision is desired, e.g. 0.0061 needs 4 {% endcomment %}
+                      {% assign formatted_high_precision_value = value_in_main_currency | round: precision_for_fractions %}
+
+                        {% comment %} 
+                                                                              Create the display string with currency symbol using a placeholder method.
+                                                                              This adapts to your store's currency formatting (e.g., prefix/suffix symbol, decimal/comma separators). 
+                                                                        {% endcomment %}
+                        {% assign placeholder_value = "###PRICE###" %}
+                      {% assign dummy_amount_in_cents_for_format = 123 %}
+                        {% comment %} Represents $1.23, €1,23, ¥123 etc. {% endcomment %}
+                      {% assign formatted_dummy_price = dummy_amount_in_cents_for_format | money %}
+
+                        {% comment %} 
+                                                                              Prepare known numeric string representations of the dummy price.
+                                                                              This helps in replacing the numeric part of the formatted_dummy_price.
+                                                                              Example: "$1.23" (num_dummy_val_dot), "1,23 €" (num_dummy_val_comma), "¥123" (num_dummy_val_int) 
+                                                                        {% endcomment %}
+                        {% assign num_dummy_val_dot = "1.23" %}
+                        {% assign num_dummy_val_comma = "1,23" %}
+                      {% assign num_dummy_val_int = "123" %}
+
+                        {% comment %} Create a template by replacing the numeric part of the dummy formatted price with the placeholder {% endcomment %}
+                        {% assign money_template = formatted_dummy_price | replace: num_dummy_val_dot, placeholder_value %}
+                        {% assign money_template = money_template | replace: num_dummy_val_comma, placeholder_value %}
+                      {% assign money_template = money_template | replace: num_dummy_val_int, placeholder_value %}
+
+                        {% comment %} Insert the actual high-precision formatted value into the template {% endcomment %}
+                        {% assign final_display_string = money_template | replace: placeholder_value, formatted_high_precision_value %}
+
+                        {% comment %} Fallback: If the placeholder logic didn't work (e.g. very unusual money format not caught by 1.23/1,23/123) {% endcomment %}
+                        {% unless money_template contains placeholder_value %}
+                          {% comment %} This means the placeholder was not successfully introduced into money_template.
+                                                                                                                            Default to prepending the shop currency symbol.
+                                                                                                        {% endcomment %}
+                          {% assign currency_symbol = shop.currency | default: "$" %}
+                          {% assign final_display_string = currency_symbol | append: " " | append: formatted_high_precision_value %}
+                        {% endunless %}
+                        {% assign display_value = final_display_string %}
+                      {% else %}
+                        {% comment %} 
+                                                                              Price per piece is 0, or 1 cent or more.
+                                                                              Use standard 'money' filter. Input should be cents, rounded to the nearest whole number. 
+                                                                        {% endcomment %}
+                        {% assign cents_for_standard_filter = precise_per_piece_cents | round %}
+                        {% assign display_value = cents_for_standard_filter | money %}
+                      {% endif %}
+
+                      <p class="perPiece pb-2">({{ display_value }}) per {{ unit_label }}</p>
                     {% endif %}
                   </div>
                   <form class="add-to-cart-form prod-card" data-variant-id="{{ product.variants.first.id }}">

@@ -65,12 +65,7 @@
             }
           }
         },
-        "block_order": [
-          "collection_KAkwCX",
-          "collection_VyGHeQ",
-          "collection_bW4ADd",
-          "collection_7J3B9z"
-        ],
+        "block_order": ["collection_KAkwCX", "collection_VyGHeQ", "collection_bW4ADd", "collection_7J3B9z"],
         "settings": {}
       },
       "bulk-cta": {
@@ -90,7 +85,7 @@
           "heading1": "Tried, tested, and trusted since 2008",
           "paragraph1": "For over 15 years, Flutra has been a reliable part of daily routines across countless homes. Our commitment to quality means every roll, napkin, and sheet is made to meet the highest standards.",
           "heading2": "Made with care, designed for comfort",
-          "paragraph2": "We don’t just make paper, we craft everyday essentials with precision and pride. Whether it’s for your kitchen, bathroom, or table, Flutra delivers softness, durability, and the kind of quality you’ll notice from the first touch.",
+          "paragraph2": "We don't just make paper, we craft everyday essentials with precision and pride. Whether it's for your kitchen, bathroom, or table, Flutra delivers softness, durability, and the kind of quality you'll notice from the first touch.",
           "button_link_1": "",
           "button_text_1": "More about us",
           "button_link_2": "",
@@ -155,16 +150,12 @@
             }
           }
         },
-        "block_order": [
-          "bullet_K8jUwi",
-          "bullet_HYgTfN",
-          "bullet_HiprMH"
-        ],
+        "block_order": ["bullet_K8jUwi", "bullet_HYgTfN", "bullet_HiprMH"],
         "settings": {
           "heading1": "Stand out with custom-printed paper",
-          "paragraph1": "Your brand is more than a logo, it’s an experience. With Flutra’s custom printing options, you can extend your identity to every touchpoint. From elegant napkins in fine dining settings to branded rolls in hotel bathrooms, our products add a professional, thoughtful touch to your service.",
+          "paragraph1": "Your brand is more than a logo, it's an experience. With Flutra's custom printing options, you can extend your identity to every touchpoint. From elegant napkins in fine dining settings to branded rolls in hotel bathrooms, our products add a professional, thoughtful touch to your service.",
           "heading2": "Made for hospitality, events, retail, and more",
-          "paragraph2": "From boutique hotels and luxury restaurants to cafés, spas, and white-label resellers, Flutra’s custom paper products are trusted by businesses that want to stand out. <br>  <br>Trusted by:",
+          "paragraph2": "From boutique hotels and luxury restaurants to cafés, spas, and white-label resellers, Flutra's custom paper products are trusted by businesses that want to stand out. <br>  <br>Trusted by:",
           "button_link_1": "#contactForm",
           "button_text_1": "Get your quote now",
           "image_1": "shopify://shop_images/tp-eyes-hq.png",
@@ -210,22 +201,17 @@
             }
           }
         },
-        "block_order": [
-          "paragraph_473hpY",
-          "bullet_d4AQhh",
-          "bullet_DtgxiK",
-          "bullet_LXMinP"
-        ],
+        "block_order": ["paragraph_473hpY", "bullet_d4AQhh", "bullet_DtgxiK", "bullet_LXMinP"],
         "settings": {
           "form_header": "Get your quote now",
           "field_1": "Company Name*",
           "field_2": "Email address*",
           "field_3": "Phone number*",
           "field_4": "Estimated order quantity",
-          "check_text": "I agree to be contacted by Flutra’s partnerships team regarding my inquiry",
+          "check_text": "I agree to be contacted by Flutra's partnerships team regarding my inquiry",
           "newsletter_text": "Subscribe to our newsletter for special offers and updates",
-          "heading": "Let’s create your branded paper products",
-          "paragraph": "Tell us what you’re looking for and our team will get in touch with a custom quote. Whether you need small batches or large-scale production, we’ll help you bring your brand to life on every sheet."
+          "heading": "Let's create your branded paper products",
+          "paragraph": "Tell us what you're looking for and our team will get in touch with a custom quote. Whether you need small batches or large-scale production, we'll help you bring your brand to life on every sheet."
         }
       },
       "b2b-hero": {
@@ -253,7 +239,7 @@
       "product-main": {
         "type": "product-main",
         "settings": {
-          "why_sub": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you’ll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns.",
+          "why_sub": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you'll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns.",
           "b2b_link": "shopify://pages/b2b-partnerships",
           "related_products_heading": "Recommended products",
           "related_products_source": "same_type",
@@ -356,7 +342,7 @@
           "enter_code_placeholder": "Enter your code",
           "order_discounts_text": "Order Discounts",
           "shipping_costs_text": "Shipping costs",
-          "default_shipping_cost": 250,
+          "default_shipping_cost": 300,
           "subtotal_text": "Subtotal",
           "checkout_button_text": "Continue to Checkout",
           "email_contact_text": "Email contact",

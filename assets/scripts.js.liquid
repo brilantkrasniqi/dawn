@@ -1313,9 +1313,9 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                     {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                        {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
-                const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
+                const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
 // Convert shipping cost to current currency
                 const currentCurrencyRate = Shopify.currency
@@ -1335,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 shippingCostsElement.setAttribute('data-shipping-cost', shippingCost);
                 shippingCostsElement.textContent = Shopify.formatMoney(shippingCost);
               } else { // No shipping rates available, use default
-                const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
+                const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
 // Convert shipping cost to current currency
                 const currentCurrencyRate = Shopify.currency
@@ -1350,7 +1350,7 @@ document.addEventListener('DOMContentLoaded', function() {
               console.error('Error fetching shipping rates:', error);
 
 // Use default shipping cost on error
-              const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 500 }};
+              const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
 // Convert shipping cost to current currency
               const currentCurrencyRate = Shopify.currency
