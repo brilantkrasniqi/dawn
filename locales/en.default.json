@@ -16,5 +16,14 @@
         "address1_label": "Address, apartment, suite, etc"
       }
     }
+  },
+  "products": {
+    "product": {
+      "select_quantity": "Select quantity",
+      "product_features": "Product features",
+      "out_of_stock": "Out of Stock",
+      "add_to_cart": "Add to cart",
+      "free_shipping_message": "Free shipping on orders over ..."
+    }
   }
 }
