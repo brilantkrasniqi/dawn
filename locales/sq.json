@@ -3989,7 +3989,8 @@
       "select_quantity": "Zgjidhni sasinë",
       "you_currently_save": "Alo",
       "product_features": "Karakteristikat e produktit",
-      "add_to_cart": "Shto në shportë"
+      "add_to_cart": "Shto në shportë",
+      "free_shipping_message": "alo"
     }
   }
 }
