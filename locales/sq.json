@@ -3981,5 +3981,11 @@
         "disabled": "Klientët duhet të kontaktojnë tregtarin për të kërkuar kthim."
       }
     }
+  },
+  "products": {
+    "product": {
+      "including_vat": "Përfshirë TVSH-në",
+      "excluding_vat": "Pa TVSH"
+    }
   }
 }
