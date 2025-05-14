@@ -3991,7 +3991,8 @@
       "product_features": "Karakteristikat e produktit",
       "add_to_cart": "Shto në shportë",
       "free_shipping_message": " Transporti falas për porositë mbi",
-      "off_your_total_order": "nga porosia juaj!"
+      "off_your_total_order": "nga porosia juaj!",
+      "out_of_stock": "Jashtë gjendjes"
     }
   }
 }
