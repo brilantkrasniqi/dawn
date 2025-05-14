@@ -3987,10 +3987,11 @@
       "including_vat": "Përfshirë TVSH-në",
       "excluding_vat": "Pa TVSH",
       "select_quantity": "Zgjidhni sasinë",
-      "you_currently_save": "Alo",
+      "you_currently_save": "Aktualisht kurseni",
       "product_features": "Karakteristikat e produktit",
       "add_to_cart": "Shto në shportë",
-      "free_shipping_message": " Transporti falas për porositë mbi"
+      "free_shipping_message": " Transporti falas për porositë mbi",
+      "off_your_total_order": "nga porosia juaj!"
     }
   }
 }
