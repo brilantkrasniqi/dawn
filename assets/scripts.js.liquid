@@ -1,43 +1,14 @@
 import Splide from "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.esm.min.js";
 
-// Translation Manager class
-class TranslationManager {
-  constructor(initialTranslations) {
-    this._translations = {
-      ...initialTranslations
-    };
-  }
-
-  get(key) {
-    if (!this._translations[key]) {
-      console.warn(`Translation key "${key}" not found`);
-      return key;
-    }
-    return this._translations[key];
-  }
-
-  format(key, ...args) {
-    let text = this.get(key);
-    args.forEach((arg, i) => {
-      text = text.replace(`{${i}}`, arg);
-    });
-    return text;
-  }
-}
-
-// Initialize translations with namespaced structure
-const translationManager = new TranslationManager({
-  cart: {
-    empty: {{ 'cart.general.empty' | t | json }},
-    free: {{ 'cart.general.free' | t | json }}
-  },
-  products: {
-    addToCart: {{ 'products.product.add_to_cart' | t | json }},
-    outOfStock: {{ 'products.product.out_of_stock' | t | json }},
-    youCurrentlySave: {{ 'products.product.you_currently_save' | t | json }},
-    offYourTotalOrder: {{ 'products.product.off_your_total_order' | t | json }}
-  }
-});
+// Initialize translation strings - add this at the top of the file after the import
+const translations = {
+  youCurrentlySave: {{ 'products.product.you_currently_save' | t | json }},
+  offYourTotalOrder: {{ 'products.product.off_your_total_order' | t | json }},
+  yourCartIsEmpty: {{ 'cart.general.empty' | t | json }},
+  addToCart: {{ 'products.product.add_to_cart' | t | json }},
+  outOfStock: {{ 'products.product.out_of_stock' | t | json }},
+  free: {{ 'cart.general.free' | t | json }}
+};
 
 class PageNavigation {
   hamburger = document.querySelectorAll(".hamburger");
@@ -723,9 +694,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // Update discount display text with raw value in data attribute
           discountDisplay.setAttribute('data-discount-amount', discountAmount);
           const discountText = `${
-            translationManager.format('cart.products.youCurrentlySave', [Shopify.formatMoney(discountAmount)])
+            translations.youCurrentlySave
           } ${
-            translationManager.format('cart.products.offYourTotalOrder', [Shopify.formatMoney(discountAmount)])
+            Shopify.formatMoney(discountAmount)
+          } ${
+            translations.offYourTotalOrder
           }`;
           discountDisplay.textContent = discountText;
           discountDisplay.classList.add('text-discount');
@@ -940,13 +913,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (addToCartBtn) {
               addToCartBtn.disabled = ! isAvailable;
               addToCartBtn.textContent = isAvailable
-                ? translationManager.format('cart.products.addToCart', [Shopify.formatMoney(this.getAttribute('data-price'))])
-                : translationManager.format('cart.products.outOfStock', [Shopify.formatMoney(this.getAttribute('data-price'))]);
+                ? translations.addToCart
+                : translations.outOfStock;
               addToCartBtn.setAttribute(
                 'aria-label',
                 isAvailable
-                  ? translationManager.format('cart.products.addToCart', [Shopify.formatMoney(this.getAttribute('data-price'))])
-                  : translationManager.format('cart.products.outOfStock', [Shopify.formatMoney(this.getAttribute('data-price'))])
+                  ? translations.addToCart
+                  : translations.outOfStock
               );
             }
           }
@@ -1181,7 +1154,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (cart.items.length === 0) {
         itemsHtml = `<div class="cartItemsContainer bg-white rounded-8">
                        <h3 class="text-center pt-3">${
-          translationManager.format('cart.cart.empty', [Shopify.formatMoney(0)])
+          translations.yourCartIsEmpty
         }</h3>
                      </div>`;
       } else { // First calculate raw and discounted subtotals
@@ -1367,13 +1340,13 @@ document.addEventListener('DOMContentLoaded', function() {
           });
 
           if (cartTotalInDefaultCurrency >= freeShippingThreshold) {
-            const freeShippingLabel = {{ section.settings.free_shipping_label | json }} || translationManager.format('cart.cart.free', [Shopify.formatMoney(0)]);
+            const freeShippingLabel = {{ section.settings.free_shipping_label | json }} || translations.free;
             shippingCostsElement.textContent = freeShippingLabel;
             shippingCostsElement.setAttribute('data-shipping-cost', 0);
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                      {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                     {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
@@ -1871,9 +1844,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Update discount display text with raw value in data attribute
         discountDisplay.setAttribute('data-discount-amount', totalDiscountAmount);
         const discountText = `${
-          translationManager.format('cart.products.youCurrentlySave', [Shopify.formatMoney(totalDiscountAmount)])
+          translations.youCurrentlySave
         } ${
-          translationManager.format('cart.products.offYourTotalOrder', [Shopify.formatMoney(totalDiscountAmount)])
+          Shopify.formatMoney(totalDiscountAmount)
+        } ${
+          translations.offYourTotalOrder
         }`;
         discountDisplay.textContent = discountText;
         discountDisplay.classList.add('text-discount');
