@@ -3985,7 +3985,8 @@
   "products": {
     "product": {
       "including_vat": "Përfshirë TVSH-në",
-      "excluding_vat": "Pa TVSH"
+      "excluding_vat": "Pa TVSH",
+      "select_quantity": "Zgjidh sasin"
     }
   }
 }
