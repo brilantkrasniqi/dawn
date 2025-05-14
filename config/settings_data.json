@@ -17,8 +17,8 @@
       "hero": {
         "type": "hero",
         "settings": {
-          "bg_hero_image": "shopify://shop_images/tp-header-mb-hq.jpg",
-          "bg_hero_mb_image": "shopify://shop_images/tp-header-mb-hq.jpg",
+          "bg_hero_image": "shopify://shop_images/Banner_4.png",
+          "bg_hero_mb_image": "shopify://shop_images/BANNER_4_MOBILE-2.png",
           "heading": "Professional hygiene products for Gastronomy, Office, Home and Businesses.",
           "paragraph1": "European quality & competitive prices.",
           "button_text": "Browse products",
@@ -65,7 +65,12 @@
             }
           }
         },
-        "block_order": ["collection_KAkwCX", "collection_VyGHeQ", "collection_bW4ADd", "collection_7J3B9z"],
+        "block_order": [
+          "collection_KAkwCX",
+          "collection_VyGHeQ",
+          "collection_bW4ADd",
+          "collection_7J3B9z"
+        ],
         "settings": {}
       },
       "bulk-cta": {
@@ -150,7 +155,11 @@
             }
           }
         },
-        "block_order": ["bullet_K8jUwi", "bullet_HYgTfN", "bullet_HiprMH"],
+        "block_order": [
+          "bullet_K8jUwi",
+          "bullet_HYgTfN",
+          "bullet_HiprMH"
+        ],
         "settings": {
           "heading1": "Stand out with custom-printed paper",
           "paragraph1": "Your brand is more than a logo, it's an experience. With Flutra's custom printing options, you can extend your identity to every touchpoint. From elegant napkins in fine dining settings to branded rolls in hotel bathrooms, our products add a professional, thoughtful touch to your service.",
@@ -201,7 +210,12 @@
             }
           }
         },
-        "block_order": ["paragraph_473hpY", "bullet_d4AQhh", "bullet_DtgxiK", "bullet_LXMinP"],
+        "block_order": [
+          "paragraph_473hpY",
+          "bullet_d4AQhh",
+          "bullet_DtgxiK",
+          "bullet_LXMinP"
+        ],
         "settings": {
           "form_header": "Get your quote now",
           "field_1": "Company Name*",
