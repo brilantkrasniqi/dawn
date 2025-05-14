@@ -3987,7 +3987,9 @@
       "including_vat": "Përfshirë TVSH-në",
       "excluding_vat": "Pa TVSH",
       "select_quantity": "Zgjidhni sasinë",
-      "you_currently_save": "Alo"
+      "you_currently_save": "Alo",
+      "product_features": "Karakteristikat e produktit",
+      "add_to_cart": "Shto në shportë"
     }
   }
 }
