@@ -46,7 +46,7 @@
                     </script> {% endcomment %}
     <script
       type="module"
-      src="{{ 'scripts.js' | asset_url }}"
+      src="{{ 'scripts.js.liquid' | asset_url }}"
       defer></script>
     <!-- WPD Start -->
     {% if customer.tags.size > 0 and template != 'cart' %}
