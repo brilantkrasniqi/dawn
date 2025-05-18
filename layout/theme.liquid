@@ -45,8 +45,8 @@
                               window.shopMoneyFormat = {{ shop.money_format | json }}
                     </script> {% endcomment %}
     <script
-     
-      src="{{ 'scripts.js.liquid' | asset_url }}"
+      type="module"
+      src="{{ 'scripts.js' | asset_url }}"
       defer></script>
     <!-- WPD Start -->
     {% if customer.tags.size > 0 and template != 'cart' %}
