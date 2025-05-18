@@ -219,7 +219,7 @@
             width="13"
             height="13" />
           <small class="info-text">
-            A more accurate shipping cost will be calculated at checkout based on your address.
+            {{ 'cart.general.shipping_cost_info' | t }}
           </small>
         </span>
       </p>
@@ -469,11 +469,11 @@
       // Update product page free shipping message if it exists
       if (productFreeShippingText) {
        // Use the translation from window.translations, and insert the amount
-  let label = window.translations.freeShippingLabel || '';
-  // If your translation needs the amount inserted, do it here:
-  // e.g. "Transporti falas për porositë mbi [amount]"
-  label = label.replace('[amount]', amount);
-  productFreeShippingText.innerHTML = label;
+      let label = window.translations.freeShippingLabel || '';
+      // If your translation needs the amount inserted, do it here:
+      // e.g. "Transporti falas për porositë mbi [amount]"
+      label = label.replace('[amount]', amount);
+      productFreeShippingText.innerHTML = label;
       }
     }
   };
