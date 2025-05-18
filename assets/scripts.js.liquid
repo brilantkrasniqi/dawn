@@ -636,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
 
             const discountSpan = document.createElement('span');
-            discountSpan.className = 'discount-price-product roboto-font user-select-none';
+            discountSpan.className = 'discount-price-product roboto-font testing1 user-select-none';
             discountSpan.textContent = formattedOriginalPrice;
             discountContainer.appendChild(discountSpan);
 
@@ -1341,7 +1341,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                        {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
@@ -1833,7 +1833,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalDiscountedPrice = discountedPricePerItem * quantity;
 
 // Calculate the actual amount saved in euros
-        const originalTotalPrice = originalPrice * quantity;
+// Check if there's a compare-at price and use that for the original price if available
+        const selectedVariant = document.querySelector('#package-options .package-box.selected');
+        const variantCompareAtPrice = selectedVariant
+          ? parseInt(selectedVariant.getAttribute('data-compare-at-price')) || 0
+          : 0;
+
+// If compare-at price exists and is higher than regular price, use it as the base for discount display
+        const priceForDisplay = (variantCompareAtPrice && variantCompareAtPrice > originalPrice)
+          ? variantCompareAtPrice
+          : originalPrice;
+
+        const originalTotalPrice = priceForDisplay * quantity;
         const totalDiscountAmount = originalTotalPrice - totalDiscountedPrice;
 
 // Update discount display text with raw value in data attribute
@@ -1869,6 +1880,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Update price display with discount
         if (variantPriceElement) {
           const formattedDiscountedPrice = Shopify.formatMoney(totalDiscountedPrice, window.shopMoneyFormat);
+
+// Always use the correct price for the strikethrough - either compare-at-price or original price
           const formattedOriginalPrice = Shopify.formatMoney(originalTotalPrice, window.shopMoneyFormat);
 
 // Calculate and format price per piece (based on discounted price)
@@ -1885,7 +1898,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const discountContainer = document.querySelector('.discount-container');
           if (discountContainer) {
             const discountSpan = document.createElement('span');
-            discountSpan.className = 'discount-price-product fw-light roboto-font user-select-none';
+            discountSpan.className = 'discount-price-product roboto-font user-select-none';
             discountSpan.textContent = formattedOriginalPrice;
 
 // Clear previous discount span if it exists
