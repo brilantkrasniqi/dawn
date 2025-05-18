@@ -468,7 +468,12 @@
       
       // Update product page free shipping message if it exists
       if (productFreeShippingText) {
-        productFreeShippingText.innerHTML = 'Free shipping on orders over ' + amount;
+       // Use the translation from window.translations, and insert the amount
+  let label = window.translations.freeShippingLabel || '';
+  // If your translation needs the amount inserted, do it here:
+  // e.g. "Transporti falas për porositë mbi [amount]"
+  label = label.replace('[amount]', amount);
+  productFreeShippingText.innerHTML = label;
       }
     }
   };
