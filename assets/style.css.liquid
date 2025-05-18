@@ -229,7 +229,19 @@ nav .form-control:focus {
   box-shadow: none;
 }
 .cart-nav {
-  min-width: 120px;
+  min-width: 60px;
+}
+.displaySearchBar {
+  display: flex !important;
+  position: fixed;
+  left: 50%;
+  top: 180px;
+  transform: translate(-50%, -50%);
+  width: 80svw !important;
+  border-radius: 8px !important;
+  border-top-left-radius: 8px !important;
+  z-index: 30;
+  max-width: 800px;
 }
 /* Cart Container */
 .cartContainer {
@@ -741,11 +753,13 @@ button[disabled] {
 }
 
 .card-compare-price {
+  background-color: rgba(220, 53, 69, 0.9);
   text-decoration: line-through;
-  color: #6c757d;
+  color: white;
   font-size: 15px;
   font-weight: normal;
-
+  border-radius: 4px;
+  padding: 2px 4px !important;
 }
 
 .sale-badge {

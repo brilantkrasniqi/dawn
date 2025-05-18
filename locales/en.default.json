@@ -35,7 +35,8 @@
     "general": {
       "empty": "Your Cart is Empty",
       "free": "Free",
-      "remove_item": "Remove Item"
+      "remove_item": "Remove Item",
+      "shipping_cost_info": "A more accurate shipping cost will be calculated at checkout based on your address."
     }
   },
   "b2b": {
