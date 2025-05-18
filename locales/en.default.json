@@ -33,7 +33,14 @@
   "cart": {
     "general": {
       "empty": "Your Cart is Empty",
-      "free": "Free"
+      "free": "Free",
+      "remove_item": "Remove Item"
+    }
+  },
+  "b2b": {
+    "form": {
+      "submit_inquiry": "Dërgo Kërkesën",
+      "or_contact_us_on": "ose na kontaktoni në"
     }
   }
 }
