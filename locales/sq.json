@@ -778,10 +778,7 @@
         "billing_address_description_no_shipping_address": "Fut adresën që përputhet me kartën ose metodën tënde të pagesës.",
         "no_js_credit_card_fields_redirect_hint": "Do të ridrejtoheni për të shtuar informacionin tuaj të pagesës.",
         "card_fields_container_prefix": "Enë fushore për:",
-        "card_fields_unavailable_html": {
-          "one": "Pagesat me karta krediti dhe debiti nuk janë të disponueshme tani për tani.<br> <a href=\"%{current_url}\">Rifresko këtë faqe</a> ose provo përsëri më vonë.",
-          "other": "Pagesat me karta krediti dhe debiti nuk janë të disponueshme tani për tani.<br> <a href=\"%{current_url}\">Rifresko këtë faqe</a> ose provo një metodë tjetër pagese."
-        },
+        "card_fields_unavailable_html": "Pagesat me karta krediti dhe debiti nuk janë të disponueshme tani për tani.<br> <a href=\"%{current_url}\">Rifresko këtë faqe</a> ose provo përsëri më vonë.",
         "card_fields_processing_error": "Pati një problem me përpunimin e pagesës. Provo ta rifreskosh këtë faqe ose kontrollo lidhjen tënde të internetit.",
         "technical_error": "Pagesat nuk mund të përpunohen tani për shkak të një problemi teknik. Provo përsëri pas disa minutash.",
         "no_method_error": "Ky dyqan nuk mund të pranojë pagesa tani për tani.",

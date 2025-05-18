@@ -9,7 +9,7 @@ const translations = {
   outOfStock: {{ 'products.product.out_of_stock' | t | json }},
   free: {{ 'cart.general.free' | t | json }}
 };
-
+console.log(translations)
 class PageNavigation {
   hamburger = document.querySelectorAll(".hamburger");
   hamburgerLines = document.querySelectorAll(".line");
@@ -1346,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                     {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                      {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
