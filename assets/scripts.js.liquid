@@ -1275,7 +1275,9 @@ document.addEventListener('DOMContentLoaded', function() {
                   </div>
                   <p type="button" class="underline fw-bold funnel-font remove-item" data-key="${
             item.key
-          }">Remove Item</p>
+          }">${
+            window.translations.removeItem
+          }</p>
                 </div>
               </div>
             </div>
@@ -1339,7 +1341,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                          {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 

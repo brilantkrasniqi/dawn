@@ -3995,7 +3995,8 @@
   "cart": {
     "general": {
       "empty": "Shporta juaj është bosh!",
-      "free": "Falas"
+      "free": "Falas",
+      "remove_item": "Fshij"
     }
   }
 }
