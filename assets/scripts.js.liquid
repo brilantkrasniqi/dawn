@@ -1275,7 +1275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   </div>
                   <p type="button" class="underline fw-bold funnel-font remove-item" data-key="${
             item.key
-          }">Remove Item</p>
+          }">Remove Item TEst</p>
                 </div>
               </div>
             </div>
@@ -1333,13 +1333,13 @@ document.addEventListener('DOMContentLoaded', function() {
           });
 
           if (cartTotalInDefaultCurrency >= freeShippingThreshold) {
-            const freeShippingLabel = {{ section.settings.free_shipping_label | json }} || translations.free;
+            const freeShippingLabel = window.translations.freeShippingLabel || window.translations.free;
             shippingCostsElement.textContent = freeShippingLabel;
             shippingCostsElement.setAttribute('data-shipping-cost', 0);
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                        {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                          {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
