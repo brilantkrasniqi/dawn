@@ -23,7 +23,7 @@
       "product_features": "Product features",
       "out_of_stock": "Out of Stock",
       "add_to_cart": "Add to cart",
-      "free_shipping_message": "Free shipping on orders over ...",
+      "free_shipping_message": "Free shipping on orders over [amount]",
       "you_currently_save": "You currently save",
       "off_your_total_order": "Off your total order!",
       "including_vat": "Including VAT",
