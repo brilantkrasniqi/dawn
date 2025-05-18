@@ -42,8 +42,18 @@
     <script src="{{'toolcool-range-slider.min.js' |  asset_url}}" async></script>
     <script src="{{'bootstrap.min.js' |  asset_url}}" defer></script>
     {% comment %} <script>
-                              window.shopMoneyFormat = {{ shop.money_format | json }}
-                    </script> {% endcomment %}
+                                                window.shopMoneyFormat = {{ shop.money_format | json }}
+                                </script> {% endcomment %}
+    <script>
+                              window.translations = {
+                                youCurrentlySave: {{ 'products.product.you_currently_save' | t | json }},
+                                offYourTotalOrder: {{ 'products.product.off_your_total_order' | t | json }},
+                                yourCartIsEmpty: {{ 'cart.general.empty' | t | json }},
+                                addToCart: {{ 'products.product.add_to_cart' | t | json }},
+                                outOfStock: {{ 'products.product.out_of_stock' | t | json }},
+                                free: {{ 'cart.general.free' | t | json }}
+                              };
+    </script>
     <script
       type="module"
       src="{{ 'scripts.js' | asset_url }}"
