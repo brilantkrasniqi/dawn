@@ -3991,5 +3991,11 @@
       "off_your_total_order": "nga porosia juaj!",
       "out_of_stock": "Jashtë gjendjes"
     }
+  },
+  "cart": {
+    "general": {
+      "empty": "Shporta juaj është bosh!",
+      "free": "Falas"
+    }
   }
 }
