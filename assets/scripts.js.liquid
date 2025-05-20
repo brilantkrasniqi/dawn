@@ -2,7 +2,7 @@ import Splide from "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/
 
 // Initialize translation strings - add this at the top of the file after the import
 const translations = window.translations;
-console.log(translations)
+
 class PageNavigation {
   hamburger = document.querySelectorAll(".hamburger");
   hamburgerLines = document.querySelectorAll(".line");
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Ensure proper money format is defined
   window.shopMoneyFormat = window.shopMoneyFormat || '€{{amount}}';
-  console.log('Using money format:', window.shopMoneyFormat);
+
 
 // --- Setup Money Format and Shopify Helpers ---
   if (typeof Shopify === 'undefined') {
@@ -529,8 +529,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function updatePriceDisplay(quantity) {
       quantity = parseInt(quantity) || 1;
 
-      console.log('Updating price display with quantity:', quantity);
-      console.log('Current price data:', {originalPrice, piecesPerPack, discountTiers: discountTiers.length});
 
 // Check if we're on the first variant - only apply discounts to first variant
       const selectedVariant = document.querySelector('#package-options .package-box.selected');
@@ -546,7 +544,6 @@ document.addEventListener('DOMContentLoaded', function() {
         : originalPrice;
       const totalPrice = discountedPricePerItem * quantity;
 
-      console.log('Calculated prices:', {discountedPricePerItem, totalPrice, hasValidTiers});
 
 // Find applicable discount tier (only if we have valid tiers)
       let applicableTier = null;
@@ -562,7 +559,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
 
-      console.log('Applicable tier:', applicableTier);
 
 // Update the price display
       if (variantPriceElement) { // Store the raw amounts in data attributes
@@ -613,10 +609,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Still hide it if discount badge is visible and we're on the first variant with a discount tier
             const discountBadge = document.querySelector('.discount-percentage-badge');
+            const discountBadgeSale = document.querySelector('.discount-percentage-badge-sale');
             if (isFirstVariant && applicableTier && discountBadge && discountBadge.style.display === 'block') {
               comparePrice.style.display = 'none';
+              if (discountBadgeSale) {
+                discountBadgeSale.style.display = 'none';
+              }
             } else {
               comparePrice.style.display = 'block';
+              if (discountBadgeSale) {
+                discountBadgeSale.style.display = 'inline-block';
+              }
             }
           } else { // No compare-at-price for this variant, hide it
             comparePrice.classList.add('d-none');
@@ -653,25 +656,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Update discount badge display
         const discountBadge = document.querySelector('.discount-percentage-badge');
+        const discountBadgeSale = document.querySelector('.discount-percentage-badge-sale');
         if (discountBadge) {
           if (isFirstVariant && applicableTier) {
             discountBadge.textContent = `-${
               applicableTier.discount
             }%`;
             discountBadge.style.display = 'block';
+            if (discountBadgeSale) {
+              discountBadgeSale.style.display = 'none';
+            }
+            window.salePercentageValue = applicableTier.discount;
 
-// Hide compare price when discount badge is visible
+// Add back code to hide compare price
             const comparePrice = document.getElementById('compare-price');
             if (comparePrice) {
               comparePrice.style.display = 'none';
             }
           } else {
             discountBadge.style.display = 'none';
-
-// When discount badge is not visible, show compare price
-            if (comparePrice) {
-              comparePrice.style.display = 'block';
+            if (discountBadgeSale) {
+              discountBadgeSale.style.display = 'inline-block';
             }
+            window.salePercentageValue = null;
           }
         }
       }
@@ -858,10 +865,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Handle variant selection
     const packageBoxes = document.querySelectorAll('#package-options .package-box');
-    if (packageBoxes.length > 0) {
-      console.log('Found package boxes:', packageBoxes.length);
-
-// Add initial styling to package boxes to make them more interactive
+    if (packageBoxes.length > 0) { // Add initial styling to package boxes to make them more interactive
       packageBoxes.forEach(box => {
         box.style.cursor = box.classList.contains('out-of-stock')
           ? 'not-allowed'
@@ -956,10 +960,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Still hide it if discount badge is visible and we're on the first variant
               const discountBadge = document.querySelector('.discount-percentage-badge');
+              const discountBadgeSale = document.querySelector('.discount-percentage-badge-sale');
               if (isFirstVariant && discountBadge && discountBadge.style.display === 'block') {
                 comparePrice.style.display = 'none';
+                if (discountBadgeSale) {
+                  discountBadgeSale.style.display = 'none';
+                }
               } else {
                 comparePrice.style.display = 'block';
+                if (discountBadgeSale) {
+                  discountBadgeSale.style.display = 'inline-block';
+                }
               }
             } else { // No compare-at-price for this variant, hide it
               comparePrice.classList.add('d-none');
@@ -1002,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Select first variant by default if none is selected
       if (!document.querySelector('#package-options .package-box.selected')) {
-        console.log('No variant selected, selecting first one by default');
+
         const firstBox = packageBoxes[0];
         if (firstBox) {
           firstBox.classList.add('selected');
@@ -1012,7 +1023,6 @@ document.addEventListener('DOMContentLoaded', function() {
           let variantPrice = parseInt(firstBox.getAttribute('data-price')) || originalPrice;
           let variantPieces = parseInt(firstBox.getAttribute('data-pieces')) || piecesPerPack;
 
-          console.log('Initial variant selection:', {variantId, variantPrice, variantPieces});
 
 // Update the form
           const form = document.querySelector('.add-to-cart-form');
@@ -1095,6 +1105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Adding discount tiers to cart:', properties._discount_tiers);
       }
 
+// Always pass compare_at_price as a property for sale logic in cart
+      if (selectedVariant) {
+        const compareAtPrice = selectedVariant.getAttribute('data-compare-at-price');
+        if (compareAtPrice) {
+          properties.compare_at_price = compareAtPrice;
+        }
+      }
+
       addToCart(variantId, quantity, properties);
     });
   });
@@ -1128,7 +1146,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // --- Update Cart UI ---
   function updateCartUI() {
     fetch('/cart.js').then(response => response.json()).then(cart => {
-      console.log('Cart data:', cart);
 
 // Update cart count
       const cartCountElem = document.querySelector('.cart-count');
@@ -1152,7 +1169,6 @@ document.addEventListener('DOMContentLoaded', function() {
                      </div>`;
       } else { // First calculate raw and discounted subtotals
         cart.items.forEach(function(item) {
-          console.log('Processing cart item:', item.title, 'with properties:', item.properties);
 
 // Get product-specific discount tiers from item properties
           let discountTiers = [];
@@ -1161,7 +1177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
               discountTiers = JSON.parse(item.properties._discount_tiers);
               hasDiscountProperty = true;
-              console.log('Found discount tiers in item properties:', discountTiers);
+
             } catch (e) {
               console.error('Error parsing discount tiers from item properties:', e);
             }
@@ -1173,13 +1189,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Current price (may already include discounts from Shopify)
           let itemPrice = item.final_price || item.price;
 
-          console.log('Item price details:', {
-            title: item.title,
-            originalPrice: itemOriginalPrice,
-            currentPrice: itemPrice,
-            hasDiscountProperty,
-            quantity: item.quantity
-          });
 
 // Apply discount tiers if available and not already applied
 // Only items with _discount_tiers property (first variant) are eligible for quantity discounts
@@ -1206,7 +1215,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Always use our calculated discount
               itemPrice = tieredDiscountPrice;
 
-              console.log('Applied cart discount:', {itemOriginalPrice, discountPercentage, discountAmount, tieredDiscountPrice});
             }
           }
 
@@ -1221,10 +1229,26 @@ document.addEventListener('DOMContentLoaded', function() {
 // Show discount in the cart item if we have the discount property and the price is different
           const showDiscount = hasDiscountProperty && itemPrice < itemOriginalPrice;
 
+// Show original price if discount tier is applied OR if product is on sale
+          const compareAtPrice = (item.properties && item.properties.compare_at_price)
+            ? parseInt(item.properties.compare_at_price)
+            : item.compare_at_price;
+          const isOnSale = compareAtPrice && compareAtPrice > item.price;
+          const showOriginalPrice = (hasDiscountProperty && itemPrice < itemOriginalPrice) || isOnSale;
+
+// Use the correct original price for display
+          const originalTotalToShow = isOnSale
+            ? (compareAtPrice * item.quantity)
+            : (itemOriginalTotal);
+
           itemsHtml += `
             <div class="cartItemContainer d-flex align-items-center px-md-4 px-2 py-3" data-key="${
             item.key
-          }" data-price="${itemTotal}" data-original-price="${itemOriginalTotal}">
+          }" data-price="${itemTotal}" data-original-price="${originalTotalToShow}" data-current-price="${itemPrice}" data-base-price="${
+            isOnSale
+              ? compareAtPrice
+              : itemOriginalPrice
+            }">
               <div class="prodImage rounded-8">
                 <img loading="lazy" src="${
             item.image
@@ -1238,13 +1262,13 @@ document.addEventListener('DOMContentLoaded', function() {
           }</p>
                 <div class="d-flex align-items-center py-md-3 py-1">
                   <span class="original-price funnel-font ${
-            showDiscount
+            showOriginalPrice
               ? ''
               : 'd-none'
             }">
                     ${
-            showDiscount
-              ? Shopify.formatMoney(itemOriginalTotal)
+            showOriginalPrice
+              ? Shopify.formatMoney(originalTotalToShow)
               : ''
             }
                   </span>
@@ -1324,15 +1348,6 @@ document.addEventListener('DOMContentLoaded', function() {
             : 1.0;
           const cartTotalInDefaultCurrency = Math.round(discountedSubtotal / currentCurrencyRate);
 
-          console.log('Free shipping check:', {
-            cartTotal: discountedSubtotal,
-            cartTotalInDefaultCurrency,
-            freeShippingThreshold,
-            currentCurrency: Shopify.currency
-              ? Shopify.currency.active
-              : 'unknown',
-            currencyRate: currentCurrencyRate
-          });
 
           if (cartTotalInDefaultCurrency >= freeShippingThreshold) {
             const freeShippingLabel = {{ section.settings.free_shipping_label | json }} || translations.free;
@@ -1341,7 +1356,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                               {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                   {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
@@ -1861,20 +1876,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Also update the discount badge - but only show the percentage number
         const discountBadge = document.querySelector('.discount-percentage-badge');
+        const discountBadgeSale = document.querySelector('.discount-percentage-badge-sale');
         if (discountBadge) {
           discountBadge.textContent = `-${
             applicableTier.discount
           }%`;
-
           discountBadge.style.display = 'block';
+          if (discountBadgeSale) {
+            discountBadgeSale.style.display = 'none';
+          }
+          window.salePercentageValue = applicableTier.discount;
 
-// Make sure it's visible
-
-// Hide compare price when discount badge is visible
+// Add back code to hide compare price
           const comparePrice = document.getElementById('compare-price');
           if (comparePrice) {
             comparePrice.style.display = 'none';
           }
+        } else {
+          discountBadge.style.display = 'none';
+          if (discountBadgeSale) {
+            discountBadgeSale.style.display = 'inline-block';
+          }
+          window.salePercentageValue = null;
         }
 
 // Update price display with discount
@@ -2091,3 +2114,25 @@ document.addEventListener('DOMContentLoaded', function() {
 // Initial update of monetary displays with current currency
   updateAllCurrencyDisplays();
 });
+
+
+// Discount percentage badge-sale logic
+let discountContainer = document.querySelector('.discount-container');
+let discountBadgeSale = document.querySelector('.discount-percentage-badge-sale');
+let discountedPrice = 0;
+
+// Store the sale percentage value globally
+window.salePercentageValue = null;
+
+if (discountContainer && discountBadgeSale) {
+  let price = parseFloat(discountContainer.getAttribute('data-price'));
+  let compareAtPrice = parseFloat(discountContainer.getAttribute('data-compare-at-price'));
+
+  if (compareAtPrice > price && compareAtPrice > 0) {
+    let discountPercent = Math.round(100 * (compareAtPrice - price) / compareAtPrice);
+    discountBadgeSale.textContent = '-' + discountPercent + '%';
+    discountBadgeSale.style.display = 'inline-block';
+  } else {
+    discountBadgeSale.style.display = 'none';
+  }
+}
