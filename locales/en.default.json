@@ -28,7 +28,8 @@
       "you_currently_save": "You currently save",
       "off_your_total_order": "Off your total order!",
       "including_vat": "Including VAT",
-      "excluding_vat": "Excluding VAT"
+      "excluding_vat": "Excluding VAT",
+      "per": "per"
     }
   },
   "cart": {
