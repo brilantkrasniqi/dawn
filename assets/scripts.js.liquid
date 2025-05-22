@@ -570,7 +570,9 @@ document.addEventListener('DOMContentLoaded', function() {
         variantPriceElement.innerHTML = `
           <span class="js-price">{{ totalPrice | money }}</span>
           <span class="perPiece pb-2" id="price-per-piece">
-            (<span class="js-price-per-piece">{{ pricePerPiece | money }}</span>) per ${
+            (<span class="js-price-per-piece">{{ pricePerPiece | money }}</span>) ${
+          window.translations.per || 'per'
+        } ${
           window.unitLabel || 'piece'
         }
           </span>`;
@@ -607,7 +609,7 @@ document.addEventListener('DOMContentLoaded', function() {
             comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice);
             comparePrice.classList.remove('d-none');
 
-            // Still hide it if discount badge is visible and we're on the first variant with a discount tier
+// Still hide it if discount badge is visible and we're on the first variant with a discount tier
             const discountBadge = document.querySelector('.discount-percentage-badge');
             const discountBadgeSale = document.querySelector('.discount-percentage-badge-sale');
             if (isFirstVariant && applicableTier && discountBadge && discountBadge.style.display === 'block') {
@@ -623,8 +625,8 @@ document.addEventListener('DOMContentLoaded', function() {
               }
               updateDiscountContainerDirection();
             }
-            
-            // Update discount container direction
+
+// Update discount container direction
             updateDiscountContainerDirection();
           } else { // No compare-at-price for this variant, hide it
             comparePrice.classList.add('d-none');
@@ -685,8 +687,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const comparePrice = document.getElementById('compare-price');
             if (comparePrice) {
               comparePrice.style.display = 'none';
-              
-              // Update discount container direction
+
+// Update discount container direction
               updateDiscountContainerDirection();
             }
           } else { // Check if the product is on sale (has compare-at-price)
@@ -1434,7 +1436,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                                      {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                                          {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
@@ -2001,8 +2003,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const comparePrice = document.getElementById('compare-price');
           if (comparePrice) {
             comparePrice.style.display = 'none';
-            
-            // Update discount container direction
+
+// Update discount container direction
             updateDiscountContainerDirection();
           }
         } else {
@@ -2026,7 +2028,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Update HTML with strikethrough for original price
           variantPriceElement.innerHTML = `${formattedDiscountedPrice} 
-            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) per ${
+            <span class="perPiece pb-2" id="price-per-piece">(${formattedPricePerPiece}) ${
+            window.translations.per || 'per'
+          } ${
             window.unitLabel || 'piece'
           }</span>`;
 
@@ -2088,15 +2092,15 @@ document.addEventListener('DOMContentLoaded', () => {
             comparePrice.textContent = Shopify.formatMoney(totalCompareAtPrice, window.shopMoneyFormat);
             comparePrice.classList.remove('d-none');
             comparePrice.style.display = 'block';
-            
-            // Update discount container direction
+
+// Update discount container direction
             updateDiscountContainerDirection();
-                      } else { // No compare-at-price, keep it hidden
-              comparePrice.classList.add('d-none');
-              comparePrice.style.display = 'none';
-              
-              // Update discount container direction
-              updateDiscountContainerDirection();
+          } else { // No compare-at-price, keep it hidden
+            comparePrice.classList.add('d-none');
+            comparePrice.style.display = 'none';
+
+// Update discount container direction
+            updateDiscountContainerDirection();
           }
         }
 
@@ -2108,7 +2112,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
           variantPriceElement.innerHTML = `${formattedPrice} 
             <span class="perPiece pb-2" id="price-per-piece">
-              (${formattedPricePerPiece}) per ${
+              (${formattedPricePerPiece}) ${
+            window.translations.per || 'per'
+          } ${
             window.unitLabel || 'piece'
           }
             </span>`;
@@ -2292,14 +2298,13 @@ if (discountContainer) {
 function updateDiscountContainerDirection() {
   const comparePrice = document.getElementById('compare-price');
   const discountContainer = document.querySelector('.discount-container');
-  
-  if (comparePrice && discountContainer) {
-    // First make sure the discount container is set up as a flex container
-    if (!discountContainer.style.display) {
+
+  if (comparePrice && discountContainer) { // First make sure the discount container is set up as a flex container
+    if (! discountContainer.style.display) {
       discountContainer.style.display = 'flex';
       discountContainer.style.alignItems = 'center';
     }
-    
+
     const comparePriceDisplay = window.getComputedStyle(comparePrice).display;
     if (comparePriceDisplay === 'none') {
       discountContainer.style.flexDirection = 'row-reverse';
@@ -2310,6 +2315,7 @@ function updateDiscountContainerDirection() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Add initial check for discount container direction
+
+// Add initial check for discount container direction
   updateDiscountContainerDirection();
 });
