@@ -1307,7 +1307,7 @@
       "payment_gateway": {
         "credit_card_label": "Kartë krediti",
         "bank_deposit_label": "Depozitë Bankare",
-        "cash_on_delivery_label": "Pagesë në dorëzim (COD)",
+        "cash_on_delivery_label": "Pagesë në dorëzim (CASH)",
         "money_order_label": "Urdhër pagese",
         "debit_card_label": "Kartë debiti",
         "deferred_payment_label": "Zgjidh metodën e pagesës më vonë",
