@@ -256,7 +256,7 @@
           "why_sub": "Our tightly wound rolls offer a higher density ensuring they last longer than others. While the upfront cost may be slightly higher, you'll use less in the long run. Our thoughtfully designed wraps blend seamlessly with your kitchen decor, avoiding bright or gimmicky patterns.",
           "b2b_link": "shopify://pages/b2b-partnerships",
           "related_products_heading": "Recommended products",
-          "related_products_source": "same_type",
+          "related_products_source": "same_collection",
           "manual_products": []
         }
       },
@@ -368,6 +368,7 @@
         "type": "footer",
         "settings": {
           "copyright_text": "2025 Flutra © All Rights Reserved",
+          "company_url": "https://pixelreach.io/",
           "instagram_url": "https://www.instagram.com/flutraofficial",
           "facebook_url": "https://www.facebook.com/flutraofficial/",
           "tiktok_url": "https://www.tiktok.com/@flutraofficial"
