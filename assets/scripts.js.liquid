@@ -1089,8 +1089,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-// Get the quantity from the input field
-      const quantity = parseInt(quantityInput ?. value, 10) || 1;
+// Get the quantity from the input field if available, or default to 1 for product cards
+      const quantity = (quantityInput && form.className.indexOf('prod-card') === -1)
+        ? parseInt(quantityInput.value, 10) || 1
+        : 1;
+
       console.log('Submitting Add to Cart for variant:', variantId, 'Quantity:', quantity);
 
 // Check if this is the first variant
@@ -1109,6 +1112,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if (selectedVariant) {
         const compareAtPrice = selectedVariant.getAttribute('data-compare-at-price');
         if (compareAtPrice) {
+          properties.compare_at_price = compareAtPrice;
+        }
+      } else if (form.hasAttribute('data-compare-at-price')) { // For product cards, get compare price from the form
+        const compareAtPrice = form.getAttribute('data-compare-at-price');
+        if (compareAtPrice && compareAtPrice !== 'null' && compareAtPrice !== '0') {
           properties.compare_at_price = compareAtPrice;
         }
       }
@@ -1356,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                   {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                        {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
