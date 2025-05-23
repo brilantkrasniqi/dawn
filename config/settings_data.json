@@ -18,7 +18,7 @@
         "type": "hero",
         "settings": {
           "bg_hero_image": "shopify://shop_images/Banner_4.png",
-          "bg_hero_mb_image": "shopify://shop_images/BANNER_4_MOBILE-2.png",
+          "bg_hero_mb_image": "shopify://shop_images/BANNER_4_MOBILE.png",
           "heading": "Professional hygiene products for Gastronomy, Office, Home and Businesses.",
           "paragraph1": "European quality & competitive prices.",
           "button_text": "Browse products",
