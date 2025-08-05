@@ -15,5 +15,39 @@
         "disabled": "Kunden müssen sich an den Händler wenden, um eine Rücksendung anzufordern."
       }
     }
+  },
+  "products": {
+    "product": {
+      "select_quantity": "Menge auswählen",
+      "product_features": "Produktmerkmale",
+      "out_of_stock": "Nicht Vorrätig",
+      "add_to_cart": "In den Warenkorb legen",
+      "sale_badge": "Verkauf",
+      "free_shipping_message": "Kostenloser Versand bei Bestellungen über [Betrag]",
+      "you_currently_save": "Sie sparen derzeit",
+      "off_your_total_order": "Rabatt auf Ihre Gesamtbestellung!",
+      "including_vat": "Inkl. MwSt.",
+      "excluding_vat": "zzgl. MwSt.",
+      "per": "pro"
+    }
+  },
+  "cart": {
+    "general": {
+      "free": "Frei",
+      "empty": "Ihr Warenkorb ist leer",
+      "remove_item": "Artikel entfernen",
+      "shipping_cost_info": "Genauere Versandkosten werden an der Kasse anhand Ihrer Adresse berechnet."
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "order_summary": {
+        "for_add_on": "Für: %{group_title}"
+      },
+      "field_errors": {
+        "must_use_available_delivery_address": "Die Lieferadresse muss aus den verfügbaren Lieferadressen ausgewählt werden.",
+        "must_use_available_shipping_rate": "Die Versandrate muss aus den verfügbaren Versandraten ausgewählt werden."
+      }
+    }
   }
 }
