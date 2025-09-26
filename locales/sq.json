@@ -132,7 +132,8 @@
             "must_fulfill_from_same_location_constraint_not_satisfied": "Kufizimet e përmbushjes nuk plotësohen sepse artikujt nuk mund të përmbushen nga i njëjti vendndodhje.",
             "delivery_strategy_conditions_not_satisfied": "Strategjitë e dorëzimit janë të disponueshme për këtë vendndodhje, por kushtet e tyre nuk janë përmbushur.",
             "out_of_stock_at_origin_location": "Nuk ka stok në vendin e origjinës.",
-            "invalid_signature": "Nënshkrim i pavlefshëm zbritjeje."
+            "invalid_signature": "Nënshkrim i pavlefshëm zbritjeje.",
+            "selected_pickup_option_no_longer_available": "Opsioni i marrjes së porosisë i zgjedhur më parë nuk është më i disponueshëm."
           },
           "captcha": {
             "token_not_valid_for_session": "Captcha-ja e dhënë nuk mund të përdoret me këtë arkë.",
@@ -157,7 +158,8 @@
             "additional_requested_discount_code_discarded": "Zbritja shtesë e kërkuar për kod u hodh poshtë.",
             "allocations_mismatch": "Shpërndarja e pritur e zbritjes nuk përputhet me ndarjen aktuale të zbritjes.",
             "discount_code_not_honoured": "<strong style=\"text-transform:uppercase\">%{mesazh_për_refuzim_discount}</strong>",
-            "discount_title_too_long": "Titulli i zbritjes nuk mund të jetë më i gjatë se 255 karaktere."
+            "discount_title_too_long": "Titulli i zbritjes nuk mund të jetë më i gjatë se 255 karaktere.",
+            "additional_requested_discount_discarded": "Zbritja juaj është e vlefshme, por nuk zbatohet. Kontrolloni kushtet e zbritjes."
           },
           "tax": {
             "new_tax_must_be_accepted": "Taksat e lidhura me porosinë tuaj kanë ndryshuar. Rishikojeni dhe provoni përsëri.",
@@ -330,7 +332,8 @@
           "add_file": "Shto skedar",
           "invalid_file_type": "Lloji i skedarit nuk mbështetet",
           "dragged_over": "Lësho skedarin për ta ngarkuar"
-        }
+        },
+        "remove_chip": "Hiq artikullin"
       },
       "contact": {
         "title": "Informacion",
@@ -395,7 +398,9 @@
         "different_shipping_address_text": "Përdor një adresë të vetme për këtë porosi",
         "change_company_location_link_label": "Ndryshoni vendndodhjen e kompanisë",
         "change_location_link_label": "Ndrysho vendndodhjen",
-        "ship_to_company": "Dërgo te {{companyName}}"
+        "ship_to_company": "Dërgo te {{companyName}}",
+        "email_rollup_accessibility_label": "Opsionet e email-it",
+        "phone_rollup_accessibility_label": "Opsionet e telefonit"
       },
       "stock": {
         "unshippable_product": {
@@ -412,7 +417,8 @@
         },
         "price_update": {
           "title": "Përditësim çmimi",
-          "description": "Çmimet për këto artikuj kanë ndryshuar dhe janë përditësuar në shportën tuaj."
+          "description": "Çmimet për këto artikuj kanë ndryshuar dhe janë përditësuar në shportën tuaj.",
+          "updated_price": "Çmimi i përditësuar"
         },
         "price_and_quantity_update": {
           "title": "Përditësim çmimi dhe sasie",
@@ -673,7 +679,8 @@
           "description_html": "Për pyetje në lidhje me porosinë tuaj, %{contact_us}.",
           "paid_today": "Totali i paguar sot",
           "due_on_fulfillment_title": "Pagesa prej %{amount_due} duhet të bëhet me përmbushjen e saj",
-          "due_on_receipt_title": "Pagesa prej %{amount_due} duhet të bëhet me faturën"
+          "due_on_receipt_title": "Pagesa prej %{amount_due} duhet të bëhet me faturën",
+          "paid_today_next": "Paguar sot"
         },
         "deferred_balance_info": {
           "title": "Bilanci prej {{amount_due}} duhet të paguhet më {{due_at}}",
@@ -723,7 +730,15 @@
         },
         "discount_code_allocations_mismatch": "Kodi juaj i zbritjes <strong style=\"text-transform:uppercase\">%{code}</strong> ka ndryshuar. Rishikoni shportën tuaj dhe provoni përsëri.",
         "alternative_payment_currency_total": "Ngarkuar si %{amount_due}",
-        "total_paid_label": "Totali i paguar"
+        "total_paid_label": "Totali i paguar",
+        "for_add_on": "Për: %{title_i_grupit}",
+        "from_shop_heading": "Nga %{shop_name}",
+        "from_other_stores_heading": "Nga dyqane të tjera",
+        "add_discount_or_gift_card": "Shtoni një kod zbritjeje ose një kartë dhurate",
+        "unconfirmed_label": "I pakonfirmuar",
+        "total_due_label": "Totali i duhur",
+        "total_price_label": "Çmimi total",
+        "deferred_total_due_date_label_next": "Afati %{date}"
       },
       "payment": {
         "markets_pro_disclaimer_privacy_policy": "Politika e Privatësisë",
@@ -1031,7 +1046,39 @@
         "order_edit_banner_updated_order_label": "Porosia e përditësuar",
         "gift_card_checkbox_label": "Apliko kartën dhuratë",
         "amazon_payments_logout": "Dil nga Amazon Pay",
-        "location_billing_address_label": "Adresa e faturimit të vendndodhjes"
+        "location_billing_address_label": "Adresa e faturimit të vendndodhjes",
+        "crypto_payment_method": {
+          "description": "Lidhu në mënyrë të sigurt me portofolin tënd në rrjetin Base",
+          "tooltip": "Bilanci dhe adresa e portofolit tuaj nuk do të ndahen dhe vetëm shuma e kërkuar mund të zbritet."
+        },
+        "crypto_modal": {
+          "header": "Paguaj %{shop_name} %{total_price} USDC",
+          "error": {
+            "refresh": "Rifresko",
+            "close": "mbyll",
+            "sandbox_error": "Diçka shkoi keq",
+            "web_component_error": "Pati një problem me ngarkimin e kësaj faqeje"
+          }
+        },
+        "billing_address_rollup_accessibility_label": "Opsionet e adresës së faturimit",
+        "usdc_cashback_title": "1% kthim parash",
+        "usdc_cashback_additional_info": "Merrni 1% mbrapsht në USDC direkt në portofolin tuaj.",
+        "usdc_cashback_terms": "Kushtet zbatohen",
+        "markets_pro_disclaimer_label_express_checkout": "Duke blerë, ju pranoni %{markets_pro_terms} dhe %{privacy_policy} të Global-e, ofruesit tonë ndërkombëtar të shërbimeve.",
+        "markets_pro_disclaimer_express_terms_and_conditions": "terma",
+        "markets_pro_disclaimer_express_privacy_policy": "politika e privatësisë",
+        "payment_method_rollup_accessibility_label": "Opsionet e metodës së pagesës",
+        "payment_option": {
+          "accessibility_label": "Zgjidhni një opsion pagese"
+        },
+        "bank_account_type": {
+          "checking": "Duke kontrolluar",
+          "savings": "Kursime"
+        },
+        "bank_account_choose": "Zgjidhni një llogari për të përfunduar blerjen tuaj në mënyrë të sigurt",
+        "bank_account_connect_another": "Lidh një llogari tjetër bankare",
+        "bank_account_connect": "Lidh llogarinë bankare",
+        "bank_account_missing": "Llogaria bankare duhet të jetë e lidhur"
       },
       "billing": {
         "billing_address_title": "Faturë për",
@@ -1047,10 +1094,12 @@
           "add_address": "Shto adresë",
           "save": "Ruaj",
           "cancel": "Anulo"
-        }
+        },
+        "billing_address_rollup_accessibility_label": "Opsionet e faturimit"
       },
       "company_location": {
-        "location_title": "Vendndodhja"
+        "location_title": "Vendndodhja",
+        "location_rollup_accessibility_label": "Opsionet e vendndodhjes së kompanisë"
       },
       "payment_summary": {
         "gift_card_current_balance_notice": "Bilanci aktual %{amount}",
@@ -1166,7 +1215,9 @@
         "sms_marketing_phone_invalid": "Fut një numër telefoni të vlefshëm",
         "address_suggestion_did_you_mean_html": "A e kishe fjalën për %{html}?",
         "split_cart_international_shipping_not_supported": "Të gjithë artikujt duhet të përdorin të njëjtën metodë dërgimi kur dërgohen ndërkombëtarisht. Përditësoni metodën e dërgimit ose krijoni porosi të shumëfishta.",
-        "invalid_delivery_address_reference_handle": "Doreza e referencës së adresës së dorëzimit nuk mund të përputhet me asnjë adresë dorëzimi të disponueshme."
+        "invalid_delivery_address_reference_handle": "Doreza e referencës së adresës së dorëzimit nuk mund të përputhet me asnjë adresë dorëzimi të disponueshme.",
+        "must_use_available_delivery_address": "Adresa e dorëzimit duhet të zgjidhet nga adresat e disponueshme të dorëzimit.",
+        "must_use_available_shipping_rate": "Tarifa e transportit duhet të zgjidhet nga tarifat e disponueshme të transportit."
       },
       "payment_errors": {
         "development_store_with_order_limit": "Për të bërë një porosi prove, do t'ju duhet të përdorni një portë pagese prove. Mësoni më shumë rreth %{development_store_order_testing_docs_link}.",
@@ -1218,7 +1269,11 @@
         "missing_shipping_address": "Pagesa juaj nuk mund të përpunohej sepse mungon adresa juaj e dërgesës. Shtoni një adresë dërgese dhe provoni përsëri.",
         "invalid_shipping_address": "Pagesa juaj nuk mund të përpunohej sepse nuk mundëm ta gjenim adresën tuaj të dërgesës. Kontrolloni adresën tuaj të dërgesës dhe provoni përsëri.",
         "successful_offsite_with_gift_card_error": "Pati një problem gjatë përpunimit të pagesës me kartën tuaj dhuratë. Provo përsëri ose përdor një metodë tjetër pagese.",
-        "development_store_order_limit_reached": "Ke arritur limitin për porositë e dyqanit të zhvillimit me këtë përpunues pagesash. Për të bërë një porosi tjetër, do të duhet të përdorësh një portë pagese testimi. Mëso më shumë rreth %{development_store_order_testing_docs_link}."
+        "development_store_order_limit_reached": "Ke arritur limitin për porositë e dyqanit të zhvillimit me këtë përpunues pagesash. Për të bërë një porosi tjetër, do të duhet të përdorësh një portë pagese testimi. Mëso më shumë rreth %{development_store_order_testing_docs_link}.",
+        "payment_method_not_applicable": "Kjo metodë pagese nuk është e zbatueshme. Përdorni një metodë tjetër pagese.",
+        "shop_pay_wallet_not_available": "Shop Pay nuk është i disponueshëm për këtë pagesë.",
+        "market_manager_blocks_wallet_payments": "Metoda e pagesës nuk mbështetet në vendin tuaj.",
+        "paypal_over_capture": "Totali i porosisë suaj u përditësua. Paguaj me {{walletName}} për të përfunduar porosinë tënde."
       },
       "shipping_errors": {
         "shipping_method": "Opsionet e transportit kanë ndryshuar për porosinë tuaj. Rishikoni përzgjedhjen tuaj dhe provoni përsëri.",
@@ -1238,7 +1293,8 @@
         "invalid_selected_address": "Adresa e zgjedhur e dërgesës nuk është e vlefshme",
         "invalid_selected_address_with_update_link": "Adresa e zgjedhur e dërgesës nuk është e vlefshme. %{update_address_link} ose zgjidhni një adresë tjetër",
         "unavailable_selected_address": "Transporti nuk është i disponueshëm për adresën e zgjedhur",
-        "unavailable_selected_address_for_region": "Transporti nuk është i disponueshëm për {{region}} . Zgjidhni një adresë tjetër për të vazhduar"
+        "unavailable_selected_address_for_region": "Transporti nuk është i disponueshëm për {{region}} . Zgjidhni një adresë tjetër për të vazhduar",
+        "unavailable_addresses_only_countries": "Porosia juaj mund të dërgohet vetëm në {{countriesList}} . Shtoni një adresë të re për të vazhduar."
       },
       "alternative_payment_method_banner": {
         "express_checkout": "Arkë e shpejtë",
@@ -1288,7 +1344,9 @@
           "refresh_this_page": "rifresko këtë faqe"
         },
         "action_required": "Veprim i kërkuar",
-        "modal_notice": "Po kontaktojmë {{paymentMethod}}"
+        "modal_notice": "Po kontaktojmë {{paymentMethod}}",
+        "remote_shops_payments_processing": "Përpunimi i pagesave",
+        "remote_checkout_count": "%{aktuale} nga %{totali}"
       },
       "payment_challenge_modal": {
         "instructions": "Përfundoni blerjen tuaj duke përdorur kodin tuaj {{paymentMethod}}",
@@ -1628,6 +1686,15 @@
         "announcement": {
           "close": "Mbyll",
           "expand": "Zgjero"
+        },
+        "payment_method_not_charged": "Nuk është ngarkuar",
+        "confirmed_items_count": "%{confirmed_count} nga %{total_count} artikuj janë konfirmuar",
+        "items_fulfilled_by_store": {
+          "one": "Artikujt që keni blerë do të vijnë nga %{remote_shop_name}.",
+          "other": "Artikujt që keni blerë do të vijnë nga dyqane të tjera."
+        },
+        "thank_you_confirmed_orders_with_email_description": {
+          "one": "Do të marrësh një email konfirmimi së shpejti"
         }
       },
       "wallets": {
@@ -1758,7 +1825,8 @@
         "pickup_point_method_definition": "Dërgo në pikën e marrjes",
         "retail_method_definition": "Transportim me pakicë",
         "none_method_definition": "Nuk ka transportim",
-        "subscription_pickup_information": "Kjo metodë dorëzimi do të zbatohet për të gjitha artikujt në këtë porosi dhe për të gjitha porositë e ardhshme për këtë abonim."
+        "subscription_pickup_information": "Kjo metodë dorëzimi do të zbatohet për të gjitha artikujt në këtë porosi dhe për të gjitha porositë e ardhshme për këtë abonim.",
+        "company_location_no_address_banner": "Porositë që dërgohen në vende pa adresë do të dorëzohen për shqyrtim."
       },
       "customer_account": {
         "not_user_label": "Jo %{first_name}?",
@@ -1775,7 +1843,8 @@
           "other": "Ju keni {{count}} adresa të ruajtura."
         },
         "saved_address_option_link": "Përdor një adresë të ruajtur",
-        "saved_address_modal_title": "Përdor adresën time të ruajtur"
+        "saved_address_modal_title": "Përdor adresën time të ruajtur",
+        "rollup_accessibility_label": "Opsionet e llogarisë"
       },
       "store_credit_errors": {
         "generic_error": "Pati një problem me kreditin e dyqanit tuaj. Provo përsëri ose ringarkoje faqen."
@@ -1791,6 +1860,9 @@
           "generic": "Karta dhuratë nuk mund të shtohej në arkë",
           "throttle_limit_exceeded": "Ke tejkaluar numrin maksimal të përpjekjeve. Provo përsëri më vonë.",
           "no_longer_available": "Kjo kartë dhurate nuk mund të përdoret më me këtë pagesë"
+        },
+        "shop_cash": {
+          "currency_mismatch": "Monedha ka ndryshuar. Ju lutemi rishikoni Paratë e Blerjes dhe ofertën tuaj."
         }
       },
       "merchant_instruction_errors": {
@@ -2248,7 +2320,8 @@
         },
         "local_pickup": {
           "search_address": "Kërko për adresën",
-          "rollup_title": "Vendndodhja e dyqanit"
+          "rollup_title": "Vendndodhja e dyqanit",
+          "rollup_accessibility_label": "Opsionet e vendndodhjes së marrjes"
         },
         "split_shipping_merchandise_quantity_label_standard": "%{sasi} artikuj",
         "split_shipping_merchandise_quantity_label_additional": "+%{sasi} më shumë",
@@ -2278,7 +2351,13 @@
         "delivery_tomorrow": "Dorëzimi ditën tjetër %{time}",
         "loading_progressive_rates": "Duke kërkuar për më shumë tarifa…",
         "add_address": "Përdor një adresë tjetër",
-        "split_shipping_shipped_by_shop": "Dërguar nga %{shop_name}"
+        "split_shipping_shipped_by_shop": "Dërguar nga %{shop_name}",
+        "shipping_method_rollup_accessibility_label": "Opsionet e metodës së transportit",
+        "prime_not_available": {
+          "default": "Shërbimi i dorëzimit me porosi nuk është i disponueshëm për porosinë tuaj. Opsionet e transportit janë përditësuar."
+        },
+        "shipping_address_rollup_accessibility_label": "Opsionet e dërgesës në adresë",
+        "split_shipping_first_shipment_notice": "Porosia juaj e parë do të mbërrijë në %{quantity_shipments}"
       },
       "tips": {
         "title": "Shto bakshish",
@@ -2423,7 +2502,18 @@
       },
       "localized_fields": {
         "additional_information": {
-          "title": "Informacion shtesë"
+          "title": "Informacion shtesë",
+          "shipping_credential_kr": "Kodi Doganor Personal",
+          "shipping_credential_cn": "Numri i identifikimit të banorit",
+          "tax_credential_it": "Kodi Fiskal (opsional)",
+          "tax_email_it": "PEC (opsionale)",
+          "tax_credential_cr": "Numri i identifikimit/RUT",
+          "shipping_credential_cr": "Numri i identifikimit/RUT",
+          "tax_credential_my": "Numri i NIPT-it/Regjistrimit",
+          "shipping_credential_my": "Numri i NIPT-it/Regjistrimit",
+          "tax_credential_type_mx": "Regjimi Fiskal",
+          "tax_credential_use_mx": "Përdorimi i CFDI-së",
+          "shipping_credential_tw": "Numri i identifikimit kombëtar/TVSH"
         }
       },
       "remote_merchandise_only": {
@@ -2432,7 +2522,9 @@
         "detail_item_label": {
           "one": "{{count}} artikull",
           "other": "{{count}} artikuj"
-        }
+        },
+        "remote_only_notice": "Këto artikuj shiten dhe dërgohen nga dyqane të tjera. Kontrolloni me secilën dyqan për të përfunduar blerjen tuaj.",
+        "checkout_on_shop_label": "Shikoni në %{shop_name}"
       },
       "review_address_modal": {
         "use_saved_address": "Përdor një adresë tjetër",
