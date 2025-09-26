@@ -4143,17 +4143,48 @@
         "success": "Metoda e pagesës u përditësua"
       },
       "subscription_contracts": {
-        "load_more": "Ngarko më shumë"
-      }
+        "load_more": "Ngarko më shumë",
+        "product_count": {
+          "other": "{{count}} produkte"
+        },
+        "contracts_update_failed": "Dështoi në përditësimin e disa kontratave të abonimit",
+        "subscription_contracts_updated": "U përditësuan {{succeeded}} nga {{total}} abonime",
+        "product_details": "Detajet e produktit"
+      },
+      "updating_contracts": {
+        "one": "Duke përditësuar {{count}} kontratë abonimi...",
+        "other": "Duke përditësuar {{count}} kontrata abonimi..."
+      },
+      "contracts_updated": {
+        "one": "Kontrata e abonimit {{count}} u përditësua me sukses",
+        "other": "{{count}} kontrata abonimi u përditësuan me sukses"
+      },
+      "contracts_update_failed": "Dështoi në përditësimin e disa kontratave të abonimit"
     },
     "sign_in": {
       "processing": "Duke u përpunuar…",
       "step_one": {
         "button": "Vazhdo",
-        "or": "ose"
+        "or": "ose",
+        "page_title": "Kyçu - %{shop_name}",
+        "heading": "Hyr",
+        "subheading": "Shkruani email-in tuaj dhe ne do t'ju dërgojmë një kod verifikimi",
+        "subheading_with_sign_in_options": "Zgjidh se si dëshiron të identifikohesh"
       },
       "step_two": {
-        "button": "Dërgo"
+        "button": "Dërgo",
+        "page_title": "Fut kodin - %{shop_name}",
+        "heading": "Fut kodin",
+        "subheading": "Dërguar te %{email}",
+        "restart_link": "Hyr me një email tjetër",
+        "input_field_label": "kod 6-shifror"
+      },
+      "brand_logo_alt_text": "Logoja e %{shop_name}",
+      "error": {
+        "invalid": {
+          "invalid_email": "Fut një adresë të vlefshme email-i",
+          "invalid_code": "Fut kodin e saktë 6-shifror"
+        }
       }
     }
   },
