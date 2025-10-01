@@ -259,7 +259,7 @@
     <div class="d-flex align-items-center justify-content-between pt-3">
       <div>{{ section.settings.choose_language_text }}</div>
       <div class="mobile-language-selector">
-        <div class="language-selector">
+        <div class="language-selector" style="display:none;">
           <div class="language-current language-mobile-current">
             {% for locale in shop.published_locales %}
               {% if locale.iso_code == request.locale.iso_code %}
