@@ -1,6 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+const YOUR_DOMAIN = window.location.origin
+const YOUR_DOMAIN_LENGTH = YOUR_DOMAIN.length
+const SUPPORTED_LANGUAGES = ["en,al,de,fr"]
+const LANGUAGE_COOKIE_NAME = "language"
+const BROWSER_LANGUAGE = navigator.language
+function getCookie(name) {
+const value = `; ${document.cookie}`;
+const parts = value.split(`; ${name}=`);
+if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function setDefaultLanguage(){
+let selectedLanguage = getCookie(LANGUAGE_COOKIE_NAME)
+if (!selectedLanguage) {
+console.log("No selected lang")
+for (const lang of SUPPORTED_LANGUAGES){
+console.log("Lang", lang)
+if(BROWSER_LANGUAGE.includes(lang)){
+document.cookie = `${LANGUAGE_COOKIE_NAME}=${lang};`;
+if (!window.location.href.includes(`${YOUR_DOMAIN}/${lang}`)){
+var url = window.location.href;
+var redirect_url = url.slice(0, YOUR_DOMAIN_LENGTH) + `/${lang}` + url.slice(YOUR_DOMAIN_LENGTH);
+console.log(url.slice(0, YOUR_DOMAIN_LENGTH))
+window.location.href= redirect_url;
+}
+break;
+}
+}
+}
+}
+setDefaultLanguage()
+</script>
     <meta charset="UTF-8">
     <link
       rel="shortcut icon"
