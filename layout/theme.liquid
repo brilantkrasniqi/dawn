@@ -2,16 +2,13 @@
 <html lang="en">
   <head>
     
-    <script id="geo" data-country="{{ request.country.iso_code | default: localization.country.iso_code | downcase }}"></script>
-
-  <script>
+    <script>
 (function () {
   const SUPPORTED_LANGUAGES = ["en","al","de","fr","it","rs"];
   const SUPPORTED_COUNTRIES = ["al","de","xk","me","mk","rs","ch"];
   const DEFAULT_LANG = "en";
   const DEFAULT_COUNTRY = "de";
   const ORIGIN = window.location.origin;
-
   const FORCED_LANG_BY_COUNTRY = { rs:"rs", al:"al", xk:"al" };
 
   function getPrimaryLocale() {
@@ -19,26 +16,31 @@
     const m = raw.replace("_","-").toLowerCase().split("-");
     return { lang: m[0] || "" };
   }
-
   function inferLanguage() {
     const { lang } = getPrimaryLocale();
     return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANG;
   }
-
   function currentSlug() {
     const m = location.pathname.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
     return m ? `${m[1].toLowerCase()}-${m[2].toLowerCase()}` : null;
   }
-
   function buildTargetUrl(lang, country) {
     const strippedPath = location.pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
     return ORIGIN + `/${lang}-${country}` + strippedPath + (location.search||"") + (location.hash||"");
   }
 
-  (function enforceLocaleSlug() {
-    const geoEl = document.getElementById("geo");
-    const detectedCountry = geoEl && geoEl.dataset ? (geoEl.dataset.country || "").toLowerCase() : "";
-    const country = SUPPORTED_COUNTRIES.includes(detectedCountry) ? detectedCountry : DEFAULT_COUNTRY;
+  (async function enforce() {
+    let detected = "";
+    try {
+      const root = (window.Shopify && Shopify.routes && Shopify.routes.root) ? Shopify.routes.root : "/";
+      const res = await fetch(root + "browsing_context_suggestions.json?country[enabled]=true",{credentials:"same-origin"});
+      if (res.ok) {
+        const j = await res.json();
+        const h = j && j.detected_values && j.detected_values.country && j.detected_values.country.handle;
+        if (h) detected = h.toLowerCase();
+      }
+    } catch(e) {}
+    const country = SUPPORTED_COUNTRIES.includes(detected) ? detected : DEFAULT_COUNTRY;
     const baseLang = inferLanguage();
     const lang = (FORCED_LANG_BY_COUNTRY[country] && SUPPORTED_LANGUAGES.includes(FORCED_LANG_BY_COUNTRY[country])) ? FORCED_LANG_BY_COUNTRY[country] : baseLang;
     const target = `${lang}-${country}`;
@@ -46,7 +48,6 @@
   })();
 })();
 </script>
-
 
     <meta charset="UTF-8">
     <link
