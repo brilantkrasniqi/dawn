@@ -6,12 +6,12 @@
 (function () {
   if (window.self !== window.top || window.location.search.includes("preview_theme_id")) return;
 
-  const SUPPORTED_LANGUAGES = ["en","al","de","fr","it","rs"];
+  const SUPPORTED_LANGUAGES = ["en","sq","de","fr","it","rs"];
   const SUPPORTED_COUNTRIES = ["al","de","xk","me","mk","rs","ch"];
-  const DEFAULT_LANG = "al";
+  const DEFAULT_LANG = "sq";
   const DEFAULT_COUNTRY = "xk";
   const ORIGIN = window.location.origin;
-  const FORCED_LANG_BY_COUNTRY = { rs:"rs", al:"al", xk:"al" };
+  const FORCED_LANG_BY_COUNTRY = { rs:"rs", al:"sq", xk:"sq" };
 
   function getPrimaryLocale() {
     const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
