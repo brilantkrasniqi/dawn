@@ -53,7 +53,7 @@
                   {% assign lang_url = '' %}
                 {% endif %}
                 <a href="{{locale.root_url}}" class="language-item{% if locale.iso_code == request.locale.iso_code %} active{% endif %}" data-lang="{{ locale.iso_code }}" data-primary="{{ locale.primary }}">
-                  {{ locale.name |  capitalize}} {{locale.root_url}}
+                  {{ locale.name |  capitalize}}
                 </a>
               {% endfor %}
             </div>
