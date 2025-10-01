@@ -389,8 +389,22 @@
       },
       "1173261918193615741": {
         "type": "shopify://apps/geo-pro-geolocation/blocks/geopro/16fc5313-7aee-4e90-ac95-f50fc7c8b657",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
+      },
+      "17646240911419608881": {
+        "type": "shopify://apps/geolocation-redirects-xapps/blocks/app-embed/99c42a40-4a88-4244-a03e-a752a0b4e07d",
+        "disabled": false,
+        "settings": {
+          "ngr_test_mode": false,
+          "ngr_disable_widget": false,
+          "ngr_force_disable": false,
+          "ngr_auto_once": false,
+          "ngr_auto_once_type": "session",
+          "ngr_auto_bots": true,
+          "ngr_auto_foot": false,
+          "ngr_disable_overlay": false
+        }
       }
     }
   }
