@@ -4,19 +4,19 @@
     
 
   <script>
-/**
- * Always enforce /{lang}-{country}
- * Example: /en-de, /de-de, /fr-fr
- */
-
 (function () {
   const SUPPORTED_LANGUAGES = ["en", "al", "de", "fr", "it", "rs"];
-  const SUPPORTED_COUNTRIES = ["al", "de", "xk", "me", "mk", "rs","ch"];
+  const SUPPORTED_COUNTRIES = ["al", "de", "xk", "me", "mk", "rs", "ch"];
   const DEFAULT_LANG = "en";
   const DEFAULT_COUNTRY = "de";
   const ORIGIN = window.location.origin;
 
-  // --- Helpers ---
+  const FORCED_LANG_BY_COUNTRY = {
+    rs: "rs",
+    al: "al",
+    xk: "al",
+  };
+
   function getPrimaryLocale() {
     const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
     const m = raw.replace("_", "-").toLowerCase().split("-");
@@ -36,10 +36,18 @@
     return SUPPORTED_COUNTRIES.includes(country) ? country : DEFAULT_COUNTRY;
   }
 
+  function applyForcedLanguage(country, lang) {
+    const forced = FORCED_LANG_BY_COUNTRY[country];
+    if (forced && SUPPORTED_LANGUAGES.includes(forced)) {
+      return forced;
+    }
+    return lang;
+  }
+
   function currentSlug() {
     const path = location.pathname;
     const m = path.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
-    return m ? `${m[1]}-${m[2]}` : null;
+    return m ? `${m[1].toLowerCase()}-${m[2].toLowerCase()}` : null;
   }
 
   function buildTargetUrl(lang, country) {
@@ -50,13 +58,12 @@
     return ORIGIN + `/${lang}-${country}` + strippedPath + query + hash;
   }
 
-  // --- MAIN ---
   (function enforceLocaleSlug() {
-    const lang = inferLanguage();
+    const baseLang = inferLanguage();
     const country = inferCountry();
+    const lang = applyForcedLanguage(country, baseLang);
     const targetSlug = `${lang}-${country}`;
     const current = currentSlug();
-
     if (current !== targetSlug) {
       window.location.replace(buildTargetUrl(lang, country));
     }
