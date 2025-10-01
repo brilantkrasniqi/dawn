@@ -3,10 +3,10 @@
   <head>
     
 
-    <script>
+  <script>
 /**
- * Redirects to /{lang}-{country}
- * e.g. /en-de, /de-de, /en-fr
+ * Always enforce /{lang}-{country}
+ * Example: /en-de, /de-de, /fr-fr
  */
 
 (function () {
@@ -14,22 +14,9 @@
   const SUPPORTED_COUNTRIES = ["de", "fr"];
   const DEFAULT_LANG = "en";
   const DEFAULT_COUNTRY = "de";
-  const LOCALE_COOKIE_NAME = "locale"; // saves "en-de"
-  const REDIRECT_SESSION_KEY = "lastLocaleRedirect";
   const ORIGIN = window.location.origin;
 
-  // ===== HELPERS =====
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-  }
-
-  function setCookie(name, value, days = 365) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
-  }
-
+  // --- Helpers ---
   function getPrimaryLocale() {
     const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
     const m = raw.replace("_", "-").toLowerCase().split("-");
@@ -59,32 +46,18 @@
     const path = location.pathname;
     const query = location.search || "";
     const hash = location.hash || "";
-
-    // Strip existing slug if present
     const strippedPath = path.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
     return ORIGIN + `/${lang}-${country}` + strippedPath + query + hash;
   }
 
-  function shouldRedirect(targetSlug) {
-    const last = sessionStorage.getItem(REDIRECT_SESSION_KEY);
-    if (last && last === targetSlug) return false;
-    return currentSlug() !== targetSlug;
-  }
-
-  // ===== MAIN =====
-  (function init() {
-    const cookieLocale = getCookie(LOCALE_COOKIE_NAME); // e.g., "en-de"
-    const cookieLang = cookieLocale ? cookieLocale.split("-")[0] : null;
-    const cookieCountry = cookieLocale ? cookieLocale.split("-")[1] : null;
-
-    const lang = cookieLang && SUPPORTED_LANGUAGES.includes(cookieLang) ? cookieLang : inferLanguage();
-    const country = cookieCountry && SUPPORTED_COUNTRIES.includes(cookieCountry) ? cookieCountry : inferCountry();
-
+  // --- MAIN ---
+  (function enforceLocaleSlug() {
+    const lang = inferLanguage();
+    const country = inferCountry();
     const targetSlug = `${lang}-${country}`;
-    setCookie(LOCALE_COOKIE_NAME, targetSlug);
+    const current = currentSlug();
 
-    if (shouldRedirect(targetSlug)) {
-      sessionStorage.setItem(REDIRECT_SESSION_KEY, targetSlug);
+    if (current !== targetSlug) {
       window.location.replace(buildTargetUrl(lang, country));
     }
   })();
