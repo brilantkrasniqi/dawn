@@ -1,39 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script>
-const YOUR_DOMAIN = window.location.origin
-const YOUR_DOMAIN_LENGTH = YOUR_DOMAIN.length
-const SUPPORTED_LANGUAGES = ["en","al","de","fr"]
-const LANGUAGE_COOKIE_NAME = "language"
-const BROWSER_LANGUAGE = navigator.language
-function getCookie(name) {
-const value = `; ${document.cookie}`;
-const parts = value.split(`; ${name}=`);
-if (parts.length === 2) return parts.pop().split(';').shift();
-}
+    
 
-function setDefaultLanguage(){
-let selectedLanguage = getCookie(LANGUAGE_COOKIE_NAME)
-if (!selectedLanguage) {
-console.log("No selected lang")
-for (const lang of SUPPORTED_LANGUAGES){
-console.log("Lang", lang)
-if(BROWSER_LANGUAGE.includes(lang)){
-document.cookie = `${LANGUAGE_COOKIE_NAME}=${lang};`;
-if (!window.location.href.includes(`${YOUR_DOMAIN}/${lang}`)){
-var url = window.location.href;
-var redirect_url = url.slice(0, YOUR_DOMAIN_LENGTH) + `/${lang}` + url.slice(YOUR_DOMAIN_LENGTH);
-console.log(url.slice(0, YOUR_DOMAIN_LENGTH))
-window.location.href= redirect_url;
-}
-break;
-}
-}
-}
-}
-setDefaultLanguage()
-</script>
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+/**
+ * Locale redirect to /<country>-<lang>
+ * Examples: /de-en, /de-de, /fr-en
+ * - Uses the browser's primary locale (navigator.languages[0] or navigator.language)
+ * - Preserves existing path, query, and hash
+ * - Avoids infinite loops
+ */
+
+(function () {
+  // ====== CONFIG ======
+  const SUPPORTED_LANGUAGES = ["en", "al", "de", "fr"];      // language codes you support
+  const SUPPORTED_COUNTRIES = ["de", "fr"];                  // market country codes you support
+  const DEFAULT_LANG = "en";
+  const DEFAULT_COUNTRY = "de";                              // if we can't infer a country
+  const LOCALE_COOKIE_NAME = "locale";                       // will store like "de-en"
+  const REDIRECT_SESSION_KEY = "lastLocaleRedirect";         // to prevent loops
+
+  // If you want to force a country per host (optional), add mappings here:
+  // e.g. {"example.fr":"fr","example.de":"de"}
+  const COUNTRY_FROM_HOST = {};
+
+  // ====== HELPERS ======
+  const ORIGIN = window.location.origin;
+  const ORIGIN_LEN = ORIGIN.length;
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  function setCookie(name, value, days = 365) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
+  }
+
+  // Parse primary browser locale like "de-DE" or "en-GB"
+  function getPrimaryLocale() {
+    const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+    // Normalize: "de-DE" -> ["de","DE"]
+    const m = raw.replace("_", "-").toLowerCase().split("-");
+    return {
+      lang: m[0] || "",
+      country: (m[1] || "").toLowerCase()
+    };
+  }
+
+  function inferCountry() {
+    // 1) Hostname mapping override
+    const mapped = COUNTRY_FROM_HOST[location.hostname];
+    if (mapped && SUPPORTED_COUNTRIES.includes(mapped)) return mapped;
+
+    // 2) From browser locale region (de-DE -> de, fr-FR -> fr)
+    const { country } = getPrimaryLocale();
+    if (country && SUPPORTED_COUNTRIES.includes(country)) return country;
+
+    // 3) Default
+    return DEFAULT_COUNTRY;
+  }
+
+  function inferLanguage() {
+    const { lang } = getPrimaryLocale();
+    if (SUPPORTED_LANGUAGES.includes(lang)) return lang;
+    return DEFAULT_LANG;
+  }
+
+  function currentMarketSlug() {
+    // expects pattern "/xx-yy" at the start of pathname
+    const path = location.pathname;
+    const m = path.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
+    if (!m) return null;
+    return `${m[1].toLowerCase()}-${m[2].toLowerCase()}`;
+  }
+
+  function buildTargetUrl(country, lang) {
+    const path = location.pathname;
+    const query = location.search || "";
+    const hash = location.hash || "";
+
+    // If the path already starts with /xx-yy, strip it before re-adding
+    const strippedPath = path.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
+
+    return ORIGIN + `/${country}-${lang}` + (strippedPath === "" ? "" : strippedPath) + query + hash;
+  }
+
+  function shouldRedirect(targetSlug) {
+    // Avoid redirect loops in the same session
+    const last = sessionStorage.getItem(REDIRECT_SESSION_KEY);
+    if (last && last === targetSlug) return false;
+
+    const current = currentMarketSlug();
+    return current !== targetSlug;
+  }
+
+  // ====== MAIN ======
+  (function setDefaultLocaleAndRedirect() {
+    // Respect existing cookie if present
+    const cookieLocale = getCookie(LOCALE_COOKIE_NAME); // e.g., "de-en"
+    const cookieCountry = cookieLocale ? cookieLocale.split("-")[0] : null;
+    const cookieLang = cookieLocale ? cookieLocale.split("-")[1] : null;
+
+    const country = (cookieCountry && SUPPORTED_COUNTRIES.includes(cookieCountry)) ? cookieCountry : inferCountry();
+    const lang = (cookieLang && SUPPORTED_LANGUAGES.includes(cookieLang)) ? cookieLang : inferLanguage();
+
+    const targetSlug = `${country}-${lang}`;
+    setCookie(LOCALE_COOKIE_NAME, targetSlug);
+
+    if (shouldRedirect(targetSlug)) {
+      sessionStorage.setItem(REDIRECT_SESSION_KEY, targetSlug);
+      const targetUrl = buildTargetUrl(country, lang);
+      // Use replace() to avoid back-button loops
+      window.location.replace(targetUrl);
+    }
+  })();
+})();
+    </script>
+  </head>
+  <body></body>
+</html>
+
+
     <meta charset="UTF-8">
     <link
       rel="shortcut icon"
