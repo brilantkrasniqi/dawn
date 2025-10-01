@@ -5,26 +5,21 @@
 
   <script>
 (function () {
-  const SUPPORTED_LANGUAGES = ["en", "al", "de", "fr", "it", "rs"];
-  const SUPPORTED_COUNTRIES = ["al", "de", "xk", "me", "mk", "rs", "ch"];
+  const SUPPORTED_LANGUAGES = ["en","al","de","fr","it","rs"];
+  const SUPPORTED_COUNTRIES = ["al","de","fr","xk","me","mk","rs","ch"];
   const DEFAULT_LANG = "en";
+  const DEFAULT_COUNTRY = "de";
   const ORIGIN = window.location.origin;
 
-  const FORCED_LANG_BY_COUNTRY = {
-    rs: "rs",
-    al: "al",
-    xk: "al",
-  };
+  const FORCED_LANG_BY_COUNTRY = { rs:"rs", al:"al", xk:"al" };
 
-  // Shopify injects the real visitor country here
-  const shopifyCountry = "{{ localization.country.iso_code | downcase }}";
+  const shopifyCountryRaw = "{{ request.country.iso_code | default: localization.country.iso_code | downcase }}";
+  const shopifyCountry = (shopifyCountryRaw || "").trim();
 
   function getPrimaryLocale() {
     const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
-    const m = raw.replace("_", "-").toLowerCase().split("-");
-    return {
-      lang: m[0] || ""
-    };
+    const m = raw.replace("_","-").toLowerCase().split("-");
+    return { lang: m[0] || "" };
   }
 
   function inferLanguage() {
@@ -34,35 +29,24 @@
 
   function applyForcedLanguage(country, lang) {
     const forced = FORCED_LANG_BY_COUNTRY[country];
-    if (forced && SUPPORTED_LANGUAGES.includes(forced)) {
-      return forced;
-    }
-    return lang;
+    return (forced && SUPPORTED_LANGUAGES.includes(forced)) ? forced : lang;
   }
 
   function currentSlug() {
-    const path = location.pathname;
-    const m = path.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
+    const m = location.pathname.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
     return m ? `${m[1].toLowerCase()}-${m[2].toLowerCase()}` : null;
   }
 
   function buildTargetUrl(lang, country) {
-    const path = location.pathname;
-    const query = location.search || "";
-    const hash = location.hash || "";
-    const strippedPath = path.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
-    return ORIGIN + `/${lang}-${country}` + strippedPath + query + hash;
+    const strippedPath = location.pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
+    return ORIGIN + `/${lang}-${country}` + strippedPath + (location.search||"") + (location.hash||"");
   }
 
   (function enforceLocaleSlug() {
-    const baseLang = inferLanguage();
-    const country = SUPPORTED_COUNTRIES.includes(shopifyCountry) ? shopifyCountry : "de";
-    const lang = applyForcedLanguage(country, baseLang);
-    const targetSlug = `${lang}-${country}`;
-    const current = currentSlug();
-    if (current !== targetSlug) {
-      window.location.replace(buildTargetUrl(lang, country));
-    }
+    const country = SUPPORTED_COUNTRIES.includes(shopifyCountry) ? shopifyCountry : DEFAULT_COUNTRY;
+    const lang = applyForcedLanguage(country, inferLanguage());
+    const target = `${lang}-${country}`;
+    if (currentSlug() !== target) window.location.replace(buildTargetUrl(lang, country));
   })();
 })();
 </script>
