@@ -1685,7 +1685,8 @@
         },
         "announcement": {
           "close": "Mbyll",
-          "expand": "Zgjero"
+          "expand": "Zgjero",
+          "collapse": "Palos"
         },
         "payment_method_not_charged": "Nuk është ngarkuar",
         "confirmed_items_count": "%{confirmed_count} nga %{total_count} artikuj janë konfirmuar",
@@ -1694,8 +1695,41 @@
           "other": "Artikujt që keni blerë do të vijnë nga dyqane të tjera."
         },
         "thank_you_confirmed_orders_with_email_description": {
-          "one": "Do të marrësh një email konfirmimi së shpejti"
-        }
+          "one": "Do të marrësh një email konfirmimi së shpejti",
+          "other": "Së shpejti do të merrni email-e konfirmimi të ndara nga secili dyqan"
+        },
+        "thank_you_confirmed_orders_with_phone_description": {
+          "one": "Do të marrësh një mesazh konfirmimi së shpejti",
+          "other": "Së shpejti do të merrni mesazhe konfirmimi të ndara nga secili dyqan"
+        },
+        "thank_you_confirmed_orders_with_email_and_phone_description": {
+          "one": "Do të marrësh një email konfirmimi së shpejti",
+          "other": "Së shpejti do të merrni email-e konfirmimi të ndara nga secili dyqan"
+        },
+        "thank_you_confirmed_orders_with_email": "Së shpejti do të merrni email-e konfirmimi të veçanta me numrat e porosisë suaj",
+        "thank_you_confirmed_orders_with_phone": "Së shpejti do të merrni mesazhe konfirmimi të veçanta me numrat e porosisë suaj.",
+        "thank_you_confirmed_orders_with_email_and_phone": "Së shpejti do të merrni email-e konfirmimi të veçanta me numrat e porosisë suaj",
+        "thank_you_unconfirmed_items_heading": {
+          "one": "Një artikull nuk është konfirmuar",
+          "other": "Disa artikuj nuk janë konfirmuar"
+        },
+        "thank_you_unconfirmed_items_description": {
+          "one": "Nuk jeni ngarkuar për këtë",
+          "other": "Nuk jeni ngarkuar për këto"
+        },
+        "thank_you_confirmed_items_with_email": {
+          "one": "Do të marrësh një email konfirmimi së shpejti",
+          "other": "Do të merrni email-e konfirmimi së shpejti"
+        },
+        "thank_you_confirmed_items_with_phone": {
+          "one": "Do të marrësh një mesazh konfirmimi së shpejti",
+          "other": "Do të marrësh mesazhe konfirmimi së shpejti"
+        },
+        "thank_you_from_shop": "Nga %{shop_name}",
+        "track_your_order_link_text": "Gjurmoni porosinë tuaj",
+        "checkout_on_remote_shop_link_text": "Kryej pagesën në %{remoteShopName}",
+        "confirmed_orders_title": "Porositë tuaja janë konfirmuar",
+        "company_location_section_title": "Kompania dhe vendndodhja"
       },
       "wallets": {
         "errors": {
@@ -1738,13 +1772,15 @@
             "country": "Zgjidh një vend/rajon",
             "zip": "Fut një kod postar",
             "billing_zip": "Futni një adresë faturimi",
-            "phone": "Fut një numër telefoni"
+            "phone": "Fut një numër telefoni",
+            "contact_info": "Futni informacionin e kontaktit"
           },
           "formatting": {
             "name_contains_emojis": "Fshij emoji-n nga emri yt",
             "postal_code_contains_emoji": "Fshij emoji-t nga kodi yt postar",
             "first_name_too_long": "Emri përmban shumë shkronja",
-            "last_name_too_long": "Mbiemri përmban shumë shkronja"
+            "last_name_too_long": "Mbiemri përmban shumë shkronja",
+            "address_too_long": "Rreshti i adresës është shumë i gjatë"
           },
           "select_different_shipping_address_to_resolve_errors": "Adresa juaj e dërgesës është e pavlefshme. Zgjidh një adresë tjetër ose përdor një të re.",
           "unavailable": {
@@ -1789,7 +1825,8 @@
           "merchandise": {
             "gift_card_price_must_be_greater_than_zero": "Çmimi i kartës dhuratë duhet të jetë më i madh se 0.",
             "gift_card_price_must_not_exceed_limit": "Çmimi i kartës dhuratë nuk duhet të kalojë %{gift_card_limit}.",
-            "subtotal_limit_reached": "Vlera maksimale e artikujve të linjës është arritur."
+            "subtotal_limit_reached": "Vlera maksimale e artikujve të linjës është arritur.",
+            "signature_mismatch": "Mospërputhje e nënshkrimit të mallit për rreshtin %{stable_id}."
           }
         }
       },
@@ -1909,7 +1946,8 @@
           "change_value": "Ndrysho vlerën",
           "section": "Seksioni",
           "value": "Vlerë"
-        }
+        },
+        "account_more_actions": "Më shumë veprime për këtë llogari"
       },
       "marketing": {
         "accept_marketing_checkbox_label": "Më dërgoni email me lajme dhe oferta për të rejat dhe ofertat tuaja, dërgoni një email me email.",
@@ -1947,7 +1985,10 @@
         "purchase_options_policy": "Politika e opsioneve të blerjes",
         "contact_information": "Informacione kontakti",
         "purchase_options_cancellation_policy": "Politika e anulimit",
-        "cookie_preferences": "Preferencat e cookie-ve"
+        "cookie_preferences": "Preferencat e cookie-ve",
+        "policy_label": "Politika",
+        "policies_label": "Politikat",
+        "select_policy_label": "Zgjidh një politikë"
       },
       "mor_policies": {
         "terms_and_conditions": "Kushtet dhe Rregullat e Tregtarit të Regjistruar",
@@ -2063,8 +2104,14 @@
           "body": "Nuk të është faturuar asnjë shumë. Provo përsëri ose përdor një metodë tjetër pagese."
         },
         "contact_information": {
-          "email_link": "na kontaktoni"
-        }
+          "email_link": "na kontaktoni",
+          "title": "Informacioni i kontaktit është i pavlefshëm",
+          "header": "Për të përditësuar informacionin tuaj, {{emailLink}} ."
+        },
+        "payment_method_not_available_with_payment_terms": "Metoda e pagesës që zgjodhët nuk është më e disponueshme sepse pagesa për këtë porosi tani bëhet sipas kushteve të {{paymentTerms}}",
+        "payment_method_not_available_with_fulfillment_terms": "Metoda e pagesës që zgjodhët nuk është më e disponueshme sepse pagesa për këtë porosi tani duhet të bëhet në momentin e përmbushjes",
+        "payment_method_not_available_with_fixed_terms": "Metoda e pagesës që zgjodhët nuk është më e disponueshme sepse pagesa për këtë porosi duhet të bëhet më vonë",
+        "payment_method_not_available_with_review_requirement": "Metoda e pagesës që keni zgjedhur nuk është më e disponueshme sepse pagesa do të duhet të bëhet pasi të konfirmohet porosia juaj."
       },
       "marketplaces": {
         "legal_notice": {
@@ -2107,7 +2154,9 @@
           "other": "Shfaq %{count} vende të tjera"
         },
         "selected_pickup_option_no_longer_available": {
-          "ship_to_address_link": "dërgesë në adresë"
+          "ship_to_address_link": "dërgesë në adresë",
+          "title": "Vendndodhja juaj e zgjedhur më parë nuk është më e disponueshme",
+          "description": "Zgjidh një vendndodhje të re ose %{ship_to_address_link}"
         }
       },
       "captcha": {
@@ -2477,7 +2526,8 @@
         "session_already_finished": "Kjo porosi është dërguar tashmë. Mund të ktheheni në dyqan për të filluar një porosi të re."
       },
       "memberships": {
-        "delivery_promise_unfulfillable": "Adresa nuk mbështetet për anëtarësimin aktual."
+        "delivery_promise_unfulfillable": "Adresa nuk mbështetet për anëtarësimin aktual.",
+        "items_split_across_locations_unsupported": "Shërbimi i dorëzimit me porosi nuk është i disponueshëm për porosinë tuaj. Opsionet e transportit janë përditësuar."
       },
       "editor": {
         "navigation": {
@@ -2528,7 +2578,24 @@
       },
       "review_address_modal": {
         "use_saved_address": "Përdor një adresë tjetër",
-        "return_to_cart": "Kthehu në shportë"
+        "return_to_cart": "Kthehu në shportë",
+        "title": "Shqyrtoni adresën",
+        "subtitle": {
+          "one": "Kjo porosi do të dërgohet në adresën e dhënë nga {{merchant}} .",
+          "other": "Kjo porosi do të dërgohet në një adresë të dhënë nga {{merchant}} . Zgjidhni një adresë dërgimi."
+        },
+        "subtitle_no_match": "Kjo adresë nuk përputhet me asnjë nga adresat e tua të ruajtura.",
+        "subtitle_must_use": "Porosia juaj do të dërgohet në këtë adresë.",
+        "continue": "Vazhdo me këtë adresë"
+      },
+      "remote": {
+        "errors": {
+          "only_remote_merchandise_lines": "Arka përmban vetëm mallra të shitura në distancë. Kërkohet një ridrejtim në dyqanin e shitur në distancë për të përfunduar arkëtimin."
+        }
+      },
+      "tooltip": {
+        "accessibility_label_context": "Më shumë informacion rreth %{context}",
+        "additional_payment_methods": "Metoda shtesë pagese"
       }
     },
     "notices": {
@@ -2607,7 +2674,8 @@
         "cart_attributes_error": "Atributet e shportës përmbajnë të dhëna të pavlefshme.",
         "merchandise_line_transformers": {
           "run_error": "Ndodhi një gabim në shportën tuaj."
-        }
+        },
+        "merchandise_not_applicable": "Artikulli nuk mund të blihet siç është konfiguruar."
       },
       "storefront": {
         "invalid_password": "Fjalëkalimi është i pasaktë, ju lutemi provoni përsëri."
@@ -2987,7 +3055,9 @@
         "ineligible_return_message_when_returned": "Asnjë artikull shtesë në këtë porosi nuk është i pranueshëm për kthim.",
         "print_shipping_label": "Printo etiketën e transportit",
         "return_and_refund_modal_header": "Politika e rimbursimit",
-        "tracking_number": "Numri i gjurmimit:"
+        "tracking_number": "Numri i gjurmimit:",
+        "exchange_header": "Artikuj të shkëmbyer",
+        "exchange_subheader": "Artikujt e shkëmbyer do të shtohen në porosi pasi të përfundojë kthimi."
       },
       "shipping": {
         "address": "Adresa e dërgesës",
@@ -3079,10 +3149,14 @@
       "order_details": "Detajet e porosisë",
       "billing_address": "Adresa e faturimit",
       "view_controls": {
-        "list": "Listë"
+        "list": "Listë",
+        "gallery": "Galeria"
       },
       "due_on_date": "Afati {{date}}",
-      "due_on_fulfillment": "Përmbushja e detyrimeve"
+      "due_on_fulfillment": "Përmbushja e detyrimeve",
+      "company_and_location": "Kompania dhe vendndodhja",
+      "group_title_label_with_parent": "Për: {{groupTitle}}",
+      "due_on_receipt": "Pagesa në momentin e marrjes"
     },
     "payment_method_brands": {
       "laser": "Lazer",
@@ -3345,7 +3419,8 @@
           "default_checkbox": "Cakto si metodë pagese të parazgjedhur"
         },
         "choose_from_list": "Zgjidh nga lista",
-        "add_new_button": "Shto të re"
+        "add_new_button": "Shto të re",
+        "replace_mode_warning": "Fshirja e kësaj metode pagese do të ndikojë në abonime ose porosi paraprake. Zëvendësojeni atë me një metodë alternative pagese për të vazhduar të merrni porositë e ardhshme."
       },
       "three_d_secure": {
         "title": "Siguria 3D"
@@ -3391,7 +3466,15 @@
         }
       },
       "add_payment_method_dropdown": {
-        "credit_or_debit_card": "Kartë krediti ose debiti"
+        "credit_or_debit_card": "Kartë krediti ose debiti",
+        "bank_account": "Llogari bankare"
+      },
+      "replacement_payment_method_title": "Metoda e pagesës zëvendësuese",
+      "generic_error": "Diçka shkoi keq. Ju lutemi provoni përsëri.",
+      "bank_account": {
+        "loading_accessibility_message": "Butoni i llogarisë bankare po ngarkohet",
+        "iframe_title_accessibility_label": "Konfigurimi i llogarisë bankare",
+        "display_name": "Llogari bankare"
       }
     },
     "B2B": {
@@ -3555,7 +3638,9 @@
         "selection_continue_button": "Vazhdo",
         "title": "Për cilin vend po blini?",
         "clear_search": "Pastro kërkimin",
-        "try_new_search": "Provo një kërkim të ri"
+        "try_new_search": "Provo një kërkim të ri",
+        "description_switch_later": "Mund të ndërrosh gjithmonë më vonë",
+        "title_choose_location": "Zgjidh një vendndodhje"
       },
       "addresses": {
         "add_billing_address_button": "Shto adresën e faturimit",
@@ -3648,6 +3733,9 @@
         "title": "Gabim",
         "description": "Rifresko këtë faqe ose provo përsëri pas disa minutash.",
         "refresh_button": "Rifresko faqen"
+      },
+      "profile_name_update_error": {
+        "description": "Pati një problem me përditësimin e emrit tuaj. Provoni të rifreskoni këtë faqe ose kontrolloni lidhjen tuaj të internetit."
       }
     },
     "throttle": {
@@ -3799,7 +3887,8 @@
           "all_location": "Të gjitha vendndodhjet",
           "current_location": "Vendndodhja aktuale",
           "switch_view": "Ndërro pamjen"
-        }
+        },
+        "empty_state_with_location_title": "Nuk ka porosi për {{locationName}}"
       },
       "order_status": {
         "attempted_delivery_label": "Tentativë për dorëzim",
@@ -3957,7 +4046,9 @@
         "resume_tracking": "Rifillo gjurmimin",
         "track_shipment": "Gjurmimi i dërgesës",
         "request_return": "Kërkesë për kthim",
-        "multiple_statuses_label": "Statuse të shumëfishta porosish"
+        "multiple_statuses_label": "Statuse të shumëfishta porosish",
+        "expected_by": "Pritet deri më {{date}}",
+        "was_expected_by": "Pritej deri më {{date}}"
       },
       "list_layout_accessibility_label": "Opsionet e paraqitjes",
       "list_title": "Porosi",
@@ -3972,7 +4063,8 @@
       "buy_again": "Bli përsëri",
       "status_mark_as_delivered": "Shëno si të dorëzuar",
       "manage_accessiblity_label": "Menaxho porosinë {{orderId}}",
-      "group_title_label": "Pjesë e: {{groupTitle}}"
+      "group_title_label": "Pjesë e: {{groupTitle}}",
+      "group_title_label_with_parent": "Për: {{groupTitle}}"
     },
     "addresses": {
       "add_button": "Shto adresë",
@@ -4093,7 +4185,9 @@
       "search": "Kërko",
       "no_locations_found": "Nuk u gjetën vendndodhje",
       "try_new_search": "Provo një kërkim të ri",
-      "skip_to_content": "Kapërce te përmbajtja"
+      "skip_to_content": "Kapërce te përmbajtja",
+      "loading_policy_content_accessibility_label": "Duke ngarkuar përmbajtjen e politikës",
+      "no_countries_found": "Nuk u gjet asnjë vend"
     },
     "account_information": {
       "loading_accessibility_message": "Duke ngarkuar informacionin e llogarisë. Po ngarkohet informacioni i llogarisë.",
@@ -4112,8 +4206,13 @@
         "save_accessibility_label": "Ruaj profilin",
         "title": "Profili",
         "errors": {
-          "invalid_email_format": "Fut një email të vlefshëm"
-        }
+          "invalid_email_format": "Fut një email të vlefshëm",
+          "name_too_long": "{{fieldName}} është shumë i gjatë (maksimumi është 255 karaktere)",
+          "name_cannot_contain_url": "{{fieldName}} nuk mund të përmbajë URL-në",
+          "name_cannot_contain_html_tags": "{{fieldName}} nuk mund të përmbajë etiketa HTML",
+          "email_cant_be_blank": "Email-i nuk mund të jetë bosh"
+        },
+        "editable_email_help_text": "Ky email përdoret për identifikim dhe përditësime të porosive."
       },
       "profile_update_confirmation_message": "Profili u përditësua",
       "title": "Profili",
@@ -4126,8 +4225,23 @@
       },
       "add_button": "Shto",
       "verify_new_email_modal": {
-        "cancel_button": "Anulo"
-      }
+        "cancel_button": "Anulo",
+        "title": "Verifiko email-in",
+        "description": "Fut kodin e dërguar te {{email}}",
+        "one_time_password_label": "kod 6-shifror",
+        "email_resend_button": "Ridërgo kodin",
+        "email_resend_button_accessibility_label": "Ridërgo kodin e verifikimit",
+        "verify_button": "Verifiko",
+        "verify_button_accessibility_label": "Verifikoni fjalëkalimin njëpërdorimësh",
+        "cancel_button_accessibility_label": "Anulo email-in e redaktimit",
+        "email_resend_button_success_toast_message": "Kodi i verifikimit u dërgua",
+        "email_resend_button_error_banner_message": "Kodi i verifikimit nuk mund të dërgohej"
+      },
+      "email_update_success_modal": {
+        "title": "Verifiko email-in",
+        "description": "Email-i u përditësua me sukses. Po ridrejtohet për identifikim."
+      },
+      "email_update_confirmation_message": "Email-i u përditësua në {{email}}"
     },
     "knowledge_base": {
       "self_serve_returns": {
@@ -4140,16 +4254,27 @@
         "title": "Zëvendëso metodën e pagesës",
         "cancel": "Anulo",
         "save": "Ruaj",
-        "success": "Metoda e pagesës u përditësua"
+        "success": "Metoda e pagesës u përditësua",
+        "loading": "Duke ngarkuar metodat e pagesës po ngarkohen.",
+        "no_payment_methods_available": "Nuk ka metoda pagese të disponueshme",
+        "select_new_payment_method": "Zgjidh një metodë të re pagese",
+        "current_method": "Aktual",
+        "use_new_payment_method": "+ Përdor metodën e re të pagesës"
       },
       "subscription_contracts": {
         "load_more": "Ngarko më shumë",
         "product_count": {
-          "other": "{{count}} produkte"
+          "other": "{{count}} produkte",
+          "one": "{{count}} produkt"
         },
         "contracts_update_failed": "Dështoi në përditësimin e disa kontratave të abonimit",
         "subscription_contracts_updated": "U përditësuan {{succeeded}} nga {{total}} abonime",
-        "product_details": "Detajet e produktit"
+        "product_details": "Detajet e produktit",
+        "title": "Përdorni metodën e pagesës për porositë e përsëritura",
+        "more_items": {
+          "one": "dhe {{count}} produkt tjetër",
+          "other": "dhe {{count}} produkte të tjera"
+        }
       },
       "updating_contracts": {
         "one": "Duke përditësuar {{count}} kontratë abonimi...",
@@ -4186,6 +4311,11 @@
           "invalid_code": "Fut kodin e saktë 6-shifror"
         }
       }
+    },
+    "announcement_bar": {
+      "expand_label": "Zgjero shiritin e njoftimeve",
+      "collapse_label": "Palos shiritin e njoftimeve",
+      "close_label": "Mbyll shiritin e njoftimeve"
     }
   },
   "products": {

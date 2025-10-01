@@ -22,26 +22,33 @@
         </li>
         <li class="d-lg-block d-none">
           <div class="language-selector">
-            <a
-              class="text-white language-current"
-              href="#"
-              id="languageSelector">
-              {% if request.locale.iso_code == 'de' %}
-                Deutsch
-                <span class="language-arrow">▼</span>
-              {% elsif request.locale.iso_code == 'fr' %}
-                Français
-                <span class="language-arrow">▼</span>
-              {% else %}
-                English
-                <span class="language-arrow">▼</span>
-              {% endif %}
-            </a>
-            <div class="language-menu">
-              <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, 'en' }}">English</a>
-              <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, 'de' }}">Deutsch</a>
-              <a class="language-item" href="{{ request.path | replace_first: request.locale.iso_code, 'fr' }}">Français</a>
-            </div>
+            {% form 'localization' %}
+              <div class="relative">
+                <button type="button" class="text-white language-current btn-unstyled">
+                  {{ localization.language.endonym_name }}
+                  <span class="language-arrow">▼</span>
+                </button>
+                <div class="language-menu">
+                  {%- for language in localization.available_languages -%}
+                    <a
+                      href="#"
+                      class="language-item{% if language.iso_code == localization.language.iso_code %} font-bold{% endif %}"
+                      data-value="{{ language.iso_code }}"
+                      onclick="this.closest('form').querySelector('input[name=\'locale_code\']').value = this.dataset.value; this.closest('form').submit(); return false;">
+                      {{ language.endonym_name }}
+                    </a>
+                  {%- endfor -%}
+                </div>
+              </div>
+              <input
+                type="hidden"
+                name="locale_code"
+                value="{{ localization.language.iso_code }}">
+              <input
+                type="hidden"
+                name="return_to"
+                value="{{ request.path }}">
+            {% endform %}
           </div>
         </li>
       </ul>
@@ -232,26 +239,36 @@
       <div class="d-flex align-items-center justify-content-between pt-3">
         <div class="">Choose Language</div>
         <div class="mobile-language-selector">
-          <a
-            class="language-mobile-current"
-            href="#"
-            id="mobileLangSelector">
-            {% if request.locale.iso_code == 'de' %}
-              Deutsch
-              <span class="language-arrow">▼</span>
-            {% elsif request.locale.iso_code == 'fr' %}
-              Français
-              <span class="language-arrow">▼</span>
-            {% else %}
-              English
-              <span class="language-arrow">▼</span>
-            {% endif %}
-          </a>
-          <div class="language-mobile-menu">
-            <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, 'en' }}">English</a>
-            <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, 'de' }}">Deutsch</a>
-            <a class="language-mobile-item" href="{{ request.path | replace_first: request.locale.iso_code, 'fr' }}">Français</a>
-          </div>
+          {% form 'localization' %}
+            <div class="relative">
+              <button
+                type="button"
+                class="language-mobile-current btn-unstyled"
+                id="mobileLangSelector">
+                {{ localization.language.endonym_name }}
+                <span class="language-arrow">▼</span>
+              </button>
+              <div class="language-mobile-menu">
+                {%- for language in localization.available_languages -%}
+                  <a
+                    href="#"
+                    class="language-mobile-item{% if language.iso_code == localization.language.iso_code %} font-bold{% endif %}"
+                    data-value="{{ language.iso_code }}"
+                    onclick="this.closest('form').querySelector('input[name=\'locale_code\']').value = this.dataset.value; this.closest('form').submit(); return false;">
+                    {{ language.endonym_name }}
+                  </a>
+                {%- endfor -%}
+              </div>
+            </div>
+            <input
+              type="hidden"
+              name="locale_code"
+              value="{{ localization.language.iso_code }}">
+            <input
+              type="hidden"
+              name="return_to"
+              value="{{ request.path }}">
+          {% endform %}
         </div>
       </div>
     </div>
@@ -259,7 +276,7 @@
 </nav>
 
 <style>
-  # discount-code {
+  #discount-code {
     border: 1px solid #ced4da;
     padding: 0.375rem 0.75rem;
     transition: border-color 0.15s ease-in-out;
@@ -281,7 +298,7 @@
   }
 
   /* Language selector styles */
-  .language-selector {
+  /* Language selector styles (desktop) */.language-selector {
     position: relative;
     display: inline-block;
   }
@@ -300,14 +317,14 @@
     display: none;
     position: absolute;
     background-color: white;
-    min-width: 120px;
+    min-width: 140px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1050;
     border-radius: 4px;
     overflow: hidden;
   }
 
-  .language-selector:hover .language-menu {
+  .language-menu.show {
     display: block;
   }
 
@@ -324,7 +341,7 @@
   }
 
   /* Mobile language selector styles */
-  .mobile-language-selector {
+  /* Mobile language selector styles */.mobile-language-selector {
     position: relative;
     display: inline-block;
   }
@@ -343,11 +360,15 @@
     bottom: 100%;
     margin-bottom: 5px;
     background-color: white;
-    min-width: 120px;
+    min-width: 140px;
     box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.1);
     z-index: 1050;
     border-radius: 4px;
     overflow: hidden;
+  }
+
+  .language-mobile-menu.show {
+    display: block;
   }
 
   .language-mobile-item {
@@ -365,42 +386,25 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Desktop language selector
-    const languageSelector = document.getElementById('languageSelector');
-    const languageMenu = document.querySelector('.language-menu');
-    
-    if (languageSelector && languageMenu) {
-      languageSelector.addEventListener('click', function(e) {
-        e.preventDefault();
-        const isVisible = languageMenu.style.display === 'block';
-        languageMenu.style.display = isVisible ? 'none' : 'block';
-      });
+    // Toggle dropdowns (desktop + mobile)
+    function toggleMenu(buttonSelector, menuSelector) {
+      var btn = document.querySelector(buttonSelector);
+      var menu = document.querySelector(menuSelector);
+      if (!btn || !menu) return;
       
-      // Close the dropdown when clicking outside
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        menu.classList.toggle('show');
+      });
+
       document.addEventListener('click', function(e) {
-        if (!languageSelector.contains(e.target) && !languageMenu.contains(e.target)) {
-          languageMenu.style.display = 'none';
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.remove('show');
         }
       });
     }
-    
-    // Mobile language selector
-    const mobileLangSelector = document.getElementById('mobileLangSelector');
-    const mobileLangMenu = document.querySelector('.language-mobile-menu');
-    
-    if (mobileLangSelector && mobileLangMenu) {
-      mobileLangSelector.addEventListener('click', function(e) {
-        e.preventDefault();
-        const isVisible = mobileLangMenu.style.display === 'block';
-        mobileLangMenu.style.display = isVisible ? 'none' : 'block';
-      });
-      
-      // Close the dropdown when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!mobileLangSelector.contains(e.target) && !mobileLangMenu.contains(e.target)) {
-          mobileLangMenu.style.display = 'none';
-        }
-      });
-    }
+
+    toggleMenu('.language-current', '.language-menu');
+    toggleMenu('.language-mobile-current', '.language-mobile-menu');
   });
 </script>

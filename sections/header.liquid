@@ -2,106 +2,68 @@
 <!-- NAV -->
 
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P6SH74LJ');</script>
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-P6SH74LJ');
+</script>
 <!-- End Google Tag Manager -->
 
 <div class="bg-main-blue custom-container">
   <div class="row d-flex align-items-center py-xl-3 py-2">
     <div class="d-xl-block d-none col-xl-6">
       <p class="fw-bold funnel-font text-white text-nowrap free-shipping-text">
-        <!-- Will be populated by JavaScript -->
         {{ section.settings.free_shipping_text | replace: '[amount]', '...' }}
       </p>
     </div>
     <div class="col-xl-6 col-12 px-1">
       <ul class="d-flex flex-row align-items-center justify-content-xl-end justify-content-between text-white w-100">
-        <li class="">
-          <a class="text-white pe-xl-2 ps-0" href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+        <li>
+          <a class="text-white pe-xl-2 ps-0" href="mailto:{{ section.settings.contact_email }}">
+            {{ section.settings.contact_email }}
+          </a>
         </li>
-        <li class="">
+        <li>
           {% if customer %}
-            <a class="text-white pe-xl-2 pe-4" href="{{ routes.account_url }}">{{ section.settings.account_text }}</a>
+            <a class="text-white pe-xl-2 pe-4" href="{{ routes.account_url }}">
+              {{ section.settings.account_text }}
+            </a>
           {% else %}
-            <a class="text-white pe-xl-2 pe-0" href="{{ routes.account_login_url }}">{{ section.settings.sign_in_text }}</a>
+            <a class="text-white pe-xl-2 pe-0" href="{{ routes.account_login_url }}">
+              {{ section.settings.sign_in_text }}
+            </a>
           {% endif %}
         </li>
         <li class="d-xl-block d-none">
-          {% comment %} Define available locale codes {% endcomment %}
-        {% assign locale_codes = "sq,en,de" | split: "," %}
-
-          {% comment %} Capture current path and query string {% endcomment %}
-          {% assign full_path = request.path %}
-          {% assign qs = request.query_string | prepend: "?" %}
-          {% unless request.query_string %}
-            {% assign qs = "" %}
-        {% endunless %}
-
-          {% comment %} Strip existing locale prefix from path using slice to check start {% endcomment %}
-          {% assign path_no_locale = full_path %}
-          {% assign en_prefix = full_path | slice: 0, 3 %}
-          {% assign de_prefix = full_path | slice: 0, 3 %}
-          {% if en_prefix == '/en' %}
-            {% assign path_no_locale = full_path | remove_first: '/en' %}
-          {% elsif de_prefix == '/de' %}
-            {% assign path_no_locale = full_path | remove_first: '/de' %}
-          {% endif %}
-
-          {% comment %} Ensure path_no_locale is not empty for home page {% endcomment %}
-          {% if path_no_locale == '' or path_no_locale == '/' %}
-            {% assign path_no_locale = '/' %}
-        {% endif %}
-
-          <!-- Get the current language based on request URL -->
-          {% assign current_language = 'sq' %}
-          {% if en_prefix == '/en' %}
-            {% assign current_language = 'en' %}
-          {% elsif de_prefix == '/de' %}
-            {% assign current_language = 'de' %}
-          {% endif %}
-
-          <!-- Language selector markup with current language -->
           <div class="language-selector">
-            <a
-              href="#"
-              class="text-white language-current"
-              id="languageSelector">
-              {% case current_language %}
-                {% when 'en' %}English
-              {% when 'de' %}Deutsch
-              {% else %}Shqip
-          {% endcase %}
-          <span class="language-arrow">▼</span>
-        </a>
-        <div class="language-menu" style="display: none;">
-          {% for code in locale_codes %}
-            {% case code %}
-              {% when 'sq' %}
-                {% assign name = 'Shqip' %}
-                {% assign prefix = '' %}
-              {% when 'en' %}
-                {% assign name = 'English' %}
-                {% assign prefix = '/en' %}
-              {% when 'de' %}
-                {% assign name = 'Deutsch' %}
-                {% assign prefix = '/de' %}
-            {% endcase %}
-            {% assign target_url = prefix | append: path_no_locale | append: qs %}
-            <a
-              class="language-item"
-              data-lang="{{ code }}"
-              href="{{ target_url | replace: '//' , '/' }}">
-              {{ name }}
-            </a>
-          {% endfor %}
-        </div>
-      </div>
-    </li>
-  </ul>
-</div></div></div><!-- Actual Nav -->
+            <div class="language-current text-white">
+              {% for locale in shop.published_locales %}
+                {% if locale.iso_code == request.locale.iso_code %}
+                  {{ locale.name |  capitalize }}
+                {% endif %}
+              {% endfor %}
+              <span class="language-arrow">▼</span>
+            </div>
+            <div class="language-menu">
+              {% for locale in shop.published_locales %}
+                {% assign lang_url = locale.iso_code %}
+                {% if locale.primary %}
+                  {% assign lang_url = '' %}
+                {% endif %}
+                <a href="{{locale.root_url}}" class="language-item{% if locale.iso_code == request.locale.iso_code %} active{% endif %}" data-lang="{{ locale.iso_code }}" data-primary="{{ locale.primary }}">
+                  {{ locale.name |  capitalize}} {{locale.root_url}}
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Actual Nav -->
 <nav class="nav-header sticky-top bg-white" id="mainNavigation">
 <div class="custom-container position-relative">
   <div class="row p-14">
@@ -297,40 +259,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="d-flex align-items-center justify-content-between pt-3">
       <div>{{ section.settings.choose_language_text }}</div>
       <div class="mobile-language-selector">
-        <a
-          class="language-mobile-current"
-          href="#"
-          id="mobileLangSelector">
-          {% case current_language %}
-            {% when 'en' %}English
-          {% when 'de' %}Deutsch
-          {% else %}Shqip
-      {% endcase %}
-      <span class="language-arrow">▼</span>
-    </a>
-    <div class="language-mobile-menu">
-      {% for code in locale_codes %}
-        {% case code %}
-          {% when 'sq' %}
-            {% assign name = 'Shqip' %}
-            {% assign prefix = '' %}
-          {% when 'en' %}
-            {% assign name = 'English' %}
-            {% assign prefix = '/en' %}
-          {% when 'de' %}
-            {% assign name = 'Deutsch' %}
-            {% assign prefix = '/de' %}
-        {% endcase %}
-        {% assign target_url = prefix | append: path_no_locale | append: qs %}
-        <a
-          class="language-mobile-item"
-          data-lang="{{ code }}"
-          href="{{ target_url | replace: '//' , '/' }}">
-          {{ name }}
-        </a>
-      {% endfor %}
-    </div>
-  </div>
+        <div class="language-selector">
+          <div class="language-current language-mobile-current">
+            {% for locale in shop.published_locales %}
+              {% if locale.iso_code == request.locale.iso_code %}
+                {{ locale.name | capitalize}}
+              {% endif %}
+            {% endfor %}
+            <span class="language-arrow">▼</span>
+          </div>
+          <div class="language-mobile-menu">
+            {% for locale in shop.published_locales %}
+              {% assign lang_url = locale.iso_code %}
+              {% if locale.primary %}
+                {% assign lang_url = '' %}
+              {% endif %}
+              <a href="{{locale.root_url}}" class="language-mobile-item{% if locale.iso_code == request.locale.iso_code %} active{% endif %}" data-lang="{{ locale.iso_code }}" data-primary="{{ locale.primary }}">
+                {{ locale.endonym_name }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
 </div></div></div></nav><style>
 /* Header styles */
 .nav-header {
@@ -345,6 +295,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 #shipping-costs.free {
   color: #28a745;
   font-weight: 600;
+}
+
+.language-selector {
+  margin: 0;
+  padding: 0;
+}
+
+.language-selector__select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 15px;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' height='10' width='10' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  font-size: 14px;
+}
+
+.mobile-language-selector .language-selector__select {
+  background-image: url("data:image/svg+xml,%3Csvg fill='black' height='10' width='10' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z'/%3E%3C/svg%3E");
+  color: black;
 }
 
 #discount-code {
@@ -486,132 +458,62 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   };
   
+  // Handle browser language detection and redirection
+  function handleBrowserLanguage() {
+    // Check if we've already handled language redirect
+    const hasHandledRedirect = localStorage.getItem('hasHandledLangRedirect');
+    if (hasHandledRedirect) {
+      return;
+    }
+
+    // Get browser language (e.g., "en-US" or "de")
+    const browserLang = navigator.language.split('-')[0];
+    
+    // Only redirect if we're on the root path
+    if (window.location.pathname === '/') {
+      // Get all available language links
+      const languageLinks = document.querySelectorAll('.language-item');
+      const availableLangs = Array.from(languageLinks).map(link => ({
+        code: link.dataset.lang,
+        url: link.getAttribute('href'),
+        isPrimary: link.dataset.primary === 'true'
+      }));
+      
+      // Find the best match for browser language among available locales
+      const matchedLang = availableLangs.find(lang => {
+        const langCode = lang.code.split('-')[0];
+        return langCode === browserLang;
+      });
+      
+      // If we found a match and it's not Albanian (sq), redirect using the pre-built URL
+      if (matchedLang && matchedLang.code !== 'sq') {
+        localStorage.setItem('hasHandledLangRedirect', 'true');
+        window.location.href = matchedLang.url;
+      }
+      // If no match found and we're not on Albanian, redirect to root
+      else if (!matchedLang && window.location.pathname !== '/') {
+        localStorage.setItem('hasHandledLangRedirect', 'true');
+        window.location.href = '/';
+      } else {
+        // Mark as handled even if we didn't redirect
+        localStorage.setItem('hasHandledLangRedirect', 'true');
+      }
+    } else {
+      // Mark as handled if we're not on the root path
+      localStorage.setItem('hasHandledLangRedirect', 'true');
+    }
+  }
+
   // Run on page load
   document.addEventListener('DOMContentLoaded', function() {
     if (window.formatFreeShippingText) {
       window.formatFreeShippingText();
     }
     
-    // Get current language from URL
-    const currentUrl = window.location.pathname;
-    let currentLang = 'sq'; // Default to Albanian
-    
-    if (currentUrl.startsWith('/en/') || currentUrl === '/en') {
-      currentLang = 'en';
-    } else if (currentUrl.startsWith('/de/') || currentUrl === '/de') {
-      currentLang = 'de';
-    }
-    
-    // Update language selectors to reflect current language
-    const updateLanguageDisplay = function() {
-      // Desktop language display
-      const desktopLangText = document.getElementById('languageSelector');
-      if (desktopLangText) {
-        let langText = 'Shqip';
-        if (currentLang === 'en') {
-          langText = 'English';
-        } else if (currentLang === 'de') {
-          langText = 'Deutsch';
-        }
-        
-        // Update only the text node, not the arrow span
-        const textNode = Array.from(desktopLangText.childNodes)
-          .filter(node => node.nodeType === 3)[0];
-        if (textNode) {
-          textNode.nodeValue = langText;
-        }
-      }
-      
-      // Mobile language display
-      const mobileLangText = document.getElementById('mobileLangSelector');
-      if (mobileLangText) {
-        let langText = 'Shqip';
-        if (currentLang === 'en') {
-          langText = 'English';
-        } else if (currentLang === 'de') {
-          langText = 'Deutsch';
-        }
-        
-        // Update only the text node, not the arrow span
-        const textNode = Array.from(mobileLangText.childNodes)
-          .filter(node => node.nodeType === 3)[0];
-        if (textNode) {
-          textNode.nodeValue = langText;
-        }
-      }
-    };
-    
-    // Call once on page load
-    updateLanguageDisplay();
-    
-    // Desktop language switcher functionality
-    const desktopLangSelector = document.getElementById('languageSelector');
-    const desktopLangMenu = document.querySelector('.language-menu');
-    
-    if (desktopLangSelector && desktopLangMenu) {
-      desktopLangSelector.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Toggle display manually (overrides the hover)
-        desktopLangMenu.style.display = desktopLangMenu.style.display === 'block' ? 'none' : 'block';
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!desktopLangSelector.contains(e.target) && !desktopLangMenu.contains(e.target)) {
-          desktopLangMenu.style.display = 'none';
-        }
-      });
-    }
-    
-    // Mobile language switcher functionality
-    const mobileLangSelector = document.getElementById('mobileLangSelector');
-    const mobileLangMenu = document.querySelector('.language-mobile-menu');
-    
-    if (mobileLangSelector && mobileLangMenu) {
-      mobileLangSelector.addEventListener('click', function(e) {
-        e.preventDefault();
-        mobileLangMenu.style.display = mobileLangMenu.style.display === 'block' ? 'none' : 'block';
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!mobileLangSelector.contains(e.target) && !mobileLangMenu.contains(e.target)) {
-          mobileLangMenu.style.display = 'none';
-        }
-      });
-    }
-    
-    // Clean up language link URLs to avoid path issues
-    const languageLinks = document.querySelectorAll('.language-item, .language-mobile-item');
-    
-    languageLinks.forEach(link => {
-      // Get current href
-      let href = link.getAttribute('href');
-      
-      // Fix double slashes, but maintain protocol slashes
-      if (href && !href.startsWith('http')) {
-        // Fix doubled slashes
-        href = href.replace(/([^:])\/+/g, '$1/');
-        
-        // Ensure it starts with a slash if it's a relative URL
-        if (!href.startsWith('/')) {
-          href = '/' + href;
-        }
-        
-        // Handle empty paths - this fixes the home page language switching
-        if (href === '/' || href === '') {
-          const lang = link.getAttribute('data-lang');
-          if (lang === 'sq') {
-            href = '/';
-          } else {
-            href = '/' + lang;
-          }
-        }
-        
-        link.setAttribute('href', href);
-      }
-    });
+    // Initialize language detection
+    handleBrowserLanguage();
   });
+
 </script>{% schema %}
 {
   "name": "Header",
@@ -642,106 +544,89 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "label": "Free Shipping Label",
       "default": "Free",
       "info": "Text to display when shipping is free"
-    },
-    {
+    }, {
       "type": "text",
       "id": "account_text",
       "label": "Account Text",
       "default": "My Account"
-    },
-    {
+    }, {
       "type": "text",
       "id": "sign_in_text",
       "label": "Sign In Text",
       "default": "Sign In / Register"
-    },
-    {
+    }, {
       "type": "text",
       "id": "search_placeholder",
       "label": "Search Placeholder",
       "default": "Search products by name, or category"
-    },
-    {
+    }, {
       "type": "text",
       "id": "cart_text",
       "label": "Cart Text",
       "default": "Cart"
-    },
-    {
+    }, {
       "type": "text",
       "id": "your_cart_text",
       "label": "Your Cart Text",
       "default": "Your cart"
-    },
-    {
+    }, {
       "type": "text",
       "id": "items_text",
       "label": "Items Text",
       "default": "items"
-    },
-    {
+    }, {
       "type": "text",
       "id": "close_text",
       "label": "Close Text",
       "default": "Close"
-    },
-    {
+    }, {
       "type": "text",
       "id": "discount_code_text",
       "label": "Discount Code Text",
       "default": "Do you have a discount code?"
-    },
-    {
+    }, {
       "type": "text",
       "id": "enter_code_placeholder",
       "label": "Enter Code Placeholder",
       "default": "Enter your code"
-    },
-    {
+    }, {
       "type": "text",
       "id": "order_discounts_text",
       "label": "Order Discounts Text",
       "default": "Order Discounts"
-    },
-    {
+    }, {
       "type": "text",
       "id": "shipping_costs_text",
       "label": "Shipping Costs Text",
       "default": "Shipping costs"
-    },
-    {
+    }, {
       "type": "number",
       "id": "default_shipping_cost",
       "label": "Default Shipping Cost (in cents)",
       "default": 500,
       "info": "This will be used when shipping rates cannot be calculated. Example: 500 = 5.00"
-    },
-    {
+    }, {
       "type": "text",
       "id": "subtotal_text",
       "label": "Subtotal Text",
       "default": "Subtotal"
-    },
-    {
+    }, {
       "type": "text",
       "id": "checkout_button_text",
       "label": "Checkout Button Text",
       "default": "Continue to Checkout"
-    },
-    {
+    }, {
       "type": "text",
       "id": "email_contact_text",
       "label": "Email Contact Text",
       "default": "Email contact"
-    },
-    {
+    }, {
       "type": "text",
       "id": "mobile_free_shipping_text",
       "label": "Mobile Free Shipping Text",
       "default": "Free shipping inside 48h on all orders above [amount] in Kosovo",
       "info": "Use [amount] where you want the threshold amount to appear"
-    },
-    {
+    }, {
       "type": "text",
       "id": "choose_language_text",
       "label": "Choose Language Text",

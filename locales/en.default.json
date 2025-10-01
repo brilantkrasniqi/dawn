@@ -9,11 +9,49 @@
  */
 {
   "shopify": {
+    "sentence": {
+      "two_words_connector": " and ",
+      "last_word_connector": ", and "
+    },
     "checkout": {
       "contact": {
-        "optional_company_label": "Company name (optional)",
+        "optional_company_label": "Company name (optional)", 
         "optional_address2_label": "VAT number (optional)",
-        "address1_label": "Address, apartment, suite, etc"
+        "address1_label": "Address, apartment, suite, etc",
+        "phone_label": "Phone",
+        "optional_phone_label": "Phone (optional)",
+        "phone_placeholder": "Phone",
+        "phone_tooltip": "In case we need to contact you about your order",
+        "email_label": "Email",
+        "email_placeholder": "Email"
+      },
+      "general": {
+        "page_title": "Checkout",
+        "error_page_title": "Error", 
+        "skip_to_content": "Skip to content",
+        "breadcrumb": "Breadcrumb",
+        "continue_button_label": "Continue",
+        "complete_purchase_button_label": "Complete order",
+        "pay_now_button_label": "Pay now",
+        "authenticate_purchase_button_label": "Authenticate payment",
+        "edit_link_label": "Edit",
+        "all_rights_reserved": "All rights reserved %{shop_name}",
+        "print_policies_link_label": "Print",
+        "cart": "Cart",
+        "close_modal_label": "Close",
+        "close_notice_label": "Close",
+        "expand_notice_label": "See more",
+        "continue_to_shipping_method": "Continue to shipping",
+        "continue_to_payment_method": "Continue to payment", 
+        "continue_to_review": "Review order",
+        "back_to_cart": "Return to cart",
+        "back_to_contact_information": "Return to information",
+        "back_to_shipping_method": "Return to shipping",
+        "back_to_payment_method": "Return to payment",
+        "choose_shipping_method": "Choose a shipping method",
+        "choose_payment_method": "Choose a payment method",
+        "choose_billing_address": "Choose a billing address",
+        "contact_us_html": "Contact us for more information"
       }
     }
   },
@@ -21,7 +59,7 @@
     "product": {
       "select_quantity": "Select quantity",
       "product_features": "Product features",
-      "out_of_stock": "Out of Stock",
+      "out_of_stock": "Out of Stock", 
       "add_to_cart": "Add to cart",
       "sale_badge": "Sale",
       "free_shipping_message": "Free shipping on orders over [amount]",
@@ -42,8 +80,41 @@
   },
   "b2b": {
     "form": {
-      "submit_inquiry": "Dërgo Kërkesën",
-      "or_contact_us_on": "ose na kontaktoni në"
+      "submit_inquiry": "Submit Inquiry",
+      "or_contact_us_on": "or contact us on"
     }
+  },
+  "payment": {
+    "title": "Payment",
+    "credit_card_label": "Credit Card",
+    "bank_deposit_label": "Bank Deposit",
+    "cash_on_delivery_label": "Cash on Delivery",
+    "money_order_label": "Money Order", 
+    "debit_card_label": "Debit Card",
+    "billing_address_title": "Billing Address",
+    "card_expiry_label": "Expiry Date (MM/YY)",
+    "card_verification_value_label": "Security Code",
+    "card_number_label": "Card Number",
+    "name_on_card_label": "Name on card"
+  },
+  "field_errors": {
+    "email_invalid": "Enter a valid email",
+    "phone_invalid": "Enter a valid phone number",
+    "address_first_name_blank": "Enter a first name",
+    "address_last_name_blank": "Enter a last name", 
+    "address_address1_blank": "Enter an address",
+    "address_city_blank": "Enter a city",
+    "address_country_blank": "Select a country/region",
+    "address_province_blank": "Select a state/province",
+    "address_zip_blank": "Enter a postal code"
+  },
+  "alternative_payment_method_banner": {
+    "express_checkout": "Express checkout",
+    "or": "OR",
+    "or_pay_another_way": "Or pay another way",
+    "or_check_out_another_way": "Or check out another way", 
+    "or_pay_with_credit_card": "Or pay with credit card",
+    "show_more_options": "Show more options",
+    "hide_more_options": "Hide more options"
   }
 }

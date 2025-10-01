@@ -3,6 +3,8 @@ import Splide from "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/
 // Initialize translation strings - add this at the top of the file after the import
 const translations = window.translations;
 
+// TODO: Refactor - Consider breaking this class into smaller components (Navigation, Search, Cart)
+// as it handles too many responsibilities (Single Responsibility Principle)
 class PageNavigation {
   hamburger = document.querySelectorAll(".hamburger");
   hamburgerLines = document.querySelectorAll(".line");
@@ -526,6 +528,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 // Function to update price display based on quantity
+// TODO: Refactor - This function is too long and handles too many responsibilities
+// Break it down into smaller functions:
+// - calculateDiscountedPrice()
+// - updatePriceElements()
+// - updateDiscountDisplay()
+// - updateCompareAtPrice()
     function updatePriceDisplay(quantity) {
       quantity = parseInt(quantity) || 1;
 
@@ -1204,6 +1212,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 // --- Update Cart UI ---
+// TODO: Refactor - This function is too complex and handles too many concerns
+// Consider breaking it into:
+// - CartRenderer class for UI updates
+// - CartCalculator class for price calculations
+// - DiscountApplier class for discount logic
   function updateCartUI() {
     fetch('/cart.js').then(response => response.json()).then(cart => {
 
@@ -1436,7 +1449,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shippingCostsElement.classList.add('free');
           } else {
             shippingCostsElement.classList.remove('free');
-            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                                           {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
+            fetch('/cart/shipping_rates.json?shipping_address[country]=                                                                                                                             {{ shop.address.country | json }} &shipping_address[province]={{ shop.address.province | json }}').then(response => {
               if (!response.ok) { // If shipping rates can't be fetched, use a default estimate
                 const defaultShippingCost = {{ section.settings.default_shipping_cost | default: 300 }};
 
@@ -1841,7 +1854,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // ... rest of the existing code ...
 });
 
-// Discount Tiers Display Handler
+// TODO: Refactor - This entire discount handling logic should be extracted into a separate module
+// There's significant code duplication with updatePriceDisplay() and other discount calculation functions
+// Consider creating a DiscountManager class to handle all discount-related operations
 document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize discount display

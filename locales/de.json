@@ -49,5 +49,11 @@
         "must_use_available_shipping_rate": "Die Versandrate muss aus den verfügbaren Versandraten ausgewählt werden."
       }
     }
+  },
+  "b2b": {
+    "form": {
+      "submit_inquiry": "Dërgo Kërkesën",
+      "or_contact_us_on": "ose na kontaktoni në"
+    }
   }
 }
