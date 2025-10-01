@@ -8,7 +8,6 @@
   const SUPPORTED_LANGUAGES = ["en", "al", "de", "fr", "it", "rs"];
   const SUPPORTED_COUNTRIES = ["al", "de", "xk", "me", "mk", "rs", "ch"];
   const DEFAULT_LANG = "en";
-  const DEFAULT_COUNTRY = "de";
   const ORIGIN = window.location.origin;
 
   const FORCED_LANG_BY_COUNTRY = {
@@ -17,23 +16,20 @@
     xk: "al",
   };
 
+  // Shopify injects the real visitor country here
+  const shopifyCountry = "{{ localization.country.iso_code | downcase }}";
+
   function getPrimaryLocale() {
     const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
     const m = raw.replace("_", "-").toLowerCase().split("-");
     return {
-      lang: m[0] || "",
-      country: (m[1] || "").toLowerCase()
+      lang: m[0] || ""
     };
   }
 
   function inferLanguage() {
     const { lang } = getPrimaryLocale();
     return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANG;
-  }
-
-  function inferCountry() {
-    const { country } = getPrimaryLocale();
-    return SUPPORTED_COUNTRIES.includes(country) ? country : DEFAULT_COUNTRY;
   }
 
   function applyForcedLanguage(country, lang) {
@@ -60,7 +56,7 @@
 
   (function enforceLocaleSlug() {
     const baseLang = inferLanguage();
-    const country = inferCountry();
+    const country = SUPPORTED_COUNTRIES.includes(shopifyCountry) ? shopifyCountry : "de";
     const lang = applyForcedLanguage(country, baseLang);
     const targetSlug = `${lang}-${country}`;
     const current = currentSlug();
