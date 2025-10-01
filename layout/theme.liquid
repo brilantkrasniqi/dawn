@@ -4,6 +4,8 @@
     
     <script>
 (function () {
+  if (window.self !== window.top || window.location.search.includes("preview_theme_id")) return;
+
   const SUPPORTED_LANGUAGES = ["en","al","de","fr","it","rs"];
   const SUPPORTED_COUNTRIES = ["al","de","xk","me","mk","rs","ch"];
   const DEFAULT_LANG = "en";
