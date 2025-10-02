@@ -10,16 +10,16 @@
   }
   var p=location.pathname.toLowerCase();
   if (/\.(xml|txt|json|js|css|jpg|jpeg|png|gif|webp|svg|ico|mp4|webm|pdf)$/i.test(p) || p.startsWith("/cdn-cgi/") || p.startsWith("/apps/")) {
-    var g2=document.getElementById("locale-gate"); if(g2) g2.remove(); return;
+    var g2=document.getElementById("locale-gate");if(g2)g2.remove();return;
   }
 
   const SUPPORTED_LANGUAGES=["en","sq","de","fr","it","sr"];
   const SUPPORTED_COUNTRIES=["al","de","xk","me","mk","rs","ch"];
   const DEFAULT_LANG="sq";
   const DEFAULT_COUNTRY="xk";
-  const FORCED_LANG_BY_COUNTRY={rs:"sr",al:"sq",xk:"sq"};
+  const FORCED_LANG_BY_COUNTRY={rs:"sr",al:"sq",xk:"sq",me:"sr",mk:"sr"};
   const ORIGIN=window.location.origin;
-  const TTL_MS=60*60*1000; // 1 hour
+  const TTL_MS=60*60*1000; // 1 hour cache
 
   function now(){return Date.now()}
   function getPrimaryLocale(){const raw=(navigator.languages&&navigator.languages[0])||navigator.language||"";const m=raw.replace("_","-").toLowerCase().split("-");return{lang:m[0]||""}}
@@ -35,11 +35,11 @@
     const cachedSlug=ss&&ss.getItem("localeSlug");
     if(cachedSlug){ if(currentSlug()!==cachedSlug){clearTimeout(safety);window.location.replace(buildTargetUrl(cachedSlug));return;} clearTimeout(safety);reveal();return;}
 
-    let country=DEFAULT_COUNTRY, fresh=false;
+    let country=DEFAULT_COUNTRY,fresh=false;
     if(ls){
       try{
         const cJSON=ls.getItem("geoCountryCache");
-        if(cJSON){const obj=JSON.parse(cJSON); if(obj&&obj.value&&obj.expiry>now()&&SUPPORTED_COUNTRIES.includes(obj.value)){country=obj.value;fresh=true}}
+        if(cJSON){const obj=JSON.parse(cJSON);if(obj&&obj.value&&obj.expiry>now()&&SUPPORTED_COUNTRIES.includes(obj.value)){country=obj.value;fresh=true}}
       }catch(e){}
     }
     if(!fresh){
