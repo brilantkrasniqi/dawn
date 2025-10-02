@@ -2,9 +2,11 @@
 <html lang="en">
   <head>
     
-    <script>
+    <style id="locale-gate">html{visibility:hidden}</style>
+<script>
 (function () {
-  if (window.self !== window.top || window.location.search.includes("preview_theme_id")) return;
+  var inEditor = (window.self !== window.top) || window.location.search.includes("preview_theme_id");
+  if (inEditor) { var g=document.getElementById("locale-gate"); if(g) g.remove(); return; }
 
   const SUPPORTED_LANGUAGES = ["en","sq","de","fr","it","sr"];
   const SUPPORTED_COUNTRIES = ["al","de","xk","me","mk","rs","ch"];
@@ -19,17 +21,20 @@
     return { lang: m[0] || "" };
   }
   function inferLanguage() {
-    const { lang } = getPrimaryLocale();
-    return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANG;
+    const l = getPrimaryLocale().lang;
+    return SUPPORTED_LANGUAGES.includes(l) ? l : DEFAULT_LANG;
   }
   function currentSlug() {
     const m = location.pathname.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
     return m ? `${m[1].toLowerCase()}-${m[2].toLowerCase()}` : null;
   }
   function buildTargetUrl(lang, country) {
-    const strippedPath = location.pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
-    return ORIGIN + `/${lang}-${country}` + strippedPath + (location.search||"") + (location.hash||"");
+    const stripped = location.pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
+    return ORIGIN + `/${lang}-${country}` + stripped + (location.search||"") + (location.hash||"");
   }
+  function revealPage(){ var g=document.getElementById("locale-gate"); if(g) g.remove(); }
+
+  var safetyTimer = setTimeout(revealPage, 1500);
 
   (async function enforce() {
     let detected = "";
@@ -46,7 +51,8 @@
     const baseLang = inferLanguage();
     const lang = (FORCED_LANG_BY_COUNTRY[country] && SUPPORTED_LANGUAGES.includes(FORCED_LANG_BY_COUNTRY[country])) ? FORCED_LANG_BY_COUNTRY[country] : baseLang;
     const target = `${lang}-${country}`;
-    if (currentSlug() !== target) window.location.replace(buildTargetUrl(lang, country));
+    if (currentSlug() !== target) { clearTimeout(safetyTimer); window.location.replace(buildTargetUrl(lang, country)); return; }
+    clearTimeout(safetyTimer); revealPage();
   })();
 })();
 </script>
