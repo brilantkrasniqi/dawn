@@ -1328,7 +1328,7 @@ document.addEventListener('DOMContentLoaded', function() {
             : item.compare_at_price;
           const isOnSale = compareAtPrice && compareAtPrice > item.price;
           const showOriginalPrice = (hasDiscountProperty && itemPrice < itemOriginalPrice) || isOnSale;
-
+          const translatedTitle = translations.productTitles[item.product_id] || item.product_title;
 // Use the correct original price for display
           const originalTotalToShow = isOnSale
             ? (compareAtPrice * item.quantity)
