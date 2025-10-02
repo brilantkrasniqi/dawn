@@ -109,17 +109,22 @@
                                                                         window.shopMoneyFormat = {{ shop.money_format | json }}
                                                 </script> {% endcomment %}
     <script>
-                              window.translations = {
-                                youCurrentlySave: {{ 'products.product.you_currently_save' | t | json }},
-                                offYourTotalOrder: {{ 'products.product.off_your_total_order' | t | json }},
-                                yourCartIsEmpty: {{ 'cart.general.empty' | t | json }},
-                                addToCart: {{ 'products.product.add_to_cart' | t | json }},
-                                outOfStock: {{ 'products.product.out_of_stock' | t | json }},
-                                freeShippingLabel: {{ 'products.product.free_shipping_message' | t | json }},
-                                free: {{ 'cart.general.free' | t | json }},
-                                removeItem: {{ 'cart.general.remove_item' | t | json }},
-                                per: {{ 'products.product.per' | t | json }}
-                              };
+      window.translations = {
+        youCurrentlySave: {{ 'products.product.you_currently_save' | t | json }},
+        offYourTotalOrder: {{ 'products.product.off_your_total_order' | t | json }},
+        yourCartIsEmpty: {{ 'cart.general.empty' | t | json }},
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        outOfStock: {{ 'products.product.out_of_stock' | t | json }},
+        freeShippingLabel: {{ 'products.product.free_shipping_message' | t | json }},
+        free: {{ 'cart.general.free' | t | json }},
+        removeItem: {{ 'cart.general.remove_item' | t | json }},
+        per: {{ 'products.product.per' | t | json }},
+        productTitles: {
+          {% for product in collections.all.products %}
+            "{{ product.id }}": {{ product.title | json }}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        }
+      };
     </script>
     <script
       type="module"
