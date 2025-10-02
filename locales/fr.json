@@ -1,0 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "payment": {
+    "title": "Paiement",
+    "credit_card_label": "Carte de crédit",
+    "bank_deposit_label": "Dépôt bancaire",
+    "cash_on_delivery_label": "Paiement à la livraison",
+    "money_order_label": "Mandat postal",
+    "debit_card_label": "Carte de débit",
+    "billing_address_title": "Adresse de facturation",
+    "card_expiry_label": "Date d'expiration (MM/AA)",
+    "card_verification_value_label": "Code de sécurité",
+    "card_number_label": "Numéro de carte",
+    "name_on_card_label": "Nom sur la carte"
+  }
+}
