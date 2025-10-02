@@ -5,8 +5,7 @@
     <style id="locale-gate">html{visibility:hidden}</style>
 <script>
 (function () {
-  var inEditor = (window.self !== window.top) || window.location.search.includes("preview_theme_id");
-  if (inEditor) { var g=document.getElementById("locale-gate"); if(g) g.remove(); return; }
+  if (window.self !== window.top || window.location.search.includes("preview_theme_id")) { var g=document.getElementById("locale-gate"); if(g) g.remove(); return; }
 
   const SUPPORTED_LANGUAGES = ["en","sq","de","fr","it","sr"];
   const SUPPORTED_COUNTRIES = ["al","de","xk","me","mk","rs","ch"];
@@ -15,44 +14,45 @@
   const ORIGIN = window.location.origin;
   const FORCED_LANG_BY_COUNTRY = { rs:"sr", al:"sq", xk:"sq" };
 
-  function getPrimaryLocale() {
-    const raw = (navigator.languages && navigator.languages[0]) || navigator.language || "";
-    const m = raw.replace("_","-").toLowerCase().split("-");
-    return { lang: m[0] || "" };
-  }
-  function inferLanguage() {
-    const l = getPrimaryLocale().lang;
-    return SUPPORTED_LANGUAGES.includes(l) ? l : DEFAULT_LANG;
-  }
-  function currentSlug() {
-    const m = location.pathname.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);
-    return m ? `${m[1].toLowerCase()}-${m[2].toLowerCase()}` : null;
-  }
-  function buildTargetUrl(lang, country) {
-    const stripped = location.pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i, "");
-    return ORIGIN + `/${lang}-${country}` + stripped + (location.search||"") + (location.hash||"");
-  }
-  function revealPage(){ var g=document.getElementById("locale-gate"); if(g) g.remove(); }
+  function getPrimaryLocale(){const raw=(navigator.languages&&navigator.languages[0])||navigator.language||"";const m=raw.replace("_","-").toLowerCase().split("-");return{lang:m[0]||""}}
+  function inferLanguage(){const l=getPrimaryLocale().lang;return SUPPORTED_LANGUAGES.includes(l)?l:DEFAULT_LANG}
+  function currentSlug(){const m=location.pathname.match(/^\/([a-z]{2})-([a-z]{2})(\/|$)/i);return m?`${m[1].toLowerCase()}-${m[2].toLowerCase()}`:null}
+  function buildTargetUrl(slug){const stripped=location.pathname.replace(/^\/[a-z]{2}-[a-z]{2}(?=\/|$)/i,"");return ORIGIN+`/${slug}`+stripped+(location.search||"")+(location.hash||"")}
+  function reveal(){var g=document.getElementById("locale-gate"); if(g) g.remove()}
 
-  var safetyTimer = setTimeout(revealPage, 1500);
+  var safety=setTimeout(reveal,1500);
+  var ss=window.sessionStorage||null;
 
-  (async function enforce() {
-    let detected = "";
-    try {
-      const root = (window.Shopify && Shopify.routes && Shopify.routes.root) ? Shopify.routes.root : "/";
-      const res = await fetch(root + "browsing_context_suggestions.json?country[enabled]=true",{credentials:"same-origin"});
-      if (res.ok) {
-        const j = await res.json();
-        const h = j && j.detected_values && j.detected_values.country && j.detected_values.country.handle;
-        if (h) detected = h.toLowerCase();
-      }
-    } catch(e) {}
-    const country = SUPPORTED_COUNTRIES.includes(detected) ? detected : DEFAULT_COUNTRY;
+  (async function enforce(){
+    const cachedSlug = ss ? ss.getItem("localeSlug") : null;
+    if (cachedSlug) {
+      if (currentSlug() !== cachedSlug) { clearTimeout(safety); window.location.replace(buildTargetUrl(cachedSlug)); return; }
+      clearTimeout(safety); reveal(); return;
+    }
+
+    let country = DEFAULT_COUNTRY;
+    const cachedCountry = ss ? ss.getItem("geoCountry") : null;
+    if (cachedCountry && SUPPORTED_COUNTRIES.includes(cachedCountry)) {
+      country = cachedCountry;
+    } else {
+      try {
+        const root=(window.Shopify&&Shopify.routes&&Shopify.routes.root)?Shopify.routes.root:"/";
+        const res=await fetch(root+"browsing_context_suggestions.json?country[enabled]=true",{credentials:"same-origin"});
+        if(res.ok){const j=await res.json();const h=j&&j.detected_values&&j.detected_values.country&&j.detected_values.country.handle; if(h){country=h.toLowerCase()}}
+      } catch(e){}
+      if (!SUPPORTED_COUNTRIES.includes(country)) country = DEFAULT_COUNTRY;
+      if (ss) ss.setItem("geoCountry", country);
+    }
+
     const baseLang = inferLanguage();
-    const lang = (FORCED_LANG_BY_COUNTRY[country] && SUPPORTED_LANGUAGES.includes(FORCED_LANG_BY_COUNTRY[country])) ? FORCED_LANG_BY_COUNTRY[country] : baseLang;
-    const target = `${lang}-${country}`;
-    if (currentSlug() !== target) { clearTimeout(safetyTimer); window.location.replace(buildTargetUrl(lang, country)); return; }
-    clearTimeout(safetyTimer); revealPage();
+    const forced = FORCED_LANG_BY_COUNTRY[country];
+    const lang = (forced && SUPPORTED_LANGUAGES.includes(forced)) ? forced : baseLang;
+
+    const slug = `${lang}-${country}`;
+    if (ss) ss.setItem("localeSlug", slug);
+
+    if (currentSlug() !== slug) { clearTimeout(safety); window.location.replace(buildTargetUrl(slug)); return; }
+    clearTimeout(safety); reveal();
   })();
 })();
 </script>
