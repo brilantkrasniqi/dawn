@@ -23,7 +23,8 @@
   },
   "products": {
     "product": {
-      "sale_badge": "Prix Promotionnel"
+      "sale_badge": "Prix Promotionnel",
+      "you_currently_save": "Vous enregistrez actuellement"
     }
   }
 }
