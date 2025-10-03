@@ -31,5 +31,10 @@
     "or_pay_with_credit_card": "Oppure paga con carta di credito",
     "show_more_options": "Mostra più opzioni",
     "hide_more_options": "Nascondi altre opzioni"
+  },
+  "cart": {
+    "general": {
+      "empty": "Il tuo carrello è vuoto"
+    }
   }
 }
