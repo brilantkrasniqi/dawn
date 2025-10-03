@@ -25,7 +25,15 @@
     "product": {
       "sale_badge": "Prix Promotionnel",
       "you_currently_save": "Vous enregistrez actuellement",
-      "select_quantity": "Sélectionnez la quantité"
+      "select_quantity": "Sélectionnez la quantité",
+      "product_features": "Caractéristiques du produit",
+      "out_of_stock": "En rupture de stock",
+      "add_to_cart": "Ajouter au panier",
+      "free_shipping_message": "Livraison gratuite à partir de 300 CHF d'achat",
+      "off_your_total_order": "Réduction sur le total de votre commande !",
+      "including_vat": "TVA incluse",
+      "excluding_vat": "Hors TVA",
+      "per": "par"
     }
   }
 }
