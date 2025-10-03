@@ -20,5 +20,10 @@
     "card_verification_value_label": "Code de sécurité",
     "card_number_label": "Numéro de carte",
     "name_on_card_label": "Nom sur la carte"
+  },
+  "products": {
+    "product": {
+      "sale_badge": "Prix Promotionnel"
+    }
   }
 }
