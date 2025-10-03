@@ -22,5 +22,14 @@
       "excluding_vat": "IVA esclusa",
       "per": "per"
     }
+  },
+  "alternative_payment_method_banner": {
+    "express_checkout": "Pagamento rapido",
+    "or": "O",
+    "or_pay_another_way": "Oppure paga in un altro modo",
+    "or_check_out_another_way": "Oppure controlla un altro modo",
+    "or_pay_with_credit_card": "Oppure paga con carta di credito",
+    "show_more_options": "Mostra più opzioni",
+    "hide_more_options": "Nascondi altre opzioni"
   }
 }
