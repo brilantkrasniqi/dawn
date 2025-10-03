@@ -10,7 +10,17 @@
 {
   "products": {
     "product": {
-      "sale_badge": "Prezzo in Promozione"
+      "sale_badge": "Prezzo in Promozione",
+      "select_quantity": "Seleziona la quantità",
+      "product_features": "Caratteristiche del prodotto",
+      "out_of_stock": "Esaurito",
+      "add_to_cart": "Aggiungi al carrello",
+      "free_shipping_message": "Spedizione gratuita per ordini superiori a 300 CHF",
+      "you_currently_save": "Attualmente risparmi",
+      "off_your_total_order": "Sconto sul totale del tuo ordine!",
+      "including_vat": "IVA inclusa",
+      "excluding_vat": "IVA esclusa",
+      "per": "per"
     }
   }
 }
