@@ -24,7 +24,8 @@
   "products": {
     "product": {
       "sale_badge": "Prix Promotionnel",
-      "you_currently_save": "Vous enregistrez actuellement"
+      "you_currently_save": "Vous enregistrez actuellement",
+      "select_quantity": "Sélectionnez la quantité"
     }
   }
 }
