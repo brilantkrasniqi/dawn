@@ -36,5 +36,16 @@
     "general": {
       "empty": "Il tuo carrello è vuoto"
     }
+  },
+  "field_errors": {
+    "email_invalid": "Inserisci un indirizzo email valido",
+    "phone_invalid": "Inserisci un numero di telefono valido",
+    "address_first_name_blank": "Inserisci un nome",
+    "address_last_name_blank": "Inserisci un cognome",
+    "address_address1_blank": "Inserisci un indirizzo",
+    "address_city_blank": "Inserisci una città",
+    "address_country_blank": "Seleziona un paese/regione",
+    "address_province_blank": "Seleziona uno stato/provincia",
+    "address_zip_blank": "Inserisci un codice postale"
   }
 }
