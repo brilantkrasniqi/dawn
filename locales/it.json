@@ -47,5 +47,18 @@
     "address_country_blank": "Seleziona un paese/regione",
     "address_province_blank": "Seleziona uno stato/provincia",
     "address_zip_blank": "Inserisci un codice postale"
+  },
+  "payment": {
+    "title": "Pagamento",
+    "credit_card_label": "Carta di credito",
+    "bank_deposit_label": "Deposito bancario",
+    "cash_on_delivery_label": "Pagamento alla consegna",
+    "money_order_label": "Vaglia",
+    "debit_card_label": "Carta di debito",
+    "billing_address_title": "Indirizzo di fatturazione",
+    "card_expiry_label": "Data di scadenza (MM/AA)",
+    "card_verification_value_label": "Codice di sicurezza",
+    "card_number_label": "Numero di carta",
+    "name_on_card_label": "Nome sulla carta"
   }
 }
