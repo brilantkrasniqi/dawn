@@ -34,7 +34,8 @@
   },
   "cart": {
     "general": {
-      "empty": "Il tuo carrello è vuoto"
+      "empty": "Il tuo carrello è vuoto",
+      "remove_item": "Rimuovi elemento"
     }
   },
   "field_errors": {
