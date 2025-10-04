@@ -46,5 +46,11 @@
     "address_country_blank": "Sélectionnez un pays/une région",
     "address_province_blank": "Sélectionnez un état/une province",
     "address_zip_blank": "Entrez un code postal"
+  },
+  "cart": {
+    "general": {
+      "empty": "Votre panier est vide",
+      "remove_item": "Supprimer l'élément"
+    }
   }
 }
