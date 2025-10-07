@@ -14,6 +14,11 @@
         "enabled": "Kunden können Rücksendungen selbst anfordern und verwalten.",
         "disabled": "Kunden müssen sich an den Händler wenden, um eine Rücksendung anzufordern."
       }
+    },
+    "order_details": {
+      "shipping": {
+        "free_shipping_discount": "Gratis ab 300 CHF"
+      }
     }
   },
   "products": {
