@@ -38,10 +38,10 @@
   },
   "cart": {
     "general": {
-      "free": "Frei",
+      "free": "Gratis ab 300 CHF",
       "empty": "Ihr Warenkorb ist leer",
       "remove_item": "Artikel entfernen",
-      "shipping_cost_info": "Genauere Versandkosten werden an der Kasse anhand Ihrer Adresse berechnet."
+      "shipping_cost_info": "Gratis ab 300 CHF"
     }
   },
   "shopify": {
