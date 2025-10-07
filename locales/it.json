@@ -35,7 +35,9 @@
   "cart": {
     "general": {
       "empty": "Il tuo carrello è vuoto",
-      "remove_item": "Rimuovi elemento"
+      "remove_item": "Rimuovi elemento",
+      "free": "Consegna gratuita per ordini superiori a 300 CHF",
+      "shipping_cost_info": "Consegna gratuita per ordini superiori a 300 CHF"
     }
   },
   "field_errors": {
