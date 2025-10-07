@@ -50,7 +50,9 @@
   "cart": {
     "general": {
       "empty": "Votre panier est vide",
-      "remove_item": "Supprimer l'élément"
+      "remove_item": "Supprimer l'élément",
+      "free": "Livraison gratuite à partir de 300 CHF",
+      "shipping_cost_info": "Livraison gratuite à partir de 300 CHF"
     }
   }
 }
