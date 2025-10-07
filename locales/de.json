@@ -47,6 +47,9 @@
       "field_errors": {
         "must_use_available_delivery_address": "Die Lieferadresse muss aus den verfügbaren Lieferadressen ausgewählt werden.",
         "must_use_available_shipping_rate": "Die Versandrate muss aus den verfügbaren Versandraten ausgewählt werden."
+      },
+      "delivery_options": {
+        "free_total_label": "Gratis ab 300 CHF"
       }
     }
   },
