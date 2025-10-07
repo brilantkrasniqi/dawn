@@ -42,7 +42,8 @@
   "shopify": {
     "checkout": {
       "order_summary": {
-        "for_add_on": "Für: %{group_title}"
+        "for_add_on": "Für: %{group_title}",
+        "free_shipping_discount_label": "Gratis ab 300 CHF"
       },
       "field_errors": {
         "must_use_available_delivery_address": "Die Lieferadresse muss aus den verfügbaren Lieferadressen ausgewählt werden.",
