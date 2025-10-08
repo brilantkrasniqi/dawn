@@ -18,7 +18,7 @@
         {{ section.settings.free_shipping_text | replace: '[amount]', '...' }}
       </p>
     </div>
-    {%- comment -%}
+    
     <div class="col-xl-6 col-12 px-1">
       <ul class="d-flex flex-row align-items-center justify-content-xl-end justify-content-between text-white w-100">
         <li>
@@ -26,6 +26,7 @@
             {{ section.settings.contact_email }}
           </a>
         </li>
+        {%- comment -%}
         <li>
           {% if customer %}
             <a class="text-white pe-xl-2 pe-4" href="{{ routes.account_url }}">
@@ -37,7 +38,8 @@
             </a>
           {% endif %}
         </li>
-        {%- endcomment -%}
+         {%- endcomment -%}
+
         {%- comment -%}
         <li class="d-xl-block d-none">
           <div class="language-selector">
